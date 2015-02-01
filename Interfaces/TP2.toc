@@ -1,0 +1,19 @@
+\select@language {french}
+\contentsline {section}{\numberline {1}Introduction}{3}
+\contentsline {section}{\numberline {2}Analyse des utilisateurs et de leur environnement}{3}
+\contentsline {subsection}{\numberline {2.1}Analyse de l\IeC {\textquoteright }utilisateur \IeC {\'e}tudiant}{3}
+\contentsline {subsection}{\numberline {2.2}Analyse de l\IeC {\textquoteright }environnement de l\IeC {\textquoteright }\IeC {\'e}tudiant}{3}
+\contentsline {subsection}{\numberline {2.3}Analyse des utilisateurs parents}{4}
+\contentsline {subsection}{\numberline {2.4}Analyse de l\IeC {\textquoteright }environnement des parents}{4}
+\contentsline {section}{\numberline {3}Analyse des t\IeC {\^a}ches}{4}
+\contentsline {subsection}{\numberline {3.1}Sur un ordinateur}{4}
+\contentsline {subsubsection}{\numberline {3.1.1}La messagerie instantan\IeC {\'e}e}{4}
+\contentsline {subsubsection}{\numberline {3.1.2}Les appels vid\IeC {\'e}o et audio}{5}
+\contentsline {subsubsection}{\numberline {3.1.3}Le partage de photos}{6}
+\contentsline {subsubsection}{\numberline {3.1.4}Les blogs}{6}
+\contentsline {subsection}{\numberline {3.2}Sur un smartphone}{6}
+\contentsline {subsubsection}{\numberline {3.2.1}La messagerie instantan\IeC {\'e}e}{7}
+\contentsline {subsubsection}{\numberline {3.2.2}Les appels audio}{7}
+\contentsline {subsubsection}{\numberline {3.2.3}Les appels vid\IeC {\'e}o}{7}
+\contentsline {subsubsection}{\numberline {3.2.4}Le partage de photos}{7}
+\contentsline {section}{\numberline {4}Conclusion}{8}
