@@ -1,10 +1,22 @@
+/**
+ * @author CHASSING frank 14 153 710 - FOUILLET Amandine 14 000 000
+ */
+
 import java.io.*;
 import java.util.*;
 public class Inventaire {
+	/**
+     * Le vecteur contenant l'ensemble des enregistrements.
+     */
 	private static Vector<Enregistrement> vect = new Vector<Enregistrement>();
+	/**
+     * Le nom du fichier dans lequel on travaille.
+     */
 	private static String nomFichier = null;
 	
-	
+	/**
+     * Initialise le vecteur en fonction de si on charge un fichier existant ou si on crée un nouveau fichier.
+     */
 	public static void remplirVecteur(){
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Entrer le nom du fichier à ouvrir ou à créer : ");
@@ -57,6 +69,11 @@ public class Inventaire {
         }
 	}
 	
+	/**
+     * Affiche l'enregistrement correspondant à une clé d'identification d'un joueur.
+     * 
+     * @return l'enregistrement affiché.
+     */
 	public static Enregistrement affichageEnregistrement(){
 		System.out.println("Entrez la clé d'identification du joueur: ");
 		Scanner sc = new Scanner(System.in);
@@ -66,7 +83,7 @@ public class Inventaire {
 		for (Enregistrement e : vect) {
 		    if(e.getJoueur().getCle().equals(str)){
 		    	System.out.println("Voici l'information sauvegardé de : " + e.getJoueur().getNomJoueur());
-		    	int nbCartes = e.getLongueurListe();
+		    	int nbCartes = e.getJoueur().getNombreCartes();
 		    	if(nbCartes > 1){
 		    		System.out.println("Le joueur a "+nbCartes+" cartes enregistrées");
 		    	}else{
@@ -90,6 +107,9 @@ public class Inventaire {
 		return enr;
 	}
 	
+	/**
+     * Supprimer l'enregistrement correspondant à une clé d'identification d'un joueur
+     */
 	public static void supprimerEnregistrement(){
 		Enregistrement e = affichageEnregistrement();
 		System.out.println("Voulez vous effacer l'information de ce joueur ? (O/N) ");
@@ -113,8 +133,11 @@ public class Inventaire {
 		}
 	}
 	
-	
+	/**
+     * Permet le chargement ou la création d'un fichier, puis affiche le menu avec les différentes options possibles.
+     */
 	public static void afficheMenu(){
+
 		remplirVecteur();
 		boolean bool = true;
 		while(bool){
@@ -156,6 +179,10 @@ public class Inventaire {
 			}
 		}
 	}
+	
+	/**
+     * La fonction main permettant de lancer le programme.
+     */
 	public static void main(String [] args){
 		afficheMenu();
 	}
