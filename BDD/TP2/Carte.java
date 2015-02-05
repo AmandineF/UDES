@@ -33,4 +33,8 @@ public class Carte {
 		 this.anneeSortie = nb;
 	 }
 	 
+	 public String toString(){
+		 String s = "Titre : "+ this.getTitreCarte()+ "\nEquipe : " + this.getNomEquipe() + "\nAnnée de parution : " + this.getAnneeSortie()+"\n";
+		 return s;
+	 }
 }

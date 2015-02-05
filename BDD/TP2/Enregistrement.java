@@ -13,4 +13,7 @@ public class Enregistrement {
 	public LinkedList<Carte> getListeCarte(){
 		return this.listeCarte;
 	}
+	public int getLongueurListe(){
+		return listeCarte.size();
+	}
 }
