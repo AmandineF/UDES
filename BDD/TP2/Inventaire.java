@@ -18,11 +18,11 @@ public class Inventaire {
 	
 		
 	/**
-     * Initialise le vecteur en fonction de si on charge un fichier existant ou si on crée un nouveau fichier.
+     * Initialise le vecteur en fonction de si on charge un fichier existant ou si on crÃ©e un nouveau fichier.
      */
 	public static void remplirVecteur(){
 		Scanner sc = new Scanner(System.in);
-		System.out.print("Entrer le nom du fichier à ouvrir ou à créer : ");
+		System.out.print("Entrer le nom du fichier Ã  ouvrir ou Ã  crÃ©er : ");
 		String fichier = sc.nextLine();
 	    try{
 		    FileReader f = new FileReader(fichier);
@@ -63,10 +63,10 @@ public class Inventaire {
 			    	BufferedWriter writer = new BufferedWriter(new FileWriter(new File(nomFichier)));
 			    }
 			    catch(IOException exc){
-			    	System.out.println("Erreur à la creation du fichier");
+			    	System.out.println("Erreur Ã  la creation du fichier");
 			    }
         	}else{
-        		System.out.println("Merci de rentrer un fichier txt pour la création. Veuillez recommencer.");
+        		System.out.println("Merci de rentrer un fichier txt pour la crÃ©ation. Veuillez recommencer.");
         		remplirVecteur();
         	}
         }
@@ -80,35 +80,35 @@ public class Inventaire {
             String cle = "";
 
             while(!ok) {
-                System.out.println("Entrez la clé d'identification du joueur :");
+                System.out.print("Entrez la clÃ© d'identification du joueur :");
                 Scanner sc = new Scanner(System.in);
                 cle = sc.nextLine();
                 
-                //On vérifie que l'utilisateur a entré une clé de taille comprise entre 1 et MAXCLE caractères
+                //On vÃ©rifie que l'utilisateur a entrÃ© une clÃ© de taille comprise entre 1 et MAXCLE caractÃ¨res
                 if(cle.length() > Joueur.MAXCLE) {
-                    System.out.println("Veuillez entrer une clé d'indentification plus petite.");
+                    System.out.println("Veuillez entrer une clÃ© d'indentification plus petite.");
                 } else if(cle.length() == 0) {
-                    System.out.println("Veuillez entrer une clé d'indentification plus grande.");
+                    System.out.println("Veuillez entrer une clÃ© d'indentification plus grande.");
                 } else {
                         ok =true;
                 }
             }
             ok = false;
             
-            //Vérification que la clé n'est pas déjà présente
+            //VÃ©rification que la clÃ© n'est pas dÃ©jÃ  prÃ©sente
             for (Enregistrement e : vect) {
                 if(e.getJoueur().getCle().equals(cle)){
-                    System.out.println("La clé est déjà utilisée, voulez-vous garder l’écraser avec le nouveau ?");
+                    System.out.print("La clÃ© est dÃ©jÃ  utilisÃ©e, voulez-vous garder lâ€™Ã©craser avec le nouveau ?");
                     Scanner rep = new Scanner(System.in);
                     String str = rep.nextLine();
                     if(str.equals("O") | str.equals("o")){
                         vect.remove(e);
-                        System.out.println("L'ancien enregistrement a été effacé du système.");
+                        System.out.println("L'ancien enregistrement a Ã©tÃ© effacÃ© du systÃ¨me.");
                     }else if(str.equals("N") | str.equals("n") ){
-                            System.out.println("Ajout annulé.");
+                            System.out.println("Ajout annulÃ©.");
                             //Retour au menu automatique
                     }else{
-                            System.out.println("Réponse fausse. Merci de rééssayer");
+                            System.out.println("RÃ©ponse fausse. Merci de rÃ©Ã©ssayer");
                             ajoutJoueur();
                     }
                 }
@@ -119,29 +119,30 @@ public class Inventaire {
             e.setJoueur(joueur);
             modificationEnregistrement(e);
 
-            //On ajoute l'enregistrement à vect  
-            //Reste à rajouter pour le mettre au bon endroit
+            //On ajoute l'enregistrement Ã  vect  
+            //Reste Ã  rajouter pour le mettre au bon endroit
             vect.add(e);
             
-            System.out.println("L'enregistrement du joueur a réussi.");
+            System.out.println("L'enregistrement du joueur a rÃ©ussi.");
         }
         
         /**
          * Permet de modifier un enregistrement 
-         * @param e L'enregistrement à modifier
+         * @param e L'enregistrement Ã  modifier
          */
         public static void modificationEnregistrement(Enregistrement e) {
             int nbcarte = 0;
+            int annee = 0;
             String nom = "";
             boolean ok = false;
             Scanner sc = null;
             
             while(!ok) {
-                System.out.println("Entrez le nom du joueur :");
+                System.out.print("Entrez le nom du joueur :");
                 sc = new Scanner(System.in);
                 nom = sc.nextLine();
                 
-                //On vérifie que l'utilisateur a entré un nom de taille comprise entre 1 et MAXNOM caractères
+                //On vÃ©rifie que l'utilisateur a entrÃ© un nom de taille comprise entre 1 et MAXNOM caractÃ¨res
                 if(nom.length() > Joueur.MAXNOM) {
                     System.out.println("Veuillez entrer un nom plus petit.");
                 } else if(nom.length() == 0) {
@@ -154,63 +155,75 @@ public class Inventaire {
             e.getJoueur().setNomJoueur(nom);
             
             while(!ok) {
-                System.out.println("Combien de cartes? :");
-                nbcarte = Integer.parseInt(sc.nextLine());
-                //On vérifie que l'utilisateur à entré un nombre correct de cartes
-                if(nbcarte > Enregistrement.MAXCARTES) {
-                    System.out.println("Veuillez entrer un nombre de cartes plus petit.");
-                } else if(nom.length() == 0) {
-                    System.out.println("Veuillez entrer un nombre de cartes plus grand.");
-                } else {
-                    ok =true;
+                System.out.print("Combien de cartes? :");
+                try {
+                    nbcarte = Integer.parseInt(sc.nextLine());
+                    //On vÃ©rifie que l'utilisateur Ã  entrÃ© un nombre correct de cartes
+                    if(nbcarte > Enregistrement.MAXCARTES) {
+                        System.out.println("Veuillez entrer un nombre de cartes plus petit.");
+                    } else if(nom.length() == 0) {
+                        System.out.println("Veuillez entrer un nombre de cartes plus grand.");
+                    } else {
+                        ok =true;
+                    }
+                } catch (Exception ex) { 
+                    System.out.println("Veuillez entrer un entier.");  
                 }
             }
+            ok = false;
             e.getJoueur().setNombreCartes(nbcarte);
             e.reinitialiseListe();
             
             for(int i = 1; i<nbcarte+1; i++) {
-                System.out.println("Entrez le titre de la carte "+i+" :");
+                System.out.print("Entrez le titre de la carte "+i+" :");
                 sc = new Scanner(System.in);
                 String titre = sc.nextLine();
-                System.out.println("Entrez l’équipe de la carte 1 "+i+" :");
+                System.out.print("Entrez lâ€™Ã©quipe de la carte "+i+" :");
                 sc = new Scanner(System.in);
                 String equipe = sc.nextLine();
-                System.out.println("Entrez l’année de parution de la carte "+i+" :");
-                sc = new Scanner(System.in);
-                int annee = Integer.parseInt(sc.nextLine());
-                //On ajoute la carte crée à l'enregistrement
+                while(!ok) {
+                    try {
+                        System.out.print("Entrez lâ€™annÃ©e de parution de la carte "+i+" :");
+                        sc = new Scanner(System.in);
+                        annee = Integer.parseInt(sc.nextLine());
+                        ok = true;
+                    } catch (Exception ex) {
+                        System.out.println("Veuillez entrer un entier.");  
+                    }
+                }
+                //On ajoute la carte crÃ©e Ã  l'enregistrement
                 e.getListeCarte().add(i-1, new Carte(titre,equipe,annee));
             }
         }
         
      /**
-     *Affiche l'enregistrement correspondant à une clé d'identification d'un joueur.
+     *Affiche l'enregistrement correspondant Ã  une clÃ© d'identification d'un joueur.
      * 
-     * @return l'enregistrement affiché.
+     * @return l'enregistrement affichÃ©.
      */
         public static Enregistrement affichageEnregistrement(){
-		System.out.println("Entrez la clé d'identification du joueur: ");
+		System.out.print("Entrez la clÃ© d'identification du joueur: ");
 		Scanner sc = new Scanner(System.in);
 		String str = sc.nextLine();
                 return affichage(str);
 	}
      
-        /**
-     * Affiche l'enregistrement correspondant à une clé d'identification d'un joueur.
+     /**
+     * Affiche l'enregistrement correspondant Ã  une clÃ© d'identification d'un joueur.
      * 
-     * @return l'enregistrement affiché.
+     * @return l'enregistrement affichÃ©.
      */
 	public static Enregistrement affichage(String str){
 		boolean bool = false;
 		Enregistrement enr = null;
 		for (Enregistrement e : vect) {
 		    if(e.getJoueur().getCle().equals(str)){
-		    	System.out.println("Voici l'information sauvegardé de : " + e.getJoueur().getNomJoueur());
-		    	int nbCartes = e.getLongueurListe();
+		    	System.out.println("Voici l'information sauvegardÃ© de : " + e.getJoueur().getNomJoueur());
+		    	int nbCartes =  e.getJoueur().getNombreCartes();;
 		    	if(nbCartes > 1){
-		    		System.out.println("Le joueur a "+nbCartes+" cartes enregistrées");
+		    		System.out.println("Le joueur a "+nbCartes+" cartes enregistrÃ©es");
 		    	}else{
-		    		System.out.println("Le joueur a "+nbCartes+" carte enregistrée");
+		    		System.out.println("Le joueur a "+nbCartes+" carte enregistrÃ©e");
 		    	}
 		    	int i = 1;
 		    	for(Carte c : e.getListeCarte()){
@@ -224,30 +237,30 @@ public class Inventaire {
 		}
 		
 		if(!bool){
-			System.out.println("La clé d'identification rentré n'existe pas. Merci de rééssayer.");
+			System.out.println("La clÃ© d'identification rentrÃ© n'existe pas. Merci de rÃ©Ã©ssayer.");
 			affichageEnregistrement();
 		}
 		return enr;
 	}
         
         /**
-         * Permet de mettre à jour un enregistrement
+         * Permet de mettre Ã  jour un enregistrement
          */
         public static void MAJenr() {           
-            System.out.println("Entrez la clé d'identification du joueur : ");
+            System.out.print("Entrez la clÃ© d'identification du joueur : ");
 	    Scanner sc = new Scanner(System.in);
             String str = sc.nextLine();
             Enregistrement e = affichage(str);
-            System.out.println("Maintenant entrez les données à modifier : ");
+            System.out.println("Maintenant entrez les donnÃ©es Ã  modifier : ");
             modificationEnregistrement(e);
         }
         
         	/**
-     * Supprimer l'enregistrement correspondant à une clé d'identification d'un joueur
+     * Supprimer l'enregistrement correspondant Ã  une clÃ© d'identification d'un joueur
      */
 	public static void supprimerEnregistrement(){
 		Enregistrement e = affichageEnregistrement();
-		System.out.println("Voulez vous effacer l'information de ce joueur ? (O/N) ");
+		System.out.print("Voulez vous effacer l'information de ce joueur ? (O/N) ");
 		Scanner sc = new Scanner(System.in);
 		String str = sc.nextLine();
 		if(str.equals("O") | str.equals("o")){
@@ -255,21 +268,23 @@ public class Inventaire {
 			for(Enregistrement enr : vect){
 				i++;
 				if(enr.getJoueur().getCle().equals(e.getJoueur().getCle())){
-					vect.remove(i);
+					//vect.remove(i);
+                                    vect.removeElementAt(i);
+                                    break;
 				}
 			}
-			System.out.println("L'information du joueur "+e.getJoueur().getNomJoueur()+" a été efface du système.");
+			System.out.println("L'information du joueur "+e.getJoueur().getNomJoueur()+" a Ã©tÃ© efface du systÃ¨me.");
 		}else if(str.equals("N") | str.equals("n") ){
-			System.out.println("Suppression annulée.");
+			System.out.println("Suppression annulÃ©e.");
 			//Retour au menu automatique
 		}else{
-			System.out.println("Réponse fausse. Merci de rééssayer");
+			System.out.println("RÃ©ponse fausse. Merci de rÃ©Ã©ssayer");
 			supprimerEnregistrement();
 		}
 	}
         
       /**
-       * Permet l'affichage de tous les joueurs sous forme de liste à l'écran ou dans un fichier texte
+       * Permet l'affichage de tous les joueurs sous forme de liste Ã  l'Ã©cran ou dans un fichier texte
        */
         public static void rapport() {
             System.out.println("Voulez-vous creer la liste des joueurs dans un fichier ou l'afficher sur l'ecran ? (F/E) :");
@@ -281,73 +296,73 @@ public class Inventaire {
                     affichage(e.getJoueur().getCle());
                 }
             } else if(str.equals("F") | str.equals("f")){
-                System.out.println("Quel est le nom du fichier texte que vous voulez créer ?");
+                System.out.println("Quel est le nom du fichier texte que vous voulez crÃ©er ?");
                 sc = new Scanner(System.in);
                 String nom = sc.nextLine();
                 
-                //À FINIR
+                //Ã€ FINIR
             } else {
-                System.out.println("Réponse fausse. Merci de rééssayer");
+                System.out.println("RÃ©ponse fausse. Merci de rÃ©Ã©ssayer");
                 rapport();
             }
         }
 	
 		/**
-     * Permet le chargement ou la création d'un fichier, puis affiche le menu avec les différentes options possibles.
+     * Permet le chargement ou la crÃ©ation d'un fichier, puis affiche le menu avec les diffÃ©rentes options possibles.
      */
 	public static void afficheMenu(){
 		remplirVecteur();
 		boolean bool = true;
 		while(bool){
 			System.out.println("Application de gestion de cartes de baseball\n");
-			System.out.println("Voici la liste d'opérations valides :");
-			System.out.println("1. Ajouter un joueur\n2. Afficher l'information d'un joueur\n3. Mise à jour de l'information d'un joueur\n4. Effacer l'information d'un joueur\n5. Liste des joueurs\n6. Sauvegarde\n0. Sortir");
+			System.out.println("Voici la liste d'opÃ©rations valides :");
+			System.out.println("1. Ajouter un joueur\n2. Afficher l'information d'un joueur\n3. Mise Ã  jour de l'information d'un joueur\n4. Effacer l'information d'un joueur\n5. Liste des joueurs\n6. Sauvegarde\n0. Sortir");
 			Scanner sc = new Scanner(System.in);
 			System.out.println("Entrer votre choix : ");
 			String str = sc.nextLine();
 			switch(str){
 				case("1"):
-                                    	System.out.println("Option sélectionné: 1. Ajouter un joueur");	
+                                    	System.out.println("Option sÃ©lectionnÃ©: 1. Ajouter un joueur");	
 					ajoutJoueur(); 
-					System.out.println("Appuyer sur Entrée pour revenir au menu principal...");
+					System.out.println("Appuyer sur EntrÃ©e pour revenir au menu principal...");
 					sc.nextLine();
                                         break;
 				case("2"): 
-					System.out.println("Option sélectionné: 2. Afficher l'information d'un joueur");	
+					System.out.println("Option sÃ©lectionnÃ©: 2. Afficher l'information d'un joueur");	
 					affichageEnregistrement(); 
-					System.out.println("Appuyer sur Entrée pour revenir au menu principal...");
+					System.out.println("Appuyer sur EntrÃ©e pour revenir au menu principal...");
 					sc.nextLine();
 					break;
 				case("3"):
-                                        System.out.println("Option sélectionné: 3. Mise à jour de l'information d'un joueur");	
+                                        System.out.println("Option sÃ©lectionnÃ©: 3. Mise Ã  jour de l'information d'un joueur");	
 					MAJenr(); 
-					System.out.println("Appuyer sur Entrée pour revenir au menu principal...");
+					System.out.println("Appuyer sur EntrÃ©e pour revenir au menu principal...");
 					sc.nextLine();
 					break;
 				case("4"):
-					System.out.println("Option sélectionné: 4.Effacer l'information d'un joueur");
+					System.out.println("Option sÃ©lectionnÃ©: 4.Effacer l'information d'un joueur");
 					supprimerEnregistrement();
-					System.out.println("Appuyer sur Entrée pour revenir au menu principal...");
+					System.out.println("Appuyer sur EntrÃ©e pour revenir au menu principal...");
 					sc.nextLine();
 					break;
 				case("5"):
-                                        System.out.println("Option sélectionné: 5. Liste de joueurs");
+                                        System.out.println("Option sÃ©lectionnÃ©: 5. Liste de joueurs");
 					rapport();
-					System.out.println("Appuyer sur Entrée pour revenir au menu principal...");
+					System.out.println("Appuyer sur EntrÃ©e pour revenir au menu principal...");
 					sc.nextLine();
 					break;
 				case("6"): 
-                                        System.out.println("Option sélectionné: 6. Sauvegarder");
+                                        System.out.println("Option sÃ©lectionnÃ©: 6. Sauvegarder");
                                         System.out.println("Resultat : " + str); 
-                                        System.out.println("Appuyer sur Entrée pour revenir au menu principal...");
+                                        System.out.println("Appuyer sur EntrÃ©e pour revenir au menu principal...");
                                         sc.nextLine();
                                         break;
 				case("0"): 
-                                        System.out.println("Option sélectionné: 0. Sortir");
+                                        System.out.println("Option sÃ©lectionnÃ©: 0. Sortir");
                                         bool = false; 
                                         break;
                                 default: System.out.println("Merci de renseigner un des chiffres du menu !"); 
-				System.out.println("Appuyer sur Entrée pour revenir au menu principal...");
+				System.out.println("Appuyer sur EntrÃ©e pour revenir au menu principal...");
 				sc.nextLine();
 				break;
 			}
@@ -362,3 +377,4 @@ public class Inventaire {
 	}
 	
 }
+
