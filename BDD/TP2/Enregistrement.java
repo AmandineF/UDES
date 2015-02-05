@@ -62,6 +62,6 @@ public class Enregistrement {
      */  
 	public int getLongueurListe(){
 		return listeCarte.size();
-	}      
+	}       
 }
 

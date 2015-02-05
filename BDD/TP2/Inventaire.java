@@ -309,6 +309,8 @@ public class Inventaire {
        * Permet l'affichage de tous les joueurs sous forme de liste à l'écran ou dans un fichier texte
        */
         public static void rapport() {
+            boolean ok = false;
+            String nom = "";
             System.out.print("Voulez-vous creer la liste des joueurs dans un fichier ou l'afficher sur l'ecran ? (F/E) : ");
             Scanner sc = new Scanner(System.in);
             String str = sc.nextLine();
@@ -318,11 +320,44 @@ public class Inventaire {
                     affichage(e.getJoueur().getCle());
                 }
             } else if(str.equals("F") | str.equals("f")){
-                System.out.print("Quel est le nom du fichier texte que vous voulez créer ? ");
-                sc = new Scanner(System.in);
-                String nom = sc.nextLine();
-                
-                //À FINIR
+                while(!ok) {
+                    System.out.print("Quel est le nom du fichier texte que vous voulez créer ? ");
+                    sc = new Scanner(System.in);
+                    nom = sc.nextLine();
+                    ok = true;
+                    try {
+                        if(!nom.substring(nom.length()-4, nom.length()).equals(".txt")){
+                            System.out.println("Merci de rentrer un fichier .txt pour la création. Veuillez recommencer. ");
+                            ok = false;
+                        }
+                    } catch (Exception ex) {
+                        System.out.println("Merci de rentrer un fichier .txt pour la création. Veuillez recommencer. ");
+                        ok = false;
+                    }
+                }
+                try{
+                    FileWriter fw = new FileWriter (nom);
+                    for(Enregistrement enr : vect){
+                        fw.write("Clé : "+enr.getJoueur().getCle()+"\n"); // Ajout de la cle
+                        fw.write("Joueur : "+enr.getJoueur().getNomJoueur()+"\n"); // Ajout du nom du joueur
+                        int nbCartes = enr.getJoueur().getNombreCartes();
+                        fw.write("Nombre de cartes : "+nbCartes+"\n"); // Ajout du nombre de carte
+                        int i = 0;
+                        for(Carte c : enr.getListeCarte()){
+                             i++;
+                             fw.write("Carte "+i+" :\n");
+                             fw.write("Titre : "+c.getTitreCarte()+"\n"); // Ajout du titre de la carte
+                             fw.write("Nom de l'équipe : "+c.getNomEquipe()+"\n"); // Ajout du nom de l'equipe
+                             fw.write("Année de sortie : "+c.getAnneeSortie()+"\n"); // Ajout de l'annee de parution
+                        }
+                        fw.write("--------------------------------\n"); // Saut de ligne
+                    }
+                    fw.close();
+                    System.out.println("Le fichier "+nom+" a été créé avec succès.");  
+            }
+            catch(IOException e){
+                    System.out.println("Erreur lors de l'ouverture du fichier");
+            }
             } else {
                 System.out.println("Réponse fausse. Merci de rééssayer ! ");
                 rapport();
