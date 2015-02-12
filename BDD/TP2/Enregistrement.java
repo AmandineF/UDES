@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package bdd2;
+
 /**
  * @author CHASSING frank 14 153 710 - FOUILLET Amandine 14 130 638
  */
@@ -24,7 +19,7 @@ public class Enregistrement {
     private LinkedList<Carte> listeCarte = new LinkedList<Carte>();
         
     /**
-     * Le joueur correspondant Ã  l'enregistrement
+     * Le joueur correspondant à l'enregistrement
      * 
      * @see Enregistrement#getJoueur()
      * @see Enregistrement#setJoueur(Joueur)
@@ -32,25 +27,25 @@ public class Enregistrement {
     private Joueur j = new Joueur();
 	
     /**
-     * Retourne le joueur correspondant Ã  l'enregistrement.
+     * Retourne le joueur correspondant à l'enregistrement.
      * 
-     * @return le joueur correspondant Ã  l'enregistrement. 
+     * @return le joueur correspondant à l'enregistrement. 
     */
     public Joueur getJoueur(){
         return this.j;
     }
     
     /**
-     * Retourne le joueur correspondant Ã  l'enregistrement.
+     * Retourne le joueur correspondant à l'enregistrement.
      * 
-     * @return le joueur correspondant Ã  l'enregistrement. 
+     * @return le joueur correspondant à l'enregistrement. 
     */
     public static int getMaxCartes(){
         return Enregistrement.MAXCARTES;
     }
     
     /**
-     * Met Ã  jour le joueur correspondant Ã  l'enregistrement.
+     * Met à jour le joueur correspondant à l'enregistrement.
      * 
      * @param joueur
      *            Le nouveau joueur.
@@ -69,7 +64,7 @@ public class Enregistrement {
     }
      
     /**
-     * RÃ©initialise la liste de carte de l'enregistrement
+     * Réinitialise la liste de carte de l'enregistrement
     */
     public void reinitialiseListe() {
         this.listeCarte = new LinkedList<Carte>();
