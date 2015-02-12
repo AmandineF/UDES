@@ -14,12 +14,12 @@ public class Inventaire {
      * Le nom du fichier dans lequel on travaille.
     */
     private static String nomFichier = null;
-	
 		
     /**
      * Initialise le vecteur en fonction de si on charge un fichier existant ou si on crée un nouveau fichier.
     */
     public static void remplirVecteur() {
+    	boolean bool = true;
         //On récupère le nom du fichier à modifier ou créer
         Scanner sc = new Scanner(System.in);
         System.out.print("Entrer le nom du fichier à ouvrir ou à créer : ");
@@ -35,16 +35,20 @@ public class Inventaire {
             while (scanner.hasNext()) {
                 //On crée un nouvel enregistrement
                 Enregistrement enr = new Enregistrement();
+                //On récupère la clé en enlevant les guillemets
                 String stmp = scanner.next();
                 enr.getJoueur().setCle(stmp.substring(i, stmp.length()-1));
-                i = 2;
+                i = 2; // permet de gérer les retours chariots dans le fichier
+                //On récupère le nom en enlevant les guillemets
                 stmp = scanner.next();
                 enr.getJoueur().setNomJoueur(stmp.substring(1, stmp.length()-1));
+              //On récupère le nombre de carte en enlevant les guillemets
                 String s = scanner.next();
                 s = s.substring(1, s.length()-1);
                 int tmp = Integer.parseInt(s);
                 enr.getJoueur().setNombreCartes(tmp);
                 while(tmp>0){
+                	//On lit chaque information de chaque carte en prenant soin d'enlever les guillemets
                     String titretmp = scanner.next();
                     titretmp = titretmp.substring(1, titretmp.length()-1);
                     String nomtmp = scanner.next();
@@ -60,15 +64,20 @@ public class Inventaire {
             }
             nomFichier = fichier;
         }
+        //Si le fichier n'existe pas
         catch(FileNotFoundException e){
             if(fichier.substring(fichier.length()-4, fichier.length()).equals(".txt")){
-                nomFichier = fichier;        	
+                nomFichier = fichier;   
+                //Création du fichier
                 try{
                     BufferedWriter writer = new BufferedWriter(new FileWriter(new File(nomFichier)));
                 }
+                //Erreur lié à la création
                 catch(IOException exc){
-                    System.out.println("Erreur à la creation du fichier. ");
+                    System.out.println("Erreur à la creation du fichier. Veuillez recommencer.");
+                    remplirVecteur();
                 }
+            //Le nom rentré n'a pas l'extension .txt
             }else{
                 System.out.println("Merci de rentrer un fichier txt pour la création. Veuillez recommencer. ");
                 remplirVecteur();
@@ -538,9 +547,9 @@ public class Inventaire {
         
         /**
         * La fonction main permettant de lancer le programme.
+        * @param args la liste des arguments
         */
 	public static void main(String [] args){
             afficheMenu();
 	}
 }
-

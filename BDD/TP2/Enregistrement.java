@@ -1,4 +1,3 @@
-
 /**
  * @author CHASSING frank 14 153 710 - FOUILLET Amandine 14 130 638
  */
@@ -78,4 +77,3 @@ public class Enregistrement {
         return listeCarte.size();
     }       
 }
-
