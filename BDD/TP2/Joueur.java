@@ -1,9 +1,10 @@
+package bdd2;
 /**
  * @author CHASSING frank 14 153 710 - FOUILLET Amandine 14 130 638
  */
 public class Joueur {
     /**
-     * La taille maximale de la clé
+     * La taille maximale de la clÃ©
      */
     private static final int MAXCLE = 16;
     
@@ -13,7 +14,7 @@ public class Joueur {
     private static final int MAXNOM = 128;
      
     /**
-     * La clé d'enregistrement du joueur. 
+     * La clÃ© d'enregistrement du joueur. 
      * 
      * @see Joueur#getCle()
      * @see Joueur#setCle()
@@ -21,7 +22,7 @@ public class Joueur {
     private char cle[] = new char[MAXCLE]; 
          
     /**
-     * Le nom du joueur qui apparaît sur la carte.Taille max 128 caractères.
+     * Le nom du joueur qui apparaÃ®t sur la carte.Taille max 128 caractÃ¨res.
      * 
      * @see Joueur#getNomJoueur()
      * @see Joueur#setNomJoueur(String)
@@ -37,27 +38,27 @@ public class Joueur {
     private int nombreCartes;
 
     /**
-     * Retourne la taille maximale de la clé d'un joueur.
+     * Retourne la taille maximale de la clÃ© d'un joueur.
      * 
-     * @return la taille maximale de la clé du joueur 
+     * @return la taille maximale de la clÃ© du joueur 
     */
     public static int getMaxCle() {
         return Joueur.MAXCLE;
     }
     
     /**
-     * Retourne la taille maximale de la clé d'un joueur.
+     * Retourne la taille maximale de la clÃ© d'un joueur.
      * 
-     * @return la taille maximale de la clé du joueur 
+     * @return la taille maximale de la clÃ© du joueur 
     */
     public static int getMaxNom() {
         return Joueur.MAXNOM;
     }
     
     /**
-     * Retourne la clé d'identification du joueur sous le format String.
+     * Retourne la clÃ© d'identification du joueur sous le format String.
      * 
-     * @return la clé d'identification du joueur sous le format String. 
+     * @return la clÃ© d'identification du joueur sous le format String. 
     */
     public String getCle(){
         String s = new String(this.cle);
@@ -65,10 +66,10 @@ public class Joueur {
     }
          
     /**
-     * Met à jour la clé d'identification du joueur.
+     * Met Ã  jour la clÃ© d'identification du joueur.
      * 
      * @param clef
-     *            La nouvelle clé d'identification du joueur.
+     *            La nouvelle clÃ© d'identification du joueur.
      */
     public void setCle(String clef){
         this.cle = clef.toCharArray();
@@ -85,7 +86,7 @@ public class Joueur {
     }
          
     /**
-     * Met à jour le nom du joueur.
+     * Met Ã  jour le nom du joueur.
      * 
      * @param nom
      *            Le nouveau nom du joueur.
@@ -95,19 +96,19 @@ public class Joueur {
     }
          
     /**
-     * Retourne le nombre de cartes que possède le joueur.
+     * Retourne le nombre de cartes que possÃ¨de le joueur.
      * 
-     * @return le nombre de cartes que possède le joueur.
+     * @return le nombre de cartes que possÃ¨de le joueur.
     */
     public int getNombreCartes(){
     	return this.nombreCartes;
     }
          
     /**
-     * Met à jour le nombre de cartes que possède le joueur.
+     * Met Ã  jour le nombre de cartes que possÃ¨de le joueur.
      * 
      * @param nb
-     *            Le nouveau nombre de cartes que possède le joueur.
+     *            Le nouveau nombre de cartes que possÃ¨de le joueur.
     */
     public void setNombreCartes(int nb){
 	this.nombreCartes = nb;

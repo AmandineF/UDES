@@ -1,5 +1,6 @@
+package bdd2;
 /**
- * @author CHASSING frank 14 153 710 - FOUILLET Amandine 14 000 000
+ * @author CHASSING frank 14 153 710 - FOUILLET Amandine 14 130 638
 */
 public class Carte {
     
@@ -9,7 +10,7 @@ public class Carte {
     private static final int MAXTITRE = 50;
     
     /**
-     * La taille maximale du nom d'équipe
+     * La taille maximale du nom d'Ã©quipe
     */
     private static final int MAXNOMEQUIPE = 50;
 
@@ -22,7 +23,7 @@ public class Carte {
     private char titreCarte [] = new char[MAXTITRE];
     
     /**
-     * Le nom de l’équipe à laquelle le joueur appartient sur cette carte.
+     * Le nom de lâ€™Ã©quipe Ã  laquelle le joueur appartient sur cette carte.
      * 
      * @see Carte#getNomEquipe()
      * @see Carte#setNomEquipe(String)
@@ -43,12 +44,9 @@ public class Carte {
      * @param titre
      *            le titre de la carte.
      * @param nom
-     *            Le nom de l'équipe.
+     *            Le nom de l'Ã©quipe.
      * @param annee
      *            L'annee de parution.
-     * @see Zero#titreCarte[]
-     * @see Zero#nomEquipe[]
-     * @see Zero#anneeSortie
     */
     public Carte(String titre, String nom, int annee){
         char[] tmp = titre.toCharArray();
@@ -68,9 +66,9 @@ public class Carte {
     }
     
     /**
-     * Retourne la taille maximale du nom de l'équipe.
+     * Retourne la taille maximale du nom de l'Ã©quipe.
      * 
-     * @return la taille maximal du nom de l'équipe.
+     * @return la taille maximal du nom de l'Ã©quipe.
     */
     public static int getMaxNomEquipe(){
         return Carte.MAXNOMEQUIPE;
@@ -86,7 +84,7 @@ public class Carte {
     }
     
     /**
-     * Met à jour le titre de la carte.
+     * Met Ã  jour le titre de la carte.
      * 
      * @param titre
      *            Le nouveau titre de la carte.
@@ -96,19 +94,19 @@ public class Carte {
     }
     
     /**
-     * Retourne le nom de l'équipe.
+     * Retourne le nom de l'Ã©quipe.
      * 
-     * @return le nom de l'équipe.
+     * @return le nom de l'Ã©quipe.
     */
     public String getNomEquipe(){
         return new String(this.nomEquipe);
     }
     
     /**
-     * Met à jour le nom de l'équipe.
+     * Met Ã  jour le nom de l'Ã©quipe.
      * 
      * @param nom
-     *            Le nouveau nom de l'équipe.
+     *            Le nouveau nom de l'Ã©quipe.
     */
     public void setNomEquipe(String nom){
         this.nomEquipe = nom.toCharArray();
@@ -124,7 +122,7 @@ public class Carte {
     }
    
     /**
-     * Met à jour l'annee de parution..
+     * Met Ã  jour l'annee de parution..
      * 
      * @param nb
      *            La nouvelle annee de parution.
@@ -134,11 +132,11 @@ public class Carte {
     }
 
     /**
-     * Affiche les caractéristiques d'une carte.
+     * Affiche les caractÃ©ristiques d'une carte.
      * 
-     * @return le String d'affichage des caractéristiques de la carte.
+     * @return le String d'affichage des caractÃ©ristiques de la carte.
     */
     public String toString(){
-        return "Titre : "+ this.getTitreCarte()+ "\nEquipe : " + this.getNomEquipe() + "\nAnnée de parution : " + this.getAnneeSortie()+"\n";
+        return "Titre : "+ this.getTitreCarte()+ "\nEquipe : " + this.getNomEquipe() + "\nAnnÃ©e de parution : " + this.getAnneeSortie()+"\n";
     }
 }

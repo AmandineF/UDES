@@ -1,3 +1,4 @@
+package bdd2;
 
 /**
  * @author CHASSING frank 14 153 710 - FOUILLET Amandine 14 130 638
@@ -19,7 +20,7 @@ public class Enregistrement {
     private LinkedList<Carte> listeCarte = new LinkedList<Carte>();
         
     /**
-     * Le joueur correspondant à l'enregistrement
+     * Le joueur correspondant Ã  l'enregistrement
      * 
      * @see Enregistrement#getJoueur()
      * @see Enregistrement#setJoueur(Joueur)
@@ -27,25 +28,25 @@ public class Enregistrement {
     private Joueur j = new Joueur();
 	
     /**
-     * Retourne le joueur correspondant à l'enregistrement.
+     * Retourne le joueur correspondant Ã  l'enregistrement.
      * 
-     * @return le joueur correspondant à l'enregistrement. 
+     * @return le joueur correspondant Ã  l'enregistrement. 
     */
     public Joueur getJoueur(){
         return this.j;
     }
     
     /**
-     * Retourne le joueur correspondant à l'enregistrement.
+     * Retourne le joueur correspondant Ã  l'enregistrement.
      * 
-     * @return le joueur correspondant à l'enregistrement. 
+     * @return le joueur correspondant Ã  l'enregistrement. 
     */
     public static int getMaxCartes(){
         return Enregistrement.MAXCARTES;
     }
     
     /**
-     * Met à jour le joueur correspondant à l'enregistrement.
+     * Met Ã  jour le joueur correspondant Ã  l'enregistrement.
      * 
      * @param joueur
      *            Le nouveau joueur.
@@ -64,7 +65,7 @@ public class Enregistrement {
     }
      
     /**
-     * Réinitialise la liste de carte de l'enregistrement
+     * RÃ©initialise la liste de carte de l'enregistrement
     */
     public void reinitialiseListe() {
         this.listeCarte = new LinkedList<Carte>();
