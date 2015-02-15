@@ -1,4 +1,3 @@
-package bdd2;
 /**
  * @author CHASSING frank 14 153 710 - FOUILLET Amandine 14 130 638
  */

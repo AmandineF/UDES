@@ -1,4 +1,3 @@
-package bdd2;
 import java.io.*;
 import java.util.*;
 
