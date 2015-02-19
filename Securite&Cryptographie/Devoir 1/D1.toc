@@ -1,0 +1,13 @@
+\select@language {french}
+\contentsline {section}{\numberline {1}Wi-Fi}{4}
+\contentsline {subsection}{\numberline {1.1}Fonctionnement des trois algorithmes de chiffrement}{4}
+\contentsline {subsection}{\numberline {1.2}Points faibles et attaques possibles des trois algorithmes de chiffrement}{4}
+\contentsline {subsection}{\numberline {1.3}Aircrack-ng}{4}
+\contentsline {section}{\numberline {2}Chiffrement et signature}{5}
+\contentsline {subsection}{\numberline {2.1}G\IeC {\'e}n\IeC {\'e}ration d'une paire de cl\IeC {\'e} RSA}{5}
+\contentsline {subsection}{\numberline {2.2}Cr\IeC {\'e}ation d'un fichier contenant la partie publique de la cl\IeC {\'e} RSA}{5}
+\contentsline {subsection}{\numberline {2.3}Chiffrement de la partie priv\IeC {\'e}e g\IeC {\'e}n\IeC {\'e}r\IeC {\'e}e}{5}
+\contentsline {subsection}{\numberline {2.4}Chiffrement d'un message}{6}
+\contentsline {subsection}{\numberline {2.5}D\IeC {\'e}chiffrement d'un message}{6}
+\contentsline {subsection}{\numberline {2.6}Signature du fichier}{7}
+\contentsline {section}{\numberline {3}Attaque d\IeC {\'e}cortiqu\IeC {\'e}e}{8}
