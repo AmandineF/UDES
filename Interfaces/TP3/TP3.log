@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2014.5.13)  19 FEB 2015 15:20
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2014.5.13)  19 FEB 2015 21:46
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**D1.tex
-(./D1.tex
+**TP3.tex
+(./TP3.tex
 LaTeX2e <2011/06/27>
 Babel <3.9f> and hyphenation patterns for 78 languages loaded.
 (/usr/local/texlive/2013/texmf-dist/tex/latex/base/article.cls
@@ -304,19 +304,19 @@ Package minitoc Info: I0028
 \mtc@hstrutbox=\box27
 Package minitoc Info: I0002
 (minitoc)             Autoconfiguration of extensions.
-\openout3 = `D1.mtc0'.
+\openout3 = `TP3.mtc0'.
 
-\openout3 = `D1.mtc'.
+\openout3 = `TP3.mtc'.
 
- (./D1.mtc0)
+ (./TP3.mtc0)
 Package minitoc Info: I0012
 (minitoc)             Long extensions (Unix-like) will be used.
 Package minitoc Info: I0031
 (minitoc)             ==> this version is configured for UNIX-like 
 (minitoc)                 (long extensions) file names.
-\openout3 = `D1.mtc'.
+\openout3 = `TP3.mtc'.
 
-\openout3 = `D1.mtc0'.
+\openout3 = `TP3.mtc0'.
 
 \c@ptc=\count88
 \c@parttocdepth=\count89
@@ -327,7 +327,6 @@ Package minitoc Info: I0031
 Package minitoc Info: I0010
 (minitoc)             The english language is selected.
 (minitoc)              on input line 4910.
-
 (/usr/local/texlive/2013/texmf-dist/tex/latex/minitoc/english.mld
 File: english.mld 2006/01/13
 )
@@ -385,13 +384,8 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 \Gm@layouthoffset=\dimen114
 \Gm@layoutvoffset=\dimen115
 \Gm@dimlist=\toks18
-) (./D1.aux
-
-LaTeX Warning: Label `fig:base' multiply defined.
-
-
-LaTeX Warning: Label `fig:base' multiply defined.
-
+)
+(./TP3.aux
 
 LaTeX Warning: Label `fig:base' multiply defined.
 
@@ -402,7 +396,7 @@ LaTeX Warning: Label `fig:base' multiply defined.
 LaTeX Warning: Label `fig:base' multiply defined.
 
 )
-\openout1 = `D1.aux'.
+\openout1 = `TP3.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 12.
 LaTeX Font Info:    ... okay on input line 12.
@@ -523,172 +517,206 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 [1
 
 {/usr/local/texlive/2013/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-[2] (./D1.toc
+[2] (./TP3.toc
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <10.95> on input line 3.
+(Font)              <10.95> on input line 4.
 )
 \tf@toc=\write4
-\openout4 = `D1.toc'.
+\openout4 = `TP3.toc'.
 
- (./D1.lof)
+ [3]
+Underfull \hbox (badness 10000) in paragraph at lines 22--23
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 28--29
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 30--31
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 34--35
+
+ []
+
+[4]
+Underfull \hbox (badness 10000) in paragraph at lines 42--44
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 45--46
+
+ []
+
+[5]
+Underfull \hbox (badness 10000) in paragraph at lines 52--53
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 56--57
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 60--61
+
+ []
+
+[6]
+Underfull \hbox (badness 10000) in paragraph at lines 64--65
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 68--69
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 72--73
+
+ []
+
+[7]
+Underfull \hbox (badness 10000) in paragraph at lines 77--78
+
+ []
+
+[8] [9] <Modelisation/Couleurs/pastels.jpg, id=38, 578.16pt x 159.59625pt>
+File: Modelisation/Couleurs/pastels.jpg Graphic file (type jpg)
+
+<use Modelisation/Couleurs/pastels.jpg>
+Package pdftex.def Info: Modelisation/Couleurs/pastels.jpg used on input line 9
+0.
+(pdftex.def)             Requested size: 346.89867pt x 95.75847pt.
+
+<Modelisation/connexion.png, id=39, 460.72125pt x 497.86pt>
+File: Modelisation/connexion.png Graphic file (type png)
+
+<use Modelisation/connexion.png>
+Package pdftex.def Info: Modelisation/connexion.png used on input line 97.
+(pdftex.def)             Requested size: 198.10628pt x 214.07562pt.
+
+Overfull \hbox (9.29668pt too wide) in paragraph at lines 97--98
+ [][] 
+ []
+
+<Modelisation/awai.png, id=41, 460.72125pt x 497.86pt>
+File: Modelisation/awai.png Graphic file (type png)
+
+<use Modelisation/awai.png>
+Package pdftex.def Info: Modelisation/awai.png used on input line 102.
+(pdftex.def)             Requested size: 198.10628pt x 214.07562pt.
+
+<Modelisation/base.png, id=42, 460.72125pt x 497.86pt>
+File: Modelisation/base.png Graphic file (type png)
+
+<use Modelisation/base.png>
+Package pdftex.def Info: Modelisation/base.png used on input line 109.
+(pdftex.def)             Requested size: 198.10628pt x 214.07562pt.
+
+Overfull \hbox (9.29668pt too wide) in paragraph at lines 109--110
+ [][] 
+ []
+
+<Modelisation/communication.png, id=43, 460.72125pt x 497.86pt>
+File: Modelisation/communication.png Graphic file (type png)
+
+<use Modelisation/communication.png>
+Package pdftex.def Info: Modelisation/communication.png used on input line 114.
+
+(pdftex.def)             Requested size: 198.10628pt x 214.07562pt.
+
+<Modelisation/photos.png, id=44, 460.72125pt x 497.86pt>
+File: Modelisation/photos.png Graphic file (type png)
+
+<use Modelisation/photos.png>
+Package pdftex.def Info: Modelisation/photos.png used on input line 121.
+(pdftex.def)             Requested size: 198.10628pt x 214.07562pt.
+
+Overfull \hbox (9.29668pt too wide) in paragraph at lines 121--122
+ [][] 
+ []
+
+<Modelisation/calendrier.png, id=45, 460.72125pt x 497.86pt>
+File: Modelisation/calendrier.png Graphic file (type png)
+
+<use Modelisation/calendrier.png>
+Package pdftex.def Info: Modelisation/calendrier.png used on input line 127.
+(pdftex.def)             Requested size: 198.10628pt x 214.07562pt.
+
+<Modelisation/calendrier2.png, id=46, 460.72125pt x 497.86pt>
+File: Modelisation/calendrier2.png Graphic file (type png)
+
+<use Modelisation/calendrier2.png>
+Package pdftex.def Info: Modelisation/calendrier2.png used on input line 134.
+(pdftex.def)             Requested size: 198.10628pt x 214.07562pt.
+
+Overfull \hbox (9.29668pt too wide) in paragraph at lines 134--135
+ [][] 
+ []
+
+<Modelisation/depenses.png, id=47, 460.72125pt x 497.86pt>
+File: Modelisation/depenses.png Graphic file (type png)
+
+<use Modelisation/depenses.png>
+Package pdftex.def Info: Modelisation/depenses.png used on input line 140.
+(pdftex.def)             Requested size: 198.10628pt x 214.07562pt.
+
+<Modelisation/carte.png, id=48, 460.72125pt x 497.86pt>
+File: Modelisation/carte.png Graphic file (type png)
+
+<use Modelisation/carte.png>
+Package pdftex.def Info: Modelisation/carte.png used on input line 147.
+(pdftex.def)             Requested size: 198.10628pt x 214.07562pt.
+
+Overfull \hbox (9.29668pt too wide) in paragraph at lines 147--148
+ [][] 
+ []
+
+<Modelisation/contact.png, id=49, 460.72125pt x 497.86pt>
+File: Modelisation/contact.png Graphic file (type png)
+
+<use Modelisation/contact.png>
+Package pdftex.def Info: Modelisation/contact.png used on input line 153.
+(pdftex.def)             Requested size: 198.10628pt x 214.07562pt.
+ [10 <./Modelisation/Couleurs/pastels.jpg> <./Modelisation/connexion.png> <./Mo
+delisation/awai.png>] [11 <./Modelisation/base.png> <./Modelisation/communicati
+on.png> <./Modelisation/photos.png> <./Modelisation/calendrier.png>] [12 <./Mod
+elisation/calendrier2.png> <./Modelisation/depenses.png> <./Modelisation/carte.
+png> <./Modelisation/contact.png>] (./TP3.lof)
 \tf@lof=\write5
-\openout5 = `D1.lof'.
+\openout5 = `TP3.lof'.
 
- [3] [4]
-<Capture/question1.png, id=22, 572.1375pt x 391.4625pt>
-File: Capture/question1.png Graphic file (type png)
-
-<use Capture/question1.png>
-Package pdftex.def Info: Capture/question1.png used on input line 30.
-(pdftex.def)             Requested size: 228.85094pt x 156.58221pt.
-
-Overfull \hbox (40.04134pt too wide) in paragraph at lines 30--31
- [][] 
- []
-
-<Capture/question1b.png, id=24, 471.7625pt x 413.545pt>
-File: Capture/question1b.png Graphic file (type png)
-
-<use Capture/question1b.png>
-Package pdftex.def Info: Capture/question1b.png used on input line 36.
-(pdftex.def)             Requested size: 188.70164pt x 165.41505pt.
-
-<Capture/question2.png, id=25, 572.1375pt x 391.4625pt>
-File: Capture/question2.png Graphic file (type png)
-
-<use Capture/question2.png>
-Package pdftex.def Info: Capture/question2.png used on input line 46.
-(pdftex.def)             Requested size: 228.85094pt x 156.58221pt.
-
-Overfull \hbox (40.04134pt too wide) in paragraph at lines 46--47
- [][] 
- []
-
-<Capture/question2b.png, id=26, 472.76625pt x 162.6075pt>
-File: Capture/question2b.png Graphic file (type png)
-
-<use Capture/question2b.png>
-Package pdftex.def Info: Capture/question2b.png used on input line 52.
-(pdftex.def)             Requested size: 189.10315pt x 65.04184pt.
-
-<Capture/question3.png, id=27, 572.1375pt x 391.4625pt>
-File: Capture/question3.png Graphic file (type png)
-
-<use Capture/question3.png>
-Package pdftex.def Info: Capture/question3.png used on input line 63.
-(pdftex.def)             Requested size: 228.85094pt x 156.58221pt.
-
-Overfull \hbox (40.04134pt too wide) in paragraph at lines 63--64
- [][] 
- []
-
-<Capture/question3b.png, id=28, 467.7475pt x 426.59375pt>
-File: Capture/question3b.png Graphic file (type png)
-
-<use Capture/question3b.png>
-Package pdftex.def Info: Capture/question3b.png used on input line 69.
-(pdftex.def)             Requested size: 187.09567pt x 170.63446pt.
-
-<Capture/question4.png, id=29, 308.15125pt x 160.6pt>
-File: Capture/question4.png Graphic file (type png)
-
-<use Capture/question4.png>
-Package pdftex.def Info: Capture/question4.png used on input line 79.
-(pdftex.def)             Requested size: 123.2583pt x 64.23885pt.
-
-<Capture/question4b.png, id=30, 572.1375pt x 391.4625pt>
-File: Capture/question4b.png Graphic file (type png)
-
-<use Capture/question4b.png>
-Package pdftex.def Info: Capture/question4b.png used on input line 85.
-(pdftex.def)             Requested size: 228.85094pt x 156.58221pt.
-
-Overfull \hbox (2.27797pt too wide) in paragraph at lines 85--86
- [][] 
- []
-
-
-Overfull \hbox (8.53693pt too wide) in paragraph at lines 76--90
-[]\T1/cmr/m/n/10.95 Nous al-lons main-te-nant chif-frer le fi-chier mes-sage.tx
-t (\T1/cmr/m/sc/10.95 Figure 7[]\T1/cmr/m/n/10.95 ) qui contient le mes-sage "O
-penSSL
- []
-
-[5 <./Capture/question1.png> <./Capture/question1b.png> <./Capture/question2.pn
-g> <./Capture/question2b.png>]
-<Capture/question4c.png, id=40, 505.89pt x 164.615pt>
-File: Capture/question4c.png Graphic file (type png)
-
-<use Capture/question4c.png>
-Package pdftex.def Info: Capture/question4c.png used on input line 92.
-(pdftex.def)             Requested size: 202.3524pt x 65.84482pt.
-
-<Capture/question5.png, id=41, 572.1375pt x 391.4625pt>
-File: Capture/question5.png Graphic file (type png)
-
-<use Capture/question5.png>
-Package pdftex.def Info: Capture/question5.png used on input line 102.
-(pdftex.def)             Requested size: 228.85094pt x 156.58221pt.
-
-Overfull \hbox (40.04134pt too wide) in paragraph at lines 102--103
- [][] 
- []
-
-<Capture/question5b.png, id=42, 314.17375pt x 177.66376pt>
-File: Capture/question5b.png Graphic file (type png)
-
-<use Capture/question5b.png>
-Package pdftex.def Info: Capture/question5b.png used on input line 108.
-(pdftex.def)             Requested size: 125.66727pt x 71.06424pt.
- [6 <./Capture/question3.png> <./Capture/question3b.png> <./Capture/question4.p
-ng> <./Capture/question4b.png>]
-<Capture/question6.png, id=50, 572.1375pt x 391.4625pt>
-File: Capture/question6.png Graphic file (type png)
-
-<use Capture/question6.png>
-Package pdftex.def Info: Capture/question6.png used on input line 118.
-(pdftex.def)             Requested size: 228.85094pt x 156.58221pt.
-
-Overfull \hbox (40.04134pt too wide) in paragraph at lines 118--119
- [][] 
- []
-
-<Capture/question6b.png, id=51, 468.75125pt x 177.66376pt>
-File: Capture/question6b.png Graphic file (type png)
-
-<use Capture/question6b.png>
-Package pdftex.def Info: Capture/question6b.png used on input line 124.
-(pdftex.def)             Requested size: 187.49716pt x 71.06424pt.
-
-<Capture/question6c.png, id=52, 572.1375pt x 391.4625pt>
-File: Capture/question6c.png Graphic file (type png)
-
-<use Capture/question6c.png>
-Package pdftex.def Info: Capture/question6c.png used on input line 132.
-(pdftex.def)             Requested size: 228.85094pt x 156.58221pt.
- [7 <./Capture/question4c.png> <./Capture/question5.png> <./Capture/question5b.
-png> <./Capture/question6.png> <./Capture/question6b.png>]
 Package minitoc Info: I0009
 (minitoc)             Listing minitoc auxiliary files. 
-(minitoc)             Creating the D1.maf file.
-\openout3 = `D1.maf'.
+(minitoc)             Creating the TP3.maf file.
+\openout3 = `TP3.maf'.
 
 Package minitoc(hints) Info: I0019
 (minitoc(hints))             No hints have been written 
-(minitoc(hints))             in the D1.log file..
- [8 <./Capture/question6c.png>] (./D1.aux)
+(minitoc(hints))             in the TP3.log file..
+
+[13] (./TP3.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 4920 strings out of 493315
- 67144 string characters out of 6137904
- 154436 words of memory out of 5000000
- 8092 multiletter control sequences out of 15000+600000
- 14837 words of font info for 36 fonts, out of 8000000 for 9000
+ 4912 strings out of 493315
+ 67035 string characters out of 6137904
+ 155505 words of memory out of 5000000
+ 8080 multiletter control sequences out of 15000+600000
+ 14148 words of font info for 35 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 38i,9n,23p,419b,275s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,8n,23p,1547b,273s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}
 </usr/local/texlive/2013/texmf-dist/fonts/type1/public/cm-super/sfbx1095.pfb></
 usr/local/texlive/2013/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></us
@@ -697,12 +725,11 @@ local/texlive/2013/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/lo
 cal/texlive/2013/texmf-dist/fonts/type1/public/cm-super/sfcc1095.pfb></usr/loca
 l/texlive/2013/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/local/
 texlive/2013/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/te
-xlive/2013/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb></usr/local/texl
-ive/2013/texmf-dist/fonts/type1/public/cm-super/sfti1095.pfb>
-Output written on D1.pdf (8 pages, 602298 bytes).
+xlive/2013/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb>
+Output written on TP3.pdf (13 pages, 592606 bytes).
 PDF statistics:
- 97 PDF objects out of 1000 (max. 8388607)
- 49 compressed objects within 1 object stream
+ 102 PDF objects out of 1000 (max. 8388607)
+ 57 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 71 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 56 words of extra memory for PDF output out of 10000 (max. 10000000)
 
