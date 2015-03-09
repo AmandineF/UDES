@@ -2,7 +2,6 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
-\usepackage{minitoc}
 \usepackage[french]{babel}
 \usepackage[right=2.5cm, bottom=2.5cm,top=2.5cm, left=2.5cm]{geometry}
 \title{\vspace{\fill} Interface et Multimédia \\ ~\textbf{IFT-215} \\~\\ Travail Pratique 4}
@@ -19,6 +18,7 @@
 \newpage
 \section*{Introduction \markboth{INTRODUCTION}{}}
 \addcontentsline{toc}{section}{Introduction}
+Après avoir étudié les différents acteurs, analysé leurs différents environnements et détaillé l’ensemble des fonctionnalités que nous voulons voir apparaître dans notre application, nous exposerons dans ce rapport l’ensemble des modélisations de nos données par le biais de diagrammes UML. Pour cela, nous commencerons par décrire les  diagrammes de nos fonctionnalités en identifiant les différents attributs et les différentes méthodes liés à celles-ci. Puis nous effectuerons un compte rendu global de notre diagramme afin d’observer les différents liens entre nos classes.
 
 \section{Modélisation de la gestion de la Communication}
 \begin{figure}[!h]
@@ -97,6 +97,9 @@ Au niveau du diagramme de classe  (\textsc{Figure \ref{fig:carte}}), nous aurons
         \caption{Diagramme de classe contact}
          \label{fig:contact}
 \end{figure}
+Nous retrouvons encore ici un diagramme de cas d’utilisation  (\textsc{Figure \ref{fig:ucContact}})modélisant les fonctionnalités de la section Contacts. L’utilisateur sera en mesure d’ajouter ou bien supprimer un contact à tout moment. Il pourra également observer les différentes informations sur le contact telles que ses dépenses, sa carte du monde, ses photos ou son emploi du temps. L’utilisateur aura également un accès pour communiquer avec le contact soit par vidéo, audio ou chat.
+La modélisation des données est représentée par une seule classe « Contact »  (\textsc{Figure \ref{fig:contact}}). Chaque contact sera un objet de cette classe et possèdera des paramètres correspondant à ses informations personnelles telles que son nom, son prénom, son numéro, son mail ou encore son adresse. Pour chaque contact, l’utilisateur a un accès pour chaque information de celui-ci telle que son calendrier, sa carte ou son emploi du temps et un accès pour communiquer avec lui. C’est pourquoi nous retrouvons les différentes méthodes d’accès : accesCalendrier(), accesCarte(), accesCommunication(), accesDepense() et accesPhoto(). Ces méthodes donneront l’accès à l’utilisateur aux différentes sections. L’utilisateur aura également la possibilité de supprimer le contact grâce à la méthode supprimerContact().
+
 
 \newpage
 \section{Diagramme de classe global}
@@ -128,12 +131,13 @@ Pour implémenter cela, nous avons décidé de créer la classe Partage qui sera
 
 La \textsc{Figure \ref{fig:classe}} représente le diagramme de classe de l'application dans sa globalité. On retrouve les différentes classes que l'on a détaillées et expliquées précédement. On peut cependant constater les dépendances et les relations entre ces différentes classes : 
 \begin{itemize}
-\item la classe EspacePerso est reliée avec les classes GestionPhotos, GestionCommunication, GestionCarte, GestionDépenses, Contact et GestionCalendrier. Cela est dû au fait que chaque espace personnel d'un utilisateur est constitué de chacun des espaces précédemment cité. Cette modélisation nous permet de séparer les différentes catégories et de gérer les différents écrans dans l'interface ;
+\item la classe EspacePerso est reliée avec les classes GestionPhotos, GestionCommunication, GestionCarte, GestionDépenses, Contact et GestionCalendrier. Cela est dû au fait que chaque espace personnel d'un utilisateur est constitué de chacun des espaces précédemment cités. Cette modélisation nous permet de séparer les différentes catégories et de gérer les différents écrans dans l'interface. En effet, chaque espace personnel sera composé d'une liste de contacts et de plusieurs zones où l'utilisateur pourra gérer ses informations.
 \item la classe Partage est reliée avec les classes GestionPhotos, GestionCarte, GestionDépenses et GestionCalendrier. En effet, ce sont les quatre espaces qui peuvent être partagés avec les contacts de l'utilisateur. Elle est aussi reliée à la classe Contact car c'est une classe étant donné qu'elle est constituée de plusieurs contacts.
 \end{itemize}
 
 \section*{Conclusion \markboth{CONCLUSION}{}}
 \addcontentsline{toc}{section}{Conclusion}
+Ce quatrième rapport consiste en la modélisation de nos données, ce qui correspond au M du modèle MVC. La modélisation UML dans ce rapport permet de créer un squelette d’implémentation qui nous aide à avoir une bonne base de code ayant du sens. Chaque classe à une fonction précise et possède de nombreux paramètres caractérisant celle-ci. Elle contient également plusieurs méthodes permettant de gérer plusieurs évènements et plusieurs actions liées à la classe. Chaque liaison entre les classes ont un sens et prennent soin d’apporter de la concordance entre les classes. Le modèle MVC permet notamment d’observer la manipulation des données et le traitement de celles-ci. Dans le prochain TP, nous mettrons en place un premier prototype fonctionnel  de notre application afin de pouvoir le présenter oralement.
 \newpage
 \listoffigures
 
