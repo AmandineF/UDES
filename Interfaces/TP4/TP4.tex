@@ -78,12 +78,13 @@
         \caption{Cas d'utilisation carte}
          \label{fig:ucCarte}
 \end{figure}
+Le diagramme de cas d’utilisation  (\textsc{Figure \ref{fig:ucCarte}}) permet de nous rappeler les différentes fonctionnalités que peut exécuter l’utilisateur dans cette section. Celui-ci pourra à tout moment ajouter une punaise sur la carte du monde afin de dire qu’il a voyagé à l’endroit où se situe la punaise. Il pourra bien évidemment déplacer ou bien supprimer sa punaise. Il pourra également modifier la couleur de celle-ci pour créer des groupes de couleur.
 \begin{figure}[!h]
         \centering \includegraphics[scale=1]{carte.png}
         \caption{Diagramme de classe carte}
          \label{fig:carte}
 \end{figure}
-
+Au niveau du diagramme de classe  (\textsc{Figure \ref{fig:carte}}), nous aurons une classe permettant la gestion de la carte qui contiendra une ou plusieurs punaises ainsi que les différentes actions sur les punaises (ajouter, modifier, supprimer). La classe Punaise, quant à elle, permet de modéliser une punaise. Elle possède donc comme attribut les coordonnées de la punaise et sa couleur. En ce qui concerne les méthodes, nous retrouvons les différents accesseurs (get et set) permettant de récupérer ou modifier les attributs. Nous avons également ajouté une classe Coordonnées avec une position x et y en attribut représentant respectivement l’abscisse et l’ordonnée.
 \newpage
 \section{Modélisation de la gestion des Contacts}
 \begin{figure}[!h]
@@ -100,18 +101,37 @@
 \newpage
 \section{Diagramme de classe global}
 \begin{figure}[!h]
+        \centering \includegraphics[scale=2]{espace.png}
+        \caption{Diagramme de classe espace personnel}
+         \label{fig:espace}
+\end{figure}
+
+La classe EspacePerso (\textsc{Figure \ref{fig:espace}}) est la classe qui va permettre de gérer le compte utilisateur ainsi que toutes ses données. Cette classe a deux attributs privés : le pseudo et le mot de passe qui permettent de retrouver et reconnaitre l'utilisateur. Elle contient des méthodes d'accès (get et set) pour récupérer ou modifier ses attributs. Les méthodes publiques inscription() et connexion() permettent respectivement de gérer la création de l'espace personnel et l'accès à cet espace. On retrouve ensuite toutes les méthodes d'accès au différentes données de l'utilisateur : ses contacts, sa carte, son calendrier, ses dépenses, ses communications et ses photos. 
+
+
+\begin{figure}[!h]
+        \centering \includegraphics[scale=2]{partage.png}
+        \caption{Diagramme de classe partage}
+         \label{fig:partage}
+\end{figure}
+
+La classe Partage (\textsc{Figure \ref{fig:partage}}) est la classe qui va permettre à l'utilisateur de gérer les listes de contacts avec qui il veut partager ses différentes informations. 
+Pour rappel, dans notre application, il sera possible à l'utilisateur de partager ses photos, son calendrier, sa carte ainsi que ses dépenses. Il nous semble important de laisser la possibilité à l'utilisateur de créer des listes de partage différentes afin de lui laisser la possibilité de ne pas tout partager aux mêmes personnes. Par exemple un étudiant peut décider de partager ses dépenses seulement avec ses parents et ses photos de soirée seulement avec ses amis. 
+Pour implémenter cela, nous avons décidé de créer la classe Partage qui sera finalement qu'une sorte de liste améliorée de contacts. Pour chacune des catégories (carte, dépenses, photos et calendrier) un partage sera créé et grâce aux méthodes ajouterPartage() et supprimerPartage() il sera possible d'ajouter ou de supprimer des contacts à qui l'accès à la catégorie sera autorisé.
+
+\newpage
+\begin{figure}[!h]
         \centering \includegraphics[scale=0.9]{classe.png}
         \caption{Diagramme de classe}
          \label{fig:classe}
 \end{figure}
 
-\begin{figure}[!h]
-        \centering \includegraphics[scale=1]{espace.png}
-        \caption{Diagramme de classe espace personnel}
-         \label{fig:espace}
-\end{figure}
+La \textsc{Figure \ref{fig:classe}} représente le diagramme de classe de l'application dans sa globalité. On retrouve les différentes classes que l'on a détaillées et expliquées précédement. On peut cependant constater les dépendances et les relations entre ces différentes classes : 
+\begin{itemize}
+\item la classe EspacePerso est reliée avec les classes GestionPhotos, GestionCommunication, GestionCarte, GestionDépenses, Contact et GestionCalendrier. Cela est dû au fait que chaque espace personnel d'un utilisateur est constitué de chacun des espaces précédemment cité. Cette modélisation nous permet de séparer les différentes catégories et de gérer les différents écrans dans l'interface ;
+\item la classe Partage est reliée avec les classes GestionPhotos, GestionCarte, GestionDépenses et GestionCalendrier. En effet, ce sont les quatre espaces qui peuvent être partagés avec les contacts de l'utilisateur. Elle est aussi reliée à la classe Contact car c'est une classe étant donné qu'elle est constituée de plusieurs contacts.
+\end{itemize}
 
-\newpage
 \section*{Conclusion \markboth{CONCLUSION}{}}
 \addcontentsline{toc}{section}{Conclusion}
 \newpage
