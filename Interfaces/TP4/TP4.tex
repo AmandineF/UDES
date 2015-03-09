@@ -26,11 +26,13 @@ Après avoir étudié les différents acteurs, analysé leurs différents enviro
         \caption{Cas d'utilisation communication}
          \label{fig:ucCom}
 \end{figure}
+Tout d’abord, sur le diagramme de cas d’utilisation de la gestion de la communication (figure 1), il est indiqué les fonctionnalités que peut exécuter l’utilisateur. Dans ce présent, celui-ci peut ouvrir une discussion, faire un appel vidéo, supprimer une discussion et faire un appel audio. 
 \begin{figure}[!h]
         \centering \includegraphics[scale=1]{com.png}
         \caption{Diagramme de classe communication}
          \label{fig:com}
 \end{figure}
+Au niveau du diagramme de classe (figure 2), on y trouve trois classes distinctes. La classe Discussion sert à modéliser une discussion avec un ami et possède quatre méthodes permettant l’utilisation des fonctionnalités. Ensuite, une classe Message a comme utilité de modéliser un message. Celle a comme attribut le propriétaire et possède les méthodes de suppression et de transfert de messages.
 
 \newpage
 \section{Modélisation de la gestion des Photos}
@@ -39,11 +41,13 @@ Après avoir étudié les différents acteurs, analysé leurs différents enviro
         \caption{Cas d'utilisation photos}
          \label{fig:ucPhotos}
 \end{figure}
+Pour commencer, le diagramme de cas d’utilisation de la gestion des photos (figure 3) permet de montrer explicitement les fonctionnalités que peut exécuter l’utilisateur. En effet, il pourra créer un album, le modifier, le supprimer et gérer un partage des photos de ses albums à un ami. 
 \begin{figure}[!h]
         \centering \includegraphics[scale=1]{photo.png}
         \caption{Diagramme de classe photos}
          \label{fig:photos}
 \end{figure}
+Au niveau du diagramme de classe (figure 4), celui-ci contient une classe Photo contenant  le nom et la taille de la photo comme attribut. Concernant les méthodes, on y trouve des accesseurs (get et set) et une méthode pour renommer la photo. Ensuite, une classe Album possède comme attribut le nom de l’album, des méthodes accesseurs et deux méthodes pour ajouter ou supprimer un album. Finalement, une classe pour la gestion des photos permet de gérer les albums et les partages avec des amis.
 
 \newpage
 \section{Modélisation de la gestion du Calendrier}
@@ -52,11 +56,13 @@ Après avoir étudié les différents acteurs, analysé leurs différents enviro
         \caption{Cas d'utilisation calendrier}
          \label{fig:ucCal}
 \end{figure}
-\begin{figure}[!h]
+Le diagramme de cas d’utilisation du calendrier (figure 5) montre de manière explicite les différentes fonctionnalités que peut exécuter un utilisateur. En effet, ce dernier peut ajouter un évènement tout en faisant une description, assigner un nom, choisir une heure et une date. De plus, il est possible de changer l’affichage du calendrier et de gérer les partages avec ses amis.
+ \begin{figure}[!h]
         \centering \includegraphics[scale=1]{calendrier.png}
         \caption{Diagramme de classe calendrier}
          \label{fig:cal}
 \end{figure}
+Au niveau du diagramme de classe (figure 6), la classe évènement a comme attribut privé la date, la description, l’heure et le nom. Celui-ci possède plusieurs accesseurs afin de pouvoir récupérer ou modifier les attributs.  Ensuite, une classe pour la gestion du calendrier offre comme méthode de changer l’affichage du calendrier.
 
 \newpage
 \section{Modélisation de la gestion des Dépenses}
@@ -65,12 +71,13 @@ Après avoir étudié les différents acteurs, analysé leurs différents enviro
         \caption{Cas d'utilisation dépenses}
          \label{fig:ucDepenses}
 \end{figure}
+Le diagramme de cas d’utilisation de la gestion des dépenses (figure 7) montre les trois fonctionnalités que peut exécuter un utilisateur. En effet, il peut ajouter une dépense en incluant un nom de dépense, une catégorie et le montant total. De plus, celui-ci peut changer le mois à lequel il assigne une dépense et il peut gérer le partage de ses informations de dépenses avec un ami.
 \begin{figure}[!h]
         \centering \includegraphics[scale=1]{depense.png}
         \caption{Diagramme de classe dépenses}
          \label{fig:depense}
-\end{figure}!h
-
+\end{figure}[!h]
+ Au niveau du diagramme de classe de la gestion des dépenses, on y trouve une classe GestionDépenses ayant comme méthode publique de changer le mois. Celle-ci est reliée à une classe DepenseDuMois permettant de calculer le total de la dépense du mois. Ensuite, une classe Dépense servant à attribuer les informations des dépenses et possédant plusieurs méthodes publiques d’accesseurs. Finalement, on trouve une classe gérant les catégories de dépenses entrées par l’utilisateur. Celle-ci détient comme attribut privé la couleur pour l’affichage de la dépense, le nom de la catégorie et le total de la dépense et cette dernière à plusieurs méthodes publiques d’accesseur pour aller chercher ou mettre à jour des attributs.
 \newpage
 \section{Modélisation de la gestion de la Carte}
 \begin{figure}[!h]
