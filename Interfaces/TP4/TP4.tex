@@ -78,13 +78,13 @@ Après avoir étudié les différents acteurs, analysé leurs différents enviro
         \caption{Cas d'utilisation carte}
          \label{fig:ucCarte}
 \end{figure}
-Le diagramme de cas d’utilisation  (\textsc{Figure \ref{fig:ucCarte}}) permet de nous rappeler les différentes fonctionnalités que peut exécuter l’utilisateur dans cette section. Celui-ci pourra à tout moment ajouter une punaise sur la carte du monde afin de dire qu’il a voyagé à l’endroit où se situe la punaise. Il pourra bien évidemment déplacer ou bien supprimer sa punaise. Il pourra également modifier la couleur de celle-ci pour créer des groupes de couleur.
+Le diagramme de cas d’utilisation  (\textsc{Figure \ref{fig:ucCarte}}) permet de nous rappeler les différentes fonctionnalités que peut exécuter l’utilisateur dans cette section. Celui-ci pourra à tout moment ajouter une punaise sur la carte du monde afin de dire qu’il a voyagé à l’endroit où se situe la punaise. Il pourra bien évidemment déplacer ou bien supprimer sa punaise. Il pourra également modifier la couleur de celle-ci pour créer des groupes ou des jeux de couleur.
 \begin{figure}[!h]
         \centering \includegraphics[scale=1]{carte.png}
         \caption{Diagramme de classe carte}
          \label{fig:carte}
 \end{figure}
-Au niveau du diagramme de classe  (\textsc{Figure \ref{fig:carte}}), nous aurons une classe permettant la gestion de la carte qui contiendra une ou plusieurs punaises ainsi que les différentes actions sur les punaises (ajouter, modifier, supprimer). La classe Punaise, quant à elle, permet de modéliser une punaise. Elle possède donc comme attribut les coordonnées de la punaise et sa couleur. En ce qui concerne les méthodes, nous retrouvons les différents accesseurs (get et set) permettant de récupérer ou modifier les attributs. Nous avons également ajouté une classe Coordonnées avec une position x et y en attribut représentant respectivement l’abscisse et l’ordonnée.
+Au niveau du diagramme de classe  (\textsc{Figure \ref{fig:carte}}), nous aurons une classe permettant la gestion de la carte qui contiendra une ou plusieurs punaises ainsi que les différentes actions sur les punaises (ajouter, modifier, supprimer). La classe Punaise, quant à elle, permet de modéliser une punaise. Elle possède donc comme attribut les coordonnées de la punaise, sa couleur et une description permettant à l'utilisateur de raconter les joies de ses voyages. En ce qui concerne les méthodes, nous retrouvons les différents accesseurs (get et set) permettant de récupérer ou modifier les attributs. Nous avons également ajouté une classe Coordonnées avec une position x et y en attribut représentant respectivement l’abscisse et l’ordonnée.
 \newpage
 \section{Modélisation de la gestion des Contacts}
 \begin{figure}[!h]
