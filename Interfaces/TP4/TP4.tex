@@ -92,12 +92,12 @@ Au niveau du diagramme de classe  (\textsc{Figure \ref{fig:carte}}), nous aurons
         \caption{Cas d'utilisation contacts}
          \label{fig:ucContact}
 \end{figure}
+Nous retrouvons encore ici un diagramme de cas d’utilisation (\textsc{Figure \ref{fig:ucContact}}) modélisant les fonctionnalités de la section Contacts. L’utilisateur sera en mesure d’ajouter ou bien supprimer un contact à tout moment. Il pourra également observer les différentes informations sur le contact telles que ses dépenses, sa carte du monde, ses photos ou son emploi du temps. L’utilisateur aura également un accès pour communiquer avec le contact soit par vidéo, audio ou chat.
 \begin{figure}[!h]
         \centering \includegraphics[scale=1]{contact.png}
         \caption{Diagramme de classe contact}
          \label{fig:contact}
 \end{figure}
-Nous retrouvons encore ici un diagramme de cas d’utilisation  (\textsc{Figure \ref{fig:ucContact}})modélisant les fonctionnalités de la section Contacts. L’utilisateur sera en mesure d’ajouter ou bien supprimer un contact à tout moment. Il pourra également observer les différentes informations sur le contact telles que ses dépenses, sa carte du monde, ses photos ou son emploi du temps. L’utilisateur aura également un accès pour communiquer avec le contact soit par vidéo, audio ou chat.
 La modélisation des données est représentée par une seule classe « Contact »  (\textsc{Figure \ref{fig:contact}}). Chaque contact sera un objet de cette classe et possèdera des paramètres correspondant à ses informations personnelles telles que son nom, son prénom, son numéro, son mail ou encore son adresse. Pour chaque contact, l’utilisateur a un accès pour chaque information de celui-ci telle que son calendrier, sa carte ou son emploi du temps et un accès pour communiquer avec lui. C’est pourquoi nous retrouvons les différentes méthodes d’accès : accesCalendrier(), accesCarte(), accesCommunication(), accesDepense() et accesPhoto(). Ces méthodes donneront l’accès à l’utilisateur aux différentes sections. L’utilisateur aura également la possibilité de supprimer le contact grâce à la méthode supprimerContact().
 
 
@@ -132,7 +132,7 @@ Pour implémenter cela, nous avons décidé de créer la classe Partage qui sera
 La \textsc{Figure \ref{fig:classe}} représente le diagramme de classe de l'application dans sa globalité. On retrouve les différentes classes que l'on a détaillées et expliquées précédement. On peut cependant constater les dépendances et les relations entre ces différentes classes : 
 \begin{itemize}
 \item la classe EspacePerso est reliée avec les classes GestionPhotos, GestionCommunication, GestionCarte, GestionDépenses, Contact et GestionCalendrier. Cela est dû au fait que chaque espace personnel d'un utilisateur est constitué de chacun des espaces précédemment cités. Cette modélisation nous permet de séparer les différentes catégories et de gérer les différents écrans dans l'interface. En effet, chaque espace personnel sera composé d'une liste de contacts et de plusieurs zones où l'utilisateur pourra gérer ses informations.
-\item la classe Partage est reliée avec les classes GestionPhotos, GestionCarte, GestionDépenses et GestionCalendrier. En effet, ce sont les quatre espaces qui peuvent être partagés avec les contacts de l'utilisateur. Elle est aussi reliée à la classe Contact car c'est une classe étant donné qu'elle est constituée de plusieurs contacts.
+\item la classe Partage est reliée avec les classes GestionPhotos, GestionCarte, GestionDépenses et GestionCalendrier. En effet, ce sont les quatre espaces qui peuvent être partagés avec les contacts de l'utilisateur. Elle est aussi reliée à la classe Contact car elle est constituée de plusieurs instances de cette classe.
 \end{itemize}
 
 \section*{Conclusion \markboth{CONCLUSION}{}}
