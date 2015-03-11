@@ -161,32 +161,53 @@ class MinimaxAgent(MultiAgentSearchAgent):
           gameState.getNumAgents():
             Returns the total number of agents in the game
         """
+
+        "We initialize the max value to -inf to be sure that we'll find a superior value"
         valeurMax = float("-inf")
-        prochaineAction = Directions.STOP
+
+        "For each legal actions for pacman, we calculate the min value for the ghosts"
         for action in gameState.getLegalActions(0):
-            tmp = self.GhostsValue(gameState.generateSuccessor(0, action), 0, 1)
-            if tmp > valeurMax and action != Directions.STOP:
-                valeurMax = tmp
+            valeur = self.GhostsValue(gameState.generateSuccessor(0, action), 0, 1)
+            "if the value is superior to the max value, the max value become the actual value and the next action is set to the actual action"
+            if valeur > valeurMax:
+                valeurMax = valeur
                 prochaineAction = action
+        "Finaly, we return the best next action"
         return prochaineAction
 
     def PacmanValue(self, state, depth, agent):
+        "If the game is over we return the evaluation function"
         if state.isWin() or state.isLose() or depth == self.depth:
             return self.evaluationFunction(state)
+
+        "We initialize the max value to -inf to be sure that we'll find a superior value"
         valeurMax = float("-inf")
-        for action in state.getLegalActions(0):
+
+        "For each legal actions for pacman, we search the max value's of the min values for the ghosts"
+        for action in state.getLegalActions(agent):
             valeurMax = max(valeurMax, self.GhostsValue(state.generateSuccessor(agent,action), depth, agent + 1))
+
+        "We return the found value"
         return valeurMax
 
     def GhostsValue(self, state, depth, agent):
+        "If the game is over we return the evaluation function"
         if state.isWin() or state.isLose() or depth == self.depth:
             return self.evaluationFunction(state)
+
+        "We initialize the min value to +inf to be sure that we'll find an inferior value"
         valeurMin = float("inf")
+
+        "For each legal actions for the ghosts, we search the min value's of the max values for pacman"
         for action in state.getLegalActions(agent):
+            "If pacman is the agent, we call the PacmanValue function"
             if agent == state.getNumAgents() - 1:
                 valeurMin = min(valeurMin, self.PacmanValue(state.generateSuccessor(agent, action), depth + 1, 0))
             else:
+                "Else we call back the GhostsValue function to search a smaller value"
                 valeurMin = min(valeurMin, self.GhostsValue(state.generateSuccessor(agent, action), depth, agent + 1))
+
+        "We return the found value"
         return valeurMin 
                
 
@@ -199,16 +220,24 @@ class AlphaBetaAgent(MultiAgentSearchAgent):
         """
           Returns the minimax action using self.depth and self.evaluationFunction
         """
+        "We initialize the alpha value to -inf to be sure that we'll found a superior value"
         alpha = float("-inf")
+        "We initialize the beta value to +inf to be sure that we'll found an inferior value"
         beta = float("inf")
+
         return self.PacmanValue(gameState, 0, 0, alpha, beta)
 
     def PacmanValue(self, state, depth, agent, alpha, beta):
+        "If the game is over we return the evaluation function"
         if state.isWin() or state.isLose() or depth == self.depth:
             return self.evaluationFunction(state)
+
+        "We initialize the max value to -inf to be sure that we'll find a superior value"
         valeurMax = float("-inf")
+
+        "We initialize the actual value to -inf to be sure that we'll find a superior value"
         valeur = valeurMax
-        prochaineAction = Directions.STOP
+
         for action in state.getLegalActions(0):
             valeur = self.GhostsValue(state.generateSuccessor(0,action), depth, 1, alpha, beta)
             if valeur > valeurMax:
@@ -250,9 +279,9 @@ class ExpectimaxAgent(MultiAgentSearchAgent):
         valeurMax = float("-inf")
         prochaineAction = Directions.STOP
         for action in gameState.getLegalActions(0):
-            tmp = self.GhostsValue(gameState.generateSuccessor(0, action), 0, 1)
-            if tmp > valeurMax and action != Directions.STOP:
-                valeurMax = tmp
+            valeur = self.GhostsValue(gameState.generateSuccessor(0, action), 0, 1)
+            if valeur > valeurMax:
+                valeurMax = valeur
                 prochaineAction = action
         return prochaineAction
 
@@ -284,7 +313,46 @@ def betterEvaluationFunction(currentGameState):
       DESCRIPTION: <write something here so we know what you did>
     """
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    newPos = currentGameState.getPacmanPosition()
+    newFood = currentGameState.getFood()
+    newGhostStates = currentGameState.getGhostStates()
+    newScaredTimes = [ghostState.scaredTimer for ghostState in newGhostStates]
+    score = 0
+    ghostDistTab = []
+    
+    for scareTimeData in newScaredTimes:
+        score += scareTimeData
+    
+    foodDistTab = []
+     
+    def foodProximity(foodPosTab):
+        foodDistTab = []
+        foodDistTab.append((foodPosTab[0]-1,foodPosTab[1]))
+        foodDistTab.append((foodPosTab[0],foodPosTab[1]-1))
+        foodDistTab.append((foodPosTab[0],foodPosTab[1]+1))
+        foodDistTab.append((foodPosTab[0]+1,foodPosTab[1]))
+        return foodDistTab
+     
+    neighborFood = 0
+    wall = currentGameState.getWalls().asList()
+    food = newFood.asList()
+    for foodData in food:
+        neighborsData = foodProximity(foodData)
+        for foodProximityData in neighborsData:
+            if foodProximityData not in wall and foodProximityData not in food:
+                neighborFood = neighborFood + 1
+        foodDistTab += [manhattanDistance(newPos,foodData)]
+    
+    inverseFoodDistTab = 0
+    if len(foodDistTab) > 0:
+        inverseFoodDistTab = 1.0/(min(foodDistTab))
+    
+    for ghost in newGhostStates:
+        ghostDistTab += [manhattanDistance(ghost.getPosition(),newPos)]
+
+    score = score + (min(ghostDistTab)*((inverseFoodDistTab**4)))
+    score = score + currentGameState.getScore()-(float(neighborFood)*4.5)
+    return score
 
 # Abbreviation
 better = betterEvaluationFunction
