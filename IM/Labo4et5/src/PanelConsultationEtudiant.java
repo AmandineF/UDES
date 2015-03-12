@@ -9,7 +9,7 @@ public class PanelConsultationEtudiant extends JPanel {
 	 */
 	public PanelConsultationEtudiant() {
 		setLayout(null);
-		
+		this.setBounds(100, 100, 800, 400);
 		JLabel pseudo = new JLabel("Pseudo :");
 		pseudo.setBounds(89, 94, 46, 14);
 		add(pseudo);

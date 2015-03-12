@@ -13,7 +13,7 @@ public class PanelConnexion extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelConnexion() {
+	public PanelConnexion(JFrame fen) {
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		
@@ -95,7 +95,9 @@ public class PanelConnexion extends JPanel {
 					System.out.println(EtudiantManager.getInstance().connexion(pseudoRes, mdpRes));
 					if(EtudiantManager.getInstance().connexion(pseudoRes, mdpRes)){
 						PanelTabbed tab = new PanelTabbed();
-						MainFrame.setContentPanePerso(tab);
+						fen.setContentPane(tab);
+						fen.setBounds(100, 100, 1200, 500);
+						fen.revalidate();
 					}else{
 						JFrame m = new JFrame();
 						m.setBounds(100, 100, 600, 150);

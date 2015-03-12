@@ -15,6 +15,7 @@ public class PanelTabbed extends JPanel {
 		
 		onglet.addTab("Consulter", null,  new PanelConsultationEtudiant());
 		onglet.addTab("Editer", null, new PanelModificationEtudiant());
+		onglet.setBounds(100, 100, 1200, 500);
 		
 	    this.add(onglet);
 	}

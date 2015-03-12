@@ -19,7 +19,7 @@ public class MainFrame extends JFrame {
 			public void run() {
 				try {
 					MainFrame frame = new MainFrame("Programme de gestion des étudiants en informatique");
-					contentPane = new PanelConnexion();
+					contentPane = new PanelConnexion(frame);
 					frame.setContentPane(contentPane);
 					
 					frame.setVisible(true);
@@ -28,14 +28,6 @@ public class MainFrame extends JFrame {
 				}
 			}
 		});
-	}
-	public static void setContentPanePerso(JPanel j){
-		System.out.println(contentPane);
-		removeAll();
-		contentPane = j;
-		add(contentPane);
-		revalidate();
-		System.out.println(contentPane);
 	}
 	
 	/**
