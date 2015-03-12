@@ -63,6 +63,11 @@ public class PanelModificationEtudiant extends JPanel {
 		JRadioButton femme = new JRadioButton("Femme");
 		bg.add(femme);
 		information.add(femme, "cell 1 1,alignx left,aligny center");
+		if(e.getEstHomme()){
+			homme.setSelected(true);
+		}else{
+			femme.setSelected(true);
+		}
 		
 		//Etude
 		JPanel etude = new JPanel();
@@ -152,7 +157,7 @@ public class PanelModificationEtudiant extends JPanel {
 					for(int i = 0; i<tabElement.getSize(); i++){
 						String s = (String)tabElement.getElementAt(i);
 						String id = s.substring(0,6);
-						String nomCours = s.substring(10, s.length()-1);
+						String nomCours = s.substring(10, s.length());
 						Cours c = new Cours(nomCours, id);
 						tabCours.add(c);
 					}
