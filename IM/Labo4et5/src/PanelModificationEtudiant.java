@@ -2,7 +2,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
+import java.util.*;
 import javax.swing.*;
 
 import net.miginfocom.swing.MigLayout;
@@ -83,8 +83,7 @@ public class PanelModificationEtudiant extends JPanel {
 		cours.setLayout(new MigLayout("", "[300px][40px]", "[400px][45.00px]"));
 		
 		ArrayList<Cours> a = e.getCours();
-		
-		DefaultListModel<String> listModel = new DefaultListModel<String>();
+		DefaultListModel listModel = new DefaultListModel();
 		for (Cours c : a){
 			String id = c.getIdentifiant();
 			String name = c.getNom();
@@ -164,7 +163,7 @@ public class PanelModificationEtudiant extends JPanel {
 					PanelConnexion p = new PanelConnexion(fen);
 					fen.setContentPane(p);
 					fen.setBounds(100, 100, 450, 300);
-					fen.revalidate();
+					fen.validate();
 				}}  );
 		
 	}
