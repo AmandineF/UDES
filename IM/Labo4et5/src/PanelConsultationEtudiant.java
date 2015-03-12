@@ -54,16 +54,16 @@ public class PanelConsultationEtudiant extends JPanel {
 		programmeRes.setBounds(201, 197, 96, 14);
 		add(programmeRes);
 		
-		JList listeCours = new JList();
-		listeCours.setBounds(0, 222, 450, 78);
+		JList listeCours;
+		ArrayList<String> tabCours = new ArrayList<String>();
 		ArrayList<Cours> a = e.getCours();
 		for (Cours c : a){
 			String id = c.getIdentifiant();
 			String name = c.getNom();
-			JLabel cours = new JLabel(""+id+" - "+name);
-			listeCours.add(cours);
+			String cours = ""+id+" - "+name;
+			tabCours.add(cours);
 		}
-		
+		listeCours = new JList(tabCours.toArray());
 		
 		
 		add(listeCours);
