@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -7,7 +9,7 @@ public class PanelConsultationEtudiant extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelConsultationEtudiant() {
+	public PanelConsultationEtudiant(String psd, String mdp) {
 		setLayout(null);
 		this.setBounds(100, 100, 800, 400);
 		JLabel pseudo = new JLabel("Pseudo :");
@@ -26,24 +28,43 @@ public class PanelConsultationEtudiant extends JPanel {
 		programme.setBounds(89, 197, 120, 14);
 		add(programme);
 		
-		JLabel pseudoRes = new JLabel("jean");
+		JLabel pseudoRes = new JLabel(""+psd);
 		pseudoRes.setBounds(145, 94, 46, 14);
 		add(pseudoRes);
 		
-		JLabel prenomRes = new JLabel("Jean de la fontaine");
+		Etudiant e = EtudiantManager.getInstance().getConnectedEtudiant();
+		String nomEtudiant = e.getNom();
+		String prenomEtudiant = e.getPrenom();
+		JLabel prenomRes = new JLabel(""+prenomEtudiant+""+nomEtudiant);
 		prenomRes.setBounds(183, 129, 114, 14);
 		add(prenomRes);
 		
-		JLabel sexeRes = new JLabel("Homme");
+		String sexeEtudiant;
+		if(e.getEstHomme()){
+			sexeEtudiant = "Homme";
+		}else{
+			sexeEtudiant = "Femme";
+		}
+		JLabel sexeRes = new JLabel(""+sexeEtudiant);
 		sexeRes.setBounds(132, 162, 46, 14);
 		add(sexeRes);
 		
-		JLabel programmeRes = new JLabel("Informatique");
+		String programmeEtudiant = e.getProgramme().getName(); 
+		JLabel programmeRes = new JLabel(""+programmeEtudiant);
 		programmeRes.setBounds(201, 197, 96, 14);
 		add(programmeRes);
 		
 		JList listeCours = new JList();
 		listeCours.setBounds(0, 222, 450, 78);
+		ArrayList<Cours> a = e.getCours();
+		for (Cours c : a){
+			String id = c.getIdentifiant();
+			String name = c.getNom();
+			JLabel cours = new JLabel(""+id+" - "+name);
+			listeCours.add(cours);
+		}
+		
+		
 		
 		add(listeCours);
 

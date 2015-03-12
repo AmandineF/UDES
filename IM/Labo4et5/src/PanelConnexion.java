@@ -94,7 +94,7 @@ public class PanelConnexion extends JPanel {
 					System.out.println(mdpRes);
 					System.out.println(EtudiantManager.getInstance().connexion(pseudoRes, mdpRes));
 					if(EtudiantManager.getInstance().connexion(pseudoRes, mdpRes)){
-						PanelTabbed tab = new PanelTabbed();
+						PanelTabbed tab = new PanelTabbed(pseudoRes, mdpRes);
 						fen.setContentPane(tab);
 						fen.setBounds(100, 100, 1200, 500);
 						fen.revalidate();
