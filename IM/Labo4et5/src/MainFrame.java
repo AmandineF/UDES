@@ -18,10 +18,10 @@ public class MainFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainFrame frame = new MainFrame("Programme de gestion des étudiants en informatique");
+					MainFrame frame = new MainFrame("Programme de gestion des Ã©tudiants en informatique");
 					contentPane = new PanelConnexion(frame);
 					frame.setContentPane(contentPane);
-					
+					//frame.setResizable(false);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

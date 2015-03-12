@@ -1,8 +1,13 @@
-import java.util.ArrayList;
-
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JList;
+
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import java.util.ArrayList;
+
+import net.miginfocom.swing.MigLayout;
 
 @SuppressWarnings("serial")
 public class PanelConsultationEtudiant extends JPanel {
@@ -10,34 +15,21 @@ public class PanelConsultationEtudiant extends JPanel {
 	 * Create the panel.
 	 */
 	public PanelConsultationEtudiant(String psd, String mdp) {
-		setLayout(null);
-		this.setBounds(100, 100, 800, 400);
-		JLabel pseudo = new JLabel("Pseudo :");
-		pseudo.setBounds(89, 94, 46, 14);
-		add(pseudo);
+		setLayout(new MigLayout("", "[129px][31px][345px]", "[40px][40px][40px][40px][20px][400px]"));
 		
-		JLabel prenom = new JLabel("Pr\u00E9nom et nom :");
-		prenom.setBounds(89, 129, 84, 14);
-		add(prenom);
+		JLabel pseudo = new JLabel(""+psd);
+		add(pseudo, "cell 0 0,alignx left,aligny center");
 		
-		JLabel sexe = new JLabel("Sexe :");
-		sexe.setBounds(89, 162, 46, 14);
-		add(sexe);
+		JLabel pseudoRes = new JLabel("truj1234");
+		add(pseudoRes, "cell 2 0,alignx left,aligny center");
 		
-		JLabel programme = new JLabel("Programme d'\u00E9tude :");
-		programme.setBounds(89, 197, 120, 14);
-		add(programme);
-		
-		JLabel pseudoRes = new JLabel(""+psd);
-		pseudoRes.setBounds(145, 94, 46, 14);
-		add(pseudoRes);
 		
 		Etudiant e = EtudiantManager.getInstance().getConnectedEtudiant();
 		String nomEtudiant = e.getNom();
 		String prenomEtudiant = e.getPrenom();
-		JLabel prenomRes = new JLabel(""+prenomEtudiant+""+nomEtudiant);
+		JLabel prenomRes = new JLabel(""+prenomEtudiant+" "+nomEtudiant);
 		prenomRes.setBounds(183, 129, 114, 14);
-		add(prenomRes);
+		add(prenomRes, "cell 2 1,alignx left,aligny center");
 		
 		String sexeEtudiant;
 		if(e.getEstHomme()){
@@ -45,16 +37,24 @@ public class PanelConsultationEtudiant extends JPanel {
 		}else{
 			sexeEtudiant = "Femme";
 		}
+		
+		JLabel prenom = new JLabel("Pr\u00E9nom et nom :");
+		add(prenom, "cell 0 1,alignx left,aligny center");
+		
+		JLabel sexe = new JLabel("Sexe :");
+		add(sexe, "cell 0 2,alignx left,aligny center");
+		
 		JLabel sexeRes = new JLabel(""+sexeEtudiant);
-		sexeRes.setBounds(132, 162, 46, 14);
-		add(sexeRes);
+		add(sexeRes, "cell 2 2,alignx left,aligny center");
+		
+		JLabel programme = new JLabel("Programme d'\u00E9tude :");
+		add(programme, "cell 0 3,alignx left,aligny center");
 		
 		String programmeEtudiant = e.getProgramme().getName(); 
 		JLabel programmeRes = new JLabel(""+programmeEtudiant);
-		programmeRes.setBounds(201, 197, 96, 14);
-		add(programmeRes);
+		add(programmeRes, "cell 2 3,alignx left,aligny center");
 		
-		JList listeCours;
+		JList listeCours = new JList();
 		ArrayList<String> tabCours = new ArrayList<String>();
 		ArrayList<Cours> a = e.getCours();
 		for (Cours c : a){
@@ -64,12 +64,10 @@ public class PanelConsultationEtudiant extends JPanel {
 			tabCours.add(cours);
 		}
 		listeCours = new JList(tabCours.toArray());
-		
-		
-		add(listeCours);
-
+		add(listeCours, "cell 0 5 3 1,grow");
 	}
+	
 	public void setEtudiant(Etudiant etudiant) {
-		// TODO ajouter du code pour changer les elements dans la vue à l'aide du windowsBuilder
+		// TODO ajouter du code pour changer les elements dans la vue Ã  l'aide du windowsBuilder
 	}
 }

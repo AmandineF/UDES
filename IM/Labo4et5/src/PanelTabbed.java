@@ -1,4 +1,6 @@
 
+import java.awt.Dimension;
+
 import javax.swing.*;
 
 @SuppressWarnings("serial")
@@ -9,13 +11,17 @@ public class PanelTabbed extends JPanel {
 	 */
 	public PanelTabbed(JFrame fen, String pseudo, String mdp) {
 		
-		// Interface generale qui contient les onglets de consultation et d'édition des étudiants
+		// Interface generale qui contient les onglets de consultation et d'Ã©dition des Ã©tudiants
 		
 		JTabbedPane onglet = new JTabbedPane();
-		onglet.addTab("Consulter", null,  new PanelConsultationEtudiant(pseudo, mdp));
-		onglet.addTab("Editer", null, new PanelModificationEtudiant(fen, pseudo, mdp));
-		onglet.setBounds(100, 100, 1200, 500);
-		
+		PanelConsultationEtudiant consult = new PanelConsultationEtudiant(pseudo, mdp);
+		consult.setPreferredSize(new Dimension(480, 580));
+		onglet.addTab("Consulter", consult);
+		onglet.setEnabledAt(0, true);
+		PanelModificationEtudiant edit = new PanelModificationEtudiant(fen, pseudo, mdp);
+		edit.setPreferredSize(new Dimension(480, 580));
+		onglet.addTab("Editer", edit);
+		onglet.setPreferredSize(new Dimension(480, 580));
 	    this.add(onglet);
 	}
 }

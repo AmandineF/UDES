@@ -16,7 +16,7 @@ public class PanelErreur extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelErreur(JFrame fen) {
+	public PanelErreur(final JFrame fen) {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{202, 46, 0};
 		gridBagLayout.rowHeights = new int[]{14, 0};

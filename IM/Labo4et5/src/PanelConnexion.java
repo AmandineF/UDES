@@ -13,7 +13,7 @@ public class PanelConnexion extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelConnexion(JFrame fen) {
+	public PanelConnexion(final JFrame fen) {
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		
@@ -36,7 +36,7 @@ public class PanelConnexion extends JPanel {
 		c.gridy = 1;
 		this.add(pseudoLabel, c);
 		
-		JTextField pseudoField = new JTextField();
+		final JTextField pseudoField = new JTextField();
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridwidth = 1;
 		c.gridx = 1;
@@ -51,15 +51,13 @@ public class PanelConnexion extends JPanel {
 		c.gridy = 2;
 		this.add(passLabel, c);
 		
-		JPasswordField passField = new JPasswordField();
+		final JPasswordField passField = new JPasswordField();
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridwidth = 1;
 		c.ipady = 5;
 		c.gridx = 1;
 		c.gridy = 2;
 		this.add(passField, c);
-		
-		
 		
 		JButton btnAnnuler = new JButton("Annuler");
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -96,8 +94,8 @@ public class PanelConnexion extends JPanel {
 					if(EtudiantManager.getInstance().connexion(pseudoRes, mdpRes)){
 						PanelTabbed tab = new PanelTabbed(fen, pseudoRes, mdpRes);
 						fen.setContentPane(tab);
-						fen.setBounds(100, 100, 1200, 500);
-						fen.revalidate();
+						fen.setBounds(100, 100, 500, 620);
+						fen.validate();
 					}else{
 						JFrame m = new JFrame();
 						m.setBounds(100, 100, 600, 150);

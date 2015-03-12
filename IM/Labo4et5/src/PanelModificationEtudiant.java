@@ -1,9 +1,11 @@
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.*;
+
+import net.miginfocom.swing.MigLayout;
 
 @SuppressWarnings("serial")
 public class PanelModificationEtudiant extends JPanel {
@@ -11,70 +13,74 @@ public class PanelModificationEtudiant extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelModificationEtudiant(JFrame fen, String psdRecu, String mdpRecu) {
-		
+	public PanelModificationEtudiant(final JFrame fen, final String psdRecu, final String mdpRecu) {
 		
 		//Identification
 		JPanel identification = new JPanel();
 		identification.setBorder(BorderFactory.createTitledBorder("Identification"));
+		identification.setLayout(new MigLayout("", "[60px][100px][40px][60px][100px]", "[28px]"));
 		
 		JLabel pseudo = new JLabel("Pseudo :");
-		identification.add(pseudo);
+		identification.add(pseudo, "cell 0 0,alignx left,aligny center");
 		
-		JTextField pseudoRes = new JTextField(""+psdRecu);
-		identification.add(pseudoRes);
-		
+		final JTextField pseudoRes = new JTextField(""+psdRecu);
+		pseudoRes.setPreferredSize(new Dimension(100, 28));
+		identification.add(pseudoRes, "cell 1 0,alignx left,aligny top");
 		
 		JLabel mdp = new JLabel("Mot de passe :");
-		identification.add(mdp);
+		identification.add(mdp, "cell 3 0,alignx left,aligny center");
 		
-		JPasswordField mdpRes = new JPasswordField(""+mdpRecu);
-		identification.add(mdpRes);
+		final JPasswordField mdpRes = new JPasswordField(""+mdpRecu);
+		mdpRes.setPreferredSize(new Dimension(100, 28));
+		identification.add(mdpRes, "cell 4 0,alignx left,aligny top");
+		
+		identification.setBounds(0,0,500,500);
 		
 		//Information
 		JPanel information = new JPanel();
 		information.setBorder(BorderFactory.createTitledBorder("Information"));
+		information.setLayout(new MigLayout("", "[60px][100px][40px][60px][100px]", "[28px][28px]"));
 		
-		JLabel prenom = new JLabel("Prénom :");
-		information.add(prenom);
-		
+		JLabel prenom = new JLabel("PrÃ©nom :");
+		information.add(prenom, "cell 0 0,alignx left,aligny center");
 		Etudiant e = EtudiantManager.getInstance().getConnectedEtudiant();
 		String prenomEtudiant = e.getPrenom();
-		JTextField prenomRes = new JTextField(""+prenomEtudiant);
-		information.add(prenomRes);
+		final JTextField prenomRes = new JTextField(""+prenomEtudiant);
+		prenomRes.setPreferredSize(new Dimension(100,28));
+		information.add(prenomRes, "cell 1 0,alignx left,aligny top");
 		
 		JLabel nom = new JLabel("Nom :");
-		information.add(nom);
-		
+		information.add(nom, "cell 3 0,alignx left,aligny center");
 		String nomEtudiant = e.getNom();
-		JTextField nomRes = new JTextField(""+nomEtudiant);
-		information.add(nomRes);
+		final JTextField nomRes = new JTextField(""+nomEtudiant);
+		nomRes.setPreferredSize(new Dimension(100, 28));
+		information.add(nomRes, "cell 4 0,alignx left,aligny top");
 		
 		ButtonGroup bg = new ButtonGroup();
-		JRadioButton homme = new JRadioButton("Homme");
+		final JRadioButton homme = new JRadioButton("Homme");
 		bg.add(homme);
-		information.add(homme);
+		information.add(homme, "cell 0 1,alignx left,aligny center");
 		JRadioButton femme = new JRadioButton("Femme");
 		bg.add(femme);
-		information.add(femme);
+		information.add(femme, "cell 1 1,alignx left,aligny center");
 		
 		//Etude
 		JPanel etude = new JPanel();
 		etude.setBorder(BorderFactory.createTitledBorder("Etude"));
+		etude.setLayout(new MigLayout("", "[170.00px][340px]", "[28px][]"));
 		
 		JLabel programme = new JLabel("Programme :");
-		etude.add(programme);
+		etude.add(programme, "cell 0 0,alignx left,aligny center");
 		
-		JComboBox<String> programmeRes = new JComboBox<String>();
+		final JComboBox programmeRes = new JComboBox();
 		programmeRes.addItem("Bsc.Informatique");
 		programmeRes.addItem("Bsc.Sciences de l'image");
 		programmeRes.addItem("Bsc.Informatique de Gestion");
-		etude.add(programmeRes);
+		etude.add(programmeRes, "cell 1 0 2 1,grow");
 		
 		JPanel cours = new JPanel();
 		cours.setBorder(BorderFactory.createTitledBorder("Cours"));
-		
-		
+		cours.setLayout(new MigLayout("", "[300px][40px]", "[400px][45.00px]"));
 		
 		ArrayList<Cours> a = e.getCours();
 		
@@ -84,12 +90,12 @@ public class PanelModificationEtudiant extends JPanel {
 			String name = c.getNom();
 			String coursEtudiant = ""+id+" - "+name;
 			listModel.addElement(coursEtudiant);
-		};
-		JList listeCours = new JList(listModel);
-		cours.add(listeCours);
+		}; 
+		final JList listeCours = new JList(listModel);
+		cours.add(listeCours, "cell 0 0 2 1,grow");
 		
 		JButton enlever = new JButton("Enlever");
-		cours.add(enlever);
+		cours.add(enlever, "cell 0 1,alignx right,aligny bottom");
 		enlever.addActionListener(
 				new ActionListener(){
 				public void actionPerformed (ActionEvent e){
@@ -101,17 +107,18 @@ public class PanelModificationEtudiant extends JPanel {
 				}}  );
 		
 		JButton ajouter = new JButton("Ajouter");
-		cours.add(ajouter);
+		cours.add(ajouter, "cell 1 1,alignx left,aligny bottom");
 		
-		etude.add(cours);
+		etude.add(cours, "cell 0 1 2 1,grow");	
+	
+		setLayout(new MigLayout("", "[470.00px]", "[40px][40px][500px][]"));
 		
-		this.add(identification);
-		this.add(information);
-		this.add(etude);
+		this.add(identification, "cell 0 0,grow");
+		this.add(information, "cell 0 1,grow");
+		this.add(etude, "cell 0 2,grow");
 		
 		JButton annuler = new JButton("Annuler");
-		this.add(annuler);
-		
+		this.add(annuler, "cell 0 3,alignx right,aligny top");
 		annuler.addActionListener(
 				new ActionListener(){
 				public void actionPerformed (ActionEvent e){
@@ -120,12 +127,11 @@ public class PanelModificationEtudiant extends JPanel {
 					PanelConnexion p = new PanelConnexion(fen);
 					fen.setContentPane(p);
 					fen.setBounds(100, 100, 450, 300);
-					fen.revalidate();
+					fen.validate();
 				}}  );
 		
 		JButton sauvegarder = new JButton("Sauvegarder");
-		this.add(sauvegarder);
-		
+		this.add(sauvegarder, "cell 0 3,alignx left,aligny top");
 		sauvegarder.addActionListener(
 				new ActionListener(){
 				public void actionPerformed (ActionEvent e){
@@ -160,7 +166,6 @@ public class PanelModificationEtudiant extends JPanel {
 					fen.setBounds(100, 100, 450, 300);
 					fen.revalidate();
 				}}  );
-		
 		
 	}
 
