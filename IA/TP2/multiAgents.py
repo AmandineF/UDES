@@ -238,12 +238,15 @@ class AlphaBetaAgent(MultiAgentSearchAgent):
         "We initialize the actual value to -inf to be sure that we'll find a superior value"
         valeur = valeurMax
 
+        "For each legal actions for pacman, we search the max value's of the min values for the ghosts and the best next action for pacman"
         for action in state.getLegalActions(0):
             valeur = self.GhostsValue(state.generateSuccessor(0,action), depth, 1, alpha, beta)
             if valeur > valeurMax:
                 valeurMax = valeur
                 prochaineAction = action
+            "We save the alpha value wich is the max value for pacman"
             alpha = max(alpha, valeurMax)
+            "If we found a value superior to beta value, we stop the research and we return the actual best value for pacman"
             if valeurMax > beta:
                 return valeurMax
         if depth == 0:
@@ -252,15 +255,24 @@ class AlphaBetaAgent(MultiAgentSearchAgent):
             return valeurMax
 
     def GhostsValue(self, state, depth, agent, alpha, beta):
+    	"If the game is over we return the evaluation function"
         if state.isWin() or state.isLose() or depth == self.depth:
             return self.evaluationFunction(state)
+
+        "We initialize the max value to inf to be sure that we'll find an inferior value"
         valeurMin = float("inf")
+
+        "For each legal actions for the ghosts, we search the min value's of the max values for pacman"
         for action in state.getLegalActions(agent):
             if agent == state.getNumAgents() - 1:
+            	"If pacman is the agent, we call the PacmanValue function"
                 valeurMin = min(valeurMin, self.PacmanValue(state.generateSuccessor(agent, action), depth + 1, 0, alpha, beta))
             else:
+            	"Else we call back the GhostsValue function to search a smaller value"
                 valeurMin = min(valeurMin, self.GhostsValue(state.generateSuccessor(agent, action), depth, agent + 1, alpha, beta))
+            "We save the beta value wich is the min value for the ghosts"
             beta = min(beta, valeurMin)
+            "If we found a value inferior to alpha value, we stop the research and we return the actual best value for the ghosts"
             if valeurMin < alpha: 
                 return valeurMin
         return valeurMin 
@@ -276,32 +288,47 @@ class ExpectimaxAgent(MultiAgentSearchAgent):
           All ghosts should be modeled as choosing uniformly at random from their
           legal moves.
         """
+        "We initialize the max value to -inf to be sure that we'll find a superior value"
         valeurMax = float("-inf")
-        prochaineAction = Directions.STOP
+
+		"For each legal actions for pacman, we calculate the max value"
         for action in gameState.getLegalActions(0):
             valeur = self.GhostsValue(gameState.generateSuccessor(0, action), 0, 1)
+            "if the value is superior to the max value, the max value become the actual value and the next action is set to the actual action"
             if valeur > valeurMax:
                 valeurMax = valeur
                 prochaineAction = action
+        "Finaly, we return the best next action"
         return prochaineAction
 
     def PacmanValue(self, state, depth, agent):
+    	"If the game is over we return the evaluation function"
         if state.isWin() or state.isLose() or depth == self.depth:
             return self.evaluationFunction(state)
+        "We initialize the max value to -inf to be sure that we'll find a superior value"
         valeurMax = float("-inf")
+        "For each legal actions for pacman, we search the max value's of the min values for the ghosts"
         for action in state.getLegalActions(agent):
             valeurMax = max(valeurMax, self.GhostsValue(state.generateSuccessor(agent, action), depth, agent + 1))
+        "We return the found value"
         return valeurMax
 
     def GhostsValue(self, state, depth, agent):
+    	"If the game is over we return the evaluation function"
         if state.isWin() or state.isLose() or depth == self.depth:
             return self.evaluationFunction(state)
+        "We initialize the min value"
         valeurMin = 0
+
+        "For each legal actions for the ghosts, we search the min value's of the max values for pacman"
         for action in state.getLegalActions(agent):
+        	"If pacman is the agent, we call the PacmanValue function"
             if agent == state.getNumAgents() - 1:
                 valeurMin = valeurMin + self.PacmanValue(state.generateSuccessor(agent, action), depth + 1, 0)
             else:
+            	"Else we call back the GhostsValue function to search a smaller value"
                 valeurMin = valeurMin + self.GhostsValue(state.generateSuccessor(agent, action), depth, agent + 1)
+        "We calculate the probabilty"
         valeurMin = valeurMin / len(state.getLegalActions(agent))
         return valeurMin 
 
