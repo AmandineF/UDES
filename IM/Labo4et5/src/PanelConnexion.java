@@ -98,7 +98,7 @@ public class PanelConnexion extends JPanel {
 						fen.validate();
 					}else{
 						JFrame m = new JFrame();
-						m.setBounds(100, 100, 600, 150);
+						m.setBounds(100, 100, 400, 120);
 						PanelErreur p = new PanelErreur(m);
 						m.setContentPane(p);
 						m.setVisible(true);
