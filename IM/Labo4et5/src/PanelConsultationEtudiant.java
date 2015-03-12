@@ -17,10 +17,10 @@ public class PanelConsultationEtudiant extends JPanel {
 	public PanelConsultationEtudiant(String psd, String mdp) {
 		setLayout(new MigLayout("", "[129px][31px][345px]", "[40px][40px][40px][40px][20px][400px]"));
 		
-		JLabel pseudo = new JLabel(""+psd);
+		JLabel pseudo = new JLabel("Pseudo :");
 		add(pseudo, "cell 0 0,alignx left,aligny center");
 		
-		JLabel pseudoRes = new JLabel("truj1234");
+		JLabel pseudoRes = new JLabel(""+psd);
 		add(pseudoRes, "cell 2 0,alignx left,aligny center");
 		
 		
