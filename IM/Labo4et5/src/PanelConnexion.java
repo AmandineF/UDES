@@ -88,9 +88,9 @@ public class PanelConnexion extends JPanel {
 				public void actionPerformed (ActionEvent e){
 					String pseudoRes = pseudoField.getText();
 					String mdpRes = String.valueOf(passField.getPassword());
-					System.out.println(pseudoRes);
+					/*System.out.println(pseudoRes);
 					System.out.println(mdpRes);
-					System.out.println(EtudiantManager.getInstance().connexion(pseudoRes, mdpRes));
+					System.out.println(EtudiantManager.getInstance().connexion(pseudoRes, mdpRes));*/
 					if(EtudiantManager.getInstance().connexion(pseudoRes, mdpRes)){
 						PanelTabbed tab = new PanelTabbed(fen, pseudoRes, mdpRes);
 						fen.setContentPane(tab);
@@ -98,7 +98,8 @@ public class PanelConnexion extends JPanel {
 						fen.validate();
 					}else{
 						JFrame m = new JFrame();
-						m.setBounds(100, 100, 400, 120);
+						m.setTitle("Erreur");
+						m.setBounds(100, 100, 600, 150);
 						PanelErreur p = new PanelErreur(m);
 						m.setContentPane(p);
 						m.setVisible(true);

@@ -124,6 +124,7 @@ public class PanelModificationEtudiant extends JPanel {
 					}
 					
 					JFrame m = new JFrame();
+					m.setTitle("Choix de cours");
 					m.setBounds(100, 100, 600, 150);
 					PanelAjout p = new PanelAjout((MainFrame)fen, m, idString, listeCours);
 					m.setContentPane(p);
@@ -176,7 +177,7 @@ public class PanelModificationEtudiant extends JPanel {
 					ArrayList<Cours> tabCours = new ArrayList<Cours>();
 					for(int i = 0; i<tabElement.getSize(); i++){
 						String s = (String)tabElement.getElementAt(i);
-						String id = s.substring(0,6);
+						String id = s.substring(0,7);
 						String nomCours = s.substring(10, s.length());
 						Cours c = new Cours(nomCours, id);
 						tabCours.add(c);

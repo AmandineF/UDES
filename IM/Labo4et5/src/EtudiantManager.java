@@ -26,22 +26,22 @@ public class EtudiantManager {
 	}
 
 	private void loadData() {
-		Cours ift209 = new Cours("Programmation systÃ¨me", "IFT 209");
-		Cours ift215 = new Cours("Interfaces et multimÃ©dia", "IFT 215");
-		Cours ift232 = new Cours("MÃ©thodes de conception orientÃ©es objet",
+		Cours ift209 = new Cours("Programmation système", "IFT 209");
+		Cours ift215 = new Cours("Interfaces et multimédia", "IFT 215");
+		Cours ift232 = new Cours("Méthodes de conception orientées objet",
 				"IFT 232");
 		Cours ift287 = new Cours("Exploitation de BD relationnelles et OO",
 				"IFT 287");
 
 		Cours ift313 = new Cours("Introduction aux langages formels", "IFT 313");
-		Cours ift320 = new Cours("SystÃ¨mes d'exploitation", "IFT 320");
-		Cours ift339 = new Cours("Structures de donnÃ©es", "IFT 339");
+		Cours ift320 = new Cours("Systèmes d'exploitation", "IFT 320");
+		Cours ift339 = new Cours("Structures de données", "IFT 339");
 		Cours ift359 = new Cours("Programmation fonctionnelle", "IFT 359");
 
-		Cours mat193 = new Cours("AlgÃ¨bre linÃ©aire", "MAT 193");
+		Cours mat193 = new Cours("Algèbre linéaire", "MAT 193");
 
 		Programme informatique = new Programme("Bsc.Informatique");
-		Programme imagerie = new Programme("Bsc.Sciences de lâ€™image");
+		Programme imagerie = new Programme("Bsc.Sciences de l'image");
 		Programme gestion = new Programme("Bsc.Informatique de gestion");
 
 		cours.add(ift209);

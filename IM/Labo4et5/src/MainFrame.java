@@ -1,8 +1,11 @@
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.ListModel;
 import javax.swing.border.EmptyBorder;
 
 
@@ -18,7 +21,8 @@ public class MainFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainFrame frame = new MainFrame("Programme de gestion des Ã©tudiants en informatique");
+					MainFrame frame = new MainFrame("Programme de gestion des étudiants en informatique");
+					frame.setTitle("Programme de gestion des étudiants en informatique");
 					contentPane = new PanelConnexion(frame);
 					frame.setContentPane(contentPane);
 					//frame.setResizable(false);
