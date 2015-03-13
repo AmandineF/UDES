@@ -1,8 +1,8 @@
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.*;
+
 import javax.swing.*;
 
 import net.miginfocom.swing.MigLayout;
@@ -112,6 +112,26 @@ public class PanelModificationEtudiant extends JPanel {
 		
 		JButton ajouter = new JButton("Ajouter");
 		cours.add(ajouter, "cell 1 1,alignx left,aligny bottom");
+		ajouter.addActionListener(
+				new ActionListener(){
+				public void actionPerformed (ActionEvent e){
+					ListModel tabElementCours = listeCours.getModel();
+					ArrayList<String> idString = new ArrayList<String>();
+					for(int i = 0; i<tabElementCours.getSize(); i++){
+						String s = (String)tabElementCours.getElementAt(i);
+						String id = s.substring(0,7);
+						idString.add(id);
+					}
+					
+					JFrame m = new JFrame();
+					m.setBounds(100, 100, 600, 150);
+					PanelAjout p = new PanelAjout((MainFrame)fen, m, idString, listeCours);
+					m.setContentPane(p);
+					m.setVisible(true);
+				}}  );
+		
+		
+		
 		
 		etude.add(cours, "cell 0 1 2 1,grow");	
 	
@@ -172,5 +192,6 @@ public class PanelModificationEtudiant extends JPanel {
 				}}  );
 		
 	}
+	
 
 }
