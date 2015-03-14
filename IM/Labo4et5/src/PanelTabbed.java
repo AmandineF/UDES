@@ -11,7 +11,7 @@ public class PanelTabbed extends JPanel {
 	 */
 	public PanelTabbed(JFrame fen, String pseudo, String mdp) {
 		
-		// Interface generale qui contient les onglets de consultation et d'Ã©dition des Ã©tudiants
+		// Interface generale qui contient les onglets de consultation et d'édition des étudiants
 		
 		JTabbedPane onglet = new JTabbedPane();
 		PanelConsultationEtudiant consult = new PanelConsultationEtudiant(pseudo, mdp);

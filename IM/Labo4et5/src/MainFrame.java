@@ -25,7 +25,6 @@ public class MainFrame extends JFrame {
 					frame.setTitle("Programme de gestion des étudiants en informatique");
 					contentPane = new PanelConnexion(frame);
 					frame.setContentPane(contentPane);
-					//frame.setResizable(false);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

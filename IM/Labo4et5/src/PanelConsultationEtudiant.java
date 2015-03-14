@@ -67,7 +67,4 @@ public class PanelConsultationEtudiant extends JPanel {
 		add(listeCours, "cell 0 5 3 1,grow");
 	}
 	
-	public void setEtudiant(Etudiant etudiant) {
-		// TODO ajouter du code pour changer les elements dans la vue à l'aide du windowsBuilder
-	}
 }

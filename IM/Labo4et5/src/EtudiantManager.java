@@ -67,21 +67,21 @@ public class EtudiantManager {
 		justinTrudeau.addCours(ift287);
 
 		Etudiant fredPellerin = new Etudiant("pelf1234", "Fred", "Pellerin",
-				"13579", true, informatique);
+				"24680", true, imagerie);
 		fredPellerin.addCours(ift215);
 		fredPellerin.addCours(ift287);
 		fredPellerin.addCours(ift339);
 		fredPellerin.addCours(mat193);
 
 		Etudiant liseBissonnette = new Etudiant("bisl1234", "Lise",
-				"Bissonnette", "13579", false, informatique);
+				"Bissonnette", "122326", false, informatique);
 		liseBissonnette.addCours(ift339);
 		liseBissonnette.addCours(ift232);
 		liseBissonnette.addCours(ift313);
 		liseBissonnette.addCours(mat193);
 
 		Etudiant jeanMichaelle = new Etudiant("jeam1234", "Michaelle", "Jean",
-				"13579", false, informatique);
+				"123459", false, gestion);
 		jeanMichaelle.addCours(ift215);
 		jeanMichaelle.addCours(ift313);
 		jeanMichaelle.addCours(ift320);
@@ -92,6 +92,9 @@ public class EtudiantManager {
 		etudiants.put(liseBissonnette.getPseudo(), liseBissonnette);
 		etudiants.put(jeanMichaelle.getPseudo(), jeanMichaelle);
 
+	}
+	public HashMap<String, Etudiant> getStudents() {
+		return etudiants;
 	}
 
 	public Etudiant getConnectedEtudiant() {
@@ -112,17 +115,17 @@ public class EtudiantManager {
 	 * 
 	 * @param nomUtilisateur
 	 * @param motDePasse
-	 * @return Vrai si l'utilisateur est connectÃ©
+	 * @return Vrai si l'utilisateur est connecté
 	 */
 	public boolean connexion(String pseudo, String motDePasse) {
-		Etudiant etudiant = etudiants.get(pseudo);
-
-		if (etudiant != null) {
-			if (etudiant.getMotDePasse().equals(motDePasse)) {
-				connected = etudiant;
+		
+		for(Etudiant e : etudiants.values()){
+			if(e.getPseudo().equals(pseudo)){
+				if(e.getMotDePasse().equals(motDePasse)){
+					connected = e;
+				}
 			}
 		}
-
 		return connected != null;
 	}
 

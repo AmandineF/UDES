@@ -41,7 +41,7 @@ public class PanelModificationEtudiant extends JPanel {
 		information.setBorder(BorderFactory.createTitledBorder("Information"));
 		information.setLayout(new MigLayout("", "[60px][100px][40px][60px][100px]", "[28px][28px]"));
 		
-		JLabel prenom = new JLabel("PrÃ©nom :");
+		JLabel prenom = new JLabel("Prénom :");
 		information.add(prenom, "cell 0 0,alignx left,aligny center");
 		Etudiant e = EtudiantManager.getInstance().getConnectedEtudiant();
 		String prenomEtudiant = e.getPrenom();
@@ -142,7 +142,7 @@ public class PanelModificationEtudiant extends JPanel {
 		this.add(information, "cell 0 1,grow");
 		this.add(etude, "cell 0 2,grow");
 		
-		JButton annuler = new JButton("Annuler");
+		JButton annuler = new JButton("Retour au menu");
 		this.add(annuler, "cell 0 3,alignx right,aligny top");
 		annuler.addActionListener(
 				new ActionListener(){
@@ -157,12 +157,13 @@ public class PanelModificationEtudiant extends JPanel {
 		
 		JButton sauvegarder = new JButton("Sauvegarder");
 		this.add(sauvegarder, "cell 0 3,alignx left,aligny top");
+		
 		sauvegarder.addActionListener(
 				new ActionListener(){
 				public void actionPerformed (ActionEvent e){
 					Etudiant etudiant = EtudiantManager.getInstance().getConnectedEtudiant();
+					EtudiantManager em = EtudiantManager.getInstance();
 					etudiant.setPseudo(pseudoRes.getText());
-					System.out.println(pseudoRes.getText());
 					etudiant.setMotDePasse(String.valueOf(mdpRes.getPassword()));
 					etudiant.setPrenom(prenomRes.getText());
 					etudiant.setNom(nomRes.getText());
@@ -184,7 +185,6 @@ public class PanelModificationEtudiant extends JPanel {
 					}
 					etudiant.setCours(tabCours);
 					
-					EtudiantManager em = EtudiantManager.getInstance();
 					em.deconnexion(psdRecu, mdpRecu);
 					PanelConnexion p = new PanelConnexion(fen);
 					fen.setContentPane(p);

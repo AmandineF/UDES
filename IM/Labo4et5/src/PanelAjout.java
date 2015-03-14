@@ -107,47 +107,38 @@ public class PanelAjout extends JPanel {
 				public void actionPerformed (ActionEvent e){
 					DefaultListModel listModel = new DefaultListModel();
 					if(ift209.isSelected()){
-						//System.out.println("209");
 						String s = "IFT 209 - Programmation système";
 						listModel.addElement(s);
 					}
 					if(ift215.isSelected()){
-						//System.out.println("215");
 						String s = "IFT 215 - Interfaces et multimédia";
 						listModel.addElement(s);
 					}
 					if(ift232.isSelected()){
-						//System.out.println("232");
 						String s = "IFT 232 - Méthodes de conception orientées objet";
 						listModel.addElement(s);
 					}
 					if(ift287.isSelected()){
-						//System.out.println("287");
 						String s = "IFT 287 - Exploitation de BD relationnelles et OO";
 						listModel.addElement(s);
 					}
 					if(ift313.isSelected()){
-						//System.out.println("313");
 						String s = "IFT 313 - Introduction aux langages formels";
 						listModel.addElement(s);
 					}
 					if(ift320.isSelected()){
-						//System.out.println("320");
 						String s = "IFT 320 - Systèmes d'exploitation";
 						listModel.addElement(s);
 					}
 					if(ift339.isSelected()){
-						//System.out.println("339");
 						String s = "IFT 339 - Structures de données";
 						listModel.addElement(s);
 					}
 					if(ift359.isSelected()){
-						//System.out.println("359");
 						String s = "IFT 359 - Programmation fonctionnelle";
 						listModel.addElement(s);
 					}
 					if(mat193.isSelected()){
-						//System.out.println("193");
 						String s = "MAT 193 - Algèbre linéaire";
 						listModel.addElement(s);
 					}

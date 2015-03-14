@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.util.HashMap;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -59,7 +60,7 @@ public class PanelConnexion extends JPanel {
 		c.gridy = 2;
 		this.add(passField, c);
 		
-		JButton btnAnnuler = new JButton("Annuler");
+		JButton btnAnnuler = new JButton("Quitter");
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridwidth = 1;
 		c.insets = new Insets(20,4,20,4);
@@ -86,11 +87,9 @@ public class PanelConnexion extends JPanel {
 		btnConnexion.addActionListener(
 				new ActionListener(){
 				public void actionPerformed (ActionEvent e){
+					
 					String pseudoRes = pseudoField.getText();
 					String mdpRes = String.valueOf(passField.getPassword());
-					/*System.out.println(pseudoRes);
-					System.out.println(mdpRes);
-					System.out.println(EtudiantManager.getInstance().connexion(pseudoRes, mdpRes));*/
 					if(EtudiantManager.getInstance().connexion(pseudoRes, mdpRes)){
 						PanelTabbed tab = new PanelTabbed(fen, pseudoRes, mdpRes);
 						fen.setContentPane(tab);
@@ -99,7 +98,7 @@ public class PanelConnexion extends JPanel {
 					}else{
 						JFrame m = new JFrame();
 						m.setTitle("Erreur");
-						m.setBounds(100, 100, 600, 150);
+						m.setBounds(100, 100, 400, 120);
 						PanelErreur p = new PanelErreur(m);
 						m.setContentPane(p);
 						m.setVisible(true);
