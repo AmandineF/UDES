@@ -41,7 +41,7 @@ public class PanelModificationEtudiant extends JPanel {
 		information.setBorder(BorderFactory.createTitledBorder("Information"));
 		information.setLayout(new MigLayout("", "[60px][100px][40px][60px][100px]", "[28px][28px]"));
 		
-		JLabel prenom = new JLabel("Prénom :");
+		JLabel prenom = new JLabel("Prï¿½nom :");
 		information.add(prenom, "cell 0 0,alignx left,aligny center");
 		Etudiant e = EtudiantManager.getInstance().getConnectedEtudiant();
 		String prenomEtudiant = e.getPrenom();
@@ -125,7 +125,7 @@ public class PanelModificationEtudiant extends JPanel {
 					
 					JFrame m = new JFrame();
 					m.setTitle("Choix de cours");
-					m.setBounds(100, 100, 600, 150);
+					m.setBounds(100, 100, 440, 150);
 					PanelAjout p = new PanelAjout((MainFrame)fen, m, idString, listeCours);
 					m.setContentPane(p);
 					m.setVisible(true);

@@ -9,6 +9,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import net.miginfocom.swing.MigLayout;
 
 
 public class PanelAjout extends JPanel {
@@ -16,106 +17,97 @@ public class PanelAjout extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelAjout(MainFrame oldFen, JFrame newFen, ArrayList<String> ids, JList j) {
+	public PanelAjout(final MainFrame oldFen, final JFrame newFen, ArrayList<String> ids, final JList j) {
 		
-		
-		JCheckBox ift209;
+		final JCheckBox ift209 = new JCheckBox("IFT209");
 		if(ids.contains("IFT 209")){
-			ift209 = new JCheckBox("IFT209", true);
-			add(ift209);
+			ift209.setSelected(true);
 		}else{
-			ift209 = new JCheckBox("IFT209", false);
-			add(ift209);
+			ift209.setSelected(false);
 		}
+		setLayout(new MigLayout("", "[60px][60px][10px][60px]", "[30px][30px][30px]"));
+		add(ift209, "cell 0 0,alignx left,aligny top");
 		
-		JCheckBox ift215;
+		final JCheckBox ift215 = new JCheckBox("IFT215");
 		if(ids.contains("IFT 215")){
-			ift215 = new JCheckBox("IFT215", true);
-			add(ift215);
+			ift215.setSelected(true);
 		}else{
-			ift215 = new JCheckBox("IFT215", false);
-			add(ift215);
+			ift215.setSelected(false);
 		}
+		add(ift215, "cell 1 0,alignx left,aligny top");
 		
-		JCheckBox ift232;
+		final JCheckBox ift232 = new JCheckBox("IFT232");
 		if(ids.contains("IFT 232")){
-			ift232 = new JCheckBox("IFT232", true);
-			add(ift232);
+			ift232.setSelected(true);
 		}else{
-			ift232 = new JCheckBox("IFT232", false);
-			add(ift232);
+			ift232.setSelected(false);
 		}
+		add(ift232, "cell 2 0,alignx left,aligny top");
 		
-		JCheckBox ift287;
+		final JCheckBox ift287 = new JCheckBox("IFT287");
 		if(ids.contains("IFT 287")){
-			ift287 = new JCheckBox("IFT287", true);
-			add(ift287);
+			ift287.setSelected(true);
 		}else{
-			ift287 = new JCheckBox("IFT287", false);
-			add(ift287);
+			ift287.setSelected(false);
 		}
+		add(ift287, "cell 3 0,alignx left,aligny top");
 		
-		JCheckBox ift313;
+		final JCheckBox ift313 = new JCheckBox("IFT313");
 		if(ids.contains("IFT 313")){
-			ift313 = new JCheckBox("IFT313", true);
-			add(ift313);
+			ift313.setSelected(true);
 		}else{
-			ift313 = new JCheckBox("IFT313", false);
-			add(ift313);
+			ift313.setSelected(false);
 		}
+		add(ift313, "cell 4 0,alignx left,aligny top");
 		
-		JCheckBox ift320;
+		final JCheckBox ift320 = new JCheckBox("IFT320");
 		if(ids.contains("IFT 320")){
-			ift320 = new JCheckBox("IFT320", true);
-			add(ift320);
+			ift320.setSelected(true);
 		}else{
-			ift320 = new JCheckBox("IFT320", false);
-			add(ift320);
+			ift320.setSelected(false);
 		}
+		add(ift320, "cell 0 1,alignx left,aligny center");
 		
-		JCheckBox ift339;
+		final JCheckBox ift339 = new JCheckBox("IFT339");
 		if(ids.contains("IFT 339")){
-			ift339 = new JCheckBox("IFT339", true);
-			add(ift339);
+			ift339.setSelected(true);
 		}else{
-			ift339 = new JCheckBox("IFT339", false);
-			add(ift339);
+			ift339.setSelected(false);
 		}
+		add(ift339, "cell 1 1,alignx left,aligny center");
 		
-		JCheckBox ift359;
+		final JCheckBox ift359 = new JCheckBox("IFT359");
 		if(ids.contains("IFT 359")){
-			ift359 = new JCheckBox("IFT359", true);
-			add(ift359);
+			ift359.setSelected(true);
 		}else{
-			ift359 = new JCheckBox("IFT359", false);
-			add(ift359);
+			ift359.setSelected(false);
 		}
+		add(ift359, "cell 2 1,alignx left,aligny center");
 		
-		JCheckBox mat193;
+		final JCheckBox mat193 = new JCheckBox("MAT193");
 		if(ids.contains("MAT 193")){
-			mat193 = new JCheckBox("MAT193", true);
-			add(mat193);
+			mat193.setSelected(true);
 		}else{
-			mat193 = new JCheckBox("MAT193", false);
-			add(mat193);
+			mat193.setSelected(false);
 		}
+		add(mat193, "cell 3 1,alignx left,aligny center");
 		
 		JButton valider = new JButton("Valider");
-		add(valider);
+		add(valider, "cell 2 3,alignx left,aligny top");
 		valider.addActionListener(
 				new ActionListener(){
 				public void actionPerformed (ActionEvent e){
 					DefaultListModel listModel = new DefaultListModel();
 					if(ift209.isSelected()){
-						String s = "IFT 209 - Programmation système";
+						String s = "IFT 209 - Programmation systÃ¨me";
 						listModel.addElement(s);
 					}
 					if(ift215.isSelected()){
-						String s = "IFT 215 - Interfaces et multimédia";
+						String s = "IFT 215 - Interfaces et multimÃ©dia";
 						listModel.addElement(s);
 					}
 					if(ift232.isSelected()){
-						String s = "IFT 232 - Méthodes de conception orientées objet";
+						String s = "IFT 232 - MÃ©thodes de conception orientÃ©es objet";
 						listModel.addElement(s);
 					}
 					if(ift287.isSelected()){
@@ -127,11 +119,11 @@ public class PanelAjout extends JPanel {
 						listModel.addElement(s);
 					}
 					if(ift320.isSelected()){
-						String s = "IFT 320 - Systèmes d'exploitation";
+						String s = "IFT 320 - SystÃ¨mes d'exploitation";
 						listModel.addElement(s);
 					}
 					if(ift339.isSelected()){
-						String s = "IFT 339 - Structures de données";
+						String s = "IFT 339 - Structures de donnÃ©es";
 						listModel.addElement(s);
 					}
 					if(ift359.isSelected()){
@@ -139,14 +131,14 @@ public class PanelAjout extends JPanel {
 						listModel.addElement(s);
 					}
 					if(mat193.isSelected()){
-						String s = "MAT 193 - Algèbre linéaire";
+						String s = "MAT 193 - AlgÃ¨bre linÃ©aire";
 						listModel.addElement(s);
 					}
 					JList newList = new JList(listModel);
 					DefaultListModel d = (DefaultListModel)j.getModel();
 					d.removeAllElements();
 					j.setModel(listModel);
-					oldFen.revalidate();
+					oldFen.validate();
 					newFen.dispose();
 				}}  );
 	}
