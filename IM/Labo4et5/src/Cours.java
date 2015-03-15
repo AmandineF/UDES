@@ -1,4 +1,7 @@
-
+/**
+ * @author Frank CHASSING 14 153 710
+ * @author Amandine FOUILLET 14 130 638
+ */
 public class Cours {
 
 	private String nom;

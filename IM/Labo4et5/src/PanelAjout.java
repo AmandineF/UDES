@@ -1,8 +1,10 @@
+/**
+ * @author Frank CHASSING 14 153 710
+ * @author Amandine FOUILLET 14 130 638
+ */
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
-import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -99,15 +101,15 @@ public class PanelAjout extends JPanel {
 				public void actionPerformed (ActionEvent e){
 					DefaultListModel listModel = new DefaultListModel();
 					if(ift209.isSelected()){
-						String s = "IFT 209 - Programmation systÃ¨me";
+						String s = "IFT 209 - Programmation système";
 						listModel.addElement(s);
 					}
 					if(ift215.isSelected()){
-						String s = "IFT 215 - Interfaces et multimÃ©dia";
+						String s = "IFT 215 - Interfaces et multimédia";
 						listModel.addElement(s);
 					}
 					if(ift232.isSelected()){
-						String s = "IFT 232 - MÃ©thodes de conception orientÃ©es objet";
+						String s = "IFT 232 - Méthodes de conception orientées objet";
 						listModel.addElement(s);
 					}
 					if(ift287.isSelected()){
@@ -119,11 +121,11 @@ public class PanelAjout extends JPanel {
 						listModel.addElement(s);
 					}
 					if(ift320.isSelected()){
-						String s = "IFT 320 - SystÃ¨mes d'exploitation";
+						String s = "IFT 320 - Systèmes d'exploitation";
 						listModel.addElement(s);
 					}
 					if(ift339.isSelected()){
-						String s = "IFT 339 - Structures de donnÃ©es";
+						String s = "IFT 339 - Structures de données";
 						listModel.addElement(s);
 					}
 					if(ift359.isSelected()){
@@ -131,7 +133,7 @@ public class PanelAjout extends JPanel {
 						listModel.addElement(s);
 					}
 					if(mat193.isSelected()){
-						String s = "MAT 193 - AlgÃ¨bre linÃ©aire";
+						String s = "MAT 193 - Algèbre linéaire";
 						listModel.addElement(s);
 					}
 					JList newList = new JList(listModel);

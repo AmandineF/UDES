@@ -1,4 +1,7 @@
-
+/**
+ * @author Frank CHASSING 14 153 710
+ * @author Amandine FOUILLET 14 130 638
+ */
 import java.awt.Dimension;
 
 import javax.swing.*;

@@ -1,11 +1,11 @@
+/**
+ * @author Frank CHASSING 14 153 710
+ * @author Amandine FOUILLET 14 130 638
+ */
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
-import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
-import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.ListModel;
 import javax.swing.border.EmptyBorder;
 
 
@@ -25,6 +25,7 @@ public class MainFrame extends JFrame {
 					frame.setTitle("Programme de gestion des étudiants en informatique");
 					contentPane = new PanelConnexion(frame);
 					frame.setContentPane(contentPane);
+					frame.setResizable(false);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

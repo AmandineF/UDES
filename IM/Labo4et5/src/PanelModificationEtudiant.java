@@ -1,3 +1,7 @@
+/**
+ * @author Frank CHASSING 14 153 710
+ * @author Amandine FOUILLET 14 130 638
+ */
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -41,7 +45,7 @@ public class PanelModificationEtudiant extends JPanel {
 		information.setBorder(BorderFactory.createTitledBorder("Information"));
 		information.setLayout(new MigLayout("", "[60px][100px][40px][60px][100px]", "[28px][28px]"));
 		
-		JLabel prenom = new JLabel("Prï¿½nom :");
+		JLabel prenom = new JLabel("Prénom :");
 		information.add(prenom, "cell 0 0,alignx left,aligny center");
 		Etudiant e = EtudiantManager.getInstance().getConnectedEtudiant();
 		String prenomEtudiant = e.getPrenom();
@@ -124,6 +128,7 @@ public class PanelModificationEtudiant extends JPanel {
 					}
 					
 					JFrame m = new JFrame();
+					m.setResizable(false);
 					m.setTitle("Choix de cours");
 					m.setBounds(100, 100, 440, 150);
 					PanelAjout p = new PanelAjout((MainFrame)fen, m, idString, listeCours);

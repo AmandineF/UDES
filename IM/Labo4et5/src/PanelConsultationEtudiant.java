@@ -1,10 +1,10 @@
+/**
+ * @author Frank CHASSING 14 153 710
+ * @author Amandine FOUILLET 14 130 638
+ */
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JList;
-
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import java.util.ArrayList;
 
 import net.miginfocom.swing.MigLayout;

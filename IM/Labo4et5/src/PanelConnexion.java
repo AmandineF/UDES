@@ -1,7 +1,9 @@
+/**
+ * @author Frank CHASSING 14 153 710
+ * @author Amandine FOUILLET 14 130 638
+ */
 import java.awt.*;
 import java.awt.event.*;
-import java.util.HashMap;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -97,6 +99,7 @@ public class PanelConnexion extends JPanel {
 						fen.validate();
 					}else{
 						JFrame m = new JFrame();
+						m.setResizable(false);
 						m.setTitle("Erreur");
 						m.setBounds(100, 100, 400, 120);
 						PanelErreur p = new PanelErreur(m);
