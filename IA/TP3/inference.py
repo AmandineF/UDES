@@ -13,6 +13,9 @@
 # Pieter Abbeel (pabbeel@cs.berkeley.edu).
 
 
+#Frank Chassing - 14 153 710 - frank.chassing@usherbrooke.ca
+#Amandine Fouillet - 14 130 638 - amandine.fouillet@usherbrooke.ca
+
 import itertools
 import util
 import random

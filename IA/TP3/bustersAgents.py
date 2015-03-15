@@ -12,6 +12,8 @@
 # Student side autograding was added by Brad Miller, Nick Hay, and 
 # Pieter Abbeel (pabbeel@cs.berkeley.edu).
 
+#Frank Chassing - 14 153 710 - frank.chassing@usherbrooke.ca
+#Amandine Fouillet - 14 130 638 - amandine.fouillet@usherbrooke.ca
 
 import util
 from game import Agent
