@@ -1,13 +1,13 @@
 package ligueBaseball;
-
 import java.sql.*;
 
 /**
- * Gestion de la table arbitre
+ * Gestion de la table Arbitre
  * @author Amandine Fouillet - Frank Chassing
  */
 public class Arbitre {
     private final PreparedStatement stmtExiste;
+    private final PreparedStatement stmtExisteHomonyme;
     private final PreparedStatement stmtInsert;
     private final PreparedStatement stmtDelete;
     private final Connexion cx;
@@ -19,9 +19,10 @@ public class Arbitre {
      */
     public Arbitre(Connexion cx) throws SQLException {
         this.cx = cx;
-        stmtExiste = cx.getConnection().prepareStatement("select arbitreid, arbitrenom, arbitreprenom from arbitre where idarbitre = ?");
-        stmtInsert = cx.getConnection().prepareStatement("insert into arbitre (idAbitre, nom, prenom) " + "values (?,?,?)");
-        stmtDelete = cx.getConnection().prepareStatement("delete from arbitre where idArbitre = ?");
+        stmtExisteHomonyme = cx.getConnection().prepareStatement("select arbitreid from arbitre where arbitrenom = ? and arbitreprenom = ?");
+        stmtExiste = cx.getConnection().prepareStatement("select arbitreid, arbitrenom, arbitreprenom from arbitre where arbitreid = ?");
+        stmtInsert = cx.getConnection().prepareStatement("insert into arbitre (arbitreid, arbitrenom, arbitreprenom) " + "values (?,?,?)");
+        stmtDelete = cx.getConnection().prepareStatement("delete from arbitre where arbitreid = ?");
     }
 
     /**
@@ -33,31 +34,52 @@ public class Arbitre {
     }
 
     /**
-    * Verifie si un arbire existe.
+    * Verifie si un arbitre existe.
      * @param idArbitre
      * @return vrai si l'arbitre existe, faux sinon
      * @throws java.sql.SQLException 
     */
     public boolean existe(int idArbitre) throws SQLException {
         stmtExiste.setInt(1,idArbitre);
-        boolean arbitreeExiste;
+        boolean arbitreExiste;
         try (ResultSet rset = stmtExiste.executeQuery()) {
-            arbitreeExiste = rset.next();
+            arbitreExiste = rset.next();
         }
-        return arbitreeExiste;
+        return arbitreExiste;
     }
-
+    
+    /**
+     * Méthode permettant de savoir s'il existe un arbitre avec ce nom dans la base
+     * @param nom
+     * @param prenom
+     * @return l'id si l'homonyme existe, -1 sinon
+     * @throws SQLException 
+     */
+    public int existeHomonyme(String nom, String prenom)throws SQLException {
+        stmtExisteHomonyme.setString(1,nom);
+        stmtExisteHomonyme.setString(1,prenom);
+        int res = -1;
+        try (ResultSet rset = stmtExiste.executeQuery()) {
+            if(rset.next()){
+                res = rset.getInt(1);
+            }
+        }
+        return res;
+    }
+    
     /**
      * 
      * @param idArbitre
      * @return
      * @throws SQLException 
      */
-    public TupleArbitre getLivre(int idArbitre) throws SQLException {
+    public TupleArbitre getArbitre(int idArbitre) throws SQLException {
         stmtExiste.setInt(1,idArbitre);
-        ResultSet rset = stmtExiste.executeQuery();
+        ResultSet rset;
+        rset = stmtExiste.executeQuery();
         if (rset.next()) {
-            TupleArbitre tupleArbitre = new TupleArbitre();
+            TupleArbitre tupleArbitre;
+            tupleArbitre = new TupleArbitre();
             tupleArbitre.idArbitre = idArbitre;
             tupleArbitre.nom = rset.getString(2);
             tupleArbitre.prenom = rset.getString(3);
@@ -67,6 +89,7 @@ public class Arbitre {
         return null;
     }
 
+    
     /**
      * Ajout d'un nouvel arbitre dans la base de donnees.
      * @param idArbitre
@@ -74,7 +97,7 @@ public class Arbitre {
      * @param prenom
      * @throws SQLException 
      */
-    public void acquerir(int idArbitre, String nom, String prenom) throws SQLException {
+    public void ajout(int idArbitre, String nom, String prenom) throws SQLException {
         stmtInsert.setInt(1,idArbitre);
         stmtInsert.setString(2,nom);
         stmtInsert.setString(3,prenom);

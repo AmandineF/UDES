@@ -1,6 +1,6 @@
 package ligueBaseball;
 
-import java.sql.Date;
+import java.sql.*;
 
 /**
  *
@@ -12,7 +12,7 @@ public class TupleMatch {
     public int equipevisiteur;
     public int terrainid;
     public Date matchdate;
-    public Date matchheure;
+    public Time matchheure;
     public int pointslocal;
     public int pointsvisiteur;
 }
