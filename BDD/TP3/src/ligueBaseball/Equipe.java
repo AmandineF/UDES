@@ -13,7 +13,7 @@ public class Equipe {
     private final Connexion cx;
 
     /**
-     * Constructeur de la classe Arbitre
+     * Constructeur de la classe Équipe
      * @param cx La connexion
      * @throws SQLException 
      */
@@ -47,6 +47,7 @@ public class Equipe {
                 res = rset.getInt(1);
             }
         }
+        stmtId.close();
         return res;
     }
     /**
@@ -61,13 +62,14 @@ public class Equipe {
         try (ResultSet rset = stmtExiste.executeQuery()) {
             equipeExiste = rset.next();
         }
+        stmtExiste.close();
         return equipeExiste;
     }
 
     /**
-     * 
-     * @param idEquipe
-     * @return
+     * Donne le tuple de l'équipe ayant pour id idEquipe
+     * @param idEquipe L'id de l'équipe dont on veut le tuple
+     * @return Le Tuple résultat
      * @throws SQLException 
      */
     public TupleEquipe getEquipe(int idEquipe) throws SQLException {
@@ -81,16 +83,18 @@ public class Equipe {
             tupleEquipe.idTerrain = rset.getInt(2);
             tupleEquipe.nom = rset.getString(3);
             rset.close();
+            stmtExiste.close();
             return tupleEquipe;
         }
+        stmtExiste.close();
         return null;
     }
 
     /**
      * Ajout d'une nouvelle équipe dans la base de donnees.
-     * @param idEquipe
-     * @param nom
-     * @param idTerrain
+     * @param idEquipe L'id de la nouvelle équipe
+     * @param nom Le nom de la nouvelle équipe
+     * @param idTerrain L'id du terrain de la nouvelle équipe
      * @throws SQLException 
      */
     public void ajout(int idEquipe, int idTerrain, String nom) throws SQLException {
@@ -98,16 +102,19 @@ public class Equipe {
         stmtInsert.setInt(2,idTerrain);
         stmtInsert.setString(3,nom);
         stmtInsert.executeUpdate();
+        stmtInsert.close();
     }
 
     /**
-     * Suppression d'un arbitre
+     * Suppression d'une équipe
      * @param idEquipe
      * @return 
      * @throws SQLException 
      */
     public int suppression(int idEquipe) throws SQLException {
         stmtDelete.setInt(1,idEquipe);
-        return stmtDelete.executeUpdate();
+        int res = stmtDelete.executeUpdate();
+        stmtDelete.close();
+        return res;
     }
 }

@@ -55,7 +55,7 @@ public class FaitPartie {
      * @return
      * @throws SQLException 
      */
-    public TupleFaitPartie getArbitre(int idJoueur, int idEquipe) throws SQLException {
+    public TupleFaitPartie getFaitPartie(int idJoueur, int idEquipe) throws SQLException {
         stmtExiste.setInt(1,idJoueur);
         stmtExiste.setInt(2,idEquipe);
         ResultSet rset;
