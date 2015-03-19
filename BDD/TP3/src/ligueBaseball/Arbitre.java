@@ -20,7 +20,7 @@ public class Arbitre {
     public Arbitre(Connexion cx) throws SQLException {
         this.cx = cx;
         stmtExisteHomonyme = cx.getConnection().prepareStatement("select arbitreid from arbitre where arbitrenom = ? and arbitreprenom = ?");
-        stmtExiste = cx.getConnection().prepareStatement("select arbitreid, arbitrenom, arbitreprenom from arbitre where arbitreid = ?");
+        stmtExiste = cx.getConnection().prepareStatement("select arbitreid, arbitrenom, arbitreprenom from arbitre where arbitreid = ? orderby arbitrenom");
         stmtInsert = cx.getConnection().prepareStatement("insert into arbitre (arbitreid, arbitrenom, arbitreprenom) " + "values (?,?,?)");
         stmtDelete = cx.getConnection().prepareStatement("delete from arbitre where arbitreid = ?");
     }

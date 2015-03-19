@@ -81,6 +81,18 @@ public class Arbitrer {
         return arbitrerExiste;
     }
     
+    public int getArbitre(int idMatch) throws SQLException {
+        stmtExiste.setInt(1,idMatch);
+        int res = -1;
+        try (ResultSet rset = stmtExiste.executeQuery()) {
+            if(rset.next()){
+                res = rset.getInt(1);
+                return res;
+            }
+        }
+        return -1;
+    }
+    
     /**
      * 
      * @param idArbitre

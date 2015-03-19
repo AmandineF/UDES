@@ -1,5 +1,6 @@
 package ligueBaseball;
 import java.sql.*;
+import java.util.Vector;
 
 /**
  *
@@ -8,9 +9,12 @@ import java.sql.*;
 public class Match {
     private final PreparedStatement stmtExiste;
     private final PreparedStatement stmtId;
+    private final PreparedStatement stmtAll;
+    private final PreparedStatement stmtNom;
+    private final PreparedStatement stmtDate;
     private final PreparedStatement stmtInsert;
     private final PreparedStatement stmtDelete;
-    private final PreparedStatement stmtInsertPoints;
+    private final PreparedStatement stmtInsertPoints;;
     private final Connexion cx;
 
     /**
@@ -20,11 +24,15 @@ public class Match {
      */
     public Match(Connexion cx) throws SQLException {
         this.cx = cx;
+        stmtAll = cx.getConnection().prepareStatement("select * from match order by matchdate");
+        stmtNom = cx.getConnection().prepareStatement("select * from match where equipelocal = ? or equipevisiteur = ? order by matchdate");
+        stmtDate = cx.getConnection().prepareStatement("select * from match where matchdate > ? order by matchdate");
         stmtId = cx.getConnection().prepareStatement("select matchid from match where equipelocal = ? and equipevisiteur = ? and matchdate = ? and matchheure = ?");
         stmtExiste = cx.getConnection().prepareStatement("select * from match where matchid = ?");
         stmtInsert = cx.getConnection().prepareStatement("insert into match (matchid, equipelocal, equipevisiteur,terrainid,matchdate,matchheure,pointslocal,pointsvisiteur) " + "values (?,?,?,?,?,?,?,?)");
         stmtInsertPoints = cx.getConnection().prepareStatement("insert into match (pointslocal,pointsvisiteur) values (?,?) where matchid = ?");
         stmtDelete = cx.getConnection().prepareStatement("delete from match where matchid = ?");
+        
     }
 
     /**
@@ -76,11 +84,74 @@ public class Match {
         }
         return null;
     }
+        public Vector<TupleMatch> getMatch() throws SQLException {
+        Vector<TupleMatch> res = new  Vector<TupleMatch>();
+        try (ResultSet rset = stmtAll.executeQuery()) {
+            while(rset.next()) {
+                TupleMatch tupleMatch = new TupleMatch();
+                tupleMatch.idMatch = rset.getInt(1);
+                tupleMatch.equipelocal = rset.getInt(2);
+                tupleMatch.equipevisiteur = rset.getInt(3);
+                tupleMatch.terrainid = rset.getInt(4);
+                tupleMatch.matchdate = rset.getDate(5);
+                tupleMatch.matchheure = rset.getTime(6);
+                tupleMatch.pointslocal = rset.getInt(7);
+                tupleMatch.pointsvisiteur = rset.getInt(8);           
+                res.addElement(tupleMatch);
+            }  
+        }
+        return res;
+    }
 
+    public Vector<TupleMatch> getMatchApresDate(Date date) throws SQLException {
+         Vector<TupleMatch> res = new  Vector<TupleMatch>();
+         stmtDate.setDate(1, date);
+         try (ResultSet rset = stmtDate.executeQuery()) {
+            while(rset.next()) {
+                TupleMatch m = new TupleMatch();
+                m.idMatch = rset.getInt(1);
+                m.equipelocal = rset.getInt(2);
+                m.equipevisiteur = rset.getInt(3);
+                m.terrainid = rset.getInt(4);
+                m.matchdate = rset.getDate(5);           
+                m.matchheure=rset.getTime(6);
+                m.pointslocal = rset.getInt(7);
+                m.pointsvisiteur = rset.getInt(8);     
+                res.addElement(m);
+            }
+        }
+         return res;
+    }
+    /**
+     * 
+     * @param idEquipe
+     * @return
+     * @throws SQLException 
+     */
+    public Vector<TupleMatch> getMatchEquipe(int idEquipe) throws SQLException {
+         Vector<TupleMatch> res = new  Vector<TupleMatch>();
+         stmtNom.setInt(1, idEquipe);
+         stmtNom.setInt(2, idEquipe);
+         try (ResultSet rset = stmtNom.executeQuery()) {
+            while(rset.next()) {
+                TupleMatch m = new TupleMatch();
+                m.idMatch = rset.getInt(1);
+                m.equipelocal = rset.getInt(2);
+                m.equipevisiteur = rset.getInt(3);
+                m.terrainid = rset.getInt(4);
+                m.matchdate = rset.getDate(5);           
+                m.matchheure=rset.getTime(6);
+                m.pointslocal = rset.getInt(7);
+                m.pointsvisiteur = rset.getInt(8);     
+                res.addElement(m);
+            }
+        }
+         return res;
+    }
     
     /**
      * Ajout d'un nouveau match dans la base de donnees.
-     * @param idArbitre
+     * @param idMatch
      * @param equipelocal
      * @param equipevisiteur
      * @param terrainid
@@ -90,15 +161,19 @@ public class Match {
      * @param pointsvisiteur
      * @throws SQLException 
      */
-    public void ajout(int idArbitre, int equipelocal, int equipevisiteur, int terrainid,Date matchdate, Time matchheure, int pointslocal, int pointsvisiteur) throws SQLException {
-        stmtInsert.setInt(1,idArbitre);
+    public void ajout(int idMatch, int equipelocal, int equipevisiteur, int terrainid,Date matchdate, Time matchheure, int pointslocal, int pointsvisiteur) throws SQLException {
+        stmtInsert.setInt(1,idMatch);
         stmtInsert.setInt(2,equipelocal);
         stmtInsert.setInt(3,equipevisiteur);
         stmtInsert.setInt(4,terrainid);
         stmtInsert.setDate(5,matchdate);
         stmtInsert.setTime(6,matchheure);
-        stmtInsert.setInt(7,pointslocal);
-        stmtInsert.setInt(8,pointsvisiteur);
+        if(!(pointslocal == 0)) {
+           stmtInsert.setInt(7,pointslocal);
+        }
+        if(!(pointslocal == 0)) {
+           stmtInsert.setInt(8,pointsvisiteur);
+        }
         stmtInsert.executeUpdate();
     }
 

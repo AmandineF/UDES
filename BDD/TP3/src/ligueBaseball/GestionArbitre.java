@@ -51,28 +51,7 @@ public class GestionArbitre {
      */
     public void afficherArbitre() throws SQLException {
         Vector<TupleArbitre> tabArbitre = new Vector<TupleArbitre>();
-        boolean ok;
         
-        for(int i = 0; i < prochainId() ; i++) {
-            TupleArbitre next = arbitreTable.getArbitre(i);
-            ok = false;
-            for(int j = 0; j<tabArbitre.size() - 1; i++) {
-                if((tabArbitre.elementAt(i).nom.compareTo(next.nom) > 0) && (tabArbitre.elementAt(i + 1).nom.compareTo(next.nom) < 0)) {     
-                    tabArbitre.add(i + 1, next);
-                    ok = true;
-                    break;  
-                } else if (tabArbitre.elementAt(i).nom.compareTo(next.nom) < 0) {
-                    //Cas ou l'élément doit être placé en première position
-                    tabArbitre.add(0, next);
-                    ok = true;
-                    break;
-                }
-            }
-            if(!ok) {
-                //Cas ou l'élément doit être placé en dernière position
-                tabArbitre.add(next);
-            }
-        }
         //Affichage des arbitres triés
         for(int i = 0; i < prochainId() ; i++) {
             System.out.println("Liste des arbitres : \n");

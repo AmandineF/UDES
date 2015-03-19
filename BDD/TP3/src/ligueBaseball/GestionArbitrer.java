@@ -23,7 +23,7 @@ public class GestionArbitrer {
         return cpt;
     }
     
-    public void arbitrerMatch(Date matchDate, Time matchHeure, String nomEquipeLocale, String nomEquipeVisiteur, String arbitreNom, String arbitrePrenom)throws SQLException  {
+    public void arbitrerMatch(Date matchDate, Time matchHeure, String nomEquipeLocale, String nomEquipeVisiteur, String arbitreNom, String arbitrePrenom) throws SQLException  {
         int idLocaux = equipeTable.getId(nomEquipeLocale);
         int idVisiteurs = equipeTable.getId(nomEquipeVisiteur);
         int idArbitre = arbitreTable.existeHomonyme(arbitreNom, arbitrePrenom);
