@@ -27,13 +27,13 @@ public class Connexion {
             //Mettre en mode de commit manuel
             conn.setAutoCommit(false);
 
-            //Mettre en mode sérialisable si possible
-            //(plus haut niveau d'integrité l'acces concurrent aux données)
+            //Mettre en mode serialisable si possible
+            //(plus haut niveau d'integrité l'acces concurrent aux donnees)
             DatabaseMetaData dbmd = conn.getMetaData();
             if (dbmd.supportsTransactionIsolationLevel(Connection.TRANSACTION_SERIALIZABLE)) {
                 conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
                 System.out.println(
-                  "Ouverture de la connexion en mode sérialisable :\n" +
+                  "Ouverture de la connexion en mode serialisable :\n" +
                   "Estampille " + System.currentTimeMillis() + " " + conn);
                 }
             else
