@@ -158,7 +158,7 @@ public class Main {
     						}
     						break;
     						
-    	case "entrerResultatMatch" : //fonction a renommer
+    	case "entrerResultatMatch" : 
     						if(stringTab[1] != null && stringTab[2] != null && stringTab[3] != null && stringTab[4] != null && stringTab[5] != null && stringTab[6] != null){
     							SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
     							Date parsed = format.parse(stringTab[1]);
@@ -178,12 +178,14 @@ public class Main {
     						gestionmatch.afficherResultatsDate(sql);
     						break;
     			
-    	case "afficherResultats" : //fonction a renommer
+    	case "afficherResultats" : 
     						gestionmatch.afficherResultatEquipe(stringTab[1]);
     						break;
-    		
+    	
+    	case "--" : //Ligne de commentaire
+    						break;
     	default : 
-    			System.out.println("Erreur au niveau des arguments donnés / default / Ou Ligne de commentaire ?");
+    			System.out.println("Erreur au niveau des arguments donnés / default");
     			break;
     	
     	}

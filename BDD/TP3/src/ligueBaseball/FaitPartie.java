@@ -53,6 +53,22 @@ public class FaitPartie {
         }
         return faitpartieExiste;
     }
+    
+    /**
+     * Verifie si un joueur existe
+      * @param idJoueur
+      * @return vrai si le joueur existe, faux sinon
+      * @throws java.sql.SQLException 
+     */
+     public boolean existeJoueur(int idJoueur) throws SQLException {
+         stmtExisteJoueur.setInt(1,idJoueur);
+         boolean joueurExiste;
+         try (ResultSet rset = stmtExisteJoueur.executeQuery()) {
+        	 joueurExiste = rset.next();
+         }
+         stmtExisteJoueur.close();
+         return joueurExiste;
+     }
 
     /**
      * 
@@ -109,6 +125,17 @@ public class FaitPartie {
         stmtDelete.setInt(1,idJoueur);
         stmtDelete.setInt(2,idEquipe);
         return stmtDelete.executeUpdate();
+    }
+    
+    /**
+     * Suppression des participations d'un joueur
+     * @param idJoueur
+     * @return 
+     * @throws SQLException 
+     */
+    public int suppression(int idJoueur) throws SQLException {
+        stmtDeleteJoueur.setInt(1,idJoueur);
+        return stmtDeleteJoueur.executeUpdate();
     }
 	
 	/**
