@@ -9,6 +9,9 @@ public class FaitPartie {
     private final PreparedStatement stmtExiste;
     private final PreparedStatement stmtInsert;
     private final PreparedStatement stmtDelete;
+	private final PreparedStatement stmtDeleteJoueur;
+    private final PreparedStatement stmtEquipe;
+    private final PreparedStatement stmtExisteJoueur;
     private final Connexion cx;
 
     /**
@@ -19,8 +22,11 @@ public class FaitPartie {
     public FaitPartie(Connexion cx) throws SQLException {
         this.cx = cx;
         stmtExiste = cx.getConnection().prepareStatement("select joueurid, equipeid, arbitreprenom from faitpartie where joueurid = ? and equipeid = ?");
+		stmtExisteJoueur = cx.getConnection().prepareStatement("select joueurid, equipeid, arbitreprenom from faitpartie where joueurid = ?");
         stmtInsert = cx.getConnection().prepareStatement("insert into faitpartie (joueurid, equipeid, numero, datedebut, datefin) " + "values (?,?,?,?,?)");
         stmtDelete = cx.getConnection().prepareStatement("delete from faitpartie where joueurid = ? and equipeid = ?");
+        stmtDeleteJoueur = cx.getConnection().prepareStatement("delete from faitpartie where joueurid = ? ");
+        stmtEquipe = cx.getConnection().prepareStatement("select count(*) where equipeid = ?");
     }
 
     /**
@@ -103,5 +109,20 @@ public class FaitPartie {
         stmtDelete.setInt(1,idJoueur);
         stmtDelete.setInt(2,idEquipe);
         return stmtDelete.executeUpdate();
+    }
+	
+	/**
+     * Rend le nombre de joueur dans l'equipe en parametre
+     * @param idEquipe
+     * @return 
+     * @throws SQLException 
+     */
+    public int getNbJoueur(int idEquipe) throws SQLException{
+    	stmtEquipe.setInt(1, idEquipe);
+    	ResultSet rset;
+    	rset = stmtEquipe.executeQuery();
+    	int result = rset.getInt(1);
+    	stmtEquipe.close();
+    	return result;
     }
 }

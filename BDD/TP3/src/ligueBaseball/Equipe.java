@@ -1,5 +1,6 @@
 package ligueBaseball;
 import java.sql.*;
+import java.util.LinkedList;
 
 /**
  *
@@ -10,6 +11,8 @@ public class Equipe {
     private final PreparedStatement stmtExiste;
     private final PreparedStatement stmtInsert;
     private final PreparedStatement stmtDelete;
+	private final PreparedStatement stmtExisteNom ;
+    private final PreparedStatement stmtAffiche ;
     private final Connexion cx;
 
     /**
@@ -21,8 +24,10 @@ public class Equipe {
         this.cx = cx;
         stmtId = cx.getConnection().prepareStatement("select equipeid from equipe where equipenom = ?");
         stmtExiste = cx.getConnection().prepareStatement("select equipeid, terrainid, equipenom from equipe where equipeid = ?");
+		stmtExisteNom = cx.getConnection().prepareStatement("select equipeid, terrainid, equipenom from equipe where equipenom = ?");
         stmtInsert = cx.getConnection().prepareStatement("insert into equipe (equipeid, terrainid, equipenom) " + "values (?,?,?)");
         stmtDelete = cx.getConnection().prepareStatement("delete from equipe where equipeid = ?");
+		stmtAffiche = cx.getConnection().prepareStatement("select equipeid, equipenom from equipe order by equipenom ");
     }
 
     /**
@@ -56,7 +61,7 @@ public class Equipe {
      * @return vrai si l'arbitre existe, faux sinon
      * @throws java.sql.SQLException 
     */
-    public boolean existe(int idEquipe) throws SQLException {
+    public boolean existeId(int idEquipe) throws SQLException {
         stmtExiste.setInt(1,idEquipe);
         boolean equipeExiste;
         try (ResultSet rset = stmtExiste.executeQuery()) {
@@ -65,6 +70,21 @@ public class Equipe {
         stmtExiste.close();
         return equipeExiste;
     }
+	
+	/**
+     * Verifie si le nom d'une equipe existe.
+      * @param nomEquipe
+      * @return vrai si l'arbitre existe, faux sinon
+      * @throws java.sql.SQLException 
+     */
+     public boolean existeNom(String nomEquipe) throws SQLException {
+         stmtExisteNom.setString(1,nomEquipe);
+         boolean equipenomExiste;
+         try (ResultSet rset = stmtExisteNom.executeQuery()) {
+        	 equipenomExiste = rset.next();
+         }
+         return equipenomExiste;
+     }
 
     /**
      * Donne le tuple de l'équipe ayant pour id idEquipe
@@ -116,5 +136,22 @@ public class Equipe {
         int res = stmtDelete.executeUpdate();
         stmtDelete.close();
         return res;
+    }
+	
+	 /**
+     * Affichage des equipes
+     * @return La liste des equipes
+     * @throws SQLException 
+     */
+	public LinkedList<String> affiche() throws SQLException{
+    	LinkedList<String> listeEquipe = new LinkedList<String>();
+    	ResultSet rset;
+    	rset = stmtAffiche.executeQuery();
+    	while(rset.next()){
+    		int id = rset.getInt(1);
+    		String nom = rset.getString(2);
+    		listeEquipe.add(""+id+" - "+nom);
+    	}
+    	return listeEquipe;
     }
 }
