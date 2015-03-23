@@ -21,6 +21,7 @@ public class MainFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					
 					MainFrame frame = new MainFrame("Programme de gestion des étudiants en informatique");
 					frame.setTitle("Programme de gestion des étudiants en informatique");
 					contentPane = new PanelConnexion(frame);

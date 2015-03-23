@@ -12,13 +12,13 @@ import javax.swing.*;
 import net.miginfocom.swing.MigLayout;
 
 @SuppressWarnings("serial")
-public class PanelModificationEtudiant extends JPanel {
-
+public class PanelModificationEtudiant extends JPanel{
+	private Controler controler;
 	/**
 	 * Create the panel.
 	 */
-	public PanelModificationEtudiant(final JFrame fen, final String psdRecu, final String mdpRecu) {
-		
+	public PanelModificationEtudiant(PanelConsultationEtudiant p, Controler controler, final JFrame fen, final String psdRecu, final String mdpRecu) {
+		this.controler = controler;
 		//Identification
 		JPanel identification = new JPanel();
 		identification.setBorder(BorderFactory.createTitledBorder("Identification"));
@@ -170,8 +170,8 @@ public class PanelModificationEtudiant extends JPanel {
 					EtudiantManager em = EtudiantManager.getInstance();
 					etudiant.setPseudo(pseudoRes.getText());
 					etudiant.setMotDePasse(String.valueOf(mdpRes.getPassword()));
-					etudiant.setPrenom(prenomRes.getText());
-					etudiant.setNom(nomRes.getText());
+					controler.setPrenom(prenomRes.getText());
+					controler.setNom(nomRes.getText());
 					if(homme.isSelected()){
 						etudiant.setEstHomme(true);
 					}else{
@@ -190,14 +190,13 @@ public class PanelModificationEtudiant extends JPanel {
 					}
 					etudiant.setCours(tabCours);
 					
-					em.deconnexion(psdRecu, mdpRecu);
+					/*em.deconnexion(psdRecu, mdpRecu);
 					PanelConnexion p = new PanelConnexion(fen);
 					fen.setContentPane(p);
 					fen.setBounds(100, 100, 450, 300);
-					fen.validate();
+					fen.validate();*/
 				}}  );
 		
 	}
-	
 
 }

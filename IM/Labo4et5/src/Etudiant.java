@@ -4,7 +4,7 @@
  */
 import java.util.ArrayList;
 
-public class Etudiant {
+public class Etudiant implements Observable {
 
 	private String pseudo;
 
@@ -18,6 +18,7 @@ public class Etudiant {
 	private Programme programme;
 
 	private ArrayList<Cours> cours;
+	private ArrayList<Observer> listObserver = new ArrayList<Observer>();
 
 	public Etudiant(String pseudo, String prenom, String nom,
 			String motDePasse, Boolean estHomme, Programme programme) {
@@ -46,6 +47,7 @@ public class Etudiant {
 
 	public void setNom(String nom) {
 		this.nom = nom;
+		notifyObserver(nom);
 	}
 
 	public String getPrenom() {
@@ -54,6 +56,7 @@ public class Etudiant {
 
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
+		notifyObserver(prenom);
 	}
 
 	public String getMotDePasse() {
@@ -95,4 +98,17 @@ public class Etudiant {
 	public void removeCours(Cours cours) {
 		this.cours.remove(cours);
 	}
+	//Implémentation du pattern observer
+	  public void addObserver(Observer obs) {
+	    this.listObserver.add(obs);
+	  }
+
+	  public void notifyObserver(String str) {
+	    for(Observer obs : listObserver)
+	      obs.update(str);
+	  }
+
+	  public void removeObserver() {
+	    listObserver = new ArrayList<Observer>();
+	  }  
 }

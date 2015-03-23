@@ -12,7 +12,7 @@ public class PanelTabbed extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelTabbed(JFrame fen, String pseudo, String mdp) {
+	public PanelTabbed(Controler controler, JFrame fen, String pseudo, String mdp) {
 		
 		// Interface generale qui contient les onglets de consultation et d'édition des étudiants
 		
@@ -21,10 +21,11 @@ public class PanelTabbed extends JPanel {
 		consult.setPreferredSize(new Dimension(480, 580));
 		onglet.addTab("Consulter", consult);
 		onglet.setEnabledAt(0, true);
-		PanelModificationEtudiant edit = new PanelModificationEtudiant(fen, pseudo, mdp);
+		PanelModificationEtudiant edit = new PanelModificationEtudiant(consult, controler, fen, pseudo, mdp);
 		edit.setPreferredSize(new Dimension(480, 580));
 		onglet.addTab("Editer", edit);
 		onglet.setPreferredSize(new Dimension(480, 580));
 	    this.add(onglet);
+	    
 	}
 }

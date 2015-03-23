@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import net.miginfocom.swing.MigLayout;
 
 @SuppressWarnings("serial")
-public class PanelConsultationEtudiant extends JPanel {
+public class PanelConsultationEtudiant extends JPanel implements Observer {
+	
+	JLabel prenomRes;
 	/**
 	 * Create the panel.
 	 */
@@ -27,7 +29,7 @@ public class PanelConsultationEtudiant extends JPanel {
 		Etudiant e = EtudiantManager.getInstance().getConnectedEtudiant();
 		String nomEtudiant = e.getNom();
 		String prenomEtudiant = e.getPrenom();
-		JLabel prenomRes = new JLabel(""+prenomEtudiant+" "+nomEtudiant);
+		prenomRes = new JLabel(""+prenomEtudiant+" "+nomEtudiant);
 		prenomRes.setBounds(183, 129, 114, 14);
 		add(prenomRes, "cell 2 1,alignx left,aligny center");
 		
@@ -65,6 +67,10 @@ public class PanelConsultationEtudiant extends JPanel {
 		}
 		listeCours = new JList(tabCours.toArray());
 		add(listeCours, "cell 0 5 3 1,grow");
+	}
+	
+	public void update(String str){
+		prenomRes.setText(str);
 	}
 	
 }

@@ -4,6 +4,7 @@
  */
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -93,7 +94,13 @@ public class PanelConnexion extends JPanel {
 					String pseudoRes = pseudoField.getText();
 					String mdpRes = String.valueOf(passField.getPassword());
 					if(EtudiantManager.getInstance().connexion(pseudoRes, mdpRes)){
-						PanelTabbed tab = new PanelTabbed(fen, pseudoRes, mdpRes);
+						//Instanciation de notre modèle
+					    Etudiant etu = EtudiantManager.getInstance().getConnectedEtudiant();
+					    //Création du contrôleur
+					    Controler controler = new Controler(etu);
+					    //Création de notre fenêtre avec le contrôleur en paramètre
+						PanelTabbed tab = new PanelTabbed(controler, fen, pseudoRes, mdpRes);
+						//Ajout de la fenêtre comme observer de notre modèle
 						fen.setContentPane(tab);
 						fen.setBounds(100, 100, 500, 620);
 						fen.validate();
