@@ -158,13 +158,16 @@ class ExactInference(InferenceModule):
         # and noisyDistance is None
         newBeliefs = util.Counter()
 
+        #if a ghost has been captured by Pacman, we put 1.0 at the jail position
         if noisyDistance == None:
             newBeliefs[self.getJailPosition()] = 1.0
         else:
+            #We multiply the probability given by emissionModel with the current belief to have the new beliefs
             for ghostPosition in self.legalPositions:
                 trueDistance = util.manhattanDistance(ghostPosition, pacmanPosition)
                 newBeliefs[ghostPosition] = self.beliefs[ghostPosition] * emissionModel[trueDistance]
-                                
+        
+        #We normalize and we set the current beliefs                       
         newBeliefs.normalize() 
         self.beliefs = newBeliefs
 
@@ -222,9 +225,11 @@ class ExactInference(InferenceModule):
         for pos in self.legalPositions: 
             newPosition = self.getPositionDistribution(self.setGhostPosition(gameState,pos))
             
+            #We calculate the new beliefs.
             for newPos, probability in newPosition.items():
                 newBeliefs[newPos] += self.beliefs[pos] * probability 
 
+        #We normalize and set the new beliefs
         newBeliefs.normalize()
         self.beliefs = newBeliefs
 
