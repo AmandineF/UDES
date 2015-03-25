@@ -264,9 +264,11 @@ class ParticleFilter(InferenceModule):
         """
         "We initialize the liste of particles to the empty list"
         self.particles = []
-
-        for i in range(self.numParticles):
-            self.particles.append(random.choice(self.legalPositions))
+        fct = len(self.legalPositions) / (self.numParticles + 0.0) 
+        cmpt = 0
+        while cmpt < self.numParticles:
+            self.particles.append(self.legalPositions[int(fct * cmpt)]) 
+            cmpt += 1
 
 
     def observe(self, observation, gameState):
@@ -300,27 +302,30 @@ class ParticleFilter(InferenceModule):
         noisyDistance = observation
         emissionModel = busters.getObservationDistribution(noisyDistance)
         pacmanPosition = gameState.getPacmanPosition()
-       
-        allPossible = util.Counter()
 
-        for particle in self.particles:
-            trueDistance = util.manhattanDistance(particle, pacmanPosition)
-            allPossible[particle] =  allPossible[particle] + emissionModel[trueDistance]
+        newBeliefs = util.Counter()
+        if noisyDistance is None:
+            cmpt = 0
+            self.particles = []
+            while cmpt < self.numParticles:
+                self.particles.append(self.getJailPosition())
+                cmpt += 1
 
-        if(noisyDistance == None):
-            for particle in self.particles:
-                if particle == self.getJailPosition():
-                    allPossible[particle] = 1.0
-                else: 
-                    allPossible[particle] = 0.0
-
-        if (allPossible.totalCount() != 0):
-            returnValue = []
-            for p in range(self.numParticles):
-                returnValue.append(util.sample(allPossible))
-            self.particles = returnValue
         else:
-            self.initializeUniformly(gameState)
+            for p in self.particles:
+                trueDistance = util.manhattanDistance(pacmanPosition, p)
+                newBeliefs[p] += emissionModel[trueDistance]
+
+            if newBeliefs.totalCount() == 0:
+                self.initializeUniformly(gameState)
+
+            else:
+                cmpt = 0
+                particules = []
+                while cmpt < self.numParticles:
+                    particules.append(util.sample(newBeliefs))
+                    cmpt += 1
+                self.particles = particules
 
     def elapseTime(self, gameState):
         """
@@ -341,7 +346,7 @@ class ParticleFilter(InferenceModule):
         for p in self.particles:
             newPosDist = self.getPositionDistribution(self.setGhostPosition(gameState, p))
             returnValue.append(util.sample(newPosDist))
-        self.particles = rertunValue
+        self.particles = returnValue
 
     def getBeliefDistribution(self):
         """
@@ -349,11 +354,12 @@ class ParticleFilter(InferenceModule):
           ghost locations conditioned on all evidence and time passage. This method
           essentially converts a list of particles into a belief distribution (a Counter object)
         """
-        returnValue = util.Counter()
-        for particle in self.particles:
-            returnValue[particle] = returnValue[particle] +1
-        returnValue.normalize()
-        return returnValue
+        distribution = util.Counter()
+        for p in self.particles:
+            distribution[p] += 1
+
+        distribution.normalize()
+        return distribution
 
 class MarginalInference(InferenceModule):
     "A wrapper around the JointInference module that returns marginal beliefs about ghosts."
@@ -418,11 +424,13 @@ class JointParticleFilter:
 
         """
         self.particles = []
-        positionsList = list(itertools.product(self.legalPositions, repeat = self.numGhosts))
-        random.shuffle(positionsList)
-        for i in range(self.numParticles):
-        	for pos in positionsList:
-        		self.particles.append(pos)
+        possibilities = list(itertools.product(self.legalPositions, repeat=self.numGhosts))
+        random.shuffle(possibilities)
+        fct = len(possibilities) / (self.numParticles + 0.0)
+        tmp = 0
+        while tmp < self.numParticles:
+            self.particles.append(possibilities[int(fct * tmp)])
+            tmp += 1
 
 
     def addGhostAgent(self, agent):
@@ -470,30 +478,33 @@ class JointParticleFilter:
         emissionModels = [busters.getObservationDistribution(dist) for dist in noisyDistances]
 
         "*** YOUR CODE HERE ***"
-        allPossible = util.Counter()
-        for index, particle in enumerate(self.particles):
-            partial = 1.0
-            for i in range(self.numGhosts):
-                if noisyDistances[i] == None: # Case 1
-                    particle = self.getParticleWithGhostInJail(particle, i)
-                else:
-                    distance = util.manhattanDistance(particle[i], pacmanPosition)
-                    partial *= emissionModels[i][distance]
-            allPossible[particle] += partial
+        newbeliefs = util.Counter()
+        for particle in self.particles:
+            tmp = 1
+            for currentGhost in range(self.numGhosts):
+                if noisyDistances[currentGhost] is not None:
+                    trueDistance = util.manhattanDistance(pacmanPosition, particle[currentGhost])
+                    tmp *= emissionModels[currentGhost][trueDistance]
+            newbeliefs[particle] += tmp
 
-
-        if not any(allPossible.values()):
+        if newbeliefs.totalCount() == 0:
             self.initializeParticles()
-            for index, particle in enumerate(self.particles):
-                for i in range(self.numGhosts):
-                    if noisyDistances[i] == None:
-                        particle = self.getParticleWithGhostInJail(particle, i)
+
         else:
-            allPossible.normalize()
-            temp = []
-            for _ in range(0, self.numParticles):
-                temp.append(util.sample(allPossible))
-            self.particles = temp
+            cmpt = 0
+            particules= []
+            while cmpt < self.numParticles:
+                particules.append(util.sample(newbeliefs)) 
+                cmpt += 1
+            self.particles = particules
+
+
+        for currentGhost in range(self.numGhosts):
+            if noisyDistances[currentGhost] is None:
+                a = 0
+                while a < self.numParticles:
+                    self.particles[a] = self.getParticleWithGhostInJail(self.particles[a], currentGhost)
+                    a += 1
 
     def getParticleWithGhostInJail(self, particle, ghostIndex):
         particle = list(particle)
@@ -540,27 +551,27 @@ class JointParticleFilter:
               The ghost agent you are meant to supply is self.ghostAgents[ghostIndex-1],
               but in this project all ghost agents are always the same.
         """
-        newParticles = []
-        for oldParticle in self.particles:
-            newParticle = list(oldParticle) # A list of ghost positions
+        particules = []
+        for oldP in self.particles:
+            newP = list(oldP) # A list of ghost positions
 
             # now loop through and update each entry in newParticle...
 
             "*** YOUR CODE HERE ***"
+            for currentGhost in range(self.numGhosts):
+                newPos = getPositionDistributionForGhost(setGhostPositions(gameState, newP),
+                                                             currentGhost, self.ghostAgents[currentGhost])
+                newP[currentGhost] = (util.sample(newPos))
 
-            for i in range(self.numGhosts):
-                newPosDist = getPositionDistributionForGhost(setGhostPositions(gameState, newParticle),
-                                                   i, self.ghostAgents[i])
-                newParticle[i] = util.sample(newPosDist)
             "*** END YOUR CODE HERE ***"
-            newParticles.append(tuple(newParticle))
-        self.particles = newParticles
+            particules.append(tuple(newP))
+        self.particles = particules
 
     def getBeliefDistribution(self):
-        "*** YOUR CODE HERE ***"
         distribution = util.Counter()
-        for element in self.particles:
-            distribution[element] += 1.0
+        for part in self.particles:
+            distribution[part] += 1
+
         distribution.normalize()
         return distribution
         
