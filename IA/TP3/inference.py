@@ -147,7 +147,6 @@ class ExactInference(InferenceModule):
         noisyDistance = observation
         emissionModel = busters.getObservationDistribution(noisyDistance)
         pacmanPosition = gameState.getPacmanPosition()
-
         """
         print noisyDistance
         print emissionModel
@@ -157,17 +156,17 @@ class ExactInference(InferenceModule):
         # Replace this code with a correct observation update
         # Be sure to handle the "jail" edge case where the ghost is eaten
         # and noisyDistance is None
-        allPossible = util.Counter()
+        newBeliefs = util.Counter()
 
         if noisyDistance == None:
-            allPossible[self.getJailPosition()] = 1.0
+            newBeliefs[self.getJailPosition()] = 1.0
         else:
-            for ghostPos in self.legalPositions:
-                trueDistance = util.manhattanDistance(ghostPos, pacmanPosition)
-                allPossible[ghostPos] = self.beliefs[ghostPos] * emissionModel[trueDistance]
+            for ghostPosition in self.legalPositions:
+                trueDistance = util.manhattanDistance(ghostPosition, pacmanPosition)
+                newBeliefs[ghostPosition] = self.beliefs[ghostPosition] * emissionModel[trueDistance]
                                 
-        allPossible.normalize() 
-        self.beliefs = allPossible
+        newBeliefs.normalize() 
+        self.beliefs = newBeliefs
 
     def elapseTime(self, gameState):
         """
@@ -218,13 +217,16 @@ class ExactInference(InferenceModule):
         combine to give us a belief distribution over new positions after a time update from a particular position
         """
 
-        allPossible = util.Counter()
-        for oldPos in self.legalPositions:
-            newPosDist = self.getPositionDistribution(self.setGhostPosition(gameState, oldPos))
-            for newPos, probability in newPosDist.items():
-                allPossible[newPos] = allPossible[newPos] + self.beliefs[oldPos]*probability
+        newBeliefs = util.Counter()
 
-        self.beliefs = allPossible
+        for pos in self.legalPositions: 
+            newPosition = self.getPositionDistribution(self.setGhostPosition(gameState,pos))
+            
+            for newPos, probability in newPosition.items():
+                newBeliefs[newPos] += self.beliefs[pos] * probability 
+
+        newBeliefs.normalize()
+        self.beliefs = newBeliefs
 
     def getBeliefDistribution(self):
         return self.beliefs

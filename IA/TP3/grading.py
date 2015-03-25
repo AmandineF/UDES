@@ -73,7 +73,7 @@ class Grades:
 
       if self.mute: util.mutePrint()
       try:
-        util.TimeoutFunction(getattr(gradingModule, q),300)(self) # Call the question's function
+        util.TimeoutFunction(getattr(gradingModule, q),1200)(self) # Call the question's function
         #TimeoutFunction(getattr(gradingModule, q),1200)(self) # Call the question's function
       except Exception, inst:
         self.addExceptionMessage(q, inst, traceback)
