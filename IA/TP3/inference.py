@@ -415,12 +415,13 @@ class JointParticleFilter:
             and will produce errors
 
         """
-        positionsList = list(itertools.product(self.legalPositions, repeat = self.numGhosts))
-        #random.shuffle(positionsList)
         self.particles = []
-
+        positionsList = list(itertools.product(self.legalPositions, repeat = self.numGhosts))
+        random.shuffle(positionsList)
         for i in range(self.numParticles):
-        	self.particles.append(random.choice(positionsList))
+        	for pos in positionsList:
+        		self.particles.append(pos)
+
 
     def addGhostAgent(self, agent):
         "Each ghost agent is registered separately and stored (in case they are different)."
