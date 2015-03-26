@@ -59,7 +59,7 @@ public class FaitPartie {
     
     /**
      * Verifie si un joueur existe dans la table faitpartie
-      * @param idJoueur
+      * @param idJoueur L'id du joueur
       * @return vrai si le joueur existe, faux sinon
       * @throws java.sql.SQLException 
      */
@@ -129,8 +129,8 @@ public class FaitPartie {
 
     /**
      * Suppression d'une relation joueur equipe
-     * @param idJoueur
-     * @param idEquipe
+     * @param idJoueur L'id du joueur
+     * @param idEquipe L'id de l'equipe
      * @return -1 si la suppression s'est mal passee.
      * @throws SQLException 
      */
@@ -148,7 +148,7 @@ public class FaitPartie {
     
     /**
      * Suppression des participations d'un joueur
-     * @param idJoueur
+     * @param idJoueur L'id du joueur
      * @return -1 si la suppression s'est mal passee
      * @throws SQLException 
      */

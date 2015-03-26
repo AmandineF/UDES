@@ -14,7 +14,7 @@ public class GestionArbitrer {
     
     /**
      * Constructeur de la classe GestionArbitrer
-     * @param co
+     * @param co La connexion
      * @throws SQLException
      */
     public GestionArbitrer(Connexion co) throws SQLException {

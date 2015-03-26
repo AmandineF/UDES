@@ -88,7 +88,7 @@ public class Terrain {
      }
 
     /**
-     * 
+     * Methode qui retourne le tuple de donnees d'un terrain
      * @param idTerrain
      * @return le tupleTerrain correspondant au Terrain ayant l'id "idTerrain", null sinon
      * @throws SQLException 
@@ -112,9 +112,9 @@ public class Terrain {
 
     /**
      * Ajout d'un nouveau terrain dans la base de donnees.
-     * @param idTerrain
-     * @param nom
-     * @param adresse
+     * @param idTerrain L'id du terrain
+     * @param nom Le nom du terrain
+     * @param adresse L'adresse du terrain
      * @throws SQLException 
      */
     public void ajout(int idTerrain, String nom, String adresse) throws SQLException {
@@ -127,7 +127,7 @@ public class Terrain {
 
     /**
      * Suppression d'un terrain
-     * @return 
+     * @return -1 si la suppression s'est mal passee
      * @throws SQLException 
      */
     public int suppression(int idTerrain) throws SQLException {

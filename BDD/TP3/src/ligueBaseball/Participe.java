@@ -103,9 +103,9 @@ public class Participe {
 
     /**
      * Ajout d'une nouvelle participation dans la base de donnees.
-     * @param idJoueur
-     * @param idMatch
-     * @param commentaire
+     * @param idJoueur L'id du joueur
+     * @param idMatch L'id du match
+     * @param commentaire Les commentaires sur la performance du joueur
      * @throws SQLException 
      */
     public void ajout(int idJoueur, int idMatch, String commentaire) throws SQLException {
@@ -122,8 +122,8 @@ public class Participe {
 
     /**
      * Suppression d'une participation
-     * @param idJoueur
-     * @param idMatch
+     * @param idJoueur L'id du joueur
+     * @param idMatch L'id du match
      * @return -1 si la suppression s'est mal passee
      * @throws SQLException 
      */
@@ -141,7 +141,7 @@ public class Participe {
     
     /**
      * Suppression des participations d'un joueur
-     * @param idJoueur
+     * @param idJoueur L'id du joueur
      * @return -1 si la suppression s'est mal passee
      * @throws SQLException 
      */

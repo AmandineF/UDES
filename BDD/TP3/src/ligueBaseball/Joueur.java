@@ -68,7 +68,7 @@ public class Joueur {
     }
     /**
      * Verifie si un joueur existe
-     * @param idJoueur
+     * @param idJoueur L'id du joueur
      * @return vrai si le joueur existe, faux sinon
      * @throws java.sql.SQLException 
      */

@@ -45,7 +45,7 @@ public class Match {
 
     /**
     * Verifie si un match existe.
-     * @param idMatch
+     * @param idMatch L'id du match
      * @return vrai si l'arbitre existe, faux sinon
      * @throws java.sql.SQLException 
     */

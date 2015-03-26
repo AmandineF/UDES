@@ -13,7 +13,7 @@ public class GestionArbitre {
     
     /**
      * Constructeur de la classe GestionArbitre
-     * @param co
+     * @param co La connexion
      * @throws SQLException
      */
     public GestionArbitre(Connexion co) throws SQLException {
@@ -34,7 +34,7 @@ public class GestionArbitre {
         } else {
             int idArbitre = sequence.getCle("arbitre");
             arbitreTable.ajout(idArbitre, nom, prenom);
-            sequence.ajout((idArbitre+1),"arbitre");
+            sequence.setCle((idArbitre+1),"arbitre");
             System.out.println("SUCCES - L'arbitre " + nom + " " + prenom + " a ete cree.");
         }
     }

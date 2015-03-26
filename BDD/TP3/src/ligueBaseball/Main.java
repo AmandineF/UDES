@@ -22,6 +22,7 @@ public class Main {
 	private static GestionArbitre gestionarbitre;
 	private static GestionArbitrer gestionarbitrer;
     /**
+     * Methode principale du programme
      * @param args the command line arguments
      * @throws java.lang.Exception
      */
@@ -73,7 +74,14 @@ public class Main {
         }
     }
 
-    
+    /**
+     * Methode permettant d'evaluer les donnees utilisateur et executer les requetes
+     * @param stringTab Les arguments
+     * @param cpt Le compteur des operations
+     * @throws Exception
+     * @throws SQLException
+     * @throws IOException 
+     */
     public static void evaluation(String[] stringTab, int cpt) throws Exception, SQLException, IOException {
     	switch(stringTab[0]){
     	case "creerEquipe" :

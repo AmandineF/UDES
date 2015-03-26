@@ -39,7 +39,7 @@ public class GestionEquipe {
             int idEquipe = sequence.getCle("equipe");
             equipeTable.ajout(idEquipe, -1, equipenom );
             System.out.println("SUCCES - Equipe ajoutee, elle ne possede pas de terrain.");
-            this.sequence.ajout((idEquipe +1), "equipe");
+            this.sequence.setCle((idEquipe +1), "equipe");
         }
         
     }

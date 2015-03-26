@@ -36,8 +36,8 @@ public class Arbitrer {
 
     /**
     * Verifie si un lien entre un matchid et un arbitreid a deja ete realise.
-     * @param idArbitre
-     * @param idMatch
+     * @param idArbitre L'id de l'arbitre
+     * @param idMatch L'id du match
      * @return vrai si le lien existe, faux sinon
      * @throws java.sql.SQLException 
     */
@@ -96,7 +96,7 @@ public class Arbitrer {
      * Methode retournant le couple arbitrage, s'il existe
      * @param idArbitre L'id de l'arbitre
      * @param idMatch L'id du match
-     * @return
+     * @return Le tuple de donnees sur l'arbitrage
      * @throws SQLException 
      */
     public TupleArbitrer getArbitrage(int idArbitre, int idMatch) throws SQLException {
@@ -137,8 +137,8 @@ public class Arbitrer {
 
     /**
      * Suppression d'un arbitre
-     * @param idArbitre
-     * @param idMatch
+     * @param idArbitre L'id de l'arbitre
+     * @param idMatch L'id du match
      * @return -1 si la suppression s'est mal passee
      * @throws SQLException 
      */

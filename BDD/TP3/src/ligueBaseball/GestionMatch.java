@@ -15,7 +15,7 @@ public class GestionMatch {
     
     /**
      * Constructeur de la methode GestionMatch
-     * @param co
+     * @param co La connexion a la base de donnees
      * @throws SQLException
      */
     public GestionMatch(Connexion co) throws SQLException {
@@ -42,7 +42,7 @@ public class GestionMatch {
                 matchTable.ajout(idMatch, equipeTable.getId(nomEquipeLocale), equipeTable.getId(nomEquipeVisiteur), 
                 equipeTable.getEquipe(equipeTable.getId(nomEquipeLocale)).idTerrain,
                 matchDate, matchHeure, 0, 0);
-                sequence.ajout((idMatch+1),"match");
+                sequence.setCle((idMatch+1),"match");
                 System.out.println("SUCCES - Le match des "+nomEquipeLocale+ " contre " + nomEquipeVisiteur + " a ete cree.");
             }else{
                 System.out.println("USERERREUR - L'equipe visiteur n'existe pas.");

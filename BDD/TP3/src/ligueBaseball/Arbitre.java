@@ -139,7 +139,7 @@ public class Arbitre {
 
     /**
      * Suppression d'un arbitre
-     * @param idArbitre
+     * @param idArbitre L'id de l'arbitre
      * @return -1 si la suppression s'est mal passee
      * @throws SQLException 
      */

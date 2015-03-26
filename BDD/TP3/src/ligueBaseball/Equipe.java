@@ -1,6 +1,5 @@
 package ligueBaseball;
 import java.sql.*;
-import java.util.LinkedList;
 import java.util.Vector;
 
 /**
@@ -59,7 +58,7 @@ public class Equipe {
     }
     /**
     * Verifie si une équipe existe.
-     * @param idEquipe
+     * @param idEquipe L'id de l'equipe
      * @return vrai si l'arbitre existe, faux sinon
      * @throws java.sql.SQLException 
     */
@@ -76,7 +75,7 @@ public class Equipe {
 	
 	/**
      * Verifie si le nom d'une equipe existe.
-      * @param nomEquipe
+      * @param nomEquipe Le nom de l'equipe
       * @return vrai si l'arbitre existe, faux sinon
       * @throws java.sql.SQLException 
      */
@@ -139,7 +138,7 @@ public class Equipe {
 
     /**
      * Suppression d'une equipe
-     * @param idEquipe
+     * @param idEquipe L'id de l'equipe
      * @return -1 si la supression s'est mal passee
      * @throws SQLException 
      */

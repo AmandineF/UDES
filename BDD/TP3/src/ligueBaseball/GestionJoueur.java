@@ -15,8 +15,8 @@ public class GestionJoueur {
     private final Connexion cx;
     
     /**
-     * 
-     * @param co
+     * Constructeur de la classe
+     * @param co La connexion a la base de donnee
      * @throws SQLException
      */
     public GestionJoueur(Connexion co) throws SQLException {
@@ -42,7 +42,7 @@ public class GestionJoueur {
             int idJoueur = sequence.getCle("joueur");
             joueur.ajout(idJoueur, nom, prenom);
             System.out.println("SUCCES - Le joueur " + prenom + " " + nom + " a ete ajoute !");
-            sequence.ajout((idJoueur + 1), "joueur");
+            sequence.setCle((idJoueur + 1), "joueur");
         }
     }
     
@@ -63,7 +63,7 @@ public class GestionJoueur {
             joueur.ajout(idJoueur, nom, prenom);
             faitpartie.ajout(idJoueur, idEquipe, numero, sqlDate, null);
             System.out.println("SUCCES - Le joueur " + prenom + " " + nom + " a ete ajoute et lie a une equipe.");
-            sequence.ajout((idJoueur + 1), "joueur");
+            sequence.setCle((idJoueur + 1), "joueur");
         } else {
             System.out.println("USERERREUR - Le joueur " + prenom + " "  + nom + " existe deja.");
         }
@@ -85,7 +85,7 @@ public class GestionJoueur {
             joueur.ajout(idJoueur, nom, prenom);
             faitpartie.ajout(idJoueur, idEquipe, numero, datedebut, null);
             System.out.println("SUCCES - Le joueur " + prenom + " " + nom + " a ete ajoute et lie a une equipe depuis une certain date.");
-            sequence.ajout((idJoueur + 1), "joueur");
+            sequence.setCle((idJoueur + 1), "joueur");
         }else{
             System.out.println("USERERREUR - Le joueur " + prenom + " "  + nom + " existe deja.");
         }
