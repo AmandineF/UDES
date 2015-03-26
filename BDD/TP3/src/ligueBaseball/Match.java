@@ -3,7 +3,7 @@ import java.sql.*;
 import java.util.Vector;
 
 /**
- *
+ * Gère les requêtes SQL vers la classe Match
  * @author Amandine Fouillet - Frank Chassing
  */
 public class Match {
@@ -26,11 +26,11 @@ public class Match {
         this.cx = cx;
         stmtAll = cx.getConnection().prepareStatement("select * from match order by matchdate");
         stmtNom = cx.getConnection().prepareStatement("select * from match where equipelocal = ? or equipevisiteur = ? order by matchdate");
-        stmtDate = cx.getConnection().prepareStatement("select * from match where matchdate > ? order by matchdate");
+        stmtDate = cx.getConnection().prepareStatement("select * from match where matchdate >= ? order by matchdate");
         stmtId = cx.getConnection().prepareStatement("select matchid from match where equipelocal = ? and equipevisiteur = ? and matchdate = ? and matchheure = ?");
         stmtExiste = cx.getConnection().prepareStatement("select * from match where matchid = ?");
         stmtInsert = cx.getConnection().prepareStatement("insert into match (matchid, equipelocal, equipevisiteur,terrainid,matchdate,matchheure,pointslocal,pointsvisiteur) " + "values (?,?,?,?,?,?,?,?)");
-        stmtInsertPoints = cx.getConnection().prepareStatement("insert into match (pointslocal,pointsvisiteur) values (?,?) where matchid = ?");
+        stmtInsertPoints = cx.getConnection().prepareStatement("update match set pointslocal = ?, pointsvisiteur = ? where matchid = ?");
         stmtDelete = cx.getConnection().prepareStatement("delete from match where matchid = ?");
         
     }
@@ -51,40 +51,50 @@ public class Match {
     */
     public boolean existe(int idMatch) throws SQLException {
         stmtExiste.setInt(1,idMatch);
-        boolean matchExiste;
+        boolean matchExiste = false;
         try (ResultSet rset = stmtExiste.executeQuery()) {
             matchExiste = rset.next();
+        }catch(Exception ex){
+            System.out.println("SYSERREUR - Probleme lors de la verification de l'existance du match " + idMatch + ".");
         }
         return matchExiste;
     }
     
     /**
-     * 
-     * @param idMatch
-     * @return
+     * Methode qui permet de recuperer le tuple de donnees du match idMatch
+     * @param idMatch L'id du match dont on veut les donnees
+     * @return Les donnees du match
      * @throws SQLException 
      */
     public TupleMatch getMatch(int idMatch) throws SQLException {
         stmtExiste.setInt(1,idMatch);
-        ResultSet rset;
-        rset = stmtExiste.executeQuery();
-        if (rset.next()) {
-            TupleMatch tupleMatch;
-            tupleMatch = new TupleMatch();
-            tupleMatch.idMatch = idMatch;
-            tupleMatch.equipelocal = rset.getInt(2);
-            tupleMatch.equipevisiteur = rset.getInt(3);
-            tupleMatch.terrainid = rset.getInt(4);
-            tupleMatch.matchdate = rset.getDate(5);
-            tupleMatch.matchheure = rset.getTime(6);
-            tupleMatch.pointslocal = rset.getInt(7);
-            tupleMatch.pointsvisiteur = rset.getInt(8);           
-            rset.close();
-            return tupleMatch;
+        try(ResultSet rset = stmtExiste.executeQuery()){
+            if (rset.next()) {
+                TupleMatch tupleMatch;
+                tupleMatch = new TupleMatch();
+                tupleMatch.idMatch = idMatch;
+                tupleMatch.equipelocal = rset.getInt(2);
+                tupleMatch.equipevisiteur = rset.getInt(3);
+                tupleMatch.terrainid = rset.getInt(4);
+                tupleMatch.matchdate = rset.getDate(5);
+                tupleMatch.matchheure = rset.getTime(6);
+                tupleMatch.pointslocal = rset.getInt(7);
+                tupleMatch.pointsvisiteur = rset.getInt(8);           
+                rset.close();
+                return tupleMatch;
+            }
+        }catch(Exception ex){
+            System.out.println("SYSERREUR - Probleme lors de la recuperation des donnees du match " + idMatch + ".");
         }
         return null;
     }
-        public Vector<TupleMatch> getMatch() throws SQLException {
+    
+    /**
+     * Methode qui permet de recuperer tous les tuples de donnees des matchs de la table match
+     * @return Un vector contenant les tuples des matchs
+     * @throws SQLException 
+     */
+    public Vector<TupleMatch> getMatch() throws SQLException {
         Vector<TupleMatch> res = new  Vector<TupleMatch>();
         try (ResultSet rset = stmtAll.executeQuery()) {
             while(rset.next()) {
@@ -99,10 +109,18 @@ public class Match {
                 tupleMatch.pointsvisiteur = rset.getInt(8);           
                 res.addElement(tupleMatch);
             }  
+        }catch(Exception ex){
+            System.out.println("SYSERREUR - Probleme lors de la recuperation des donnees des matchs.");
         }
         return res;
     }
 
+    /**
+     * Methode qui permet de recuperer toutes les donnees des matchs apres une certaine date
+     * @param date La date apres laquelle on veut recuperer les donnees
+     * @return Un vector contenant les tuples des matchs qui se sont deroules apres la date
+     * @throws SQLException 
+     */
     public Vector<TupleMatch> getMatchApresDate(Date date) throws SQLException {
          Vector<TupleMatch> res = new  Vector<TupleMatch>();
          stmtDate.setDate(1, date);
@@ -119,13 +137,15 @@ public class Match {
                 m.pointsvisiteur = rset.getInt(8);     
                 res.addElement(m);
             }
+        }catch(Exception ex){
+            System.out.println("SYSERREUR - Probleme lors de la recuperation des donnees des matchs apres la date "+date.toString() +".");
         }
          return res;
     }
     /**
-     * 
-     * @param idEquipe
-     * @return
+     * Methode qui permet de recuperer toutes les donnees des matchs joues par une equipe
+     * @param idEquipe l'equipe dont on veut les matchs
+     * @return Un vector contenant les tuples des matchs qui se sont deroules avec l'equipe
      * @throws SQLException 
      */
     public Vector<TupleMatch> getMatchEquipe(int idEquipe) throws SQLException {
@@ -145,20 +165,22 @@ public class Match {
                 m.pointsvisiteur = rset.getInt(8);     
                 res.addElement(m);
             }
+        }catch(Exception ex){
+            System.out.println("SYSERREUR - Probleme lors de la recuperation des donnees des matchs de l'equipe "+idEquipe +".");
         }
-         return res;
+        return res;
     }
     
     /**
      * Ajout d'un nouveau match dans la base de donnees.
-     * @param idMatch
-     * @param equipelocal
-     * @param equipevisiteur
-     * @param terrainid
-     * @param matchdate
-     * @param matchheure
-     * @param pointslocal
-     * @param pointsvisiteur
+     * @param idMatch L'id du match
+     * @param equipelocal L'equipe locale
+     * @param equipevisiteur L'equipe visiteur
+     * @param terrainid L'id du terrain
+     * @param matchdate La date du match
+     * @param matchheure L'heure du match
+     * @param pointslocal Les points de l'equipe locale
+     * @param pointsvisiteur Les points de l'equipe visiteur
      * @throws SQLException 
      */
     public void ajout(int idMatch, int equipelocal, int equipevisiteur, int terrainid,Date matchdate, Time matchheure, int pointslocal, int pointsvisiteur) throws SQLException {
@@ -170,49 +192,78 @@ public class Match {
         stmtInsert.setTime(6,matchheure);
         if(!(pointslocal == 0)) {
            stmtInsert.setInt(7,pointslocal);
+        } else {
+            stmtInsert.setNull(7, java.sql.Types.INTEGER);
         }
         if(!(pointslocal == 0)) {
            stmtInsert.setInt(8,pointsvisiteur);
+        } else {
+            stmtInsert.setNull(8, java.sql.Types.INTEGER);
         }
-        stmtInsert.executeUpdate();
+        try {
+            stmtInsert.executeUpdate();
+        }catch(Exception ex){
+            System.out.println("SYSERREUR - Probleme lors de l'ajout du match "+ equipelocal+"-"+equipevisiteur +".");
+        }
     }
 
     /**
      * Suppression d'un match
-     * @param idMatch
-     * @return 
+     * @param idMatch L'id du match que l'on veut supprimer
+     * @return -1 si la suppression s'est mal passee
      * @throws SQLException 
      */
     public int suppression(int idMatch) throws SQLException {
         stmtDelete.setInt(1,idMatch);
-        return stmtDelete.executeUpdate();
+        try{
+            return stmtDelete.executeUpdate();
+        }catch(Exception ex){
+            System.out.println("SYSERREUR - Probleme lors de la suppression du match "+ idMatch +".");
+        }
+        return -1;
     }
+    
+    /**
+     * Methode retournant l'id d'un match d'apres plusieurs de ses informations
+     * @param matchDate La date du match
+     * @param matchHeure L'heure du match
+     * @param idLocaux L'equipe locale du match
+     * @param idVisiteurs L'equipe visiteur du match
+     * @return L'id du match recherche
+     * @throws SQLException 
+     */
     public int getId(Date matchDate, Time matchHeure, int idLocaux, int idVisiteurs) throws SQLException  {
-        stmtId.setDate(1,matchDate);
-        stmtId.setTime(2,matchHeure);
-        stmtId.setInt(3,idLocaux);
-        stmtId.setInt(4,idVisiteurs);
+        stmtId.setDate(3,matchDate);
+        stmtId.setTime(4,matchHeure);
+        stmtId.setInt(1,idLocaux);
+        stmtId.setInt(2,idVisiteurs);
         int res = -1;
         try (ResultSet rset = stmtId.executeQuery()) {
             if(rset.next()) {
                 res = rset.getInt(1);
             }
+        }catch(Exception ex){
+            System.out.println("SYSERREUR - Probleme lors de la recuperation de l'id du match "+ idLocaux+"-"+idVisiteurs +".");
         }
         return res;
     }
     
     /**
-     * 
-     * @param idMatch
-     * @param pointsLocal
-     * @param pointsVisiteur
+     * Methode permettant d'enregistrer ou de modifier les points d'un match
+     * @param idMatch L'id du match a modifier
+     * @param pointsLocal Les nouveaux points de l'equipe locale
+     * @param pointsVisiteur Les nouveaux points de l'equipe visiteur
      * @throws SQLException 
      */
     public void setPoints(int idMatch, int pointsLocal, int pointsVisiteur) throws SQLException {
         stmtInsertPoints.setInt(1, pointsLocal);
         stmtInsertPoints.setInt(2, pointsVisiteur);
         stmtInsertPoints.setInt(3, idMatch);
-        stmtInsertPoints.executeUpdate();
+        try{
+            stmtInsertPoints.executeUpdate();
+        }catch(Exception ex){
+            System.out.println("SYSERREUR - Probleme lors de la modification des points du match "+ idMatch +".");
+        }
     }
     
 }

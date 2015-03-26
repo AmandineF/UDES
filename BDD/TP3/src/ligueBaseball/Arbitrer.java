@@ -2,7 +2,7 @@ package ligueBaseball;
 import java.sql.*;
 
 /**
- * Gestion de la table Arbitrer
+ * Gère les requêtes SQL vers la classe Arbitrer
  * @author Amandine Fouillet - Frank Chassing
  */
 public class Arbitrer {
@@ -10,7 +10,6 @@ public class Arbitrer {
     private final PreparedStatement stmtExiste;
     private final PreparedStatement stmtInsert;
     private final PreparedStatement stmtDelete;
-    private final PreparedStatement stmtTaille;
     private final Connexion cx;
 
     /**
@@ -20,7 +19,6 @@ public class Arbitrer {
      */
     public Arbitrer(Connexion cx) throws SQLException {
         this.cx = cx;
-        stmtTaille = cx.getConnection().prepareStatement("select count(matchid) from arbitrer");
         stmtExisteMatch = cx.getConnection().prepareStatement("select arbitreid, matchid from arbitrer where  matchid = ?");
         stmtExiste = cx.getConnection().prepareStatement("select arbitreid, matchid from arbitrer where arbitreid = ? and matchid = ?");
         stmtInsert = cx.getConnection().prepareStatement("insert into arbitrer (arbitreid, matchid) " + "values (?,?)");
@@ -35,22 +33,9 @@ public class Arbitrer {
         return cx;
     }
 
+
     /**
-     * Connaitre la taille de la table arbitrer
-     * @return la taille de la table
-     * @throws SQLException 
-     */
-    public int taille() throws SQLException {
-        int res = -1;
-        try (ResultSet rset = stmtTaille.executeQuery()) {
-            if(rset.next()) {
-                res = rset.getInt(1);
-            }
-        }
-        return res;
-    }
-    /**
-    * Verifie si un lien entre un matchid et un arbitreid a déjà été réalisé.
+    * Verifie si un lien entre un matchid et un arbitreid a deja ete realise.
      * @param idArbitre
      * @param idMatch
      * @return vrai si le lien existe, faux sinon
@@ -59,86 +44,114 @@ public class Arbitrer {
     public boolean existe(int idArbitre, int idMatch) throws SQLException {
         stmtExiste.setInt(1,idArbitre);
         stmtExiste.setInt(2,idMatch);
-        boolean arbitrerExiste;
+        boolean arbitrerExiste = false;
         try (ResultSet rset = stmtExiste.executeQuery()) {
             arbitrerExiste = rset.next();
+        }catch(Exception ex){
+            System.out.println("SYSERREUR - Probleme dans la verification de l'existance du match " +idMatch
+                    + " arbitre par " + idArbitre+".");
         }
         return arbitrerExiste;
     }
 
     /**
-     * 
-     * @param idMatch
-     * @return
+     * Verifie si il existe le match idMatch dans la table arbitrer
+     * @param idMatch L'id du match a retrouver dans la table
+     * @return vrai si ce match existe, faux sinon
      * @throws SQLException 
      */
     public boolean existeMatch(int idMatch) throws SQLException {
-        stmtExiste.setInt(1,idMatch);
-        boolean arbitrerExiste;
-        try (ResultSet rset = stmtExiste.executeQuery()) {
+        stmtExisteMatch.setInt(1,idMatch);
+        boolean arbitrerExiste = false;
+        try (ResultSet rset = stmtExisteMatch.executeQuery()) {
             arbitrerExiste = rset.next();
+        }catch(Exception ex){
+            System.out.println("SYSERREUR - Probleme dans la verification de l'existance du match " +idMatch
+                    + " dans la table arbitrer.");
         }
         return arbitrerExiste;
     }
     
+    /**
+     * Methode retournant l'arbitre du match idMatch
+     * @param idMatch Le match dont on veut savoir l'arbitre
+     * @return l'id de l'arbitre du match
+     * @throws SQLException 
+     */
     public int getArbitre(int idMatch) throws SQLException {
-        stmtExiste.setInt(1,idMatch);
+        stmtExisteMatch.setInt(1,idMatch);
         int res = -1;
-        try (ResultSet rset = stmtExiste.executeQuery()) {
+        try (ResultSet rset = stmtExisteMatch.executeQuery()) {
             if(rset.next()){
                 res = rset.getInt(1);
                 return res;
             }
+        }catch(Exception ex){
+            System.out.println("SYSERREUR - Probleme dans la recuperation de l'id de l'arbitre du match " + idMatch + ".");
         }
         return -1;
     }
     
     /**
-     * 
-     * @param idArbitre
-     * @param idMatch
+     * Methode retournant le couple arbitrage, s'il existe
+     * @param idArbitre L'id de l'arbitre
+     * @param idMatch L'id du match
      * @return
      * @throws SQLException 
      */
     public TupleArbitrer getArbitrage(int idArbitre, int idMatch) throws SQLException {
         stmtExiste.setInt(1,idArbitre);
         stmtExiste.setInt(2,idMatch);
-        ResultSet rset;
-        rset = stmtExiste.executeQuery();
-        if (rset.next()) {
-            TupleArbitrer tupleArbitrer;
-            tupleArbitrer = new TupleArbitrer();
-            tupleArbitrer.idArbitre = idArbitre;
-            tupleArbitrer.idMatch = idMatch;
-            rset.close();
-            return tupleArbitrer;
+        try(ResultSet rset  = stmtExiste.executeQuery()){
+            if (rset.next()) {
+                TupleArbitrer tupleArbitrer;
+                tupleArbitrer = new TupleArbitrer();
+                tupleArbitrer.idArbitre = idArbitre;
+                tupleArbitrer.idMatch = idMatch;
+                rset.close();
+                return tupleArbitrer;
+            }
+        }catch(Exception ex){
+            System.out.println("SYSERREUR - Probleme dans la recuperation de l'arbitrage du match " + idMatch 
+                    + " par l'abitre " + idArbitre +".");
         }
         return null;
     }
 
     /**
      * Ajout d'un nouvel arbitre dans la base de donnees.
-     * @param idArbitre
-     * @param idMatch
+     * @param idArbitre L'id de l'arbitre a ajouter
+     * @param idMatch L'id du match a ajouter
      * @throws SQLException 
      */
     public void ajout(int idArbitre, int idMatch) throws SQLException {
         stmtInsert.setInt(1,idArbitre);
         stmtInsert.setInt(2,idMatch);
-        stmtInsert.executeUpdate();
+        try{
+            stmtInsert.executeUpdate();
+        }catch(Exception ex){
+            System.out.println("SYSERREUR - Probleme lors de l'ajout de l'arbitrage du match " + idMatch + 
+                    " par l'abitre " + idArbitre +".");
+        }
     }
 
     /**
      * Suppression d'un arbitre
      * @param idArbitre
      * @param idMatch
-     * @return 
+     * @return -1 si la suppression s'est mal passee
      * @throws SQLException 
      */
     public int suppression(int idArbitre, int idMatch) throws SQLException {
         stmtDelete.setInt(1,idArbitre);
         stmtDelete.setInt(1,idMatch);
-        return stmtDelete.executeUpdate();
+        try {
+            return stmtDelete.executeUpdate();
+        }catch(Exception ex){
+            System.out.println("SYSERREUR - Probleme lors de la suppression de l'arbitrage du match " + idMatch + 
+                    " par l'abitre " + idArbitre +".");
+        }
+        return -1;
     }
 
 }

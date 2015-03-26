@@ -2,7 +2,7 @@ package ligueBaseball;
 import java.sql.*;
 
 /**
- *
+ * Gère les requêtes SQL vers la classe Sequence
  * @author Amandine Fouillet - Frank Chassing
  */
 public class Sequence {
@@ -12,8 +12,8 @@ public class Sequence {
     
     public Sequence(Connexion cx) throws SQLException {
         this.cx = cx;
-        stmtGetCle = cx.getConnection().prepareStatement("select nextcle from sequence where nomTable = ?");
-        stmtSetCle = cx.getConnection().prepareStatement("update sequence set nextcle = ? where nomTable = ?");
+        stmtGetCle = cx.getConnection().prepareStatement("select nextcle from sequence where nomtable = ?");
+        stmtSetCle = cx.getConnection().prepareStatement("update sequence set nextcle = ? where nomtable = ?");
     }
     
     public int getCle(String nomTable) throws SQLException {

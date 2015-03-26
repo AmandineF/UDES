@@ -1,12 +1,14 @@
 package ligueBaseball;
 import java.sql.*;
+import java.util.Vector;
 
 /**
- * Gestion de la table Arbitre
+ * Gère les requêtes SQL vers la classe Arbitre
  * @author Amandine Fouillet - Frank Chassing
  */
 public class Arbitre {
     private final PreparedStatement stmtExiste;
+    private final PreparedStatement stmtAffiche;
     private final PreparedStatement stmtExisteHomonyme;
     private final PreparedStatement stmtInsert;
     private final PreparedStatement stmtDelete;
@@ -19,8 +21,9 @@ public class Arbitre {
      */
     public Arbitre(Connexion cx) throws SQLException {
         this.cx = cx;
+        stmtAffiche = cx.getConnection().prepareStatement("select arbitreid, arbitrenom, arbitreprenom from arbitre order by arbitrenom");
         stmtExisteHomonyme = cx.getConnection().prepareStatement("select arbitreid from arbitre where arbitrenom = ? and arbitreprenom = ?");
-        stmtExiste = cx.getConnection().prepareStatement("select arbitreid, arbitrenom, arbitreprenom from arbitre where arbitreid = ? orderby arbitrenom");
+        stmtExiste = cx.getConnection().prepareStatement("select arbitreid, arbitrenom, arbitreprenom from arbitre where arbitreid = ?");
         stmtInsert = cx.getConnection().prepareStatement("insert into arbitre (arbitreid, arbitrenom, arbitreprenom) " + "values (?,?,?)");
         stmtDelete = cx.getConnection().prepareStatement("delete from arbitre where arbitreid = ?");
     }
@@ -34,49 +37,73 @@ public class Arbitre {
     }
 
     /**
-    * Verifie si un arbitre existe.
-     * @param idArbitre
-     * @return vrai si l'arbitre existe, faux sinon
-     * @throws java.sql.SQLException 
-    */
-    public boolean existe(int idArbitre) throws SQLException {
-        stmtExiste.setInt(1,idArbitre);
-        boolean arbitreExiste;
-        try (ResultSet rset = stmtExiste.executeQuery()) {
-            arbitreExiste = rset.next();
-        }
-        return arbitreExiste;
-    }
-    
-    /**
-     * Méthode permettant de savoir s'il existe un arbitre avec ce nom dans la base
-     * @param nom
-     * @param prenom
-     * @return l'id si l'homonyme existe, -1 sinon
+     * Methode permettant l'affichage des arbitres de la table 
+     * @return Un vector contenant les arbitres a afficher
      * @throws SQLException 
      */
-    public int existeHomonyme(String nom, String prenom)throws SQLException {
-        stmtExisteHomonyme.setString(1,nom);
-        stmtExisteHomonyme.setString(1,prenom);
-        int res = -1;
-        try (ResultSet rset = stmtExiste.executeQuery()) {
-            if(rset.next()){
-                res = rset.getInt(1);
+    public Vector<TupleArbitre> afficher() throws SQLException {
+        Vector<TupleArbitre> res = new Vector<TupleArbitre>();
+        try (ResultSet rset = stmtAffiche.executeQuery()) {
+            while(rset.next()){
+                TupleArbitre tupleArbitre = new TupleArbitre();
+                tupleArbitre.idArbitre = rset.getInt(1);
+                tupleArbitre.nom = rset.getString(2);
+                tupleArbitre.prenom = rset.getString(3);
+                res.add(tupleArbitre);
             }
+        } catch (Exception ex) {
+            System.out.println("SYSERREUR - Probleme lors de l'affichage des arbitres.");
         }
         return res;
     }
     
     /**
-     * 
-     * @param idArbitre
-     * @return
+    * Verifie si un arbitre existe.
+     * @param idArbitre L'id de l'arbitre dont on veut verifier l'existance
+     * @return vrai si l'arbitre existe, faux sinon
+     * @throws java.sql.SQLException 
+    */
+    public boolean existe(int idArbitre) throws SQLException {
+        stmtExiste.setInt(1,idArbitre);
+        boolean arbitreExiste = false;
+        try (ResultSet rset = stmtExiste.executeQuery()) {
+            arbitreExiste = rset.next();
+        } catch (Exception ex) {
+            System.out.println("SYSERREUR - Probleme lors de la verification de l'existance de l'arbitre " +idArbitre +".");
+        } 
+        return arbitreExiste;
+    }
+    
+    /**
+     * Méthode permettant de savoir s'il existe un arbitre avec ce nom dans la base
+     * @param nom Le nom de l'arbitre
+     * @param prenom Le prenom de l'arbitre
+     * @return l'id si l'homonyme existe, -1 sinon
+     * @throws SQLException 
+     */
+    public int existeHomonyme(String nom, String prenom)throws SQLException {
+        stmtExisteHomonyme.setString(1,nom);
+        stmtExisteHomonyme.setString(2,prenom);
+        int res = -1;
+        try (ResultSet rset = stmtExisteHomonyme.executeQuery()) {
+            if(rset.next()){
+                res = rset.getInt(1);
+            }
+        } catch (Exception ex) {
+            System.out.println("SYSERREUR - Probleme lors de la verification de l'existance de l'arbitre " +prenom + " " +nom +".");
+        } 
+        return res;
+    }
+    
+    /**
+     * Methode qui retourne le tuple d'un arbitre
+     * @param idArbitre L'idee de l'arbitre dont on veut le tuple
+     * @return Le tuple contenant les donnees de l'arbitre
      * @throws SQLException 
      */
     public TupleArbitre getArbitre(int idArbitre) throws SQLException {
         stmtExiste.setInt(1,idArbitre);
-        ResultSet rset;
-        rset = stmtExiste.executeQuery();
+        try(ResultSet rset = stmtExiste.executeQuery()){
         if (rset.next()) {
             TupleArbitre tupleArbitre;
             tupleArbitre = new TupleArbitre();
@@ -86,33 +113,44 @@ public class Arbitre {
             rset.close();
             return tupleArbitre;
         }
+        }catch(Exception ex){
+            System.out.println("SYSERREUR - Probleme lors de la recuperation des donnees de l'arbitre "+ idArbitre+".");
+        }
         return null;
     }
 
-    
     /**
      * Ajout d'un nouvel arbitre dans la base de donnees.
-     * @param idArbitre
-     * @param nom
-     * @param prenom
+     * @param idArbitre L'id de l'arbitre
+     * @param nom Le nom de l'arbitre
+     * @param prenom Le prenom de l'arbitre
      * @throws SQLException 
      */
     public void ajout(int idArbitre, String nom, String prenom) throws SQLException {
         stmtInsert.setInt(1,idArbitre);
         stmtInsert.setString(2,nom);
         stmtInsert.setString(3,prenom);
-        stmtInsert.executeUpdate();
+        try{
+            stmtInsert.executeUpdate();
+        }catch(Exception ex){
+            System.out.println("SYSERREUR - Probleme lors de l'ajout de l'arbitre "+prenom+" "+nom+".");
+        }
     }
 
     /**
      * Suppression d'un arbitre
      * @param idArbitre
-     * @return 
+     * @return -1 si la suppression s'est mal passee
      * @throws SQLException 
      */
     public int suppression(int idArbitre) throws SQLException {
         stmtDelete.setInt(1,idArbitre);
-        return stmtDelete.executeUpdate();
+        try{
+            return stmtDelete.executeUpdate();
+        }catch(Exception ex){
+            System.out.println("SYSERREUR - Probleme lors de l'ajout de l'arbitre "+idArbitre+".");
+        }
+        return -1;
     }
 
 }

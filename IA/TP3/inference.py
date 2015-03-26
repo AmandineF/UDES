@@ -267,7 +267,7 @@ class ParticleFilter(InferenceModule):
             dictionary (where there could be an associated weight with each position) is incorrect
             and will produce errors
         """
-        "We initialize the liste of particles to the empty list"
+        #We initialize the liste of particles to the empty list
         self.particles = []
         fct = len(self.legalPositions) / (self.numParticles + 0.0) 
         cmpt = 0
@@ -309,27 +309,30 @@ class ParticleFilter(InferenceModule):
         pacmanPosition = gameState.getPacmanPosition()
 
         newBeliefs = util.Counter()
+        #Implementation of the special case number 1
+        #If a ghost has been captured by Pacman
         if noisyDistance is None:
             cmpt = 0
             self.particles = []
-            while cmpt < self.numParticles:
+            #We update all particles so that the ghost appears in its prison cells
+            for cpt in range(self.numParticles):
                 self.particles.append(self.getJailPosition())
-                cmpt += 1
 
         else:
             for p in self.particles:
                 trueDistance = util.manhattanDistance(pacmanPosition, p)
                 newBeliefs[p] += emissionModel[trueDistance]
 
+            #Implementation of the special case number 2
             if newBeliefs.totalCount() == 0:
                 self.initializeUniformly(gameState)
 
             else:
                 cmpt = 0
                 particules = []
-                while cmpt < self.numParticles:
+                for cpt in range(self.numParticles):
                     particules.append(util.sample(newBeliefs))
-                    cmpt += 1
+
                 self.particles = particules
 
     def elapseTime(self, gameState):
@@ -483,6 +486,7 @@ class JointParticleFilter:
         emissionModels = [busters.getObservationDistribution(dist) for dist in noisyDistances]
 
         "*** YOUR CODE HERE ***"
+        #Usual case
         newbeliefs = util.Counter()
         for particle in self.particles:
             tmp = 1
@@ -492,21 +496,22 @@ class JointParticleFilter:
                     tmp *= emissionModels[currentGhost][trueDistance]
             newbeliefs[particle] += tmp
 
+        #Implementation of the special case 2
         if newbeliefs.totalCount() == 0:
             self.initializeParticles()
 
         else:
-            cmpt = 0
             particules= []
-            while cmpt < self.numParticles:
+            for cpt in range(self.numParticles):
                 particules.append(util.sample(newbeliefs)) 
-                cmpt += 1
             self.particles = particules
 
-
+        #Implementation of the special case 1
         for currentGhost in range(self.numGhosts):
+            #if a ghost is captured by Pacman
             if noisyDistances[currentGhost] is None:
                 a = 0
+                #The ghost most appears in its prison cell
                 while a < self.numParticles:
                     self.particles[a] = self.getParticleWithGhostInJail(self.particles[a], currentGhost)
                     a += 1
@@ -556,20 +561,19 @@ class JointParticleFilter:
               The ghost agent you are meant to supply is self.ghostAgents[ghostIndex-1],
               but in this project all ghost agents are always the same.
         """
-        particules = []
-        for oldP in self.particles:
-            newP = list(oldP) # A list of ghost positions
+        newParticles = []
+        for oldParticle in self.particles:
+            newParticle = list(oldParticle) # A list of ghost positions
 
             # now loop through and update each entry in newParticle...
 
             "*** YOUR CODE HERE ***"
             for currentGhost in range(self.numGhosts):
-                newPos = getPositionDistributionForGhost(setGhostPositions(gameState, newP),
-                                                             currentGhost, self.ghostAgents[currentGhost])
-                newP[currentGhost] = (util.sample(newPos))
+                newPos = getPositionDistributionForGhost(setGhostPositions(gameState, newParticle),currentGhost, self.ghostAgents[currentGhost])
+                newParticle[currentGhost] = (util.sample(newPos))
 
             "*** END YOUR CODE HERE ***"
-            particules.append(tuple(newP))
+            newParticles.append(tuple(newParticle))
         self.particles = particules
 
     def getBeliefDistribution(self):

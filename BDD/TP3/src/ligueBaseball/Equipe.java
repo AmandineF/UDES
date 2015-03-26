@@ -1,9 +1,10 @@
 package ligueBaseball;
 import java.sql.*;
 import java.util.LinkedList;
+import java.util.Vector;
 
 /**
- *
+ * Gère les requêtes SQL vers la classe Equipe
  * @author Amandine Fouillet - Frank Chassing
  */
 public class Equipe {
@@ -11,7 +12,7 @@ public class Equipe {
     private final PreparedStatement stmtExiste;
     private final PreparedStatement stmtInsert;
     private final PreparedStatement stmtDelete;
-	private final PreparedStatement stmtExisteNom ;
+    private final PreparedStatement stmtExisteNom ;
     private final PreparedStatement stmtAffiche ;
     private final Connexion cx;
 
@@ -24,10 +25,10 @@ public class Equipe {
         this.cx = cx;
         stmtId = cx.getConnection().prepareStatement("select equipeid from equipe where equipenom = ?");
         stmtExiste = cx.getConnection().prepareStatement("select equipeid, terrainid, equipenom from equipe where equipeid = ?");
-		stmtExisteNom = cx.getConnection().prepareStatement("select equipeid, terrainid, equipenom from equipe where equipenom = ?");
+        stmtExisteNom = cx.getConnection().prepareStatement("select equipeid, terrainid, equipenom from equipe where equipenom = ?");
         stmtInsert = cx.getConnection().prepareStatement("insert into equipe (equipeid, terrainid, equipenom) " + "values (?,?,?)");
         stmtDelete = cx.getConnection().prepareStatement("delete from equipe where equipeid = ?");
-		stmtAffiche = cx.getConnection().prepareStatement("select equipeid, equipenom from equipe order by equipenom ");
+        stmtAffiche = cx.getConnection().prepareStatement("select * from equipe order by equipenom ");
     }
 
     /**
@@ -35,7 +36,7 @@ public class Equipe {
     * @return La connexion
     */
     public Connexion getConnexion() {
-        return cx;
+        return this.cx;
     }
 
     /**
@@ -51,8 +52,9 @@ public class Equipe {
             if(rset.next()) {
                 res = rset.getInt(1);
             }
+        }catch(Exception ex){
+            System.out.println("SYSERREUR - Probleme lors de la recuperation de l'id de l'equipe " + nom +".");
         }
-        stmtId.close();
         return res;
     }
     /**
@@ -63,11 +65,12 @@ public class Equipe {
     */
     public boolean existeId(int idEquipe) throws SQLException {
         stmtExiste.setInt(1,idEquipe);
-        boolean equipeExiste;
+        boolean equipeExiste = false;
         try (ResultSet rset = stmtExiste.executeQuery()) {
             equipeExiste = rset.next();
+        }catch(Exception ex){
+            System.out.println("SYSERREUR - Probleme lors de la verification de l'existance de l'equipe " + idEquipe +".");
         }
-        stmtExiste.close();
         return equipeExiste;
     }
 	
@@ -79,9 +82,11 @@ public class Equipe {
      */
      public boolean existeNom(String nomEquipe) throws SQLException {
          stmtExisteNom.setString(1,nomEquipe);
-         boolean equipenomExiste;
+         boolean equipenomExiste = false;
          try (ResultSet rset = stmtExisteNom.executeQuery()) {
         	 equipenomExiste = rset.next();
+         }catch(Exception ex){
+             System.out.println("SYSERREUR - Probleme lors de la verification de l'existance de l'equipe " + nomEquipe +".");
          }
          return equipenomExiste;
      }
@@ -94,19 +99,19 @@ public class Equipe {
      */
     public TupleEquipe getEquipe(int idEquipe) throws SQLException {
         stmtExiste.setInt(1,idEquipe);
-        ResultSet rset;
-        rset = stmtExiste.executeQuery();
-        if (rset.next()) {
-            TupleEquipe tupleEquipe;
-            tupleEquipe = new TupleEquipe();
-            tupleEquipe.idEquipe = idEquipe;
-            tupleEquipe.idTerrain = rset.getInt(2);
-            tupleEquipe.nom = rset.getString(3);
-            rset.close();
-            stmtExiste.close();
-            return tupleEquipe;
+        try(ResultSet rset = stmtExiste.executeQuery()) {
+            if (rset.next()) {
+                TupleEquipe tupleEquipe;
+                tupleEquipe = new TupleEquipe();
+                tupleEquipe.idEquipe = idEquipe;
+                tupleEquipe.idTerrain = rset.getInt(2);
+                tupleEquipe.nom = rset.getString(3);
+                rset.close();
+                return tupleEquipe;
+            }
+        }catch(Exception ex){
+            System.out.println("SYSERREUR - Probleme lors de la recuperation de l'equipe " + idEquipe +".");
         }
-        stmtExiste.close();
         return null;
     }
 
@@ -119,39 +124,55 @@ public class Equipe {
      */
     public void ajout(int idEquipe, int idTerrain, String nom) throws SQLException {
         stmtInsert.setInt(1,idEquipe);
-        stmtInsert.setInt(2,idTerrain);
+        if (idTerrain < 0) {
+            stmtInsert.setNull(2, java.sql.Types.INTEGER);
+        } else {
+            stmtInsert.setInt(2, idTerrain);
+        }
         stmtInsert.setString(3,nom);
-        stmtInsert.executeUpdate();
-        stmtInsert.close();
+        try{
+            stmtInsert.executeUpdate();
+        }catch(Exception ex){
+            System.out.println("SYSERREUR - Probleme lors de l'ajout d'une nouvelle equipe.");
+        }
     }
 
     /**
-     * Suppression d'une équipe
+     * Suppression d'une equipe
      * @param idEquipe
-     * @return 
+     * @return -1 si la supression s'est mal passee
      * @throws SQLException 
      */
     public int suppression(int idEquipe) throws SQLException {
         stmtDelete.setInt(1,idEquipe);
-        int res = stmtDelete.executeUpdate();
-        stmtDelete.close();
-        return res;
+        try{
+            return stmtDelete.executeUpdate();
+        }catch (Exception ex){
+            System.out.println("SYSERREUR - Probleme lors de la suppression d'une equipe.");
+        }
+        return -1;
     }
 	
-	 /**
+    /**
      * Affichage des equipes
      * @return La liste des equipes
      * @throws SQLException 
      */
-	public LinkedList<String> affiche() throws SQLException{
-    	LinkedList<String> listeEquipe = new LinkedList<String>();
-    	ResultSet rset;
-    	rset = stmtAffiche.executeQuery();
-    	while(rset.next()){
-    		int id = rset.getInt(1);
-    		String nom = rset.getString(2);
-    		listeEquipe.add(""+id+" - "+nom);
-    	}
+    public Vector<TupleEquipe> affiche() throws SQLException{
+    	Vector<TupleEquipe>  listeEquipe;
+        listeEquipe = new Vector<> ();
+    	try(ResultSet rset = stmtAffiche.executeQuery()){
+            while(rset.next()){
+                TupleEquipe tupleEquipe;
+                tupleEquipe = new TupleEquipe();
+                tupleEquipe.idEquipe = rset.getInt(1);
+                tupleEquipe.idTerrain = rset.getInt(2);
+                tupleEquipe.nom = rset.getString(3);
+                listeEquipe.add(tupleEquipe);
+            }
+        }catch (Exception ex){
+            System.out.println("SYSERREUR - Probleme lors de l'affichage d'une equipe.");
+        }
     	return listeEquipe;
     }
 }

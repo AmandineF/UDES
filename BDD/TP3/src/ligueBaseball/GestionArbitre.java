@@ -3,31 +3,23 @@ import java.sql.*;
 import java.util.Vector;
 
 /**
- *
+ * Gestion des demandes utilisateurs vers la table arbitre
  * @author Amandine Fouillet - Frank Chassing
  */
 public class GestionArbitre {
-    private Arbitre arbitreTable;
-    
-    public GestionArbitre(){}
+    private final Arbitre arbitreTable;
+    private final Sequence sequence;
+    private final Connexion cx;
     
     /**
-     * 
-     * @return le prochain identifiant libre
-     * @throws SQLException 
+     * Constructeur de la classe GestionArbitre
+     * @param co
+     * @throws SQLException
      */
-    public int prochainId() throws SQLException {
-        int id = 0;
-        boolean res = false;
-        while (!res) {
-            if(!arbitreTable.existe(id)) {
-                res = true;
-                return id;
-            } else {
-                id++;
-            }
-        }
-        return -1;
+    public GestionArbitre(Connexion co) throws SQLException {
+        this.cx = co;
+        this.arbitreTable = new Arbitre(this.cx);
+        this.sequence = new Sequence(this.cx);
     }
     
     /**
@@ -38,10 +30,12 @@ public class GestionArbitre {
      */
     public void creerArbitre(String nom, String prenom) throws SQLException {
         if(arbitreTable.existeHomonyme(nom, prenom) > -1) {
-            System.out.println("Il existe déjà un arbitre avec le nom " + nom + "et le prénom " + prenom + ".");
+            System.out.println("USERERREUR - L'arbitre " + nom + " " + prenom + " existe deja.");
         } else {
-            int idArbitre = prochainId();
+            int idArbitre = sequence.getCle("arbitre");
             arbitreTable.ajout(idArbitre, nom, prenom);
+            sequence.ajout((idArbitre+1),"arbitre");
+            System.out.println("SUCCES - L'arbitre " + nom + " " + prenom + " a ete cree.");
         }
     }
     
@@ -50,11 +44,13 @@ public class GestionArbitre {
      * @throws SQLException 
      */
     public void afficherArbitre() throws SQLException {
-        Vector<TupleArbitre> tabArbitre = new Vector<TupleArbitre>();
+        Vector<TupleArbitre> tabArbitre;
+        tabArbitre = new Vector<TupleArbitre>();
+        tabArbitre = arbitreTable.afficher();
         
         //Affichage des arbitres triés
-        for(int i = 0; i < prochainId() ; i++) {
-            System.out.println("Liste des arbitres : \n");
+        System.out.println("Liste des arbitres : \n");
+        for(int i = 0; i < tabArbitre.size() ; i++) {
             System.out.println(tabArbitre.elementAt(i).toString());
         }
         

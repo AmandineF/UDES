@@ -2,7 +2,7 @@ package ligueBaseball;
 import java.sql.*;
 
 /**
- *
+ * Gère les requêtes SQL vers la classe Terrain
  * @author Amandine Fouillet - Frank Chassing
  */
 public class Terrain {

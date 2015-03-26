@@ -1,7 +1,7 @@
 package ligueBaseball;
 
 /**
- *
+ * Gestion du tuple Arbitre
  * @author Amandine Fouillet - Frank Chassing
  */
 public class TupleArbitre {
@@ -10,11 +10,11 @@ public class TupleArbitre {
     public String prenom;
     
     /**
-     * Méthode pour afficher les renseignements d'un Arbitre
-     * @return la chaine à afficher
+     * Méthode pour afficher les renseignements d'un arbitre
+     * @return La chaine de caracteres a afficher
      */
     @Override
     public String toString() {
-        return "ID : " + idArbitre + " - Nom : " + nom + " - Prénom : " + prenom ;
+        return "Nom : " + nom + " - Prénom : " + prenom + " - ID : " + idArbitre;
     }
 }

@@ -3,12 +3,13 @@ import java.sql.*;
 import java.util.LinkedList;
 
 /**
- *
+ * Gère les requêtes SQL vers la classe Joueur
  * @author Amandine Fouillet - Frank Chassing
  */
 public class Joueur {
     private final PreparedStatement stmtId;
     private final PreparedStatement stmtExiste;
+    private final PreparedStatement stmtExisteHomonyme;
     private final PreparedStatement stmtInsert;
     private final PreparedStatement stmtDelete;
     private final PreparedStatement stmtAffiche;
@@ -22,18 +23,19 @@ public class Joueur {
      */
     public Joueur(Connexion cx) throws SQLException {
         this.cx = cx;
+        stmtExisteHomonyme = cx.getConnection().prepareStatement("select * from joueur where joueurnom = ? and joueurprenom = ?");
         stmtId = cx.getConnection().prepareStatement("select joueurid from joueur where joueurnom = ? and joueurprenom = ?");
         stmtExiste = cx.getConnection().prepareStatement("select * from joueur where joueurid = ?");
         stmtInsert = cx.getConnection().prepareStatement("insert into joueur (joueurid, joueurnom, joueurprenom) " + "values (?,?,?)");
-        stmtDelete = cx.getConnection().prepareStatement("delete from joueur where joueurid = ?");
+        stmtDelete = cx.getConnection().prepareStatement("delete from joueur where joueurid = ? ");
         stmtAffiche = cx.getConnection().prepareStatement("select j.joueurid, j.joueurnom, e.equipenom "
-        		+ "											from joueur as j, faitpartie as f, equipe as e "
-        		+ "											where j.joueurid = f.joueurid and f.equipeid = e.equipeid"
-        		+ "											order by joueurid");
+        		+ "from joueur as j, faitpartie as f, equipe as e "
+        		+ "where j.joueurid = f.joueurid and f.equipeid = e.equipeid"
+        		+ "order by joueurid");
         stmtAfficheEquipe = cx.getConnection().prepareStatement("select j.joueurid, j.joueurnom "
-        		+ "												from joueur as j, faitpartie as f, equipe as e "
-        		+ "												where j.joueurid = f.joueurid and f.equipeid = e.equipeid and e.equipenom = ?"
-        		+ "												order by joueurid");
+        		+ "from joueur as j, faitpartie as f, equipe as e "
+        		+ "where j.joueurid = f.joueurid and f.equipeid = e.equipeid and e.equipenom = ?"
+        		+ "order by joueurid");
     }
 
     /**
@@ -59,72 +61,104 @@ public class Joueur {
             if(rset.next()) {
                 res = rset.getInt(1);
             }
+        }catch (Exception ex){
+           System.out.println("SYSERREUR - Probleme lors de la recuperation de l'id du joueur " + prenom + " " + nom + ".");
         }
-        stmtId.close();
         return res;
     }
     /**
-    * Verifie si un joueur existe
+     * Verifie si un joueur existe
      * @param idJoueur
      * @return vrai si le joueur existe, faux sinon
      * @throws java.sql.SQLException 
-    */
+     */
     public boolean existe(int idJoueur) throws SQLException {
         stmtExiste.setInt(1,idJoueur);
-        boolean joueurExiste;
+        boolean joueurExiste = false;
         try (ResultSet rset = stmtExiste.executeQuery()) {
             joueurExiste = rset.next();
+        }catch (Exception ex){
+           System.out.println("SYSERREUR - Probleme lors de la verification de l'existance du joueur " + idJoueur + ".");
         }
         stmtExiste.close();
         return joueurExiste;
     }
 
     /**
-     * 
-     * @param idJoueur
+     * Methode permettant de determiner si un joueur homonyme existe dans la base
+     * @param nom Le nom du joueur
+     * @param prenom Le prenom du joueur
+     * @return vrai si le joueur existe deja, faux sinon
+     * @throws SQLException 
+     */
+    public boolean existe(String nom, String prenom) throws SQLException {
+        stmtExisteHomonyme.setString(1,nom);
+        stmtExisteHomonyme.setString(2,prenom);
+        boolean joueurExiste = false;
+        try (ResultSet rset = stmtExisteHomonyme.executeQuery()) {
+            joueurExiste = rset.next();  
+        }catch (Exception ex){
+            System.out.println("SYSERREUR - Probleme lors de la verification de l'existance du joueur " + prenom + " "+ nom + ".");
+        }
+        return joueurExiste;
+    }
+    
+    /**
+     * Methode permettant de recuperer les donnees d'un joueur a partir de son id
+     * @param idJoueur L'id du joueur a recuperer 
      * @return le tupleJoueur correspondant au joueur ayant l'id "idJoueur", null sinon
      * @throws SQLException 
      */
     public TupleJoueur getJoueur(int idJoueur) throws SQLException {
         stmtExiste.setInt(1,idJoueur);
-        ResultSet rset;
-        rset = stmtExiste.executeQuery();
-        if (rset.next()) {
-            TupleJoueur tupleJoueur;
-            tupleJoueur = new TupleJoueur();
-            tupleJoueur.idJoueur = idJoueur;
-            tupleJoueur.nom = rset.getString(2);
-            tupleJoueur.prenom = rset.getString(3);
-            rset.close();
-            return tupleJoueur;
+        try(ResultSet rset = stmtExiste.executeQuery()) {
+            if (rset.next()) {
+                TupleJoueur tupleJoueur;
+                tupleJoueur = new TupleJoueur();
+                tupleJoueur.idJoueur = idJoueur;
+                tupleJoueur.nom = rset.getString(2);
+                tupleJoueur.prenom = rset.getString(3);
+                rset.close();
+                return tupleJoueur;
+            }
+        }catch (Exception ex){
+            System.out.println("SYSERREUR - Probleme lors de la recuperation du joueur " + idJoueur + ".");
         }
         return null;
     }
 
     /**
      * Ajout d'un nouveau joueur dans la base de donnees.
-     * @param idEquipe
-     * @param nom
-     * @param idTerrain
+     * @param idJoueur L'id du joueur a ajouter
+     * @param nom Le nom du joueur a ajouter
+     * @param prenom Le prenom du joueur a ajouter
      * @throws SQLException 
      */
     public void ajout(int idJoueur, String nom, String prenom) throws SQLException {
         stmtInsert.setInt(1,idJoueur);
         stmtInsert.setString(2,nom);
         stmtInsert.setString(3,prenom);
-        stmtInsert.executeUpdate();
-        stmtInsert.close();
+        try{
+            stmtInsert.executeUpdate();
+        }catch (Exception ex) {
+            System.out.println("SYSERREUR - Probleme lors de l'ajout du joueur " + prenom + " " + nom + ".");
+        }
     }
 
     /**
      * Suppression d'un joueur
-     * @return 
+     * @param idJoueur L'id du joueur a supprimer
+     * @return -1 si la suppression s'est mal passee
      * @throws SQLException 
      */
     public int suppression(int idJoueur) throws SQLException {
         stmtDelete.setInt(1,idJoueur);
-        stmtDelete.close();
-        return stmtDelete.executeUpdate();
+        try{
+            return stmtDelete.executeUpdate();
+        } catch (Exception ex) {
+            System.out.println("SYSERREUR - Probleme lors de la suppression du joueur " + idJoueur +".");
+        }
+        return -1;
     }
     
     /**
@@ -134,14 +168,16 @@ public class Joueur {
      */
     public LinkedList<String> affiche() throws SQLException{
     	LinkedList<String> listeJoueur = new LinkedList<String>();
-    	ResultSet rset = stmtAffiche.executeQuery();
-    	while(rset.next()){
-    		int id = rset.getInt(1);
-    		String nomJoueur = rset.getString(2);
-    		String nomEquipe = rset.getString(3);
-    		listeJoueur.add(""+id+" - "+nomJoueur+" - "+nomEquipe+"\n");
-    	}
-    	stmtAffiche.close();
+    	try(ResultSet rset = stmtAffiche.executeQuery()){
+            while(rset.next()){
+                    int id = rset.getInt(1);
+                    String nomJoueur = rset.getString(2);
+                    String nomEquipe = rset.getString(3);
+                    listeJoueur.add(""+id+" - "+nomJoueur+" - "+nomEquipe+"\n");
+            }
+        } catch (Exception ex) {
+            System.out.println("SYSERREUR - Probleme lors de l'affichage des joueurs.");
+        }
     	return listeJoueur;
     }
     
@@ -153,22 +189,17 @@ public class Joueur {
      */
     public LinkedList<String> affiche(String equipenom) throws SQLException{
     	LinkedList<String> listeJoueur = new LinkedList<String>();
-    	stmtAfficheEquipe.setString(1, equipenom);
-    	ResultSet rset = stmtAfficheEquipe.executeQuery();
-    	while(rset.next()){
-    		int id = rset.getInt(1);
-    		String nomJoueur = rset.getString(2);
-    		listeJoueur.add(""+id+" - "+nomJoueur+"\n");
-    	}
-    	stmtAfficheEquipe.close();
+        stmtAfficheEquipe.setString(1, equipenom);
+    	try (ResultSet rset = stmtAfficheEquipe.executeQuery()){
+            while(rset.next()){
+                    int id = rset.getInt(1);
+                    String nomJoueur = rset.getString(2);
+                    listeJoueur.add(""+id+" - "+nomJoueur+"\n");
+            }
+        } catch (Exception ex) {
+            System.out.println("SYSERREUR - Probleme lors de l'affichage des joueurs de l'equipe "+ equipenom + ".");
+        }
     	return listeJoueur;
     }
-    
-    
-    
-    
-    
-    
-    
     
 }

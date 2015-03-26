@@ -2,7 +2,7 @@ package ligueBaseball;
 
 import java.sql.*;
 /**
- *
+ * Gère la connexion vers la base de données
  * @author Amandine Fouillet - Frank Chassing
  */
 
@@ -22,8 +22,10 @@ public class Connexion {
         try {
             d = (Driver) Class.forName("org.postgresql.Driver").newInstance();
             DriverManager.registerDriver(d);
-            conn = DriverManager.getConnection("jdbc:postgresql:" + bd, user, pass);
-
+           // conn = DriverManager.getConnection("jdbc:postgresql://localhost:5433:" + bd, user, pass);
+           // conn = DriverManager.getConnection("jdbc:postgresql://localhost:" + bd, user, pass);
+            conn = DriverManager.getConnection("jdbc:postgresql://localhost:5433/" + bd,user, pass);
+/**
             //Mettre en mode de commit manuel
             conn.setAutoCommit(false);
 
@@ -40,6 +42,7 @@ public class Connexion {
                 System.out.println(
                   "Ouverture de la connexion en mode read committed (default) :\n" +
                   "Heure " + System.currentTimeMillis() + " " + conn);
+                  **/
         } catch (SQLException e) {throw e;}
         
         catch (Exception e) {
