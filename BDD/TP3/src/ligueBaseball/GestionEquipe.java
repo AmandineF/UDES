@@ -34,11 +34,11 @@ public class GestionEquipe {
     public void creerEquipe(String equipenom) throws SQLException  {
         
         if(equipeTable.existeNom(equipenom)){
-        	System.out.println("USERERREUR - L'equipe existe deja.");
+        	System.out.println("USERERREUR - L'equipe "+equipenom+" existe deja.");
         }else{
             int idEquipe = sequence.getCle("equipe");
             equipeTable.ajout(idEquipe, -1, equipenom );
-            System.out.println("SUCCES - Equipe ajoutee, elle ne possede pas de terrain.");
+            System.out.println("SUCCES - Equipe "+equipenom +" ajoutee, elle ne possede pas de terrain.");
             this.sequence.setCle((idEquipe +1), "equipe");
         }
         
@@ -53,19 +53,19 @@ public class GestionEquipe {
      */
     public void creerEquipe(String equipenom, String nomterrain ,String adresseterrain) throws SQLException  {
     	if(equipeTable.existeNom(equipenom)){
-        	System.out.println("USERERREUR - L'equipe existe deja.");
+        	System.out.println("USERERREUR - L'equipe " + equipenom +" existe deja.");
         }else{
             int idEquipe = sequence.getCle("equipe");
             int idTerrain;
             if(terrain.existeNom(nomterrain, adresseterrain)){
                 idTerrain = terrain.getId(nomterrain, adresseterrain);
                 equipeTable.ajout(idEquipe, idTerrain, equipenom );
-                System.out.println("SUCCES - Equipe ajoutee.");
+                System.out.println("SUCCES - Equipe "+ equipenom+" ajoutee.");
             }else{
                 idTerrain = sequence.getCle("terrain");
                 terrain.ajout(idTerrain, nomterrain, adresseterrain);
                 equipeTable.ajout(idEquipe, idTerrain, equipenom );
-                System.out.println("SUCCES - Equipe et terrain ajoutes.");
+                System.out.println("SUCCES - Equipe "+ equipenom +" et terrain "+ nomterrain+" ajoutes.");
             }
         }
     }

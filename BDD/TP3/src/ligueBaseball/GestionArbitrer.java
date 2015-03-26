@@ -49,7 +49,7 @@ public class GestionArbitrer {
             }
         } else {
             System.out.println("USERERREUR - Le match " + nomEquipeLocale+ " - " + nomEquipeVisiteur 
-                    + "se deroulant le " + matchDate.toString() + " a "+matchHeure.toString()+ " n'existe pas.");
+                    + " se deroulant le " + matchDate.toString() + " a "+matchHeure.toString()+ " n'existe pas.");
         }
     }
     

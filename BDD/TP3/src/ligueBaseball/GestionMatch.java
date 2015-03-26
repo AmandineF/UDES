@@ -45,12 +45,12 @@ public class GestionMatch {
                 sequence.setCle((idMatch+1),"match");
                 System.out.println("SUCCES - Le match des "+nomEquipeLocale+ " contre " + nomEquipeVisiteur + " a ete cree.");
             }else{
-                System.out.println("USERERREUR - L'equipe visiteur n'existe pas.");
+                System.out.println("USERERREUR - L'equipe visiteur "+ nomEquipeVisiteur+ " n'existe pas.");
             }
         }else if(equipeTable.existeNom(nomEquipeVisiteur)) {
-            System.out.println("USERERREUR - L'equipe locale n'existe pas.");
+            System.out.println("USERERREUR - L'equipe locale "+ nomEquipeLocale +" n'existe pas.");
         }else {
-            System.out.println("USERERREUR - Les equipes n'existent pas.");
+            System.out.println("USERERREUR - Les equipes "+nomEquipeLocale + " et "+ nomEquipeVisiteur +" n'existent pas.");
         }
     }
     /**
@@ -100,6 +100,7 @@ public class GestionMatch {
     public void afficherResultat(Vector<TupleMatch> res) throws SQLException {
         String nomArbitre = "";
         for(int i = 0; i < res.size(); i++){
+            nomArbitre= "";
             if(arbitrerTable.existeMatch(res.elementAt(i).idMatch)) {
                 int idArbitre = arbitrerTable.getArbitre(res.elementAt(i).idMatch);
                 nomArbitre = arbitreTable.getArbitre(idArbitre).nom;
@@ -121,7 +122,7 @@ public class GestionMatch {
                 res = matchTable.getMatchEquipe(equipeTable.getId(nom));
                 afficherResultat(res);
             }else{
-                System.out.println("USERERREUR - L'equipe n'existe pas, impossible d'afficher les resultats.");
+                System.out.println("USERERREUR - L'equipe "+nom+" n'existe pas, impossible d'afficher les resultats.");
             }
         } else { 
             System.out.println("Résultats des matchs :\n");

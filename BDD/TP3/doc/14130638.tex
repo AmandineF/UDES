@@ -4,7 +4,7 @@
 \usepackage{graphicx}
 \usepackage{minitoc}
 \usepackage[french]{babel}
-\usepackage[right=2cm, bottom=2cm,top=2cm, left=2cm]{geometry}
+\usepackage[right=2cm, bottom=2cm,top=1cm, left=2cm]{geometry}
 \title{Exploitation de bases de données relationnelles et OO ~\\~\textbf{IFT-287} \\~\\ Rapport Individuel TP3}
 \author{Amandine Fouillet - 14 130 638}
 \date{\today}
@@ -21,8 +21,8 @@ Nous avons ainsi décidé de réaliser :
 \item Une classe GestionXXX pour chaque table du fichier schéma.sql sur lesquelles des requêtes pouvaient être demandées par l'utilisateur. C'est-à-dire pour les tables Equipe, Joueur, Match, Arbitre et Arbitrer. Ces classes permettent de traiter les résultats récupérés des classes XXX.
 \item Une classe Connexion pour gérer la connexion à la base de données postgresql.
 \item Une classe Main pour gérer la lecture des arguments des utilisateurs. Si l'utilisateur met un fichier de requête en argument, la classe main se charge de la lecture et de l'exécution des requêtes du fichier. Si l'utilisateur ne met pas de fichier en argument, la classe main se charge d'exécuter les requêtes que l'utilisateur donne l'une après l'autre.
-\end{itemize}~\\
-
+\end{itemize}
+Nous avons également rajouté une table dans la base de donnée originale, la table séquence qui nous a permis de sauvegarder les valeurs des prochaines clés primaires de toutes les autres tables de la base. Dans le code Java, une classe Séquence a été rajoutée pour gérer les requêtes vers cette nouvelle table et récupérer ou modifier les prochaines clés primaires.~\\
 
 Notre groupe étant constitué de seulement deux personnes, il n'a pas été difficile de définir et partager les tâches entre nous. Ainsi, nous avons réalisé les deux classes Connexion et Main ensemble puis nous nous sommes partagé les tables SQL en deux et nous avons chacun de notre côté réalisé les classes en relation avec nos tables respectives. Pour ce qui est des tests, au fur et à mesure du codage, nous avons testé chacun de notre côté les fonctions que nous réalisions puis, pour finir nous avons testé ensemble avec le fichier testTP3.dat pour régler les derniers détails. Pour ce qui est du partage de code nous avons utilisé GitHub tout au long du TP pour partager nos modifications. En procédant de cette manière, la répartition des tâches a été équitable et il n'était pas impossible pour nous de travailler en même temps sans risquer de détruire le travail de l'autre puisque nous travaillions sur des classes différentes.~\\
 

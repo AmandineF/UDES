@@ -22,8 +22,11 @@ public class TupleMatch {
      * @return La chaine de caracteres a afficher
      */
     public String toStringResultat(String nomArbitre) {
-        String s =  "Match " + idMatch + " : Points local : " + pointslocal 
-                    + " - Points visiteurs : " + pointsvisiteur;
+        String s =  "Match " + idMatch + 
+                " - Equipe locale : " + equipelocal +
+                " -  Points local : " + pointslocal +
+                " - Equipe visiteur : " + equipevisiteur +
+                " - Points visiteurs : " + pointsvisiteur;
         if(!nomArbitre.equals("")) {
                 s+= " - Arbitre : " + nomArbitre;
             }
