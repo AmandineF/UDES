@@ -10,7 +10,7 @@ public class PanelAide extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelAide(JFrame fen, String msg) {
+	public PanelAide(final JFrame fen, String msg) {
 		JLabel text = new JLabel(msg);
 		add(text);
 

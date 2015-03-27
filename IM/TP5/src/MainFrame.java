@@ -8,6 +8,7 @@ import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -25,9 +26,10 @@ public class MainFrame extends JFrame {
 			public void run() {
 				try {
 					
-					MainFrame frame = new MainFrame("Awaï");
-					frame.setTitle("Awaï");
-					contentPane = new PanelAwai(frame);
+					MainFrame frame = new MainFrame("AwaÃ¯");
+					frame.setTitle("AwaÃ¯");
+					//contentPane = new PanelAwai(frame);
+					contentPane = new PanelBase("Communication");
 					frame.setContentPane(contentPane);
 					frame.setResizable(false);
 					frame.setVisible(true);
@@ -46,7 +48,7 @@ public class MainFrame extends JFrame {
 		//super(string);
 		setIconImage(Toolkit.getDefaultToolkit().getImage("airplane.png")); 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 500, 500);
+		setBounds(100, 100, 400, 460);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));

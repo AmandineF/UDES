@@ -13,7 +13,7 @@ public class PanelAwai extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelAwai(JFrame fen) {
+	public PanelAwai(final JFrame fen) {
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		
@@ -130,7 +130,7 @@ public class PanelAwai extends JPanel {
 				public void mouseClicked (MouseEvent e){
 						JFrame f = new JFrame();
 						String str = "<html><center>Bienvenue sur notre application !<br><br> Pour vous connecter, Appuyer sur le bouton Connexion.<br>"
-								+ "Si vous n'êtes pas inscrit, merci de vous inscrire en cliquant sur le bouton Inscription.<br>"
+								+ "Si vous n'ï¿½tes pas inscrit, merci de vous inscrire en cliquant sur le bouton Inscription.<br>"
 								+ "Pour en savoir davantage sur nous, Veuillez cliquer sur le bouton A Propos.</center></html>";
 						PanelAide m = new PanelAide(f, str);	
 						f.setContentPane(m);

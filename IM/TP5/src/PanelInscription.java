@@ -20,7 +20,7 @@ public class PanelInscription extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelInscription(JFrame fen) {
+	public PanelInscription(final JFrame fen) {
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		

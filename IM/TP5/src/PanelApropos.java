@@ -12,7 +12,7 @@ public class PanelApropos extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelApropos(JFrame fen) {
+	public PanelApropos(final JFrame fen) {
 		
 		String str = "<html><center>Coucou c'est nous !</center></html>";
 		JLabel text = new JLabel(str);
