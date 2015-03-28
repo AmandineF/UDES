@@ -1,6 +1,7 @@
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -9,6 +10,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.*;
 import javax.swing.border.AbstractBorder;
@@ -24,15 +27,30 @@ public class PanelInscription extends JPanel {
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		
-		JLabel connexion = new JLabel("Inscription");
-		c.fill = GridBagConstraints.CENTER;
-		c.insets = new Insets(20,4,20,4);
-		c.gridwidth = 2;
+		JLabel retour = new JLabel( new ImageIcon( "./images/arrow.png"));
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridwidth = 1;
+		c.ipadx = 15;
+		c.ipady = 12;
 		c.gridx = 0;
-		c.gridy = 0;		
-		Font font = new Font("Arial", Font.BOLD, 40);
-		connexion.setFont(font);
-		this.add(connexion, c);
+		c.gridy = 0;
+		this.add(retour, c);
+		
+		retour.addMouseListener(
+				new MouseAdapter(){
+				public void mouseClicked (MouseEvent e){
+					PanelAwai m = new PanelAwai(fen);						
+					fen.setContentPane(m);
+					fen.setBounds(100, 100, 500, 500);
+					fen.validate();
+				}
+				public void mouseEntered(MouseEvent e) {
+					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+				}
+				public void mouseExited(MouseEvent e) {
+					setCursor(Cursor.getDefaultCursor());
+				}
+				}  ); 
 		
 	    class CustomeBorder extends AbstractBorder{
 	        @Override
@@ -57,8 +75,10 @@ public class PanelInscription extends JPanel {
                 new CustomeBorder(), 
                 new EmptyBorder(new Insets(15, 25, 15, 25))));
 		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridwidth = 2;
-		c.gridx = 0;
+		c.gridwidth = 1;
+		c.ipadx = 0;
+		c.ipady = 0;
+		c.gridx = 3;
 		c.gridy = 1;
 		this.add(pseudoField, c);
 		
@@ -73,28 +93,63 @@ public class PanelInscription extends JPanel {
                 new CustomeBorder(), 
                 new EmptyBorder(new Insets(15, 25, 15, 25))));
 		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridwidth = 2;
-		c.gridx = 0;
+		c.gridwidth = 1;
+		c.gridx = 3;
 		c.gridy = 2;
 		this.add(passField, c);
 
-		JButton btnAnnuler = new JButton("Retour");
+		JLabel btnInscription = new JLabel( new ImageIcon( "./images/inscription.png"));
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridwidth = 1;
-		c.insets = new Insets(20,4,20,4);
-		c.ipady = 0;
-		c.gridx = 0;
+		c.gridx = 3;
 		c.gridy = 3;
-		this.add(btnAnnuler, c);
+		this.add(btnInscription, c);
 		
-		btnAnnuler.addActionListener(
-				new ActionListener(){
-				public void actionPerformed (ActionEvent e){
-					PanelAwai m = new PanelAwai(fen);						
-					fen.setContentPane(m);
-					fen.setBounds(100, 100, 500, 500);
-					fen.validate();
-				}}  );
+		btnInscription.addMouseListener(
+				new MouseAdapter(){
+				public void mouseClicked (MouseEvent e){
+					
+				
+				}
+				public void mouseEntered(MouseEvent e) {
+					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+				}
+				public void mouseExited(MouseEvent e) {
+					setCursor(Cursor.getDefaultCursor());
+				}
+				}  );
+		
+		JLabel parametre = new JLabel( new ImageIcon( "./images/parametre.png"));
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridwidth = 1;
+		c.gridx = 0;
+		c.gridy = 4;
+		this.add(parametre, c);
+		
+		JLabel aide = new JLabel( new ImageIcon( "./images/aide.png"));
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridwidth = 1;
+		c.gridx = 1;
+		c.gridy = 4;
+		this.add(aide, c);
+		
+		aide.addMouseListener(
+				new MouseAdapter(){
+				public void mouseClicked (MouseEvent e){
+						JFrame f = new JFrame();
+				PanelAide m = new PanelAide(f, "inscription");	
+				f.setContentPane(m);
+				f.setBounds(100, 100, 500, 180);
+				f.setVisible(true);
+			
+			}
+		public void mouseEntered(MouseEvent e) {
+			setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+		}
+		public void mouseExited(MouseEvent e) {
+			setCursor(Cursor.getDefaultCursor());
+		}
+		}  );
 	}
 
 }

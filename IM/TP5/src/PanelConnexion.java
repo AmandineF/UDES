@@ -9,6 +9,8 @@ import javax.swing.*;
 import javax.swing.border.AbstractBorder;
 import javax.swing.border.EmptyBorder;
 
+import net.miginfocom.swing.MigLayout;
+
 
 @SuppressWarnings("serial")
 public class PanelConnexion extends JPanel {
@@ -16,18 +18,8 @@ public class PanelConnexion extends JPanel {
 	 * Create the panel.
 	 */
 	public PanelConnexion(final JFrame fen) {
-		this.setLayout(new GridBagLayout());
-		GridBagConstraints c = new GridBagConstraints();
-		
-		JLabel connexion = new JLabel("Connexion");
-		c.fill = GridBagConstraints.CENTER;
-		c.insets = new Insets(20,4,20,4);
-		c.gridwidth = 2;
-		c.gridx = 0;
-		c.gridy = 0;		
-		Font font = new Font("Arial", Font.BOLD, 40);
-		connexion.setFont(font);
-		this.add(connexion, c);
+		setLayout(new MigLayout("", "[31.00px][37.00px][343.00px,grow]", "[59.00px][60.00px][69.00px][83.00px][59.00px]"));
+		Font font = new Font("Showcard Gothic", Font.BOLD, 40);
 		
 	    class CustomeBorder extends AbstractBorder{
 	        @Override
@@ -48,14 +40,33 @@ public class PanelConnexion extends JPanel {
 		tp.setForeground( Color.GRAY );
 		tp.changeStyle(Font.ITALIC);
 		tp.setShow(TextPrompt.Show.ALWAYS);
+		
+		
+		JLabel retour = new JLabel( new ImageIcon( "./images/arrow.png"));
+		this.add(retour, "cell 0 0,alignx center,aligny center");
+		
+		retour.addMouseListener(
+				new MouseAdapter(){
+				public void mouseClicked (MouseEvent e){
+					PanelAwai m = new PanelAwai(fen);						
+					fen.setContentPane(m);
+					fen.setBounds(100, 100, 500, 500);
+					fen.validate();
+				}
+				public void mouseEntered(MouseEvent e) {
+					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+				}
+				public void mouseExited(MouseEvent e) {
+					setCursor(Cursor.getDefaultCursor());
+				}
+				}  );      
+		
+		JLabel connexion = new JLabel("Connexion");	
+		connexion.setFont(font);
 		pseudoField.setBorder(BorderFactory.createCompoundBorder(
                 new CustomeBorder(), 
                 new EmptyBorder(new Insets(15, 25, 15, 25))));
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridwidth = 2;
-		c.gridx = 0;
-		c.gridy = 1;
-		this.add(pseudoField, c);
+		this.add(pseudoField, "cell 2 1,alignx center,aligny center");
 		
 
 		
@@ -67,47 +78,19 @@ public class PanelConnexion extends JPanel {
 		passField.setBorder(BorderFactory.createCompoundBorder(
                 new CustomeBorder(), 
                 new EmptyBorder(new Insets(15, 25, 15, 25))));
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridwidth = 2;
-		c.gridx = 0;
-		c.gridy = 2;
-		this.add(passField, c);
+		this.add(passField, "cell 2 2,alignx center,aligny center");
 		
-		JButton btnAnnuler = new JButton("Retour");
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridwidth = 1;
-		c.insets = new Insets(20,4,20,4);
-		c.ipady = 0;
-		c.gridx = 0;
-		c.gridy = 3;
-		this.add(btnAnnuler, c);
+		JLabel btnConnexion = new JLabel( new ImageIcon( "./images/connexion.png"));
+		this.add(btnConnexion, "cell 2 3,alignx center,aligny center");
 		
-		btnAnnuler.addActionListener(
-				new ActionListener(){
-				public void actionPerformed (ActionEvent e){
-					PanelAwai m = new PanelAwai(fen);						
-					fen.setContentPane(m);
-					fen.setBounds(100, 100, 500, 500);
-					fen.validate();
-				}}  );      
-		
-		JButton btnConnexion = new JButton("Connexion");
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridwidth = 1;
-		c.insets = new Insets(20,4,20,4);
-		c.ipady = 0;
-		c.gridx = 1;
-		c.gridy = 3;
-		this.add(btnConnexion, c);
-		
-		btnConnexion.addActionListener(
-				new ActionListener(){
-				public void actionPerformed (ActionEvent e){
+		btnConnexion.addMouseListener(
+				new MouseAdapter(){
+				public void mouseClicked (MouseEvent e){
 					
 					String pseudoRes = pseudoField.getText();
 					String mdpRes = String.valueOf(passField.getPassword());
 					if(UtilisateurManager.getInstance().connexion(pseudoRes, mdpRes)){
-						PanelMenu m = new PanelMenu();						
+						PanelMenu m = new PanelMenu(fen);						
 						fen.setContentPane(m);
 						fen.setBounds(100, 100, 500, 500);
 						fen.validate();
@@ -120,7 +103,38 @@ public class PanelConnexion extends JPanel {
 						m.setContentPane(p);
 						m.setVisible(true);
 					}
-				}}  );
+				}
+				public void mouseEntered(MouseEvent e) {
+					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+				}
+				public void mouseExited(MouseEvent e) {
+					setCursor(Cursor.getDefaultCursor());
+				}
+				}  );
+		
+		JLabel parametre = new JLabel( new ImageIcon( "./images/parametre.png"));
+		this.add(parametre, "cell 0 4,alignx center,aligny center");
+		
+		JLabel aide = new JLabel( new ImageIcon( "./images/aide.png"));
+		this.add(aide, "cell 1 4,alignx trailing,aligny center");
+		
+		aide.addMouseListener(
+				new MouseAdapter(){
+				public void mouseClicked (MouseEvent e){
+					JFrame f = new JFrame();
+					PanelAide m = new PanelAide(f, "connexion");	
+					f.setContentPane(m);
+					f.setBounds(100, 100, 500, 180);
+					f.setVisible(true);
+			
+			}
+		public void mouseEntered(MouseEvent e) {
+			setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+		}
+		public void mouseExited(MouseEvent e) {
+			setCursor(Cursor.getDefaultCursor());
+		}
+		}  );
 	}
 
 }

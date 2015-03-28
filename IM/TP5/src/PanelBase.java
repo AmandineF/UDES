@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.*;
@@ -6,6 +7,7 @@ import java.awt.event.*;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
@@ -25,12 +27,12 @@ public class PanelBase extends JPanel {
 	private JLabel rondCal;
 	private JPanel contenu;
 	
-	public PanelBase(String Texte) {
-		creerBase();
+	public PanelBase(JFrame fen, String Texte) {
+		creerBase(fen);
 		modifierBase(Texte);
 	}
 	
-	public void creerBase() {
+	public void creerBase(JFrame fen) {
 		setLayout(new MigLayout("insets 0", "[60]0[1]0[600]", "[60]0[1]0[600]"));
 		this.setBounds(0, 0, 400, 460);
 		
@@ -39,6 +41,23 @@ public class PanelBase extends JPanel {
 		Border paddingBorder = BorderFactory.createEmptyBorder(10,10,10,10);
 		home.setBorder(paddingBorder);
 		this.add(home,"cell 0 0,alignx center,aligny center");
+		
+		home.addMouseListener(
+				new MouseAdapter(){
+				public void mouseClicked (MouseEvent e){
+					
+						PanelMenu m = new PanelMenu(fen);						
+						fen.setContentPane(m);
+						fen.validate();
+					
+					}
+				public void mouseEntered(MouseEvent e) {
+					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+				}
+				public void mouseExited(MouseEvent e) {
+					setCursor(Cursor.getDefaultCursor());
+				}
+				}  );
 		
 		JPanel barreNoireH = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) barreNoireH.getLayout();

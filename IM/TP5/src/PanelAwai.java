@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.*;
 import javax.swing.*;
+import net.miginfocom.swing.MigLayout;
 
 
 public class PanelAwai extends JPanel {
@@ -14,84 +15,63 @@ public class PanelAwai extends JPanel {
 	 * Create the panel.
 	 */
 	public PanelAwai(final JFrame fen) {
-		this.setLayout(new GridBagLayout());
-		GridBagConstraints c = new GridBagConstraints();
+		Font font = new Font("Showcard Gothic", Font.BOLD, 40);
+		setLayout(new MigLayout("", "[22.00px][][353.00]", "[50px][65.00][33.00][][][43.00][][][]"));
 		
-       // this.setOpaque(true);
-       // Color aColor = new Color(0xECECEC);
-       // this.setBackground(aColor);
-		
-		JLabel connexion = new JLabel("AWAI", new ImageIcon( "airplane.png"), SwingConstants.CENTER);
-	    connexion.setVerticalTextPosition(JLabel.CENTER);
-	    connexion.setHorizontalTextPosition(JLabel.LEFT);
-		c.fill = GridBagConstraints.CENTER;
-		c.insets = new Insets(20,4,20,4);
-		c.gridwidth = 3;
-		c.gridx = 0;
-		c.gridy = 0;		
-		Font font = new Font("Arial", Font.BOLD, 40);
-		connexion.setFont(font);
-		this.add(connexion, c);
 
 		
-		JLabel imageConnexion = new JLabel( new ImageIcon( "./images/connexion.png"));
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridwidth = 2;
-		c.insets = new Insets(4,4,4,4);
-		c.gridx = 0;
-		c.gridy = 1;
-		this.add(imageConnexion, c);
+		JLabel connexion = new JLabel("Awaï", new ImageIcon( "airplane.png"), SwingConstants.CENTER);
+		connexion.setVerticalTextPosition(JLabel.CENTER);
+		connexion.setHorizontalTextPosition(JLabel.LEFT);
+		connexion.setFont(font);
+		this.add(connexion, "cell 2 1,alignx center,aligny center");
 		
-		imageConnexion.addMouseListener(
-				new MouseAdapter(){
-				public void mouseClicked (MouseEvent e){
-					
-						PanelConnexion m = new PanelConnexion(fen);						
-						fen.setContentPane(m);
-						fen.setBounds(100, 100, 500, 500);
-						fen.validate();
-					
-					}
-				public void mouseEntered(MouseEvent e) {
-					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
-				}
-				public void mouseExited(MouseEvent e) {
-					setCursor(Cursor.getDefaultCursor());
-				}
-				}  );
+				
+				JLabel imageConnexion = new JLabel( new ImageIcon( "./images/connexion.png"));
+				this.add(imageConnexion, "cell 2 3,alignx center,aligny center");
+				
+				imageConnexion.addMouseListener(
+						new MouseAdapter(){
+						public void mouseClicked (MouseEvent e){
+							
+								PanelConnexion m = new PanelConnexion(fen);						
+								fen.setContentPane(m);
+								fen.setBounds(100, 100, 500, 500);
+								fen.validate();
+							
+							}
+						public void mouseEntered(MouseEvent e) {
+							setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+						}
+						public void mouseExited(MouseEvent e) {
+							setCursor(Cursor.getDefaultCursor());
+						}
+						}  );
 		
 		
-		JLabel imageInscription = new JLabel( new ImageIcon( "./images/inscription.png"));
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridwidth = 2;
-		c.gridx = 0;
-		c.gridy = 2;
-		this.add(imageInscription, c);
-		
-		imageInscription.addMouseListener(
-				new MouseAdapter(){
-				public void mouseClicked (MouseEvent e){
-					
-						PanelInscription m = new PanelInscription(fen);						
-						fen.setContentPane(m);
-						fen.setBounds(100, 100, 500, 500);
-						fen.validate();
-					
-					}
-				public void mouseEntered(MouseEvent e) {
-					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
-				}
-				public void mouseExited(MouseEvent e) {
-					setCursor(Cursor.getDefaultCursor());
-				}
-				}  );
+				JLabel imageInscription = new JLabel( new ImageIcon( "./images/inscription.png"));
+				this.add(imageInscription, "cell 2 4,alignx center,aligny center");
+				
+				imageInscription.addMouseListener(
+						new MouseAdapter(){
+						public void mouseClicked (MouseEvent e){
+							
+								PanelInscription m = new PanelInscription(fen);						
+								fen.setContentPane(m);
+								fen.setBounds(100, 100, 500, 500);
+								fen.validate();
+							
+							}
+						public void mouseEntered(MouseEvent e) {
+							setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+						}
+						public void mouseExited(MouseEvent e) {
+							setCursor(Cursor.getDefaultCursor());
+						}
+						}  );
 		
 		JLabel imageApropos = new JLabel( new ImageIcon( "./images/apropos.png"));
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridwidth = 2;
-		c.gridx = 0;
-		c.gridy = 3;
-		this.add(imageApropos, c);
+		this.add(imageApropos, "cell 2 5,alignx center,aligny center");
 		
 		imageApropos.addMouseListener(
 				new MouseAdapter(){
@@ -112,39 +92,28 @@ public class PanelAwai extends JPanel {
 				}  );
 		
 		JLabel parametre = new JLabel( new ImageIcon( "./images/parametre.png"));
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridwidth = 1;
-		c.gridx = 0;
-		c.gridy = 4;
-		this.add(parametre, c);
+		this.add(parametre, "cell 0 8,alignx left,aligny center");
 		
 		JLabel aide = new JLabel( new ImageIcon( "./images/aide.png"));
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridwidth = 1;
-		c.gridx = 1;
-		c.gridy = 4;
-		this.add(aide, c);
-    
+		this.add(aide, "cell 1 8,alignx left,aligny center");
+				
 		aide.addMouseListener(
 				new MouseAdapter(){
 				public void mouseClicked (MouseEvent e){
-						JFrame f = new JFrame();
-						String str = "<html><center>Bienvenue sur notre application !<br><br> Pour vous connecter, Appuyer sur le bouton Connexion.<br>"
-								+ "Si vous n'ï¿½tes pas inscrit, merci de vous inscrire en cliquant sur le bouton Inscription.<br>"
-								+ "Pour en savoir davantage sur nous, Veuillez cliquer sur le bouton A Propos.</center></html>";
-						PanelAide m = new PanelAide(f, str);	
-						f.setContentPane(m);
-						f.setBounds(100, 100, 500, 180);
-						f.setVisible(true);
-					
-					}
-				public void mouseEntered(MouseEvent e) {
-					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
-				}
-				public void mouseExited(MouseEvent e) {
-					setCursor(Cursor.getDefaultCursor());
-				}
-				}  );
+					JFrame f = new JFrame();
+					PanelAide m = new PanelAide(f, "awai");	
+					f.setContentPane(m);
+					f.setBounds(100, 100, 500, 180);
+					f.setVisible(true);
+			
+			}
+		public void mouseEntered(MouseEvent e) {
+			setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+		}
+		public void mouseExited(MouseEvent e) {
+			setCursor(Cursor.getDefaultCursor());
+		}
+		}  );
 
 		
 

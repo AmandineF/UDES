@@ -29,7 +29,7 @@ public class MainFrame extends JFrame {
 					MainFrame frame = new MainFrame("Awaï");
 					frame.setTitle("Awaï");
 					//contentPane = new PanelAwai(frame);
-					contentPane = new PanelBase("Communication");
+					contentPane = new PanelAwai(frame);
 					frame.setContentPane(contentPane);
 					frame.setResizable(false);
 					frame.setVisible(true);
@@ -48,7 +48,7 @@ public class MainFrame extends JFrame {
 		//super(string);
 		setIconImage(Toolkit.getDefaultToolkit().getImage("airplane.png")); 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 400, 460);
+		setBounds(100, 100, 500, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));

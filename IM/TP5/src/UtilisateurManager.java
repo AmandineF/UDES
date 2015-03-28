@@ -29,11 +29,13 @@ public class UtilisateurManager {
 
 		Utilisateur frank = new Utilisateur("frank", "Frank", "Chassing","azerty");
 		Utilisateur amandine = new Utilisateur("amandine", "Frank", "Chassing","azerty");
+		Utilisateur blank = new Utilisateur("", "Frank", "Chassing","");
 
 
 
 		utilisateurs.put(frank.getPseudo(), frank);
 		utilisateurs.put(amandine.getPseudo(), amandine);
+		utilisateurs.put(blank.getPseudo(), blank);
 
 	}
 	public HashMap<String, Utilisateur> getUtilisateur() {

@@ -11,9 +11,18 @@ public class PanelAide extends JPanel {
 	 * Create the panel.
 	 */
 	public PanelAide(final JFrame fen, String msg) {
-		JLabel text = new JLabel(msg);
+		String str = "Aide Default";
+		System.out.println(msg);
+		if(msg.equals("awai"))
+			str = "<html><center>Aide Awai</center></html>";
+		if(msg.equals("connexion"))
+			str = "<html><center>Aide Connexion</center></html>";
+		if(msg.equals("inscription"))
+			str = "<html><center>Aide Inscription</center></html>";
+		
+		
+		JLabel text = new JLabel(str);
 		add(text);
-
 		JButton btnFermer = new JButton("Fermer");
 		add(btnFermer);
 		
