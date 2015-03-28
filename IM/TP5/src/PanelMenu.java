@@ -32,7 +32,7 @@ public class PanelMenu extends JPanel {
 		imageComm.addMouseListener(
 				new MouseAdapter(){
 				public void mouseClicked (MouseEvent e){
-					
+						
 						PanelBase m = new PanelBase(fen, "Communication");						
 						fen.setContentPane(m);
 						fen.setBounds(100, 100, 500, 500);
@@ -41,9 +41,11 @@ public class PanelMenu extends JPanel {
 					}
 				public void mouseEntered(MouseEvent e) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+					imageComm.setIcon(new ImageIcon( "./images/grosRondCommHover.png"));
 				}
 				public void mouseExited(MouseEvent e) {
 					setCursor(Cursor.getDefaultCursor());
+					imageComm.setIcon( new ImageIcon( "./images/grosRondComm.png"));
 				}
 				}  );
 		
@@ -79,9 +81,11 @@ public class PanelMenu extends JPanel {
 					}
 				public void mouseEntered(MouseEvent e) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+					imageContact.setIcon(new ImageIcon( "./images/grosRondContactHover.png"));
 				}
 				public void mouseExited(MouseEvent e) {
 					setCursor(Cursor.getDefaultCursor());
+					imageContact.setIcon(new ImageIcon( "./images/grosRondContact.png"));
 				}
 				}  );
 		
@@ -97,9 +101,11 @@ public class PanelMenu extends JPanel {
 					}
 				public void mouseEntered(MouseEvent e) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+					imageCarte.setIcon(new ImageIcon( "./images/grosRondCarteHover.png"));
 				}
 				public void mouseExited(MouseEvent e) {
 					setCursor(Cursor.getDefaultCursor());
+					imageCarte.setIcon(new ImageIcon( "./images/grosRondCarte.png"));
 				}
 				}  );
 		
@@ -115,9 +121,11 @@ public class PanelMenu extends JPanel {
 					}
 				public void mouseEntered(MouseEvent e) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+					imageDep.setIcon(new ImageIcon( "./images/grosRondDepHover.png"));
 				}
 				public void mouseExited(MouseEvent e) {
 					setCursor(Cursor.getDefaultCursor());
+					imageDep.setIcon(new ImageIcon( "./images/grosRondDep.png"));
 				}
 				}  );
 		
@@ -133,9 +141,11 @@ public class PanelMenu extends JPanel {
 					}
 				public void mouseEntered(MouseEvent e) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+					imageCal.setIcon(new ImageIcon( "./images/grosRondCalHover.png"));
 				}
 				public void mouseExited(MouseEvent e) {
 					setCursor(Cursor.getDefaultCursor());
+					imageCal.setIcon(new ImageIcon( "./images/grosRondCal.png"));
 				}
 				}  );
 		
@@ -151,9 +161,11 @@ public class PanelMenu extends JPanel {
 					}
 				public void mouseEntered(MouseEvent e) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+					imagePhoto.setIcon(new ImageIcon( "./images/grosRondPhotoHover.png"));
 				}
 				public void mouseExited(MouseEvent e) {
 					setCursor(Cursor.getDefaultCursor());
+					imagePhoto.setIcon(new ImageIcon( "./images/grosRondPhoto.png"));
 				}
 				}  );
 		

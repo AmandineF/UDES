@@ -5,7 +5,9 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.*;
+
 import javax.swing.*;
+
 import net.miginfocom.swing.MigLayout;
 
 
@@ -42,9 +44,11 @@ public class PanelAwai extends JPanel {
 							}
 						public void mouseEntered(MouseEvent e) {
 							setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+							//imageConnexion.setIcon(new ImageIcon( "./images/connexionHover.png"));
 						}
 						public void mouseExited(MouseEvent e) {
 							setCursor(Cursor.getDefaultCursor());
+							//imageConnexion.setIcon(new ImageIcon( "./images/connexion.png"));
 						}
 						}  );
 		
@@ -64,9 +68,11 @@ public class PanelAwai extends JPanel {
 							}
 						public void mouseEntered(MouseEvent e) {
 							setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+							//imageInscription.setIcon(new ImageIcon( "./images/inscriptionHover.png"));
 						}
 						public void mouseExited(MouseEvent e) {
 							setCursor(Cursor.getDefaultCursor());
+							//imageInscription.setIcon(new ImageIcon( "./images/inscription.png"));
 						}
 						}  );
 		
@@ -85,9 +91,11 @@ public class PanelAwai extends JPanel {
 					}
 				public void mouseEntered(MouseEvent e) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+					//imageApropos.setIcon(new ImageIcon( "./images/aproposHover.png"));
 				}
 				public void mouseExited(MouseEvent e) {
 					setCursor(Cursor.getDefaultCursor());
+					//imageApropos.setIcon(new ImageIcon( "./images/apropos.png"));
 				}
 				}  );
 		
