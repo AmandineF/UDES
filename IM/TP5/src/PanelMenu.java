@@ -180,7 +180,7 @@ public class PanelMenu extends JPanel {
 				new MouseAdapter(){
 				public void mouseClicked (MouseEvent e){
 					JFrame f = new JFrame();
-					PanelAide m = new PanelAide(f, "awai");	
+					PanelAide m = new PanelAide(f, "menu");	
 					f.setContentPane(m);
 					f.setBounds(100, 100, 500, 180);
 					f.setVisible(true);
