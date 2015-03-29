@@ -30,10 +30,12 @@ public class PanelBase extends JPanel {
 	private JLabel partage;
 	private JPanel barreHorizontale;
 	private MouseListener partagelist;
+	private JLabel aide;
+	private JLabel param;
 	
 	public PanelBase(JFrame fen, String Texte) {
 		creerBase(fen);
-		modifierBase(Texte);
+		modifierBase(fen, Texte);
 	}
 	
 	public void creerBase(final JFrame fen) {
@@ -89,7 +91,7 @@ public class PanelBase extends JPanel {
 		barreVerticale.add(rondCom,"cell 0 0,alignx left,aligny center");
 		this.rondCom.addMouseListener(new MouseAdapter() { 
 	          public void mousePressed(MouseEvent me) { 
-	              modifierBase("Communication"); 
+	              modifierBase(fen, "Communication"); 
 	          } 
 	          public void mouseEntered(MouseEvent e) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
@@ -106,7 +108,7 @@ public class PanelBase extends JPanel {
 		barreVerticale.add(rondPhoto,"cell 0 1,alignx left,aligny center");
 		this.rondPhoto.addMouseListener(new MouseAdapter() { 
 	          public void mousePressed(MouseEvent me) { 
-	              modifierBase("Photos"); 
+	              modifierBase(fen, "Photos"); 
 	            } 
 	          public void mouseEntered(MouseEvent e) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
@@ -123,7 +125,7 @@ public class PanelBase extends JPanel {
 		barreVerticale.add(rondCal,"cell 0 2,alignx left,aligny center");
 		this.rondCal.addMouseListener(new MouseAdapter() { 
 	          public void mousePressed(MouseEvent me) { 
-	              modifierBase("Calendrier"); 
+	              modifierBase(fen, "Calendrier"); 
 	            } 
 	          public void mouseEntered(MouseEvent e) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
@@ -140,7 +142,7 @@ public class PanelBase extends JPanel {
 		barreVerticale.add(rondDep,"cell 0 3,alignx left,aligny center");
 		this.rondDep.addMouseListener(new MouseAdapter() { 
 	          public void mousePressed(MouseEvent me) { 
-	              modifierBase("Dépenses"); 
+	              modifierBase(fen, "Dépenses"); 
 	            } 
 	          public void mouseEntered(MouseEvent e) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
@@ -157,7 +159,7 @@ public class PanelBase extends JPanel {
 		barreVerticale.add(rondCarte,"cell 0 4,alignx left,aligny center");
 		this.rondCarte.addMouseListener(new MouseAdapter() { 
 	          public void mousePressed(MouseEvent me) { 
-	              modifierBase("Carte"); 
+	              modifierBase(fen, "Carte"); 
 	            } 
 	          public void mouseEntered(MouseEvent e) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
@@ -174,7 +176,7 @@ public class PanelBase extends JPanel {
 		barreVerticale.add(rondContact,"cell 0 5,alignx left,aligny center");
 		this.rondContact.addMouseListener(new MouseAdapter() { 
 	          public void mousePressed(MouseEvent me) { 
-	              modifierBase("Contacts"); 
+	              modifierBase(fen, "Contacts"); 
 	            } 
 	          public void mouseEntered(MouseEvent e) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
@@ -192,6 +194,8 @@ public class PanelBase extends JPanel {
 		
 		this.textActuel = new JLabel("");
 		textActuel.setFont(new Font("Mockup", Font.PLAIN, 26));
+		Color grey = new Color(68,68,68); 
+		textActuel.setForeground(grey); 
 		barreHorizontale.add(textActuel,"cell 1 0,alignx left,aligny center");
 		
 		//this.contenu = new JPanel();
@@ -204,7 +208,7 @@ public class PanelBase extends JPanel {
 		
 		partagelist = new MouseAdapter() { 
 	          public void mousePressed(MouseEvent me) { 
-	              modifierBase("Contact"); 
+	              modifierBase(fen, "Contacts"); 
 	            } 
 	          public void mouseEntered(MouseEvent e) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
@@ -216,20 +220,38 @@ public class PanelBase extends JPanel {
         
 	    JPanel iconesBas = new JPanel();
   		barreVerticale.add(iconesBas, "cell 0 6, alignx left, aligny center");
-  		JLabel param = new JLabel(new ImageIcon("./Images/cogSmall.png"));
-  		param.setBounds(0, 0, 10, 10);
+  		this.param = new JLabel(new ImageIcon("./Images/cogSmall.png"));
+  		this.param.setBounds(0, 0, 10, 10);
   		iconesBas.add(param);
-  		JLabel aide = new JLabel(new ImageIcon("./Images/aideSmall.png"));
+  		
+  		this.aide = new JLabel(new ImageIcon("./Images/aideSmall.png"));
   		aide.setBounds(0, 0, 10, 10);
   		iconesBas.add(aide);
+  		
   		JLabel deco = new JLabel(new ImageIcon("./Images/decoSmall.png"));
   		deco.setBounds(0, 0, 10, 10);
+  		deco.addMouseListener(new MouseAdapter() { 
+	          public void mousePressed(MouseEvent me) { 
+	        	   JFrame decoFrame = new JFrame();	
+	        	   decoFrame.setBounds(0, 0, 460, 200);
+	        	   decoFrame.setVisible(true);
+	        	   decoFrame.setResizable(false);
+				   PanelDeconnexion m = new PanelDeconnexion(fen,decoFrame);
+	        	   decoFrame.setContentPane(m);
+	            } 
+		       public void mouseEntered(MouseEvent e) {
+						setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+					}
+		  		public void mouseExited(MouseEvent e) {
+					setCursor(Cursor.getDefaultCursor());
+				}
+		          });
   		iconesBas.add(deco);
   		
 	}
 	
 	
-	public void modifierBase(String Texte) {
+	public void modifierBase(final JFrame fen, final String Texte) {
 		this.textActuel.setText(Texte);
 		String img = "";
 		Icon ic = null;
@@ -313,6 +335,37 @@ public class PanelBase extends JPanel {
 		ic = new ImageIcon(imgCom);
 		this.rondCom.setIcon(ic);
 		
+		
+		this.aide.addMouseListener(new MouseAdapter() { 
+	         public void mousePressed(MouseEvent me) { 
+	        	 JFrame f = new JFrame();
+				 PanelAide m = new PanelAide(f, Texte);	
+			   	 f.setContentPane(m);
+			   	 f.setResizable(false);
+			     f.setBounds(100, 100, 500, 180);
+				 f.setVisible(true);
+	         } 
+		     public void mouseEntered(MouseEvent e) {
+					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+		     }
+		  	 public void mouseExited(MouseEvent e) {
+					setCursor(Cursor.getDefaultCursor());
+			 } 
+		 });
+		 this.param.addMouseListener(new MouseAdapter() { 
+	         public void mousePressed(MouseEvent me) { 
+	        	 PanelParametres m = new PanelParametres(fen, Texte);	
+			   	 fen.setContentPane(m);
+				 fen.validate();
+	         } 
+		     public void mouseEntered(MouseEvent e) {
+					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+		     }
+		  	 public void mouseExited(MouseEvent e) {
+					setCursor(Cursor.getDefaultCursor());
+			 } 
+		 });
+		 
 		ic = new ImageIcon(img);
 		this.rondActuel.setIcon(ic);
 		//PAS PROPRE

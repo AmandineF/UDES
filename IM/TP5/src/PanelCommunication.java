@@ -37,7 +37,7 @@ public class PanelCommunication extends JPanel {
 				}
 				}  );
 		
-		JLabel btnAppelMaman = new JLabel( new ImageIcon( "./images/btnAppel.png"));
+		final JLabel btnAppelMaman = new JLabel( new ImageIcon( "./images/btnAppel.png"));
 		this.add(btnAppelMaman, "cell 1 0,alignx left,aligny center");
 		
 		btnAppelMaman.addMouseListener(
@@ -56,7 +56,7 @@ public class PanelCommunication extends JPanel {
 				}
 				}  );
 		
-		JLabel btnVideoMaman = new JLabel( new ImageIcon( "./images/btnVideo.png"));
+		final JLabel btnVideoMaman = new JLabel( new ImageIcon( "./images/btnVideo.png"));
 		this.add(btnVideoMaman, "cell 2 0,alignx left,aligny center");
 		
 		btnVideoMaman.addMouseListener(
@@ -102,7 +102,7 @@ public class PanelCommunication extends JPanel {
 					//contactMaman.setIcon(new ImageIcon( "./images/apropos.png"));
 				}
 				}  );
-		JLabel btnAppelPapa = new JLabel( new ImageIcon( "./images/btnAppel.png"));
+		final JLabel btnAppelPapa = new JLabel( new ImageIcon( "./images/btnAppel.png"));
 		this.add(btnAppelPapa, "cell 1 2,alignx left,aligny center");
 
 		
@@ -122,7 +122,7 @@ public class PanelCommunication extends JPanel {
 				}
 				}  );
 		
-		JLabel btnVideoPapa = new JLabel( new ImageIcon( "./images/btnVideo.png"));
+		final JLabel btnVideoPapa = new JLabel( new ImageIcon( "./images/btnVideo.png"));
 		this.add(btnVideoPapa, "cell 2 2,alignx left,aligny center");
 		
 

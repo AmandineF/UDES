@@ -178,6 +178,19 @@ public class PanelMenu extends JPanel {
 				JPanel paramAide = new JPanel(new MigLayout("", "[20][20][360]", "[100%]"));
 				this.add(paramAide, "cell 0 5 5 1, alignx center, aligny bottom");
 				JLabel parametre = new JLabel( new ImageIcon( "./images/parametre.png"));
+				parametre.addMouseListener(new MouseAdapter() { 
+			         public void mousePressed(MouseEvent me) { 
+			        	 PanelParametres m = new PanelParametres(fen, "du menu");	
+					   	 fen.setContentPane(m);
+						 fen.validate();
+			         } 
+				     public void mouseEntered(MouseEvent e) {
+							setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+				     }
+				  	 public void mouseExited(MouseEvent e) {
+							setCursor(Cursor.getDefaultCursor());
+					 } 
+				 });
 				paramAide.add(parametre,"cell 0 0, alignx center, aligny bottom");
 				
 				JLabel aide = new JLabel( new ImageIcon( "./images/aide.png"));

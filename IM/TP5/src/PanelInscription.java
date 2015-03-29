@@ -110,6 +110,19 @@ public class PanelInscription extends JPanel {
 				}  );
 		
 		JLabel parametre = new JLabel( new ImageIcon( "./images/parametre.png"));
+		parametre.addMouseListener(new MouseAdapter() { 
+	         public void mousePressed(MouseEvent me) { 
+	        	 PanelParametres m = new PanelParametres(fen, "de l'inscription");	
+			   	 fen.setContentPane(m);
+				 fen.validate();
+	         } 
+		     public void mouseEntered(MouseEvent e) {
+					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+		     }
+		  	 public void mouseExited(MouseEvent e) {
+					setCursor(Cursor.getDefaultCursor());
+			 } 
+		 });
 		Border paddingBorder2 = BorderFactory.createEmptyBorder(0,0,0,10);
 		parametre.setBorder(paddingBorder2);
 		this.add(parametre,  "cell 0 5,alignx trailing,aligny bottom");
@@ -120,12 +133,11 @@ public class PanelInscription extends JPanel {
 		aide.addMouseListener(
 				new MouseAdapter(){
 				public void mouseClicked (MouseEvent e){
-						JFrame f = new JFrame();
+				JFrame f = new JFrame();
 				PanelAide m = new PanelAide(f, "inscription");	
 				f.setContentPane(m);
 				f.setBounds(100, 100, 500, 180);
 				f.setVisible(true);
-			
 			}
 		public void mouseEntered(MouseEvent e) {
 			setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );

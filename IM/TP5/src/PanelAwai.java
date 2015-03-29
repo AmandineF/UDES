@@ -97,6 +97,19 @@ public class PanelAwai extends JPanel {
 		JLabel parametre = new JLabel( new ImageIcon( "./images/parametre.png"));
 		Border paddingBorder2 = BorderFactory.createEmptyBorder(0,0,0,10);
 		parametre.setBorder(paddingBorder2);
+		parametre.addMouseListener(new MouseAdapter() { 
+	         public void mousePressed(MouseEvent me) { 
+	        	 PanelParametres m = new PanelParametres(fen, "principaux");	
+			   	 fen.setContentPane(m);
+				 fen.validate();
+	         } 
+		     public void mouseEntered(MouseEvent e) {
+					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+		     }
+		  	 public void mouseExited(MouseEvent e) {
+					setCursor(Cursor.getDefaultCursor());
+			 } 
+		 });
 		this.add(parametre, "cell 0 8,alignx left,aligny center");
 		
 		JLabel aide = new JLabel( new ImageIcon( "./images/aide.png"));
