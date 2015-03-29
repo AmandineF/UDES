@@ -15,6 +15,7 @@ import javax.swing.border.Border;
 import net.miginfocom.swing.MigLayout;
 
 
+@SuppressWarnings("serial")
 public class PanelBase extends JPanel {
 
 	private JLabel textActuel;
@@ -26,13 +27,16 @@ public class PanelBase extends JPanel {
 	private JLabel rondCarte;
 	private JLabel rondCal;
 	private JPanel contenu;
+	private JLabel partage;
+	private JPanel barreHorizontale;
+	private MouseListener partagelist;
 	
 	public PanelBase(JFrame fen, String Texte) {
 		creerBase(fen);
 		modifierBase(Texte);
 	}
 	
-	public void creerBase(JFrame fen) {
+	public void creerBase(final JFrame fen) {
 		setLayout(new MigLayout("insets 0", "[60]0[1]0[600]", "[60]0[1]0[600]"));
 		this.setBounds(0, 0, 400, 460);
 		
@@ -43,13 +47,11 @@ public class PanelBase extends JPanel {
 		this.add(home,"cell 0 0,alignx center,aligny center");
 		
 		home.addMouseListener(
-				new MouseAdapter(){
+			new MouseAdapter(){
 				public void mouseClicked (MouseEvent e){
-					
 						PanelMenu m = new PanelMenu(fen);						
 						fen.setContentPane(m);
 						fen.validate();
-					
 					}
 				public void mouseEntered(MouseEvent e) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
@@ -57,7 +59,8 @@ public class PanelBase extends JPanel {
 				public void mouseExited(MouseEvent e) {
 					setCursor(Cursor.getDefaultCursor());
 				}
-				}  );
+			}
+		);
 		
 		JPanel barreNoireH = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) barreNoireH.getLayout();
@@ -76,61 +79,109 @@ public class PanelBase extends JPanel {
 		JPanel barreVerticale = new JPanel(new MigLayout("","[60]","[60][60][60][60][60][60]"));
 		add(barreVerticale, "cell 0 2,alignx left,aligny top");
 		
-		JPanel barreHorizontale = new JPanel(new MigLayout("insets 0","[60][540]", "[60]"));
+		this.barreHorizontale = new JPanel(new MigLayout("insets 0","[60][500][40]", "[60]"));
 		add(barreHorizontale, "cell 2 0,alignx left,aligny center");
 		
 		this.rondCom = new JLabel(new ImageIcon("./Images/rondCom.png"));
 		rondCom.setBounds(0, 0, 50, 50);
+		Border paddingBorderCo = BorderFactory.createEmptyBorder(0,7,0,0);
+		this.rondCom.setBorder(paddingBorderCo);
 		barreVerticale.add(rondCom,"cell 0 0,alignx left,aligny center");
 		this.rondCom.addMouseListener(new MouseAdapter() { 
 	          public void mousePressed(MouseEvent me) { 
 	              modifierBase("Communication"); 
-	            } 
-	          }); 
+	          } 
+	          public void mouseEntered(MouseEvent e) {
+					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+				}	  		
+	          public void mouseExited(MouseEvent e) {
+					setCursor(Cursor.getDefaultCursor());
+				}
+	         }); 
 
 		this.rondPhoto = new JLabel(new ImageIcon("./Images/rondPhoto.png"));
 		rondPhoto.setBounds(0, 0, 50, 50);
+		Border paddingBorderP = BorderFactory.createEmptyBorder(0,7,0,0);
+		this.rondPhoto.setBorder(paddingBorderP);
 		barreVerticale.add(rondPhoto,"cell 0 1,alignx left,aligny center");
 		this.rondPhoto.addMouseListener(new MouseAdapter() { 
 	          public void mousePressed(MouseEvent me) { 
 	              modifierBase("Photos"); 
 	            } 
+	          public void mouseEntered(MouseEvent e) {
+					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+				}
+		  		public void mouseExited(MouseEvent e) {
+					setCursor(Cursor.getDefaultCursor());
+				}
 	          }); 
 
 		this.rondCal = new JLabel(new ImageIcon("./Images/rondCal.png"));
 		rondCal.setBounds(0, 0, 50, 50);
+		Border paddingBorderCal = BorderFactory.createEmptyBorder(0,7,0,0);
+		this.rondCal.setBorder(paddingBorderCal);
 		barreVerticale.add(rondCal,"cell 0 2,alignx left,aligny center");
 		this.rondCal.addMouseListener(new MouseAdapter() { 
 	          public void mousePressed(MouseEvent me) { 
 	              modifierBase("Calendrier"); 
 	            } 
+	          public void mouseEntered(MouseEvent e) {
+					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+				}
+		  		public void mouseExited(MouseEvent e) {
+					setCursor(Cursor.getDefaultCursor());
+				}
 	          }); 
 
 		this.rondDep = new JLabel(new ImageIcon("./Images/rondDep.png"));
 		rondDep.setBounds(0, 0, 50, 50);
+		Border paddingBorderD = BorderFactory.createEmptyBorder(0,7,0,0);
+		this.rondDep.setBorder(paddingBorderD);
 		barreVerticale.add(rondDep,"cell 0 3,alignx left,aligny center");
 		this.rondDep.addMouseListener(new MouseAdapter() { 
 	          public void mousePressed(MouseEvent me) { 
 	              modifierBase("Dépenses"); 
 	            } 
+	          public void mouseEntered(MouseEvent e) {
+					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+				}
+	  		public void mouseExited(MouseEvent e) {
+				setCursor(Cursor.getDefaultCursor());
+			}
 	          }); 
 
 		this.rondCarte = new JLabel(new ImageIcon("./Images/rondCarte.png"));
 		rondCarte.setBounds(0, 0, 50, 50);
+		Border paddingBorderCa = BorderFactory.createEmptyBorder(0,7,0,0);
+		this.rondCarte.setBorder(paddingBorderCa);
 		barreVerticale.add(rondCarte,"cell 0 4,alignx left,aligny center");
 		this.rondCarte.addMouseListener(new MouseAdapter() { 
 	          public void mousePressed(MouseEvent me) { 
 	              modifierBase("Carte"); 
 	            } 
+	          public void mouseEntered(MouseEvent e) {
+					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+				}
+	  		public void mouseExited(MouseEvent e) {
+				setCursor(Cursor.getDefaultCursor());
+			}
 	          }); 
 		
 		this.rondContact = new JLabel(new ImageIcon("./Images/rondContact.png"));
 		rondContact.setBounds(0, 0, 50, 50);
+		Border paddingBorderC = BorderFactory.createEmptyBorder(0,7,0,0);
+		this.rondContact.setBorder(paddingBorderC);
 		barreVerticale.add(rondContact,"cell 0 5,alignx left,aligny center");
 		this.rondContact.addMouseListener(new MouseAdapter() { 
 	          public void mousePressed(MouseEvent me) { 
-	              modifierBase("Contact"); 
+	              modifierBase("Contacts"); 
 	            } 
+	          public void mouseEntered(MouseEvent e) {
+					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+				}
+	  		public void mouseExited(MouseEvent e) {
+				setCursor(Cursor.getDefaultCursor());
+			}
 	          }); 
 		
 		this.rondActuel = new JLabel();
@@ -145,6 +196,36 @@ public class PanelBase extends JPanel {
 		
 		this.contenu = new JPanel();
 		this.add(this.contenu, "cell 2 2,alignx left,aligny center");
+		
+		this.partage = new JLabel();
+		Border paddingBorder2 = BorderFactory.createEmptyBorder(20,20,20,20);
+		this.partage.setBorder(paddingBorder2);
+		barreHorizontale.add(this.partage, "cell 2 0,alignx left,aligny center");
+		
+		partagelist = new MouseAdapter() { 
+	          public void mousePressed(MouseEvent me) { 
+	              modifierBase("Contact"); 
+	            } 
+	          public void mouseEntered(MouseEvent e) {
+					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+				}
+		  		public void mouseExited(MouseEvent e) {
+					setCursor(Cursor.getDefaultCursor());
+				}
+	          }; 
+        
+	    JPanel iconesBas = new JPanel();
+  		barreVerticale.add(iconesBas, "cell 0 6, alignx left, aligny center");
+  		JLabel param = new JLabel(new ImageIcon("./Images/cogSmall.png"));
+  		param.setBounds(0, 0, 10, 10);
+  		iconesBas.add(param);
+  		JLabel aide = new JLabel(new ImageIcon("./Images/aideSmall.png"));
+  		aide.setBounds(0, 0, 10, 10);
+  		iconesBas.add(aide);
+  		JLabel deco = new JLabel(new ImageIcon("./Images/decoSmall.png"));
+  		deco.setBounds(0, 0, 10, 10);
+  		iconesBas.add(deco);
+  		
 	}
 	
 	
@@ -152,12 +233,15 @@ public class PanelBase extends JPanel {
 		this.textActuel.setText(Texte);
 		String img = "";
 		Icon ic = null;
-		
+		String imgPartage = "./Images/partage.png";
+		Icon ip = new ImageIcon(imgPartage);
 		String imgContact;
-		if(Texte == "Contact") {
+		if(Texte == "Contacts") {
 			imgContact = "./Images/rondContactSec.png";
 			img = "./Images/rondContact.png";
 			this.contenu = new PanelContact();
+			this.partage.setIcon(null);
+			this.partage.removeMouseListener(partagelist);
 		}else{
 			imgContact = "./Images/rondContact.png";
 		}
@@ -169,6 +253,8 @@ public class PanelBase extends JPanel {
 			imgCarte = "./Images/rondCarteSec.png";
 			img = "./Images/rondCarte.png";
 			this.contenu = new PanelCarte();
+			this.partage.setIcon(ip);
+			this.partage.addMouseListener(partagelist);
 		}else{
 			imgCarte = "./Images/rondCarte.png";
 		}
@@ -180,6 +266,8 @@ public class PanelBase extends JPanel {
 			imgDep = "./Images/rondDepSec.png";
 			img = "./Images/rondDep.png";
 			this.contenu = new PanelDepense();
+			this.partage.setIcon(ip);
+			this.partage.addMouseListener(partagelist);
 		}else{
 			imgDep = "./Images/rondDep.png";
 		}
@@ -191,6 +279,8 @@ public class PanelBase extends JPanel {
 			imgCal = "./Images/rondCalSec.png";
 			img = "./Images/rondCal.png";
 			this.contenu = new PanelCalendrier();
+			this.partage.setIcon(ip);
+			this.partage.addMouseListener(partagelist);
 		}else{
 			imgCal = "./Images/rondCal.png";
 		}
@@ -202,6 +292,8 @@ public class PanelBase extends JPanel {
 			imgPhoto = "./Images/rondPhotoSec.png";
 			img = "./Images/rondPhoto.png";
 			this.contenu = new PanelPhoto();
+			this.partage.setIcon(ip);
+			this.partage.addMouseListener(partagelist);
 		}else{
 			imgPhoto = "./Images/rondPhoto.png";
 		}
@@ -213,6 +305,8 @@ public class PanelBase extends JPanel {
 			imgCom = "./Images/rondComSec.png";
 			img = "./Images/rondCom.png";
 			this.contenu = new PanelCommunication();
+			this.partage.setIcon(null);
+			this.partage.removeMouseListener(partagelist);
 		}else{
 			imgCom = "./Images/rondCom.png";
 		}
@@ -226,6 +320,9 @@ public class PanelBase extends JPanel {
 		this.contenu.setBorder(paddingBorder2);
 		this.contenu.setBounds(0, 0, 50, 50);
 		this.add(this.contenu, "cell 2 2,alignx left,aligny center");
+		barreHorizontale.add(this.partage, "cell 2 0,alignx left,aligny center");
+		
+		
 	}
 
 }

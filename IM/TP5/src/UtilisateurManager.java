@@ -2,7 +2,6 @@
  * @author Frank CHASSING 14 153 710
  * @author Amandine FOUILLET 14 130 638
  */
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class UtilisateurManager {
@@ -51,7 +50,7 @@ public class UtilisateurManager {
 	 * 
 	 * @param nomUtilisateur
 	 * @param motDePasse
-	 * @return Vrai si l'utilisateur est connecté
+	 * @return Vrai si l'utilisateur est connectï¿½
 	 */
 	public boolean connexion(String pseudo, String motDePasse) {
 		

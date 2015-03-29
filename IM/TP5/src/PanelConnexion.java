@@ -7,6 +7,7 @@ import java.awt.event.*;
 
 import javax.swing.*;
 import javax.swing.border.AbstractBorder;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import net.miginfocom.swing.MigLayout;
@@ -18,10 +19,10 @@ public class PanelConnexion extends JPanel {
 	 * Create the panel.
 	 */
 	public PanelConnexion(final JFrame fen) {
-		setLayout(new MigLayout("", "[31.00px][37.00px][343.00px,grow]", "[59.00px][60.00px][69.00px][83.00px][59.00px]"));
-		Font font = new Font("Showcard Gothic", Font.BOLD, 40);
-		
-	    class CustomeBorder extends AbstractBorder{
+		setLayout(new MigLayout("", "[20%]0[60%]0[20%]", "[15%]0[20%]0[20%]2[20%]0[16%]"));
+		setBounds(0,0,460,500);
+	    
+		class CustomeBorder extends AbstractBorder{
 	        @Override
 	        public void paintBorder(Component c, Graphics g, int x, int y,
 	                int width, int height) {
@@ -35,22 +36,13 @@ public class PanelConnexion extends JPanel {
 	        }   
 	    }
 		
-		final JTextField pseudoField = new JTextField();
-		TextPrompt tp = new TextPrompt("Pseudo", pseudoField);
-		tp.setForeground( Color.GRAY );
-		tp.changeStyle(Font.ITALIC);
-		tp.setShow(TextPrompt.Show.ALWAYS);
-		
-		
 		JLabel retour = new JLabel( new ImageIcon( "./images/arrow.png"));
-		this.add(retour, "cell 0 0,alignx center,aligny center");
-		
+		this.add(retour, "cell 0 0 3 1,alignx left,aligny top");
 		retour.addMouseListener(
 				new MouseAdapter(){
 				public void mouseClicked (MouseEvent e){
 					PanelAwai m = new PanelAwai(fen);						
 					fen.setContentPane(m);
-					fen.setBounds(100, 100, 500, 500);
 					fen.validate();
 				}
 				public void mouseEntered(MouseEvent e) {
@@ -59,18 +51,21 @@ public class PanelConnexion extends JPanel {
 				public void mouseExited(MouseEvent e) {
 					setCursor(Cursor.getDefaultCursor());
 				}
-				}  );      
+		});      
 		
-		JLabel connexion = new JLabel("Connexion");	
-		connexion.setFont(font);
+		final JTextField pseudoField = new JTextField(30);
+		TextPrompt tp = new TextPrompt("Pseudo", pseudoField);
+		pseudoField.setPreferredSize(new Dimension(200, 60));
+		tp.setForeground( Color.GRAY );
+		tp.changeStyle(Font.ITALIC);
+		tp.setShow(TextPrompt.Show.ALWAYS);
 		pseudoField.setBorder(BorderFactory.createCompoundBorder(
                 new CustomeBorder(), 
                 new EmptyBorder(new Insets(15, 25, 15, 25))));
-		this.add(pseudoField, "cell 2 1,alignx center,aligny center");
+		this.add(pseudoField, "cell 1 1,alignx center,aligny center");
 		
-
-		
-		final JPasswordField passField = new JPasswordField();
+		final JPasswordField passField = new JPasswordField(30);
+		passField.setPreferredSize(new Dimension(200, 60));
 		TextPrompt tp2 = new TextPrompt("Mot de Passe", passField);
 		tp2.setForeground( Color.GRAY );
 		tp2.changeStyle(Font.ITALIC);
@@ -78,27 +73,23 @@ public class PanelConnexion extends JPanel {
 		passField.setBorder(BorderFactory.createCompoundBorder(
                 new CustomeBorder(), 
                 new EmptyBorder(new Insets(15, 25, 15, 25))));
-		this.add(passField, "cell 2 2,alignx center,aligny center");
+		this.add(passField, "cell 1 2,alignx center,aligny top");
 		
 		JLabel btnConnexion = new JLabel( new ImageIcon( "./images/connexion.png"));
-		this.add(btnConnexion, "cell 2 3,alignx center,aligny center");
-		
+		this.add(btnConnexion, "cell 1 3,alignx center,aligny top");
 		btnConnexion.addMouseListener(
 				new MouseAdapter(){
 				public void mouseClicked (MouseEvent e){
-					
 					String pseudoRes = pseudoField.getText();
 					String mdpRes = String.valueOf(passField.getPassword());
 					if(UtilisateurManager.getInstance().connexion(pseudoRes, mdpRes)){
 						PanelMenu m = new PanelMenu(fen);						
 						fen.setContentPane(m);
-						fen.setBounds(100, 100, 500, 500);
 						fen.validate();
 					}else{
 						JFrame m = new JFrame();
 						m.setResizable(false);
 						m.setTitle("Erreur");
-						m.setBounds(100, 100, 400, 120);
 						PanelErreur p = new PanelErreur(m);
 						m.setContentPane(p);
 						m.setVisible(true);
@@ -113,10 +104,12 @@ public class PanelConnexion extends JPanel {
 				}  );
 		
 		JLabel parametre = new JLabel( new ImageIcon( "./images/parametre.png"));
-		this.add(parametre, "cell 0 4,alignx center,aligny center");
+		Border paddingBorder2 = BorderFactory.createEmptyBorder(0,0,0,10);
+		parametre.setBorder(paddingBorder2);
+		this.add(parametre, "cell 0 4,alignx center,aligny bottom");
 		
 		JLabel aide = new JLabel( new ImageIcon( "./images/aide.png"));
-		this.add(aide, "cell 1 4,alignx trailing,aligny center");
+		this.add(aide, "cell 0 4,alignx trailing,aligny bottom");
 		
 		aide.addMouseListener(
 				new MouseAdapter(){
@@ -124,7 +117,7 @@ public class PanelConnexion extends JPanel {
 					JFrame f = new JFrame();
 					PanelAide m = new PanelAide(f, "connexion");	
 					f.setContentPane(m);
-					f.setBounds(100, 100, 500, 180);
+					//f.setBounds(100, 100, 500, 180);
 					f.setVisible(true);
 			
 			}

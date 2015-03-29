@@ -7,11 +7,13 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 //import net.miginfocom.swing.MigLayout;
 
 
+@SuppressWarnings("serial")
 public class PanelErreur extends JPanel {
 
 	/**

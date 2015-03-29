@@ -1,10 +1,7 @@
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import net.miginfocom.swing.MigLayout;
 
-
+@SuppressWarnings("serial")
 public class PanelCommunication extends JPanel {
 
 	/**

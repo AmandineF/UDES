@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
@@ -14,6 +15,7 @@ import javax.swing.text.*;
  *  of the parent text component. You are free to change the properties after
  *  class construction.
  */
+@SuppressWarnings("serial")
 public class TextPrompt extends JLabel
 	implements FocusListener, DocumentListener
 {

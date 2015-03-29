@@ -5,10 +5,7 @@
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
-
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -28,7 +25,6 @@ public class MainFrame extends JFrame {
 					
 					MainFrame frame = new MainFrame("Awaï");
 					frame.setTitle("Awaï");
-					//contentPane = new PanelAwai(frame);
 					contentPane = new PanelAwai(frame);
 					frame.setContentPane(contentPane);
 					frame.setResizable(false);
@@ -48,7 +44,7 @@ public class MainFrame extends JFrame {
 		//super(string);
 		setIconImage(Toolkit.getDefaultToolkit().getImage("airplane.png")); 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 500, 500);
+		setBounds(0, 0, 460, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));

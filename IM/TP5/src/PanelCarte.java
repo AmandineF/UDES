@@ -1,12 +1,6 @@
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
 
-import net.miginfocom.swing.MigLayout;
-
-
+@SuppressWarnings("serial")
 public class PanelCarte extends JPanel {
 
 	/**

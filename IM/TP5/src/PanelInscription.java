@@ -2,46 +2,40 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.*;
 import javax.swing.border.AbstractBorder;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
+import net.miginfocom.swing.MigLayout;
 
+@SuppressWarnings("serial")
 public class PanelInscription extends JPanel {
 
 	/**
 	 * Create the panel.
 	 */
 	public PanelInscription(final JFrame fen) {
-		this.setLayout(new GridBagLayout());
-		GridBagConstraints c = new GridBagConstraints();
+		setLayout(new MigLayout("", "[20%]0[60%]0[20%]", "[15%]0[15%]0[15%]0[15%]2[15%]0[16%]"));
 		
 		JLabel retour = new JLabel( new ImageIcon( "./images/arrow.png"));
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridwidth = 1;
-		c.ipadx = 15;
-		c.ipady = 12;
-		c.gridx = 0;
-		c.gridy = 0;
-		this.add(retour, c);
+		this.add(retour,  "cell 0 0 3 1,alignx left,aligny top");
 		
 		retour.addMouseListener(
 				new MouseAdapter(){
 				public void mouseClicked (MouseEvent e){
 					PanelAwai m = new PanelAwai(fen);						
 					fen.setContentPane(m);
-					fen.setBounds(100, 100, 500, 500);
 					fen.validate();
 				}
 				public void mouseEntered(MouseEvent e) {
@@ -66,25 +60,19 @@ public class PanelInscription extends JPanel {
 	        }   
 	    }
 		
-		final JTextField pseudoField = new JTextField();
+		final JTextField pseudoField = new JTextField(30);
 		TextPrompt tp = new TextPrompt("Pseudo", pseudoField);
+		pseudoField.setPreferredSize(new Dimension(200, 60));
 		tp.setForeground( Color.GRAY );
 		tp.changeStyle(Font.ITALIC);
 		tp.setShow(TextPrompt.Show.ALWAYS);
 		pseudoField.setBorder(BorderFactory.createCompoundBorder(
                 new CustomeBorder(), 
                 new EmptyBorder(new Insets(15, 25, 15, 25))));
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridwidth = 1;
-		c.ipadx = 0;
-		c.ipady = 0;
-		c.gridx = 3;
-		c.gridy = 1;
-		this.add(pseudoField, c);
+		this.add(pseudoField, "cell 1 1,alignx center,aligny top");
 		
-
-		
-		final JPasswordField passField = new JPasswordField();
+		final JPasswordField passField = new JPasswordField(30);
+		passField.setPreferredSize(new Dimension(200, 60));
 		TextPrompt tp2 = new TextPrompt("Mot de Passe", passField);
 		tp2.setForeground( Color.GRAY );
 		tp2.changeStyle(Font.ITALIC);
@@ -92,23 +80,25 @@ public class PanelInscription extends JPanel {
 		passField.setBorder(BorderFactory.createCompoundBorder(
                 new CustomeBorder(), 
                 new EmptyBorder(new Insets(15, 25, 15, 25))));
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridwidth = 1;
-		c.gridx = 3;
-		c.gridy = 2;
-		this.add(passField, c);
+		this.add(passField, "cell 1 2,alignx center,aligny top");
+		
+		final JPasswordField mailField = new JPasswordField(30);
+		mailField.setPreferredSize(new Dimension(200, 60));
+		TextPrompt tp3 = new TextPrompt("Addresse mail", mailField);
+		tp3.setForeground( Color.GRAY );
+		tp3.changeStyle(Font.ITALIC);
+		tp3.setShow(TextPrompt.Show.ALWAYS);
+		mailField.setBorder(BorderFactory.createCompoundBorder(
+                new CustomeBorder(), 
+                new EmptyBorder(new Insets(15, 25, 15, 25))));
+		this.add(mailField, "cell 1 3,alignx center,aligny top");
 
 		JLabel btnInscription = new JLabel( new ImageIcon( "./images/inscription.png"));
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridwidth = 1;
-		c.gridx = 3;
-		c.gridy = 3;
-		this.add(btnInscription, c);
+		this.add(btnInscription, "cell 1 4,alignx center,aligny top");
 		
 		btnInscription.addMouseListener(
 				new MouseAdapter(){
 				public void mouseClicked (MouseEvent e){
-					
 				
 				}
 				public void mouseEntered(MouseEvent e) {
@@ -120,18 +110,12 @@ public class PanelInscription extends JPanel {
 				}  );
 		
 		JLabel parametre = new JLabel( new ImageIcon( "./images/parametre.png"));
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridwidth = 1;
-		c.gridx = 0;
-		c.gridy = 4;
-		this.add(parametre, c);
+		Border paddingBorder2 = BorderFactory.createEmptyBorder(0,0,0,10);
+		parametre.setBorder(paddingBorder2);
+		this.add(parametre,  "cell 0 5,alignx trailing,aligny bottom");
 		
 		JLabel aide = new JLabel( new ImageIcon( "./images/aide.png"));
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridwidth = 1;
-		c.gridx = 1;
-		c.gridy = 4;
-		this.add(aide, c);
+		this.add(aide,  "cell 0 5,alignx trailing,aligny bottom");
 		
 		aide.addMouseListener(
 				new MouseAdapter(){
