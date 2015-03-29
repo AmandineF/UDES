@@ -194,8 +194,8 @@ public class PanelBase extends JPanel {
 		textActuel.setFont(new Font("Mockup", Font.PLAIN, 26));
 		barreHorizontale.add(textActuel,"cell 1 0,alignx left,aligny center");
 		
-		this.contenu = new JPanel();
-		this.add(this.contenu, "cell 2 2,alignx left,aligny center");
+		//this.contenu = new JPanel();
+		//this.add(this.contenu, "cell 2 2,alignx left,aligny center");
 		
 		this.partage = new JLabel();
 		Border paddingBorder2 = BorderFactory.createEmptyBorder(20,20,20,20);
@@ -316,10 +316,10 @@ public class PanelBase extends JPanel {
 		ic = new ImageIcon(img);
 		this.rondActuel.setIcon(ic);
 		//PAS PROPRE
-		Border paddingBorder2 = BorderFactory.createEmptyBorder(-15,-15,-15,-15);
+		Border paddingBorder2 = BorderFactory.createEmptyBorder(-6,-6,-6,-6);
 		this.contenu.setBorder(paddingBorder2);
 		this.contenu.setBounds(0, 0, 50, 50);
-		this.add(this.contenu, "cell 2 2,alignx left,aligny center");
+		this.add(this.contenu, "cell 2 2,alignx left,aligny top");
 		barreHorizontale.add(this.partage, "cell 2 0,alignx left,aligny center");
 		
 		
