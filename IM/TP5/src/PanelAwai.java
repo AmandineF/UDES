@@ -23,7 +23,7 @@ public class PanelAwai extends JPanel {
 		
 
 		
-		JLabel titre = new JLabel("Awaï", new ImageIcon( "airplane.png"), SwingConstants.CENTER);
+		JLabel titre = new JLabel("Awa\u00EF", new ImageIcon( "airplane.png"), SwingConstants.CENTER);
 		JLabel connexionImg = new JLabel(new ImageIcon( "./images/airplane.png"));
 		Font font = new Font("Showcard Gothic", Font.BOLD, 40);
 		Color grey = new Color(68,68,68); 
@@ -35,6 +35,7 @@ public class PanelAwai extends JPanel {
 				
 		JLabel imageConnexion = new JLabel( new ImageIcon( "./images/connexion.png"));
 		this.add(imageConnexion, "cell 1 2,alignx center,aligny center");
+		
 		
 		imageConnexion.addMouseListener(
 				new MouseAdapter(){
@@ -111,9 +112,11 @@ public class PanelAwai extends JPanel {
 			 } 
 		 });
 		this.add(parametre, "cell 0 8,alignx left,aligny center");
+		parametre.setToolTipText("Param\u00E8tre");
 		
 		JLabel aide = new JLabel( new ImageIcon( "./images/aide.png"));
 		this.add(aide, "cell 0 8,alignx left,aligny center");
+		aide.setToolTipText("Aide");
 				
 		aide.addMouseListener(
 				new MouseAdapter(){

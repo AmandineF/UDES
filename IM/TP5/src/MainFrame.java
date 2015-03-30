@@ -23,8 +23,8 @@ public class MainFrame extends JFrame {
 			public void run() {
 				try {
 					
-					MainFrame frame = new MainFrame("Awaï");
-					frame.setTitle("Awaï");
+					MainFrame frame = new MainFrame("Awa\u00EF");
+					frame.setTitle("Awa\u00EF");
 					contentPane = new PanelAwai(frame);
 					frame.setContentPane(contentPane);
 					frame.setResizable(false);

@@ -284,7 +284,7 @@ public class PanelBase extends JPanel {
 		this.rondCarte.setIcon(ic);
 
 		String imgDep;
-		if(Texte == "Dépenses") {
+		if(Texte == "D\u00E9penses") {
 			imgDep = "./Images/rondDepSec.png";
 			img = "./Images/rondDep.png";
 			this.contenu = new PanelDepense();

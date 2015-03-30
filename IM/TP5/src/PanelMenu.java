@@ -22,7 +22,7 @@ public class PanelMenu extends JPanel {
 		setBounds(0, 0, 400, 460);
 
 		//Titre
-		JLabel connexion = new JLabel("Awaï");
+		JLabel connexion = new JLabel("Awa\u00EF");
 		Font font = new Font("Showcard Gothic", Font.BOLD, 40);
 		Color grey = new Color(68,68,68); 
 		connexion.setForeground(grey); 
@@ -72,7 +72,7 @@ public class PanelMenu extends JPanel {
 		//Depenses
 		final JLabel imageDep = new JLabel( new ImageIcon( "./images/grosRondDep.png"));
 		this.add(imageDep, "cell 1 3,alignx center,aligny bottom");
-		final JLabel texteDep = new JLabel("Dépenses");
+		final JLabel texteDep = new JLabel("D\u00E9penses");
 		this.add(texteDep, "cell 1 4,alignx center,aligny top");
 		texteDep.setFont(new Font("Mockup", Font.PLAIN, 10));
 		
@@ -127,7 +127,7 @@ public class PanelMenu extends JPanel {
 		imageDep.addMouseListener(
 				new MouseAdapter(){
 				public void mouseClicked (MouseEvent e){
-						PanelBase m = new PanelBase(fen, "Dépenses");						
+						PanelBase m = new PanelBase(fen, "D\u00E9penses");						
 						fen.setContentPane(m);
 						fen.validate();
 					}
