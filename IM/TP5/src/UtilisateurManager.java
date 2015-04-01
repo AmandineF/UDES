@@ -27,7 +27,7 @@ public class UtilisateurManager {
 	private void loadData() {
 
 		Utilisateur frank = new Utilisateur("frank", "Frank", "Chassing","azerty");
-		Utilisateur amandine = new Utilisateur("amandine", "Frank", "Chassing","azerty");
+		Utilisateur amandine = new Utilisateur("amandine", "Amandine", "Fouillet","azerty");
 		Utilisateur blank = new Utilisateur("", "Frank", "Chassing","");
 
 

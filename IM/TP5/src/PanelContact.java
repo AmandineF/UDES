@@ -16,7 +16,6 @@ public class PanelContact extends JPanel {
 	 * Create the panel.
 	 */
 	public PanelContact() {
-		setLayout(new MigLayout("insets 0", "", "[20%][20%]"));
 		
 		JPanel unite = new JPanel();
 		unite.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, Color.BLACK));
