@@ -53,10 +53,6 @@ public class PanelContact extends JPanel {
 		unite.add(infoContact, "cell 7 0 0 2, alignx right, aligny center");
 		
 		this.add(unite, "cell 0 0 0 0, alignx center, aligny center");
-		this.add(unite, "cell 0 1 0 0, alignx center, aligny center");
-		//this.add(unite, "cell 0 2 0 0, alignx center, aligny center");
-		//JLabel imgDefault = new JLabel(new ImageIcon("/Users/Amandine/Documents/workspace/IM/Images/contact.png"));
-		//this.add(imgDefault, "cell 0 0,alignx center,aligny center");
 		
 	}
 
