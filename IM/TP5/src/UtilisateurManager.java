@@ -26,9 +26,9 @@ public class UtilisateurManager {
 
 	private void loadData() {
 
-		Utilisateur frank = new Utilisateur("frank", "Frank", "Chassing","azerty");
-		Utilisateur amandine = new Utilisateur("amandine", "Amandine", "Fouillet","azerty");
-		Utilisateur blank = new Utilisateur("", "Frank", "Chassing","");
+		Utilisateur frank = new Utilisateur("frank","azerty");
+		Utilisateur amandine = new Utilisateur("amandine","azerty");
+		Utilisateur blank = new Utilisateur("","");
 
 		utilisateurs.put(frank.getPseudo(), frank);
 		utilisateurs.put(amandine.getPseudo(), amandine);

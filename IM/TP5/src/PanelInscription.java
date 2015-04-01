@@ -82,7 +82,7 @@ public class PanelInscription extends JPanel {
                 new EmptyBorder(new Insets(15, 25, 15, 25))));
 		this.add(passField, "cell 1 2,alignx center,aligny top");
 		
-		final JPasswordField mailField = new JPasswordField(30);
+		final JTextField mailField = new JTextField(30);
 		mailField.setPreferredSize(new Dimension(200, 60));
 		TextPrompt tp3 = new TextPrompt("Addresse mail", mailField);
 		tp3.setForeground( Color.GRAY );
@@ -99,7 +99,47 @@ public class PanelInscription extends JPanel {
 		btnInscription.addMouseListener(
 				new MouseAdapter(){
 				public void mouseClicked (MouseEvent e){
-				
+					String strMail = mailField.getText();
+					String[] strMailSplit = strMail.split("@");
+					if(pseudoField.getText().equals("")){
+						JFrame jf = new JFrame("Erreur Pseudo");
+						jf.setBounds(0, 0, 400, 400);
+						PanelAide jp = new PanelAide(fen, "erreurpseudo");
+						jf.setContentPane(jp);
+						jf.setVisible(true);
+					}else if(String.valueOf(passField.getPassword()).isEmpty()){
+						JFrame jf = new JFrame("Erreur Mot de passe");
+						jf.setBounds(0, 0, 400, 400);
+						PanelAide jp = new PanelAide(fen, "erreurmdp");
+						jf.setContentPane(jp);
+						jf.setVisible(true);
+					}else if(strMailSplit.length != 2){
+						JFrame jf = new JFrame("Erreur Mail");
+						jf.setBounds(0, 0, 400, 400);
+						PanelAide jp = new PanelAide(fen, "erreurmail");
+						jf.setContentPane(jp);
+						jf.setVisible(true);
+					}else{
+						String strMail2 = strMailSplit[1];
+						if(!strMail2.contains(".")){
+							JFrame jf = new JFrame("Erreur Mail");
+							jf.setBounds(0, 0, 400, 400);
+							PanelAide jp = new PanelAide(fen, "erreurmail");
+							jf.setContentPane(jp);
+							jf.setVisible(true);
+						}else{
+							Utilisateur user = new Utilisateur(pseudoField.getText(), String.valueOf(passField.getPassword()));
+							UtilisateurManager.getInstance().getUtilisateur().put(pseudoField.getText(), user);
+							JFrame jf = new JFrame("Inscription reussie");
+							jf.setBounds(0, 0, 400, 400);
+							PanelAide jp = new PanelAide(fen, "inscrit");
+							jf.setContentPane(jp);
+							jf.setVisible(true);
+							PanelAwai pawai = new PanelAwai(fen);
+							fen.setContentPane(pawai);
+							fen.validate();
+						}
+					}
 				}
 				public void mouseEntered(MouseEvent e) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );

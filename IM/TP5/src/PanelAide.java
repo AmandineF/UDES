@@ -38,7 +38,14 @@ public class PanelAide extends JPanel {
 			str = "<html><center>Aide Carte à rédiger</center></html>";
 		if(msg.equals("Contacts"))
 			str = "<html><center>Aide Contacts à rédiger</center></html>";
-		
+		if(msg.equals("erreurmail"))
+			str = "<html><center>Erreur mail</center></html>";
+		if(msg.equals("erreurpseudo"))
+			str = "<html><center>Erreur Pseudo</center></html>";
+		if(msg.equals("erreurmdp"))
+			str = "<html><center>Erreur Mot de passe</center></html>";
+		if(msg.equals("inscrit"))
+			str = "<html><center>Vous �tes bien inscrit ! Veuillez maintenant vous connecter.</center></html>";
 		
 		JLabel text = new JLabel(str);
 		add(text, "cell 0 1,alignx center,aligny top");
