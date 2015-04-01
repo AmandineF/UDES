@@ -16,9 +16,11 @@ public class PanelContact extends JPanel {
 	 * Create the panel.
 	 */
 	public PanelContact(String nom, String prenom, String numero, String image) {
-		setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, Color.BLACK));
+		setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
 		setBackground(Color.WHITE);
-		setLayout(new MigLayout("","9[10%]5[35%]5[9%][10%][10%][10%][10%][10%][1%]","[50%][50%]"));
+		//setLayout(new MigLayout("insets 2","9[15%]5[31%]3[9%]0[9%]0[9%]0[9%]0[9%]0[9%]","[50%][50%]"));
+		//setLayout(new MigLayout("insets 2","9[50]0[120]0[30]0[30]0[30]0[30]0[30]0[30]","[50%][50%]"));
+		setLayout(new MigLayout("insets 2","9[50]0[130]0[30]0[30]0[30]0[30]0[30]0[20]","[50%][50%]"));
 		
 		JLabel nomContact = new JLabel(nom + " " + prenom);
 		nomContact.setFont(new Font("Mockup", Font.PLAIN, 12));
@@ -28,7 +30,7 @@ public class PanelContact extends JPanel {
 		numeroContact.setFont(new Font("Mockup", Font.PLAIN, 12));
 		this.add(numeroContact, "cell 1 1, alignx left, aligny top");
 		
-		JLabel imageContact = new JLabel(image);
+		JLabel imageContact = new JLabel(new ImageIcon(image));
 		this.add(imageContact, "cell 0 0 0 2, alignx left, aligny center");
 		
 		JLabel comContact = new JLabel(new ImageIcon("./Images/rondComContact.png"));
@@ -46,8 +48,8 @@ public class PanelContact extends JPanel {
 		JLabel carContact = new JLabel(new ImageIcon("./Images/rondCarContact.png"));
 		this.add(carContact, "cell 6 0 0 2, alignx right, aligny center");
 		
-		JLabel infoContact = new JLabel(new ImageIcon("./Images/rondComContact.png"));
-		this.add(infoContact, "cell 7 0 0 2, alignx right, aligny center");
+		//JLabel infoContact = new JLabel(new ImageIcon("./Images/rondComContact.png"));
+		//this.add(infoContact, "cell 7 0 0 2, alignx right, aligny center");
 		
 	}
 

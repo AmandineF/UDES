@@ -20,20 +20,34 @@ public class Utilisateur{
 	}
 	
 	public void ContactParDefaut(){
-		Contact maman = new Contact("Maman","","","./Images/maman.png");
+		Contact maman = new Contact("Maman","","06 56 68 96 90","./Images/contactDefaut.png");
 		addContact(maman);
-		Contact mamie = new Contact("Mamie","","","./Images/papa.png");
+		Contact mamie = new Contact("Mamie","","06 56 68 96 90","./Images/contactDefaut.png");
 		addContact(mamie);
-		Contact manue = new Contact("Manue","Dupont","","./Images/manue.png");
+		Contact manue = new Contact("Manue","Dupont","06 56 68 96 90","./Images/contactDefaut.png");
 		addContact(manue);
-		Contact michel = new Contact("Michel","Rochais","","./Images/manue.png");
+		Contact michel = new Contact("Michel","Rochais","06 56 68 96 90","./Images/contactDefaut.png");
 		addContact(michel);
-		Contact nina = new Contact("Nina","Fouli","","./Images/nina.png");
+		Contact nina = new Contact("Nina","Fouli","06 56 68 96 90","./Images/contactDefaut.png");
 		addContact(nina);
-		Contact noah = new Contact("Noah","Yannick","","./Images/noah.png");
+		Contact noah = new Contact("Noah","Yannick","06 56 68 96 90","./Images/contactDefaut.png");
 		addContact(noah);
-		Contact nathan = new Contact("Nathan","Scott","","./Images/nathan.png");
+		Contact nathan = new Contact("Nathan","Scott","06 56 68 96 90","./Images/contactDefaut.png");
 		addContact(nathan);
+		Contact maman1 = new Contact("Maman","","06 56 68 96 90","./Images/contactDefaut.png");
+		addContact(maman1);
+		Contact mamie1 = new Contact("Mamie","","06 56 68 96 90","./Images/contactDefaut.png");
+		addContact(mamie1);
+		Contact manue1 = new Contact("Manue","Dupont","06 56 68 96 90","./Images/contactDefaut.png");
+		addContact(manue1);
+		Contact michel1 = new Contact("Michel","Rochais","06 56 68 96 90","./Images/contactDefaut.png");
+		addContact(michel1);
+		Contact nina1 = new Contact("Nina","Fouli","06 56 68 96 90","./Images/contactDefaut.png");
+		addContact(nina1);
+		Contact noah1 = new Contact("Noah","Yannick","06 56 68 96 90","./Images/contactDefaut.png");
+		addContact(noah1);
+		Contact nathan1 = new Contact("Nathan","Scott","06 56 68 96 90","./Images/contactDefaut.png");
+		addContact(nathan1);
 	}
 	
 	public String getPseudo() {

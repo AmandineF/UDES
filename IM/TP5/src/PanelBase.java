@@ -34,6 +34,7 @@ public class PanelBase extends JPanel {
 	private MouseListener aideListener;
 	private JLabel aide;
 	private JLabel param;
+	private JScrollPane contentScrollPane;
 	
 	public PanelBase(JFrame fen, String Texte) {
 		creerBase(fen);
@@ -94,7 +95,10 @@ public class PanelBase extends JPanel {
 		barreVerticale.add(rondCom,"cell 0 0,alignx left,aligny center");
 		this.rondCom.addMouseListener(new MouseAdapter() { 
 	          public void mousePressed(MouseEvent me) { 
-	              modifierBase(fen, "Communication"); 
+	        	  removeAll();  
+	        	  PanelBase m = new PanelBase(fen, "Communication");						
+	        	  fen.setContentPane(m);
+	        	  fen.validate();
 	          } 
 	          public void mouseEntered(MouseEvent e) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
@@ -111,7 +115,10 @@ public class PanelBase extends JPanel {
 		barreVerticale.add(rondPhoto,"cell 0 1,alignx left,aligny center");
 		this.rondPhoto.addMouseListener(new MouseAdapter() { 
 	          public void mousePressed(MouseEvent me) { 
-	              modifierBase(fen, "Photos"); 
+	        	  removeAll();  
+	        	  PanelBase m = new PanelBase(fen, "Photos");						
+	        	  fen.setContentPane(m);
+	        	  fen.validate();
 	            } 
 	          public void mouseEntered(MouseEvent e) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
@@ -127,8 +134,11 @@ public class PanelBase extends JPanel {
 		this.rondCal.setBorder(paddingBorderCal);
 		barreVerticale.add(rondCal,"cell 0 2,alignx left,aligny center");
 		this.rondCal.addMouseListener(new MouseAdapter() { 
-	          public void mousePressed(MouseEvent me) { 
-	              modifierBase(fen, "Calendrier"); 
+	          public void mousePressed(MouseEvent me) {
+	        	  removeAll();  
+	        	  PanelBase m = new PanelBase(fen, "Calendrier");						
+	        	  fen.setContentPane(m);
+	        	  fen.validate();
 	            } 
 	          public void mouseEntered(MouseEvent e) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
@@ -145,7 +155,10 @@ public class PanelBase extends JPanel {
 		barreVerticale.add(rondDep,"cell 0 3,alignx left,aligny center");
 		this.rondDep.addMouseListener(new MouseAdapter() { 
 	          public void mousePressed(MouseEvent me) { 
-	              modifierBase(fen, "Dépenses"); 
+	        	  removeAll();  
+	        	  PanelBase m = new PanelBase(fen, "Dépenses");						
+	        	  fen.setContentPane(m);
+	        	  fen.validate();
 	            } 
 	          public void mouseEntered(MouseEvent e) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
@@ -162,7 +175,10 @@ public class PanelBase extends JPanel {
 		barreVerticale.add(rondCarte,"cell 0 4,alignx left,aligny center");
 		this.rondCarte.addMouseListener(new MouseAdapter() { 
 	          public void mousePressed(MouseEvent me) { 
-	              modifierBase(fen, "Carte"); 
+	        	  removeAll();  
+	        	  PanelBase m = new PanelBase(fen, "Carte");						
+	        	  fen.setContentPane(m);
+	        	  fen.validate();
 	            } 
 	          public void mouseEntered(MouseEvent e) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
@@ -179,7 +195,10 @@ public class PanelBase extends JPanel {
 		barreVerticale.add(rondContact,"cell 0 5,alignx left,aligny center");
 		this.rondContact.addMouseListener(new MouseAdapter() { 
 	          public void mousePressed(MouseEvent me) { 
-	              modifierBase(fen, "Contacts"); 
+	        	  removeAll();  
+	        	  PanelBase m = new PanelBase(fen, "Contacts");						
+	        	  fen.setContentPane(m);
+	        	  fen.validate();
 	            } 
 	          public void mouseEntered(MouseEvent e) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
@@ -202,15 +221,14 @@ public class PanelBase extends JPanel {
 		barreHorizontale.add(textActuel,"cell 1 0,alignx left,aligny center");
 		
 		this.contenu = new JPanel();
-		//this.add(this.contenu, "cell 2 2,alignx left,aligny center");
+
 		
 		this.partage = new JLabel();
 		Border padding = BorderFactory.createEmptyBorder(20,20,20,20);
 		this.partage.setBorder(padding);
-		barreHorizontale.add(this.partage, "cell 2 0,alignx left,aligny center");
 		partagelist = new MouseAdapter() { 
 	          public void mousePressed(MouseEvent me) { 
-	              modifierBase(fen, "Contacts"); 
+	              //modifierBase(fen, "Contacts"); 
 	            } 
 	          public void mouseEntered(MouseEvent e) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
@@ -253,26 +271,26 @@ public class PanelBase extends JPanel {
 				}
 		          });
   		iconesBas.add(deco);
+  		this.contentScrollPane = new JScrollPane(); 
   		
 	}
 	
 	
 	public void modifierBase(final JFrame fen, final String Texte) {
-		this.remove(this.contenu);
+
 		this.textActuel.setText(Texte);
 		
 		String img = "";
 		Icon ic = null;
-		String imgPartage = "./Images/partage.png";
-		Icon ip = new ImageIcon(imgPartage);
+		Icon ip = new ImageIcon("./Images/partage.png");
 		String imgContact;
 		if(Texte == "Contacts") {
 			imgContact = "./Images/rondContactSec.png";
 			img = "./Images/rondContact.png";
 			this.contenu = new PanelContacts();
-			this.partage.setIcon(null);
-			this.partage.setToolTipText("");
-			this.partage.removeMouseListener(partagelist);
+			this.partage.setIcon(new ImageIcon("./Images/plus.png"));
+			this.partage.setToolTipText("Ajouter un contact");
+			this.partage.addMouseListener(partagelist);
 		}else{
 			imgContact = "./Images/rondContact.png";
 		}
@@ -387,8 +405,6 @@ public class PanelBase extends JPanel {
 		this.rondActuel.setIcon(ic);
 		this.add(this.contenu, "cell 2 2,alignx left,aligny top");
 		barreHorizontale.add(this.partage, "cell 2 0,alignx left,aligny center");
-		
-		this.validate();
 	}
 
 }
