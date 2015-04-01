@@ -19,6 +19,7 @@ public class Utilisateur{
 		this.prenom = prenom;
 		this.nom = nom;
 		this.motDePasse = motDePasse;
+		this.listContacts = new LinkedList<Contact>();
 		ContactParDefaut();
 	}
 	

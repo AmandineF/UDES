@@ -269,7 +269,7 @@ public class PanelBase extends JPanel {
 		if(Texte == "Contacts") {
 			imgContact = "./Images/rondContactSec.png";
 			img = "./Images/rondContact.png";
-			this.contenu = new PanelContact();
+			this.contenu = new PanelContacts();
 			this.partage.setIcon(null);
 			this.partage.setToolTipText("");
 			this.partage.removeMouseListener(partagelist);

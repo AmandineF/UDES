@@ -19,12 +19,20 @@ public class Contact {
 		this.prenom = p;
 	}
 	
+	public void setNumero(String num){
+		this.numero = num;
+	}
+	
 	public void setImage(String i){
 		this.prenom = i;
 	}
 	
 	public String getNom(){
 		return this.nom;
+	}
+	
+	public String getNumero(){
+		return this.numero;
 	}
 	
 	public String getPrenom(){

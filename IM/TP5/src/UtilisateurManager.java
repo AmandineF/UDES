@@ -30,8 +30,6 @@ public class UtilisateurManager {
 		Utilisateur amandine = new Utilisateur("amandine", "Amandine", "Fouillet","azerty");
 		Utilisateur blank = new Utilisateur("", "Frank", "Chassing","");
 
-
-
 		utilisateurs.put(frank.getPseudo(), frank);
 		utilisateurs.put(amandine.getPseudo(), amandine);
 		utilisateurs.put(blank.getPseudo(), blank);
