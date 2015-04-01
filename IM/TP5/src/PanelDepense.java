@@ -17,7 +17,7 @@ public class PanelDepense extends JPanel {
 	 * Constructeur du panel depenses
 	**/
 	public PanelDepense() {
-		setLayout(new MigLayout("", "[100%]", "[100%]"));
+		setLayout(new MigLayout("", "", ""));
 		JLabel imgDefault = new JLabel(new ImageIcon("./Images/depenses.png"));
 		this.add(imgDefault, "cell 0 0,alignx center,aligny center");
 		

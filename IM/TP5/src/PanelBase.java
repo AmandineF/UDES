@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 
 import net.miginfocom.swing.MigLayout;
@@ -259,6 +260,7 @@ public class PanelBase extends JPanel {
 	public void modifierBase(final JFrame fen, final String Texte) {
 		this.remove(this.contenu);
 		this.textActuel.setText(Texte);
+		
 		String img = "";
 		Icon ic = null;
 		String imgPartage = "./Images/partage.png";
@@ -296,8 +298,8 @@ public class PanelBase extends JPanel {
 			imgDep = "./Images/rondDepSec.png";
 			img = "./Images/rondDep.png";
 			this.contenu = new PanelDepense();
-			this.partage.setIcon(ip);
 			this.partage.setToolTipText("Partage");
+			this.partage.setIcon(ip);
 			this.partage.addMouseListener(partagelist);
 		}else{
 			imgDep = "./Images/rondDep.png";
@@ -366,7 +368,8 @@ public class PanelBase extends JPanel {
 			 } 
 		 };
 		this.aide.addMouseListener(this.aideListener);
-		 this.param.addMouseListener(new MouseAdapter() { 
+		
+		this.param.addMouseListener(new MouseAdapter() { 
 	         public void mousePressed(MouseEvent me) { 
 	        	 PanelParametres m = new PanelParametres(fen, Texte);	
 			   	 fen.setContentPane(m);
