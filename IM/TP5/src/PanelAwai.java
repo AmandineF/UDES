@@ -18,23 +18,20 @@ public class PanelAwai extends JPanel {
 	 * Create the panel.
 	 */
 	public PanelAwai(final JFrame fen) {
+		setLayout(new MigLayout("", "[25%]0[50%]0[25%]", "[100][40][65]5[65]5[65][40][100]"));
 		
-		setLayout(new MigLayout("", "[25%]0[50%]0[25%]", "[14%][13%][13%][2%][13%][2%][13%][18%][10%]"));
-		
-
-		
-		JLabel titre = new JLabel("Awa\u00EF", new ImageIcon( "airplane.png"), SwingConstants.CENTER);
-		JLabel connexionImg = new JLabel(new ImageIcon( "./images/airplane.png"));
+		//Titre
+		JLabel connexion = new JLabel("Awa\u00EF");
 		Font font = new Font("Showcard Gothic", Font.BOLD, 40);
 		Color grey = new Color(68,68,68); 
-		titre.setForeground(grey);
-		titre.setFont(font);
-		this.add(titre, "cell 0 0 3 1,alignx center,aligny bottom");
-		this.add(connexionImg, "cell 0 0 3 1,alignx center,aligny bottom");
-		
+		connexion.setForeground(grey); 
+		connexion.setFont(font);
+		JLabel connexionImg = new JLabel(new ImageIcon( "./images/airplane.png"));
+		this.add(connexion, "cell 0 0 3 1,alignx center,aligny center");
+		this.add(connexionImg, "cell 0 0 3 1,alignx center,aligny center");
 				
 		JLabel imageConnexion = new JLabel( new ImageIcon( "./images/connexion.png"));
-		this.add(imageConnexion, "cell 1 2,alignx center,aligny center");
+		this.add(imageConnexion, "cell 1 2,alignx center,aligny bottom");
 		
 		
 		imageConnexion.addMouseListener(
@@ -56,7 +53,7 @@ public class PanelAwai extends JPanel {
 		
 		
 		JLabel imageInscription = new JLabel( new ImageIcon( "./images/inscription.png"));
-		this.add(imageInscription, "cell 1 4,alignx center,aligny center");
+		this.add(imageInscription, "cell 1 3,alignx center,aligny bottom");
 		
 		imageInscription.addMouseListener(
 				new MouseAdapter(){
@@ -76,7 +73,7 @@ public class PanelAwai extends JPanel {
 				}  );
 
 		JLabel imageApropos = new JLabel( new ImageIcon( "./images/apropos.png"));
-		this.add(imageApropos, "cell 1 6,alignx center,aligny center");
+		this.add(imageApropos, "cell 1 4,alignx center,aligny bottom");
 		
 		imageApropos.addMouseListener(
 				new MouseAdapter(){
@@ -96,8 +93,6 @@ public class PanelAwai extends JPanel {
 				}  );
 		
 		JLabel parametre = new JLabel( new ImageIcon( "./images/parametre.png"));
-		Border paddingBorder2 = BorderFactory.createEmptyBorder(0,0,0,10);
-		parametre.setBorder(paddingBorder2);
 		parametre.addMouseListener(new MouseAdapter() { 
 	         public void mousePressed(MouseEvent me) { 
 	        	 PanelParametres m = new PanelParametres(fen, "principaux");	
@@ -111,11 +106,14 @@ public class PanelAwai extends JPanel {
 					setCursor(Cursor.getDefaultCursor());
 			 } 
 		 });
-		this.add(parametre, "cell 0 8,alignx left,aligny center");
-		parametre.setToolTipText("Param\u00E8tre");
+		
+		JPanel paramAide = new JPanel(new MigLayout("", "[20][20][360]", "[100%]"));
+		this.add(paramAide, "cell 0 6 3 1,alignx left,aligny center");
+		paramAide.add(parametre,"cell 0 0, alignx center, aligny bottom");
+		parametre.setToolTipText("Param\u00E8tres");
 		
 		JLabel aide = new JLabel( new ImageIcon( "./images/aide.png"));
-		this.add(aide, "cell 0 8,alignx left,aligny center");
+		paramAide.add(aide,"cell 1 0, alignx center, aligny bottom");
 		aide.setToolTipText("Aide");
 				
 		aide.addMouseListener(

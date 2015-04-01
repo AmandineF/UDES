@@ -19,7 +19,7 @@ public class PanelConnexion extends JPanel {
 	 * Create the panel.
 	 */
 	public PanelConnexion(final JFrame fen) {
-		setLayout(new MigLayout("", "[20%]0[60%]0[20%]", "[15%]0[20%]0[20%]2[20%]0[16%]"));
+		setLayout(new MigLayout("", "[20%]0[60%]0[20%]", "[15%]0[20%]0[20%]2[20%]0[20%]"));
 		setBounds(0,0,460,500);
 	    
 		class CustomeBorder extends AbstractBorder{
@@ -103,7 +103,12 @@ public class PanelConnexion extends JPanel {
 				}
 				}  );
 		
+		JPanel paramAide = new JPanel(new MigLayout("", "[20][20][360]", "[100%]"));
+		this.add(paramAide, "cell 0 4 3 1,alignx left,aligny center");
+		
 		JLabel parametre = new JLabel( new ImageIcon( "./images/parametre.png"));
+		paramAide.add(parametre,"cell 0 0, alignx center, aligny bottom");
+		parametre.setToolTipText("Param\u00E8tres");
 		parametre.addMouseListener(new MouseAdapter() { 
 	         public void mousePressed(MouseEvent me) { 
 	        	 PanelParametres m = new PanelParametres(fen, "de la connexion");	
@@ -117,13 +122,9 @@ public class PanelConnexion extends JPanel {
 					setCursor(Cursor.getDefaultCursor());
 			 } 
 		 });
-		Border paddingBorder2 = BorderFactory.createEmptyBorder(0,0,0,10);
-		parametre.setBorder(paddingBorder2);
-		this.add(parametre, "cell 0 4,alignx center,aligny bottom");
 		
 		JLabel aide = new JLabel( new ImageIcon( "./images/aide.png"));
-		this.add(aide, "cell 0 4,alignx trailing,aligny bottom");
-		
+		paramAide.add(aide,"cell 1 0, alignx center, aligny bottom");
 		aide.addMouseListener(
 				new MouseAdapter(){
 				public void mouseClicked (MouseEvent e){

@@ -175,9 +175,10 @@ public class PanelMenu extends JPanel {
 				}
 				}  );
 		//Parametre + Aide
-				JPanel paramAide = new JPanel(new MigLayout("", "[20][20][360]", "[100%]"));
+				JPanel paramAide = new JPanel(new MigLayout("", "[20][20][20][340]", "[100%]"));
 				this.add(paramAide, "cell 0 5 5 1, alignx center, aligny bottom");
 				JLabel parametre = new JLabel( new ImageIcon( "./images/parametre.png"));
+				parametre.setToolTipText("Param\u00E8tres");
 				parametre.addMouseListener(new MouseAdapter() { 
 			         public void mousePressed(MouseEvent me) { 
 			        	 PanelParametres m = new PanelParametres(fen, "du menu");	
@@ -213,6 +214,26 @@ public class PanelMenu extends JPanel {
 					setCursor(Cursor.getDefaultCursor());
 				}
 				}  );
+				
+				JLabel deco = new JLabel(new ImageIcon("./Images/deco.png"));
+		  		deco.setToolTipText("D\u00E9connexion");
+		  		deco.addMouseListener(new MouseAdapter() { 
+			          public void mousePressed(MouseEvent me) { 
+			        	   JFrame decoFrame = new JFrame();	
+			        	   decoFrame.setBounds(0, 0, 460, 200);
+			        	   decoFrame.setVisible(true);
+			        	   decoFrame.setResizable(false);
+						   PanelDeconnexion m = new PanelDeconnexion(fen,decoFrame);
+			        	   decoFrame.setContentPane(m);
+			            } 
+				       public void mouseEntered(MouseEvent e) {
+								setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+							}
+				  		public void mouseExited(MouseEvent e) {
+							setCursor(Cursor.getDefaultCursor());
+						}
+				          });
+		  		paramAide.add(deco,"cell 2 0, alignx center, aligny bottom");
 	}
 
 }

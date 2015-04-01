@@ -30,6 +30,7 @@ public class PanelBase extends JPanel {
 	private JLabel partage;
 	private JPanel barreHorizontale;
 	private MouseListener partagelist;
+	private MouseListener aideListener;
 	private JLabel aide;
 	private JLabel param;
 	
@@ -39,7 +40,7 @@ public class PanelBase extends JPanel {
 	}
 	
 	public void creerBase(final JFrame fen) {
-		setLayout(new MigLayout("insets 0", "[60]0[1]0[600]", "[60]0[1]0[600]"));
+		setLayout(new MigLayout("insets 0", "[60]0[1]0[399]", "[60]0[1]0[439]"));
 		this.setBounds(0, 0, 400, 460);
 		
 		JLabel home = new JLabel(new ImageIcon("./Images/home.png"));
@@ -47,6 +48,7 @@ public class PanelBase extends JPanel {
 		Border paddingBorder = BorderFactory.createEmptyBorder(10,10,10,10);
 		home.setBorder(paddingBorder);
 		this.add(home,"cell 0 0,alignx center,aligny center");
+		home.setToolTipText("Retour menu principal");
 		
 		home.addMouseListener(
 			new MouseAdapter(){
@@ -78,10 +80,10 @@ public class PanelBase extends JPanel {
 		barreNoireV.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, Color.BLACK));
 		add(barreNoireV, "cell 1 0 1 3,growy");
 		
-		JPanel barreVerticale = new JPanel(new MigLayout("","[60]","[60][60][60][60][60][60]"));
+		JPanel barreVerticale = new JPanel(new MigLayout("","","[14%][14%][14%][14%][14%][14%][16%]"));
 		add(barreVerticale, "cell 0 2,alignx left,aligny top");
 		
-		this.barreHorizontale = new JPanel(new MigLayout("insets 0","[60][500][40]", "[60]"));
+		this.barreHorizontale = new JPanel(new MigLayout("insets 0","[60][339][40]", ""));
 		add(barreHorizontale, "cell 2 0,alignx left,aligny center");
 		
 		this.rondCom = new JLabel(new ImageIcon("./Images/rondCom.png"));
@@ -198,14 +200,13 @@ public class PanelBase extends JPanel {
 		textActuel.setForeground(grey); 
 		barreHorizontale.add(textActuel,"cell 1 0,alignx left,aligny center");
 		
-		//this.contenu = new JPanel();
+		this.contenu = new JPanel();
 		//this.add(this.contenu, "cell 2 2,alignx left,aligny center");
 		
 		this.partage = new JLabel();
-		Border paddingBorder2 = BorderFactory.createEmptyBorder(20,20,20,20);
-		this.partage.setBorder(paddingBorder2);
+		Border padding = BorderFactory.createEmptyBorder(20,20,20,20);
+		this.partage.setBorder(padding);
 		barreHorizontale.add(this.partage, "cell 2 0,alignx left,aligny center");
-		
 		partagelist = new MouseAdapter() { 
 	          public void mousePressed(MouseEvent me) { 
 	              modifierBase(fen, "Contacts"); 
@@ -219,17 +220,21 @@ public class PanelBase extends JPanel {
 	          }; 
         
 	    JPanel iconesBas = new JPanel();
-  		barreVerticale.add(iconesBas, "cell 0 6, alignx left, aligny center");
+  		barreVerticale.add(iconesBas, "cell 0 6, alignx left, aligny bottom");
   		this.param = new JLabel(new ImageIcon("./Images/cogSmall.png"));
+  		this.param.setToolTipText("Param\u00E8tres");
   		this.param.setBounds(0, 0, 10, 10);
   		iconesBas.add(param);
   		
   		this.aide = new JLabel(new ImageIcon("./Images/aideSmall.png"));
+  		this.aide.setToolTipText("Aide");
   		aide.setBounds(0, 0, 10, 10);
   		iconesBas.add(aide);
+  		this.aideListener = new MouseAdapter(){};
   		
   		JLabel deco = new JLabel(new ImageIcon("./Images/decoSmall.png"));
   		deco.setBounds(0, 0, 10, 10);
+  		deco.setToolTipText("D\u00E9connexion");
   		deco.addMouseListener(new MouseAdapter() { 
 	          public void mousePressed(MouseEvent me) { 
 	        	   JFrame decoFrame = new JFrame();	
@@ -252,6 +257,7 @@ public class PanelBase extends JPanel {
 	
 	
 	public void modifierBase(final JFrame fen, final String Texte) {
+		this.remove(this.contenu);
 		this.textActuel.setText(Texte);
 		String img = "";
 		Icon ic = null;
@@ -263,6 +269,7 @@ public class PanelBase extends JPanel {
 			img = "./Images/rondContact.png";
 			this.contenu = new PanelContact();
 			this.partage.setIcon(null);
+			this.partage.setToolTipText("");
 			this.partage.removeMouseListener(partagelist);
 		}else{
 			imgContact = "./Images/rondContact.png";
@@ -276,6 +283,7 @@ public class PanelBase extends JPanel {
 			img = "./Images/rondCarte.png";
 			this.contenu = new PanelCarte();
 			this.partage.setIcon(ip);
+			this.partage.setToolTipText("Partage");
 			this.partage.addMouseListener(partagelist);
 		}else{
 			imgCarte = "./Images/rondCarte.png";
@@ -289,6 +297,7 @@ public class PanelBase extends JPanel {
 			img = "./Images/rondDep.png";
 			this.contenu = new PanelDepense();
 			this.partage.setIcon(ip);
+			this.partage.setToolTipText("Partage");
 			this.partage.addMouseListener(partagelist);
 		}else{
 			imgDep = "./Images/rondDep.png";
@@ -301,6 +310,7 @@ public class PanelBase extends JPanel {
 			imgCal = "./Images/rondCalSec.png";
 			img = "./Images/rondCal.png";
 			this.contenu = new PanelCalendrier();
+			this.partage.setToolTipText("Partage");
 			this.partage.setIcon(ip);
 			this.partage.addMouseListener(partagelist);
 		}else{
@@ -315,6 +325,7 @@ public class PanelBase extends JPanel {
 			img = "./Images/rondPhoto.png";
 			this.contenu = new PanelPhoto();
 			this.partage.setIcon(ip);
+			this.partage.setToolTipText("Partage");
 			this.partage.addMouseListener(partagelist);
 		}else{
 			imgPhoto = "./Images/rondPhoto.png";
@@ -328,15 +339,17 @@ public class PanelBase extends JPanel {
 			img = "./Images/rondCom.png";
 			this.contenu = new PanelCommunication();
 			this.partage.setIcon(null);
+			this.partage.setToolTipText("Partage");
 			this.partage.removeMouseListener(partagelist);
+			this.partage.setToolTipText("");
 		}else{
 			imgCom = "./Images/rondCom.png";
 		}
 		ic = new ImageIcon(imgCom);
 		this.rondCom.setIcon(ic);
 		
-		
-		this.aide.addMouseListener(new MouseAdapter() { 
+		this.aide.removeMouseListener(this.aideListener);
+		this.aideListener = new MouseAdapter() { 
 	         public void mousePressed(MouseEvent me) { 
 	        	 JFrame f = new JFrame();
 				 PanelAide m = new PanelAide(f, Texte);	
@@ -351,7 +364,8 @@ public class PanelBase extends JPanel {
 		  	 public void mouseExited(MouseEvent e) {
 					setCursor(Cursor.getDefaultCursor());
 			 } 
-		 });
+		 };
+		this.aide.addMouseListener(this.aideListener);
 		 this.param.addMouseListener(new MouseAdapter() { 
 	         public void mousePressed(MouseEvent me) { 
 	        	 PanelParametres m = new PanelParametres(fen, Texte);	
@@ -368,14 +382,10 @@ public class PanelBase extends JPanel {
 		 
 		ic = new ImageIcon(img);
 		this.rondActuel.setIcon(ic);
-		//PAS PROPRE
-		Border paddingBorder2 = BorderFactory.createEmptyBorder(-6,-6,-6,-6);
-		this.contenu.setBorder(paddingBorder2);
-		this.contenu.setBounds(0, 0, 50, 50);
 		this.add(this.contenu, "cell 2 2,alignx left,aligny top");
 		barreHorizontale.add(this.partage, "cell 2 0,alignx left,aligny center");
 		
-		
+		this.validate();
 	}
 
 }

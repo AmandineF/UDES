@@ -26,7 +26,7 @@ public class PanelInscription extends JPanel {
 	 * Create the panel.
 	 */
 	public PanelInscription(final JFrame fen) {
-		setLayout(new MigLayout("", "[20%]0[60%]0[20%]", "[15%]0[15%]0[15%]0[15%]2[15%]0[16%]"));
+		setLayout(new MigLayout("", "[20%]0[60%]0[20%]", "[15%]0[15%]0[15%]0[15%]2[15%]0[20%]"));
 		
 		JLabel retour = new JLabel( new ImageIcon( "./images/arrow.png"));
 		this.add(retour,  "cell 0 0 3 1,alignx left,aligny top");
@@ -108,8 +108,10 @@ public class PanelInscription extends JPanel {
 					setCursor(Cursor.getDefaultCursor());
 				}
 				}  );
-		
+		JPanel paramAide = new JPanel(new MigLayout("", "[20][20][360]", "[100%]"));
+		this.add(paramAide, "cell 0 5 3 1,alignx left,aligny center");
 		JLabel parametre = new JLabel( new ImageIcon( "./images/parametre.png"));
+		paramAide.add(parametre,"cell 0 0, alignx center, aligny bottom");
 		parametre.addMouseListener(new MouseAdapter() { 
 	         public void mousePressed(MouseEvent me) { 
 	        	 PanelParametres m = new PanelParametres(fen, "de l'inscription");	
@@ -123,12 +125,10 @@ public class PanelInscription extends JPanel {
 					setCursor(Cursor.getDefaultCursor());
 			 } 
 		 });
-		Border paddingBorder2 = BorderFactory.createEmptyBorder(0,0,0,10);
-		parametre.setBorder(paddingBorder2);
-		this.add(parametre,  "cell 0 5,alignx trailing,aligny bottom");
+
 		
 		JLabel aide = new JLabel( new ImageIcon( "./images/aide.png"));
-		this.add(aide,  "cell 0 5,alignx trailing,aligny bottom");
+		paramAide.add(aide,"cell 1 0, alignx center, aligny bottom");
 		
 		aide.addMouseListener(
 				new MouseAdapter(){
