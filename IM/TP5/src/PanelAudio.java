@@ -126,7 +126,7 @@ public class PanelAudio extends JPanel {
 
 		
 		//Decrocher
-		final JLabel decrocher = new JLabel( new ImageIcon( "./images/decrocher.png"));
+		final JLabel decrocher = new JLabel( new ImageIcon( "./images/decrocherVert.png"));
 		decrocher.setToolTipText("D\u00E9crocher");
 		this.add(decrocher, "cell 0 4 2 1, alignx center");
 		decrocher.addMouseListener(
@@ -143,7 +143,7 @@ public class PanelAudio extends JPanel {
 				}  );
 		
 		//Raccrocher
-		final JLabel raccrocher = new JLabel( new ImageIcon( "./images/raccrocher.png"));
+		final JLabel raccrocher = new JLabel( new ImageIcon( "./images/raccrocherRouge.png"));
 		raccrocher.setToolTipText("Raccrocher");
 		this.add(raccrocher, "cell 2 4 2 1, alignx center");
 		raccrocher.addMouseListener(
