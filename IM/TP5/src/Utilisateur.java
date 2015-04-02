@@ -28,9 +28,9 @@ public class Utilisateur{
 		addContact(contact3);
 		Contact contact4 = new Contact("Baptiste","Hulin","06 25 68 96 90","./Images/contactDefaut.png",false,true,false,true);
 		addContact(contact4);
-		Contact contact5 = new Contact("Chloé","Lonet","06 56 46 96 90","./Images/contactDefaut.png",false,false,false,false);
+		Contact contact5 = new Contact("Chlo\u00E9","Lonet","06 56 46 96 90","./Images/contactDefaut.png",false,false,false,false);
 		addContact(contact5);
-		Contact contact6 = new Contact("Clément","Rond","06 26 68 96 90","./Images/contactDefaut.png",true, true, false,true);
+		Contact contact6 = new Contact("Cl\u00E9ment","Rond","06 26 68 96 90","./Images/contactDefaut.png",true, true, false,true);
 		addContact(contact6);
 		Contact contact7 = new Contact("Denis","Scott","06 56 34 96 90","./Images/contactDefaut.png",false, true, false,true);
 		addContact(contact7);
@@ -40,7 +40,7 @@ public class Utilisateur{
 		addContact(contact9);
 		Contact contact10 = new Contact("Eloise","Perdit","06 56 68 96 90","./Images/contactDefaut.png",false, true, false,true);
 		addContact(contact10);
-		Contact contact11 = new Contact("Félix","Leroux","06 93 68 96 90","./Images/contactDefaut.png",false, true, false,true);
+		Contact contact11 = new Contact("F\u00E9lix","Leroux","06 93 68 96 90","./Images/contactDefaut.png",false, true, false,true);
 		addContact(contact11);
 		Contact contact12 = new Contact("Justine","Picherit","06 56 68 96 90","./Images/contactDefaut.png",true, true, false,true);
 		addContact(contact12);

@@ -157,7 +157,7 @@ public class PanelBase extends JPanel {
 		this.rondDep.addMouseListener(new MouseAdapter() { 
 	          public void mousePressed(MouseEvent me) { 
 	        	  removeAll();  
-	        	  PanelBase m = new PanelBase(fen, "Dépenses", "");						
+	        	  PanelBase m = new PanelBase(fen, "D\u00E9penses", "");						
 	        	  fen.setContentPane(m);
 	        	  fen.validate();
 	            } 
@@ -358,7 +358,7 @@ public class PanelBase extends JPanel {
 		if(Texte == "Communication") {
 			imgCom = "./Images/rondComSec.png";
 			img = "./Images/rondCom.png";
-			this.contenu = new PanelCommunication(this, fen);
+			this.contenu = new PanelCommunication(fen);
 			this.partage.setIcon(null);
 			this.partage.setToolTipText("Partage");
 			this.partage.removeMouseListener(partagelist);

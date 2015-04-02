@@ -1,7 +1,18 @@
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.LinkedList;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -12,148 +23,46 @@ public class PanelCommunication extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelCommunication(PanelBase pan, final JFrame fen) {
-		setLayout(new MigLayout("", "[60%][20%][20%]", "[10%][1%][10%]"));
-
-		this.setBackground(Color.WHITE);
+	public PanelCommunication(final JFrame fen) {	
+		this.setLayout(new MigLayout("insets 0", "", ""));
+		JPanel sp = new JPanel();
+		MigLayout ml = new MigLayout("insets 0, gapy 0", "", "");
+		final Color bg = this.getBackground();
+		sp.setBackground(Color.WHITE);
+		sp.setLayout(ml);
+		final LinkedList<Contact> listContact = UtilisateurManager.getInstance().getConnectedUser().getContact();
+		int nbContact = listContact.size();
 		
-		//Maman
-		JLabel contactMaman = new JLabel( new ImageIcon( "./images/contactMaman.png"));
-		this.add(contactMaman, "cell 0 0, alignx left, aligny center" );
-		
-		contactMaman.addMouseListener(
-				new MouseAdapter(){
-				public void mouseClicked (MouseEvent e){
-		        	PanelBase m = new PanelBase(fen, "Messages", "Maman");
-		        	fen.setContentPane(m);
-		        	fen.validate();
-										
+		int j = 0;
+		for(int i = 0; i < nbContact; i++) {
+			final Contact c = listContact.get(i);
+			final PanelListe pc = new PanelListe(fen, c);
+			pc.addMouseListener(new MouseAdapter() { 
+		          public void mousePressed(MouseEvent me) { 
+		        	  removeAll();  
+		        	  PanelBase m = new PanelBase(fen, "Messages", c.getPrenom());						
+		        	  fen.setContentPane(m);
+		        	  fen.validate();
+		          } 
+		          public void mouseEntered(MouseEvent e) {
+						setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+						pc.setBackground(bg);
+					}	  		
+		          public void mouseExited(MouseEvent e) {
+						setCursor(Cursor.getDefaultCursor());
+						pc.setBackground(Color.WHITE);
 					}
-				public void mouseEntered(MouseEvent e) {
-					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
-					//contactMaman.setIcon(new ImageIcon( "./images/aproposHover.png"));
-				}
-				public void mouseExited(MouseEvent e) {
-					setCursor(Cursor.getDefaultCursor());
-					//contactMaman.setIcon(new ImageIcon( "./images/apropos.png"));
-				}
-				}  );
+		         }); 
+			sp.add(pc, "cell 0 " + j + ",alignx center, aligny center");	
+			j++;
+		}
 		
-		final JLabel btnAppelMaman = new JLabel( new ImageIcon( "./images/btnAppel.png"));
-		this.add(btnAppelMaman, "cell 1 0,alignx left,aligny center");
+		JScrollPane contentScrollPane = new JScrollPane(sp);
+		contentScrollPane.setBorder(BorderFactory.createEmptyBorder());
+		contentScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		contentScrollPane.setPreferredSize(new Dimension (440, 405));
+		this.add(contentScrollPane, "cell 0 0,alignx center, aligny center");
 		
-		btnAppelMaman.addMouseListener(
-				new MouseAdapter(){
-				public void mouseClicked (MouseEvent e){
-		        	PanelBase m = new PanelBase(fen, "Conversation audio", "Maman");
-		        	fen.setContentPane(m);
-		        	fen.validate();
-											
-					}
-				public void mouseEntered(MouseEvent e) {
-					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
-					btnAppelMaman.setIcon(new ImageIcon( "./images/btnAppelHover.png"));
-				}
-				public void mouseExited(MouseEvent e) {
-					setCursor(Cursor.getDefaultCursor());
-					btnAppelMaman.setIcon(new ImageIcon( "./images/btnAppel.png"));
-				}
-				}  );
-		
-		final JLabel btnVideoMaman = new JLabel( new ImageIcon( "./images/btnVideo.png"));
-		this.add(btnVideoMaman, "cell 2 0,alignx left,aligny center");
-		
-		btnVideoMaman.addMouseListener(
-				new MouseAdapter(){
-				public void mouseClicked (MouseEvent e){
-		        	PanelBase m = new PanelBase(fen, "Conversation video", "Maman");
-		        	fen.setContentPane(m);
-		        	fen.validate();
-											
-					}
-				public void mouseEntered(MouseEvent e) {
-					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
-					btnVideoMaman.setIcon(new ImageIcon( "./images/btnVideoHover.png"));
-				}
-				public void mouseExited(MouseEvent e) {
-					setCursor(Cursor.getDefaultCursor());
-					btnVideoMaman.setIcon(new ImageIcon( "./images/btnVideo.png"));
-				}
-				}  );
-		
-		
-		JPanel barreNoireH = new JPanel();
-		FlowLayout flowLayout = (FlowLayout) barreNoireH.getLayout();
-		flowLayout.setVgap(0);
-		flowLayout.setHgap(0);
-		barreNoireH.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.gray));
-		add(barreNoireH, "cell 0 1 3 1,growx");
-		
-		//Papa
-		JLabel contactPapa = new JLabel( new ImageIcon( "./images/contactPapa.png"));
-		this.add(contactPapa, "cell 0 2,alignx left,aligny center");
-		
-		contactPapa.addMouseListener(
-				new MouseAdapter(){
-				public void mouseClicked (MouseEvent e){
-		        	PanelBase m = new PanelBase(fen, "Messages", "Papa");
-		        	fen.setContentPane(m);
-		        	fen.validate();
-										
-					}
-				public void mouseEntered(MouseEvent e) {
-					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
-					//contactMaman.setIcon(new ImageIcon( "./images/aproposHover.png"));
-				}
-				public void mouseExited(MouseEvent e) {
-					setCursor(Cursor.getDefaultCursor());
-					//contactMaman.setIcon(new ImageIcon( "./images/apropos.png"));
-				}
-				}  );
-		final JLabel btnAppelPapa = new JLabel( new ImageIcon( "./images/btnAppel.png"));
-		this.add(btnAppelPapa, "cell 1 2,alignx left,aligny center");
-
-		
-		btnAppelPapa.addMouseListener(
-				new MouseAdapter(){
-				public void mouseClicked (MouseEvent e){
-		        	PanelBase m = new PanelBase(fen, "Conversation audio", "Papa");
-		        	fen.setContentPane(m);
-		        	fen.validate();
-											
-					}
-				public void mouseEntered(MouseEvent e) {
-					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
-					btnAppelPapa.setIcon(new ImageIcon( "./images/btnAppelHover.png"));
-				}
-				public void mouseExited(MouseEvent e) {
-					setCursor(Cursor.getDefaultCursor());
-					btnAppelPapa.setIcon(new ImageIcon( "./images/btnAppel.png"));
-				}
-				}  );
-		
-		final JLabel btnVideoPapa = new JLabel( new ImageIcon( "./images/btnVideo.png"));
-		this.add(btnVideoPapa, "cell 2 2,alignx left,aligny center");
-		
-
-		
-		btnVideoPapa.addMouseListener(
-				new MouseAdapter(){
-				public void mouseClicked (MouseEvent e){
-		        	PanelBase m = new PanelBase(fen, "Conversation video", "Papa");
-		        	fen.setContentPane(m);
-		        	fen.validate();
-											
-					}
-				public void mouseEntered(MouseEvent e) {
-					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
-					btnVideoPapa.setIcon(new ImageIcon( "./images/btnVideoHover.png"));
-				}
-				public void mouseExited(MouseEvent e) {
-					setCursor(Cursor.getDefaultCursor());
-					btnVideoPapa.setIcon(new ImageIcon( "./images/btnVideo.png"));
-				}
-				}  );
 	}
 
 }
