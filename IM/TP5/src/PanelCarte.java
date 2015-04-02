@@ -11,11 +11,11 @@ public class PanelCarte extends JPanel {
 	 * Create the panel.
 	 */
 	public PanelCarte() {
-		/**
-		setLayout(new MigLayout("", "[100%]", "[100%]"));
+		
+		setLayout(new MigLayout("insets 0", "", ""));
 		JLabel imgDefault = new JLabel(new ImageIcon("./Images/carte.png"));
 		this.add(imgDefault, "cell 0 0,alignx left,aligny center");
-		**/
+		
 	}
 
 }

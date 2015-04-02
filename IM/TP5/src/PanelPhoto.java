@@ -11,11 +11,11 @@ public class PanelPhoto extends JPanel {
 	 * Create the panel.
 	 */
 	public PanelPhoto() {
-		/**
-		setLayout(new MigLayout("", "", ""));
-		JLabel imgDefault = new JLabel(new ImageIcon("/Users/Amandine/Documents/workspace/IM/Images/photo.png"));
+		
+		setLayout(new MigLayout("insets 0", "", ""));
+		JLabel imgDefault = new JLabel(new ImageIcon("./Images/photos.png"));
 		this.add(imgDefault, "cell 0 0,alignx center,aligny center");
-		**/
+		
 	}
 
 }
