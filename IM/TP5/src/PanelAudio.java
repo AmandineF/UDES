@@ -11,7 +11,7 @@ public class PanelAudio extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelAudio(String contact, JFrame fen) {
+	public PanelAudio(String contact, final JFrame fen) {
 		
 		//Fleche retour
 		JLabel retour = new JLabel( new ImageIcon( "./images/arrow.png"));

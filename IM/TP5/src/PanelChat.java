@@ -14,7 +14,7 @@ public class PanelChat extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelChat(String contact, JFrame fen) {
+	public PanelChat(String contact, final JFrame fen) {
 		setLayout(new MigLayout("", "[20%][40%][20%][20%]", "[10%][1%][68%][1%][20%]"));
 		
 		//Fleche retour

@@ -12,7 +12,7 @@ public class PanelCommunication extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelCommunication(PanelBase pan, JFrame fen) {
+	public PanelCommunication(PanelBase pan, final JFrame fen) {
 		setLayout(new MigLayout("", "[60%][20%][20%]", "[10%][1%][10%]"));
 
 		this.setBackground(Color.WHITE);

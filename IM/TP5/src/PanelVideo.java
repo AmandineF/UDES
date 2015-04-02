@@ -11,7 +11,7 @@ public class PanelVideo extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelVideo(String contact, JFrame fen) {
+	public PanelVideo(String contact, final JFrame fen) {
 		
 		//Fleche retour
 		JLabel retour = new JLabel( new ImageIcon( "./images/arrow.png"));
