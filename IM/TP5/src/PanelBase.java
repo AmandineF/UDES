@@ -288,7 +288,7 @@ public class PanelBase extends JPanel {
 		if(Texte == "Contacts") {
 			imgContact = "./Images/rondContactSec.png";
 			img = "./Images/rondContact.png";
-			this.contenu = new PanelContacts();
+			this.contenu = new PanelContacts(fen);
 			this.partage.setIcon(new ImageIcon("./Images/plus.png"));
 			this.partage.setToolTipText("Ajouter un contact");
 			this.partage.addMouseListener(partagelist);
@@ -429,7 +429,7 @@ public class PanelBase extends JPanel {
 		
 		this.param.addMouseListener(new MouseAdapter() { 
 	         public void mousePressed(MouseEvent me) { 
-	        	 PanelParametres m = new PanelParametres(fen, Texte);	
+	        	 PanelParametres m = new PanelParametres(fen, Texte,null);	
 			   	 fen.setContentPane(m);
 				 fen.validate();
 	         } 

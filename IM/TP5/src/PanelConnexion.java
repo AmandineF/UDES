@@ -111,7 +111,7 @@ public class PanelConnexion extends JPanel {
 		parametre.setToolTipText("Param\u00E8tres");
 		parametre.addMouseListener(new MouseAdapter() { 
 	         public void mousePressed(MouseEvent me) { 
-	        	 PanelParametres m = new PanelParametres(fen, "de la connexion");	
+	        	 PanelParametres m = new PanelParametres(fen, "de la connexion",null);	
 			   	 fen.setContentPane(m);
 				 fen.validate();
 	         } 

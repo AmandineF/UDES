@@ -181,7 +181,7 @@ public class PanelMenu extends JPanel {
 				parametre.setToolTipText("Param\u00E8tres");
 				parametre.addMouseListener(new MouseAdapter() { 
 			         public void mousePressed(MouseEvent me) { 
-			        	 PanelParametres m = new PanelParametres(fen, "du menu");	
+			        	 PanelParametres m = new PanelParametres(fen, "du menu", null);	
 					   	 fen.setContentPane(m);
 						 fen.validate();
 			         } 

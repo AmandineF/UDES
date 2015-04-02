@@ -10,19 +10,18 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 
 import net.miginfocom.swing.MigLayout;
 
-
 @SuppressWarnings("serial")
 public class PanelBaseContact extends JPanel {
 
-	public PanelBaseContact(final JFrame fen) {
+	public PanelBaseContact(final JFrame fen, final Contact contact, final String Texte) {
 		setLayout(new MigLayout("insets 0", "[60]0[1]0[399]", "[60]0[1]0[439]"));
 		this.setBounds(0, 0, 400, 460);
-		
+		JLabel rondActuel = new JLabel();
+		JPanel contenu = new JPanel();
 		JLabel retour = new JLabel(new ImageIcon("./Images/arrow.png"));
 		retour.setBounds(0, 0, 50, 50);
 		Border paddingBorder = BorderFactory.createEmptyBorder(10,10,10,10);
@@ -32,9 +31,9 @@ public class PanelBaseContact extends JPanel {
 		retour.addMouseListener(
 			new MouseAdapter(){
 				public void mouseClicked (MouseEvent e){
-						//PanelMenu m = new PanelMenu(fen);						
-						//fen.setContentPane(m);
-						//fen.validate();
+						PanelBase m = new PanelBase(fen, "Contacts", "");						
+						fen.setContentPane(m);
+						fen.validate();
 					}
 				public void mouseEntered(MouseEvent e) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
@@ -62,172 +61,232 @@ public class PanelBaseContact extends JPanel {
 		JPanel barreVerticale = new JPanel(new MigLayout("","","[14%][14%][14%][14%][14%][14%][16%]"));
 		add(barreVerticale, "cell 0 2,alignx left,aligny top");
 		
-		JPanel barreHorizontale = new JPanel(new MigLayout("insets 0","[60][339][40]", ""));
+		JPanel barreHorizontale = new JPanel(new MigLayout("","[250][150]", ""));
 		add(barreHorizontale, "cell 2 0,alignx left,aligny center");
 		
-		final JLabel rondCom = new JLabel(new ImageIcon("./Images/rondCom.png"));
-		rondCom.setBounds(0, 0, 50, 50);
+		final JLabel rondInfo = new JLabel();
+		if(Texte.equals("Informations")){
+			rondInfo.setIcon(new ImageIcon("./Images/rondInfoSec.png"));
+			rondActuel.setIcon(new ImageIcon("./Images/rondInfoContact.png"));
+		}else{
+			rondInfo.setIcon(new ImageIcon("./Images/rondInfo.png"));
+			rondInfo.addMouseListener(new MouseAdapter() { 
+		          public void mousePressed(MouseEvent me) { 
+		        	  removeAll();
+		        	  PanelBaseContact m = new PanelBaseContact(fen, contact, "Informations");						
+		        	  fen.setContentPane(m);
+		        	  fen.validate();
+		          } 
+		          public void mouseEntered(MouseEvent e) {
+						setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+					}	  		
+		          public void mouseExited(MouseEvent e) {
+						setCursor(Cursor.getDefaultCursor());
+					}
+		         }); 
+			rondInfo.setToolTipText("Acc\u00E8der aux informations de " + contact.getNom() + ".");
+		}
+		rondInfo.setBounds(0, 0, 50, 50);
 		Border paddingBorderCo = BorderFactory.createEmptyBorder(0,7,0,0);
-		rondCom.setBorder(paddingBorderCo);
-		barreVerticale.add(rondCom,"cell 0 0,alignx left,aligny center");
-		rondCom.addMouseListener(new MouseAdapter() { 
-	          public void mousePressed(MouseEvent me) { 
-	        	  removeAll();  
-	        	  PanelBase m = new PanelBase(fen, "Communication");						
-	        	  fen.setContentPane(m);
-	        	  fen.validate();
-	          } 
-	          public void mouseEntered(MouseEvent e) {
-					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
-				}	  		
-	          public void mouseExited(MouseEvent e) {
-					setCursor(Cursor.getDefaultCursor());
-				}
-	         }); 
+		rondInfo.setBorder(paddingBorderCo);
+		barreVerticale.add(rondInfo,"cell 0 0,alignx left,aligny center");
+		
 	
-		this.rondPhoto = new JLabel(new ImageIcon("./Images/rondPhoto.png"));
+		final JLabel rondPhoto = new JLabel();
+		if(contact.getAccesPhoto()) {
+			if(Texte.equals("Photos")){
+				rondPhoto.setIcon(new ImageIcon("./Images/rondPhotoSec.png"));
+				rondActuel.setIcon(new ImageIcon("./Images/rondPhoContact.png"));
+				contenu = new PanelPhoto();
+			}else{
+				rondPhoto.setIcon(new ImageIcon("./Images/rondPhoto.png"));	
+				rondPhoto.addMouseListener(new MouseAdapter() { 
+			          public void mousePressed(MouseEvent me) { 
+			        	  removeAll();
+			        	  PanelBaseContact m = new PanelBaseContact(fen, contact, "Photos");						
+			        	  fen.setContentPane(m);
+			        	  fen.validate();
+			            } 
+			          public void mouseEntered(MouseEvent e) {
+							setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+						}
+				  		public void mouseExited(MouseEvent e) {
+							setCursor(Cursor.getDefaultCursor());
+						}
+			          }); 
+				rondPhoto.setToolTipText("Acc\u00E8der aux Photos de " + contact.getNom() + ".");
+			}
+			
+		} else {
+			rondPhoto.setIcon(new ImageIcon("./Images/rondPhotoGris.png"));
+			rondPhoto.setToolTipText("Vous n'avez pas acc\u00E8s aux Photos de " + contact.getNom() + ".");
+		}
 		rondPhoto.setBounds(0, 0, 50, 50);
 		Border paddingBorderP = BorderFactory.createEmptyBorder(0,7,0,0);
-		this.rondPhoto.setBorder(paddingBorderP);
+		rondPhoto.setBorder(paddingBorderP);
 		barreVerticale.add(rondPhoto,"cell 0 1,alignx left,aligny center");
-		this.rondPhoto.addMouseListener(new MouseAdapter() { 
-	          public void mousePressed(MouseEvent me) { 
-	        	  removeAll();  
-	        	  PanelBase m = new PanelBase(fen, "Photos");						
-	        	  fen.setContentPane(m);
-	        	  fen.validate();
-	            } 
-	          public void mouseEntered(MouseEvent e) {
-					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
-				}
-		  		public void mouseExited(MouseEvent e) {
-					setCursor(Cursor.getDefaultCursor());
-				}
-	          }); 
 	
-		this.rondCal = new JLabel(new ImageIcon("./Images/rondCal.png"));
+		final JLabel rondCal = new JLabel();
+		if(contact.getAccesCal()) {
+			if(Texte.equals("Calendrier")){
+				rondCal.setIcon(new ImageIcon("./Images/rondCalSec.png"));
+				rondActuel.setIcon(new ImageIcon("./Images/rondCalContact.png"));
+				contenu = new PanelCalendrier();
+			}else{
+				rondCal.setIcon(new ImageIcon("./Images/rondCal.png"));
+			
+			rondCal.setToolTipText("Acc\u00E8der au Calendrier de " + contact.getNom() + ".");
+			rondCal.addMouseListener(new MouseAdapter() { 
+		          public void mousePressed(MouseEvent me) {
+		        	  removeAll();
+		        	  PanelBaseContact m = new PanelBaseContact(fen, contact, "Calendrier");						
+		        	  fen.setContentPane(m);
+		        	  fen.validate();
+		            } 
+		          public void mouseEntered(MouseEvent e) {
+						setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+					}
+			  		public void mouseExited(MouseEvent e) {
+						setCursor(Cursor.getDefaultCursor());
+					}
+		          });
+			}
+		}else{
+			rondCal.setIcon(new ImageIcon("./Images/rondCalGris.png"));
+			rondCal.setToolTipText("Vous n'avez pas acc\u00E8s au Calendrier de " + contact.getNom() + ".");
+		}
 		rondCal.setBounds(0, 0, 50, 50);
 		Border paddingBorderCal = BorderFactory.createEmptyBorder(0,7,0,0);
-		this.rondCal.setBorder(paddingBorderCal);
+		rondCal.setBorder(paddingBorderCal);
 		barreVerticale.add(rondCal,"cell 0 2,alignx left,aligny center");
-		this.rondCal.addMouseListener(new MouseAdapter() { 
-	          public void mousePressed(MouseEvent me) {
-	        	  removeAll();  
-	        	  PanelBase m = new PanelBase(fen, "Calendrier");						
-	        	  fen.setContentPane(m);
-	        	  fen.validate();
-	            } 
-	          public void mouseEntered(MouseEvent e) {
-					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
-				}
-		  		public void mouseExited(MouseEvent e) {
-					setCursor(Cursor.getDefaultCursor());
-				}
-	          }); 
+		
 	
-		this.rondDep = new JLabel(new ImageIcon("./Images/rondDep.png"));
+		final JLabel rondDep = new JLabel();
+		if(contact.getAccesDep()) {
+			if(Texte.equals("Dépenses")){
+				rondDep.setIcon(new ImageIcon("./Images/rondDepSec.png"));
+				rondActuel.setIcon(new ImageIcon("./Images/rondDepContact.png"));
+				contenu = new PanelDepense();
+			}else{
+				rondDep.setIcon(new ImageIcon("./Images/rondDep.png"));
+			
+			rondDep.setToolTipText("Acc\u00E8der aux Dépenses de " + contact.getNom() + ".");
+			rondDep.addMouseListener(new MouseAdapter() { 
+		          public void mousePressed(MouseEvent me) {
+		        	  removeAll();
+		        	  PanelBaseContact m = new PanelBaseContact(fen, contact, "Dépenses");						
+		        	  fen.setContentPane(m);
+		        	  fen.validate();
+		            } 
+		          public void mouseEntered(MouseEvent e) {
+						setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+					}
+			  		public void mouseExited(MouseEvent e) {
+						setCursor(Cursor.getDefaultCursor());
+					}
+		          }); 
+			}
+		}else{
+			rondDep.setIcon(new ImageIcon("./Images/rondDepGris.png"));
+			rondDep.setToolTipText("Vous n'avez pas acc\u00E8s aux Dépenses de " + contact.getNom() + ".");
+		}
 		rondDep.setBounds(0, 0, 50, 50);
 		Border paddingBorderD = BorderFactory.createEmptyBorder(0,7,0,0);
-		this.rondDep.setBorder(paddingBorderD);
+		rondDep.setBorder(paddingBorderD);
 		barreVerticale.add(rondDep,"cell 0 3,alignx left,aligny center");
-		this.rondDep.addMouseListener(new MouseAdapter() { 
-	          public void mousePressed(MouseEvent me) { 
-	        	  removeAll();  
-	        	  PanelBase m = new PanelBase(fen, "Dépenses");						
-	        	  fen.setContentPane(m);
-	        	  fen.validate();
-	            } 
-	          public void mouseEntered(MouseEvent e) {
-					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
-				}
-	  		public void mouseExited(MouseEvent e) {
-				setCursor(Cursor.getDefaultCursor());
-			}
-	          }); 
+		
 	
-		this.rondCarte = new JLabel(new ImageIcon("./Images/rondCarte.png"));
+		final JLabel rondCarte = new JLabel();
+		if(contact.getAccesDep()) {
+			if(Texte.equals("Carte")){
+				rondActuel.setIcon(new ImageIcon("./Images/rondCarContact.png"));
+				rondCarte.setIcon(new ImageIcon("./Images/rondCarteSec.png"));
+				contenu = new PanelCarte();
+			} else {
+				rondCarte.setIcon(new ImageIcon("./Images/rondCarte.png"));
+			
+			rondCarte.setToolTipText("Acc\u00E8der à la Carte de " + contact.getNom() + ".");
+			rondCarte.addMouseListener(new MouseAdapter() { 
+		          public void mousePressed(MouseEvent me) {
+		        	  removeAll();
+		        	  PanelBaseContact m = new PanelBaseContact(fen, contact, "Carte");						
+		        	  fen.setContentPane(m);
+		        	  fen.validate();
+		            } 
+		          public void mouseEntered(MouseEvent e) {
+						setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+					}
+			  		public void mouseExited(MouseEvent e) {
+						setCursor(Cursor.getDefaultCursor());
+					}
+		          }); 
+			}
+		}else{
+			rondCarte.setIcon(new ImageIcon("./Images/rondCarteGris.png"));
+			rondCarte.setToolTipText("Vous n'avez pas acc\u00E8s à la Carte de " + contact.getNom() + ".");
+		}
 		rondCarte.setBounds(0, 0, 50, 50);
 		Border paddingBorderCa = BorderFactory.createEmptyBorder(0,7,0,0);
-		this.rondCarte.setBorder(paddingBorderCa);
+		rondCarte.setBorder(paddingBorderCa);
 		barreVerticale.add(rondCarte,"cell 0 4,alignx left,aligny center");
-		this.rondCarte.addMouseListener(new MouseAdapter() { 
-	          public void mousePressed(MouseEvent me) { 
-	        	  removeAll();  
-	        	  PanelBase m = new PanelBase(fen, "Carte");						
-	        	  fen.setContentPane(m);
-	        	  fen.validate();
-	            } 
-	          public void mouseEntered(MouseEvent e) {
-					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
-				}
-	  		public void mouseExited(MouseEvent e) {
-				setCursor(Cursor.getDefaultCursor());
-			}
-	          }); 
-		
-		this.rondContact = new JLabel(new ImageIcon("./Images/rondContact.png"));
-		rondContact.setBounds(0, 0, 50, 50);
-		Border paddingBorderC = BorderFactory.createEmptyBorder(0,7,0,0);
-		this.rondContact.setBorder(paddingBorderC);
-		barreVerticale.add(rondContact,"cell 0 5,alignx left,aligny center");
-		this.rondContact.addMouseListener(new MouseAdapter() { 
-	          public void mousePressed(MouseEvent me) { 
-	        	  removeAll();  
-	        	  PanelBase m = new PanelBase(fen, "Contacts");						
-	        	  fen.setContentPane(m);
-	        	  fen.validate();
-	            } 
-	          public void mouseEntered(MouseEvent e) {
-					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
-				}
-	  		public void mouseExited(MouseEvent e) {
-				setCursor(Cursor.getDefaultCursor());
-			}
-	          }); 
-		
-		this.rondActuel = new JLabel();
-		rondActuel.setBounds(0, 0, 50, 50);
-		Border paddingBorder1 = BorderFactory.createEmptyBorder(10,10,10,10);
-		rondActuel.setBorder(paddingBorder1);
-		barreHorizontale.add(rondActuel,"cell 0 0,alignx left,aligny center");
-		
-		this.textActuel = new JLabel("");
-		textActuel.setFont(new Font("Mockup", Font.PLAIN, 26));
+				
 		Color grey = new Color(68,68,68); 
+		JLabel imageContact = new JLabel(new ImageIcon(contact.getImage()));
+		barreHorizontale.add(imageContact,"cell 0 0,alignx left,aligny center");
+		
+		JLabel nomContact = new JLabel(contact.getNom() + " "+ contact.getPrenom());
+		nomContact.setFont(new Font("Mockup", Font.PLAIN, 22));
+		nomContact.setForeground(grey); 
+		barreHorizontale.add(nomContact, "cell 0 0,alignx left,aligny center");
+		
+		JLabel textActuel = new JLabel(Texte);
+		textActuel.setFont(new Font("Mockup", Font.PLAIN, 16));
 		textActuel.setForeground(grey); 
-		barreHorizontale.add(textActuel,"cell 1 0,alignx left,aligny center");
+		barreHorizontale.add(textActuel, "cell 1 0,alignx right,aligny center");
 		
-		this.contenu = new JPanel();
-	
+		barreHorizontale.add(rondActuel,"cell 1 0,alignx right,aligny center");
 		
-		this.partage = new JLabel();
-		Border padding = BorderFactory.createEmptyBorder(20,20,20,20);
-		this.partage.setBorder(padding);
-		partagelist = new MouseAdapter() { 
-	          public void mousePressed(MouseEvent me) { 
-	              //modifierBase(fen, "Contacts"); 
-	            } 
-	          public void mouseEntered(MouseEvent e) {
-					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
-				}
-		  		public void mouseExited(MouseEvent e) {
-					setCursor(Cursor.getDefaultCursor());
-				}
-	          }; 
-	    
 	    JPanel iconesBas = new JPanel();
 			barreVerticale.add(iconesBas, "cell 0 6, alignx left, aligny bottom");
-			this.param = new JLabel(new ImageIcon("./Images/cogSmall.png"));
-			this.param.setToolTipText("Param\u00E8tres");
-			this.param.setBounds(0, 0, 10, 10);
+			JLabel param = new JLabel(new ImageIcon("./Images/cogSmall.png"));
+			param.setToolTipText("Param\u00E8tres");
+			param.setBounds(0, 0, 10, 10);
+			param.addMouseListener(new MouseAdapter() { 
+		         public void mousePressed(MouseEvent me) { 
+		        	 PanelParametres m = new PanelParametres(fen, "des contacts", contact);	
+				   	 fen.setContentPane(m);
+					 fen.validate();
+		         } 
+			     public void mouseEntered(MouseEvent e) {
+						setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+			     }
+			  	 public void mouseExited(MouseEvent e) {
+						setCursor(Cursor.getDefaultCursor());
+				 } 
+			 });
 			iconesBas.add(param);
 			
-			this.aide = new JLabel(new ImageIcon("./Images/aideSmall.png"));
-			this.aide.setToolTipText("Aide");
+			JLabel aide = new JLabel(new ImageIcon("./Images/aideSmall.png"));
+			aide.setToolTipText("Aide");
 			aide.setBounds(0, 0, 10, 10);
 			iconesBas.add(aide);
-			this.aideListener = new MouseAdapter(){};
-			
+			aide.addMouseListener(new MouseAdapter() { 
+		         public void mousePressed(MouseEvent me) { 
+		        	 JFrame f = new JFrame();
+					 PanelAide m = new PanelAide(f, Texte);	
+				   	 f.setContentPane(m);
+				   	 f.setResizable(false);
+				     f.setBounds(100, 100, 500, 180);
+					 f.setVisible(true);
+		         } 
+			     public void mouseEntered(MouseEvent e) {
+						setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+			     }
+			  	 public void mouseExited(MouseEvent e) {
+						setCursor(Cursor.getDefaultCursor());
+				 } 
+			 });
+			 
 			JLabel deco = new JLabel(new ImageIcon("./Images/decoSmall.png"));
 			deco.setBounds(0, 0, 10, 10);
 			deco.setToolTipText("D\u00E9connexion");
@@ -248,7 +307,8 @@ public class PanelBaseContact extends JPanel {
 				}
 		          });
 			iconesBas.add(deco);
-			this.contentScrollPane = new JScrollPane(); 
+			this.add(contenu, "cell 2 2,alignx left,aligny top");
+			
 	}
 
 }

@@ -95,7 +95,7 @@ public class PanelAwai extends JPanel {
 		JLabel parametre = new JLabel( new ImageIcon( "./images/parametre.png"));
 		parametre.addMouseListener(new MouseAdapter() { 
 	         public void mousePressed(MouseEvent me) { 
-	        	 PanelParametres m = new PanelParametres(fen, "principaux");	
+	        	 PanelParametres m = new PanelParametres(fen, "principaux",null);	
 			   	 fen.setContentPane(m);
 				 fen.validate();
 	         } 

@@ -154,7 +154,7 @@ public class PanelInscription extends JPanel {
 		paramAide.add(parametre,"cell 0 0, alignx center, aligny bottom");
 		parametre.addMouseListener(new MouseAdapter() { 
 	         public void mousePressed(MouseEvent me) { 
-	        	 PanelParametres m = new PanelParametres(fen, "de l'inscription");	
+	        	 PanelParametres m = new PanelParametres(fen, "de l'inscription",null);	
 			   	 fen.setContentPane(m);
 				 fen.validate();
 	         } 

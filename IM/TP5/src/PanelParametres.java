@@ -14,7 +14,7 @@ import net.miginfocom.swing.MigLayout;
 
 @SuppressWarnings("serial")
 public class PanelParametres extends JPanel {
-	public PanelParametres(final JFrame fen, final String msg) {
+	public PanelParametres(final JFrame fen, final String msg, final Contact c) {
 		setLayout(new MigLayout("insets 0", "[100%]", "[15%][90%]"));
 
 		String str = "Page des paramètres " + msg;
@@ -37,6 +37,8 @@ public class PanelParametres extends JPanel {
 						m = new PanelConnexion(fen);
 					} else if(msg.equals("de l'inscription")) {
 						m = new PanelInscription(fen);
+					} else if(msg.equals("des contacts")) {
+						m = new PanelBaseContact(fen, c, "Informations");
 					}else {
 						m = new PanelBase(fen, msg, "");	
 					}

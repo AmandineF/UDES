@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.util.LinkedList;
 
 import javax.swing.BorderFactory;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
@@ -34,14 +35,14 @@ public class PanelContacts extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelContacts() {	
+	public PanelContacts(final JFrame fen) {	
 		this.setLayout(new MigLayout("insets 0", "", ""));
 		JPanel sp = new JPanel();
 		MigLayout ml = new MigLayout("insets 0, gapy 0", "", "");
 		final Color bg = this.getBackground();
 		sp.setBackground(Color.WHITE);
 		sp.setLayout(ml);
-		LinkedList<Contact> listContact = UtilisateurManager.getInstance().getConnectedUser().getContact();
+		final LinkedList<Contact> listContact = UtilisateurManager.getInstance().getConnectedUser().getContact();
 		int nbContact = listContact.size();
 		
 		String old = "Z";
@@ -54,17 +55,18 @@ public class PanelContacts extends JPanel {
 				j++;
 				old = firstLettre;
 			}
-			
-			final PanelContact pc = new PanelContact(listContact.get(i));
+			final Contact c = listContact.get(i);
+			final PanelContact pc = new PanelContact(fen, c);
+			pc.setToolTipText("Acc\u00E8der aux informations de " + c.getNom() + ".");
 			pc.addMouseListener(new MouseAdapter() { 
 		          public void mousePressed(MouseEvent me) { 
-		        	  //removeAll();  
-		        	  //PanelBase m = new PanelBase(fen, "Communication");						
-		        	  //fen.setContentPane(m);
-		        	  //fen.validate();
+		        	  removeAll();  
+		        	  PanelBaseContact m = new PanelBaseContact(fen, c,"Informations");						
+		        	  fen.setContentPane(m);
+		        	  fen.validate();
 		          } 
 		          public void mouseEntered(MouseEvent e) {
-						setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+						setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 						pc.setBackground(bg);
 					}	  		
 		          public void mouseExited(MouseEvent e) {
