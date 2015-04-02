@@ -34,7 +34,7 @@ setLayout(new MigLayout("", "[20%]0[60%]0[20%]", "[15%]0[15%]0[15%]0[15%]2[15%]0
 				new MouseAdapter(){
 				public void mouseClicked (MouseEvent e){
 					removeAll();
-					PanelBase m = new PanelBase(fen, "Contacts", "");						
+					PanelBase m = new PanelBase(fen, "Contacts", null);						
 					fen.setContentPane(m);
 					fen.validate();
 				}
@@ -145,7 +145,7 @@ setLayout(new MigLayout("", "[20%]0[60%]0[20%]", "[15%]0[15%]0[15%]0[15%]2[15%]0
 				public void mouseClicked (MouseEvent e){
 					//Non implemente
 					removeAll();
-					PanelBase m = new PanelBase(fen, "Contacts", "");						
+					PanelBase m = new PanelBase(fen, "Contacts", null);						
 					fen.setContentPane(m);
 					fen.validate();
 				}

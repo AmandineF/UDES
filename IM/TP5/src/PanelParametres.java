@@ -40,7 +40,7 @@ public class PanelParametres extends JPanel {
 					} else if(msg.equals("des contacts")) {
 						m = new PanelBaseContact(fen, c, "Informations");
 					}else {
-						m = new PanelBase(fen, msg, "");	
+						m = new PanelBase(fen, msg, null);	
 					}
 						fen.setContentPane(m);
 						fen.validate();

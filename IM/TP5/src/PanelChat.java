@@ -24,19 +24,20 @@ public class PanelChat extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelChat(final String contact, final JFrame fen) {
+	public PanelChat(final Contact contact, final JFrame fen) {
 		setLayout(new MigLayout("", "[20%][40%][20%][20%]", "[10%][1%][68%][1%][20%]"));
 		this.setBackground(Color.white);
 		
 		//Fleche retour
 		JLabel retour = new JLabel( new ImageIcon( "./images/arrow.png"));
+		retour.setToolTipText("Retour \u00E0 la liste des communications");
 		Border paddingBorder2 = BorderFactory.createEmptyBorder(10,10,10,10);
 		retour.setBorder(paddingBorder2);
 		this.add(retour, "cell 0 0,alignx left,aligny top");
 		retour.addMouseListener(
 				new MouseAdapter(){
 				public void mouseClicked (MouseEvent e){
-		        	PanelBase m = new PanelBase(fen, "Communication", "");
+		        	PanelBase m = new PanelBase(fen, "Communication", null);
 		        	fen.setContentPane(m);
 		        	fen.validate();
 				}
@@ -50,19 +51,35 @@ public class PanelChat extends JPanel {
 		
 		//Nom contact
 		Font font = new Font("Mockup", Font.BOLD, 20);
-		JLabel labelContact = new JLabel(contact);
+		JLabel labelContact = new JLabel(contact.getNom());
+		labelContact.setToolTipText("Acc\u00E9der \u00E0 la fiche de "+contact.getNom());
 		labelContact.setFont(font);
 		add(labelContact, "cell 1 0, alignx center, aligny center");
+		labelContact.addMouseListener(
+				new MouseAdapter(){
+				public void mouseClicked (MouseEvent e){
+					PanelBaseContact p = new PanelBaseContact(fen, contact, "Informations");
+					fen.setContentPane(p);
+					fen.validate();
+				}
+				public void mouseEntered(MouseEvent e) {
+					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+				}
+				public void mouseExited(MouseEvent e) {
+					setCursor(Cursor.getDefaultCursor());
+				}
+		});  
 		
 		//bouton appel
 		final JLabel btnAppel = new JLabel( new ImageIcon( "./images/btnAppel.png"));
-		this.add(btnAppel, "cell 3 0,alignx center,aligny center");
+		btnAppel.setToolTipText("Appeler "+contact.getNom());
+		this.add(btnAppel, "cell 3 0,alignx right,aligny center");
 
 		
 		btnAppel.addMouseListener(
 				new MouseAdapter(){
 				public void mouseClicked (MouseEvent e){
-		        	PanelBase m = new PanelBase(fen, "Conversation audio", contact);
+		        	PanelAudio m = new PanelAudio(contact, fen);
 		        	fen.setContentPane(m);
 		        	fen.validate();
 											
@@ -80,6 +97,7 @@ public class PanelChat extends JPanel {
 		
 		//bouton video
 		final JLabel btnVideo = new JLabel( new ImageIcon( "./images/btnVideo.png"));
+		btnVideo.setToolTipText("Appel vid\u00E9o avec "+contact.getNom());
 		this.add(btnVideo, "cell 4 0,alignx left,aligny center");
 		
 
@@ -87,7 +105,7 @@ public class PanelChat extends JPanel {
 		btnVideo.addMouseListener(
 				new MouseAdapter(){
 				public void mouseClicked (MouseEvent e){
-		        	PanelBase m = new PanelBase(fen, "Conversation video", contact);
+					PanelVideo m = new PanelVideo(contact, fen);
 		        	fen.setContentPane(m);
 		        	fen.validate();
 											
@@ -136,9 +154,11 @@ public class PanelChat extends JPanel {
 	        }   
 	    }
 		
-		//Textfield Entr�e de texte
+		//Textfield Entree de texte
 		final JTextField message = new JTextField(30);
-		TextPrompt tp = new TextPrompt("Texte a envoyer...", message);
+		Font ftext = new Font("Mockup", Font.PLAIN, 15);
+		message.setFont(ftext);
+		TextPrompt tp = new TextPrompt("Texte \u00E0 envoyer...", message);
 		message.setPreferredSize(new Dimension(200, 60));
 		tp.setForeground( Color.GRAY );
 		tp.changeStyle(Font.ITALIC);
@@ -150,6 +170,7 @@ public class PanelChat extends JPanel {
 		
 		//Bouton d'envoi
 		final JLabel btnEnvoi = new JLabel( new ImageIcon( "./images/btnEnvoi.png"));
+		btnEnvoi.setToolTipText("Envoyer le message");
 		this.add(btnEnvoi);
 		btnEnvoi.addMouseListener(
 				new MouseAdapter(){

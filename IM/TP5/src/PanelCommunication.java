@@ -33,14 +33,39 @@ public class PanelCommunication extends JPanel {
 		final LinkedList<Contact> listContact = UtilisateurManager.getInstance().getConnectedUser().getContact();
 		int nbContact = listContact.size();
 		
+		String[] texteTab = {"Salut, ca va ?",
+							"Comment s'est passé le...",
+							"Je suis allé dans ce bar...",
+							"J'essaie de ne plus...",
+							"Pourvu que ca dure...",
+							"Je ne sais pas.",
+							"A bientot !",
+							"Quelle ironie !",
+							"Ton pere m'a dit que...",
+							"J'espere que nous y ...",
+							"T'as vu le chien de Joe ?",
+							"Hello :-)",
+							"Daniel m'a fait penser...",
+							"Je cherche encore.",
+							"Super clip ! :-)",
+							"Qu'est-il arriv\u00E9 ? ?",
+							"La g-m de Daniel est...",
+							"Je n'arrive pas a y croire.",
+							"Mon sac est chez toi.",
+							"J'arrive !",
+							":-)",
+							"LOL"};
+		
+		
 		int j = 0;
 		for(int i = 0; i < nbContact; i++) {
 			final Contact c = listContact.get(i);
-			final PanelListe pc = new PanelListe(fen, c);
+			final PanelListe pc = new PanelListe(fen, c, texteTab[i]);
+			pc.setToolTipText("Ecrire \u00E0 "+c.getNom());
 			pc.addMouseListener(new MouseAdapter() { 
 		          public void mousePressed(MouseEvent me) { 
 		        	  removeAll();  
-		        	  PanelBase m = new PanelBase(fen, "Messages", c.getPrenom());						
+		        	  PanelBase m = new PanelBase(fen, "Messages", c);						
 		        	  fen.setContentPane(m);
 		        	  fen.validate();
 		          } 

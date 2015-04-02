@@ -36,7 +36,7 @@ public class PanelBase extends JPanel {
 	private JLabel param;
 	private JScrollPane contentScrollPane;
 	
-	public PanelBase(JFrame fen, String Texte, String contact) {
+	public PanelBase(JFrame fen, String Texte, Contact contact) {
 		creerBase(fen);
 		modifierBase(fen, Texte, contact);
 	}
@@ -97,7 +97,7 @@ public class PanelBase extends JPanel {
 		this.rondCom.addMouseListener(new MouseAdapter() { 
 	          public void mousePressed(MouseEvent me) { 
 	        	  removeAll();  
-	        	  PanelBase m = new PanelBase(fen, "Communication", "");						
+	        	  PanelBase m = new PanelBase(fen, "Communication", null);						
 	        	  fen.setContentPane(m);
 	        	  fen.validate();
 	          } 
@@ -117,7 +117,7 @@ public class PanelBase extends JPanel {
 		this.rondPhoto.addMouseListener(new MouseAdapter() { 
 	          public void mousePressed(MouseEvent me) { 
 	        	  removeAll();  
-	        	  PanelBase m = new PanelBase(fen, "Photos", "");						
+	        	  PanelBase m = new PanelBase(fen, "Photos", null);						
 	        	  fen.setContentPane(m);
 	        	  fen.validate();
 	            } 
@@ -137,7 +137,7 @@ public class PanelBase extends JPanel {
 		this.rondCal.addMouseListener(new MouseAdapter() { 
 	          public void mousePressed(MouseEvent me) {
 	        	  removeAll();  
-	        	  PanelBase m = new PanelBase(fen, "Calendrier", "");						
+	        	  PanelBase m = new PanelBase(fen, "Calendrier", null);						
 	        	  fen.setContentPane(m);
 	        	  fen.validate();
 	            } 
@@ -157,7 +157,7 @@ public class PanelBase extends JPanel {
 		this.rondDep.addMouseListener(new MouseAdapter() { 
 	          public void mousePressed(MouseEvent me) { 
 	        	  removeAll();  
-	        	  PanelBase m = new PanelBase(fen, "D\u00E9penses", "");						
+	        	  PanelBase m = new PanelBase(fen, "D\u00E9penses", null);						
 	        	  fen.setContentPane(m);
 	        	  fen.validate();
 	            } 
@@ -177,7 +177,7 @@ public class PanelBase extends JPanel {
 		this.rondCarte.addMouseListener(new MouseAdapter() { 
 	          public void mousePressed(MouseEvent me) { 
 	        	  removeAll();  
-	        	  PanelBase m = new PanelBase(fen, "Carte", "");						
+	        	  PanelBase m = new PanelBase(fen, "Carte", null);						
 	        	  fen.setContentPane(m);
 	        	  fen.validate();
 	            } 
@@ -197,7 +197,7 @@ public class PanelBase extends JPanel {
 		this.rondContact.addMouseListener(new MouseAdapter() { 
 	          public void mousePressed(MouseEvent me) { 
 	        	  removeAll();  
-	        	  PanelBase m = new PanelBase(fen, "Contacts", "");						
+	        	  PanelBase m = new PanelBase(fen, "Contacts", null);						
 	        	  fen.setContentPane(m);
 	        	  fen.validate();
 	            } 
@@ -277,7 +277,7 @@ public class PanelBase extends JPanel {
 	}
 	
 	
-	public void modifierBase(final JFrame fen, final String Texte, String contact) {
+	public void modifierBase(final JFrame fen, final String Texte, Contact contact) {
 
 		this.textActuel.setText(Texte);
 		

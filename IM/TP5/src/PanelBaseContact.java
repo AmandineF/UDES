@@ -31,7 +31,7 @@ public class PanelBaseContact extends JPanel {
 		retour.addMouseListener(
 			new MouseAdapter(){
 				public void mouseClicked (MouseEvent e){
-						PanelBase m = new PanelBase(fen, "Contacts", "");						
+						PanelBase m = new PanelBase(fen, "Contacts", null);						
 						fen.setContentPane(m);
 						fen.validate();
 					}
