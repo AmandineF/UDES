@@ -68,6 +68,7 @@ public class PanelBaseContact extends JPanel {
 		if(Texte.equals("Informations")){
 			rondInfo.setIcon(new ImageIcon("./Images/rondInfoSec.png"));
 			rondActuel.setIcon(new ImageIcon("./Images/rondInfoContact.png"));
+			contenu = new PanelInfoContact(contact);
 		}else{
 			rondInfo.setIcon(new ImageIcon("./Images/rondInfo.png"));
 			rondInfo.addMouseListener(new MouseAdapter() { 

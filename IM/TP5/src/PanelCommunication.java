@@ -34,8 +34,8 @@ public class PanelCommunication extends JPanel {
 		int nbContact = listContact.size();
 		
 		String[] texteTab = {"Salut, ca va ?",
-							"Comment s'est passé le...",
-							"Je suis allé dans ce bar...",
+							"Comment s'est pass\u00E9...",
+							"Je suis all\u00E9 dans ce...",
 							"J'essaie de ne plus...",
 							"Pourvu que ca dure...",
 							"Je ne sais pas.",
