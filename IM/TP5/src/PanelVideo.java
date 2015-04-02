@@ -16,7 +16,7 @@ public class PanelVideo extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelVideo(String contact, final JFrame fen) {
+	public PanelVideo(final String contact, final JFrame fen) {
 		
 		setLayout(new MigLayout("", "[20%][40%][20%][20%]", "[10%][1%][68%][1%][20%]"));
 		this.setBackground(Color.white);
