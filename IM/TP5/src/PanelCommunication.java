@@ -12,7 +12,7 @@ public class PanelCommunication extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelCommunication() {
+	public PanelCommunication(PanelBase pan, JFrame fen) {
 		setLayout(new MigLayout("", "[60%][20%][20%]", "[10%][1%][10%]"));
 
 		this.setBackground(Color.WHITE);
@@ -24,7 +24,9 @@ public class PanelCommunication extends JPanel {
 		contactMaman.addMouseListener(
 				new MouseAdapter(){
 				public void mouseClicked (MouseEvent e){
-						
+		        	PanelBase m = new PanelBase(fen, "Messages", "Maman");
+		        	fen.setContentPane(m);
+		        	fen.validate();
 										
 					}
 				public void mouseEntered(MouseEvent e) {
@@ -43,7 +45,9 @@ public class PanelCommunication extends JPanel {
 		btnAppelMaman.addMouseListener(
 				new MouseAdapter(){
 				public void mouseClicked (MouseEvent e){
-						
+		        	PanelBase m = new PanelBase(fen, "Conversation audio", "Maman");
+		        	fen.setContentPane(m);
+		        	fen.validate();
 											
 					}
 				public void mouseEntered(MouseEvent e) {
@@ -62,7 +66,9 @@ public class PanelCommunication extends JPanel {
 		btnVideoMaman.addMouseListener(
 				new MouseAdapter(){
 				public void mouseClicked (MouseEvent e){
-						
+		        	PanelBase m = new PanelBase(fen, "Conversation video", "Maman");
+		        	fen.setContentPane(m);
+		        	fen.validate();
 											
 					}
 				public void mouseEntered(MouseEvent e) {
@@ -90,7 +96,9 @@ public class PanelCommunication extends JPanel {
 		contactPapa.addMouseListener(
 				new MouseAdapter(){
 				public void mouseClicked (MouseEvent e){
-						
+		        	PanelBase m = new PanelBase(fen, "Messages", "Papa");
+		        	fen.setContentPane(m);
+		        	fen.validate();
 										
 					}
 				public void mouseEntered(MouseEvent e) {
@@ -109,7 +117,9 @@ public class PanelCommunication extends JPanel {
 		btnAppelPapa.addMouseListener(
 				new MouseAdapter(){
 				public void mouseClicked (MouseEvent e){
-						
+		        	PanelBase m = new PanelBase(fen, "Conversation audio", "Papa");
+		        	fen.setContentPane(m);
+		        	fen.validate();
 											
 					}
 				public void mouseEntered(MouseEvent e) {
@@ -130,7 +140,9 @@ public class PanelCommunication extends JPanel {
 		btnVideoPapa.addMouseListener(
 				new MouseAdapter(){
 				public void mouseClicked (MouseEvent e){
-						
+		        	PanelBase m = new PanelBase(fen, "Conversation video", "Papa");
+		        	fen.setContentPane(m);
+		        	fen.validate();
 											
 					}
 				public void mouseEntered(MouseEvent e) {

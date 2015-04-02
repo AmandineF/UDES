@@ -38,7 +38,7 @@ public class PanelParametres extends JPanel {
 					} else if(msg.equals("de l'inscription")) {
 						m = new PanelInscription(fen);
 					}else {
-						m = new PanelBase(fen, msg);	
+						m = new PanelBase(fen, msg, "");	
 					}
 						fen.setContentPane(m);
 						fen.validate();

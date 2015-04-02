@@ -41,7 +41,7 @@ public class PanelMenu extends JPanel {
 		imageComm.addMouseListener(
 				new MouseAdapter(){
 				public void mouseClicked (MouseEvent e){						
-						PanelBase m = new PanelBase(fen, "Communication");						
+						PanelBase m = new PanelBase(fen, "Communication", "");						
 						fen.setContentPane(m);
 						fen.validate();
 					}
@@ -92,7 +92,7 @@ public class PanelMenu extends JPanel {
 		imageContact.addMouseListener(
 				new MouseAdapter(){
 				public void mouseClicked (MouseEvent e){	
-						PanelBase m = new PanelBase(fen, "Contacts");						
+						PanelBase m = new PanelBase(fen, "Contacts", "");						
 						fen.setContentPane(m);
 						fen.validate();
 					}
@@ -109,7 +109,7 @@ public class PanelMenu extends JPanel {
 		imageCarte.addMouseListener(
 				new MouseAdapter(){
 				public void mouseClicked (MouseEvent e){
-						PanelBase m = new PanelBase(fen, "Carte");						
+						PanelBase m = new PanelBase(fen, "Carte", "");						
 						fen.setContentPane(m);
 						fen.validate();
 
@@ -127,7 +127,7 @@ public class PanelMenu extends JPanel {
 		imageDep.addMouseListener(
 				new MouseAdapter(){
 				public void mouseClicked (MouseEvent e){
-						PanelBase m = new PanelBase(fen, "D\u00E9penses");						
+						PanelBase m = new PanelBase(fen, "D\u00E9penses", "");						
 						fen.setContentPane(m);
 						fen.validate();
 					}
@@ -144,7 +144,7 @@ public class PanelMenu extends JPanel {
 		imageCal.addMouseListener(
 				new MouseAdapter(){
 				public void mouseClicked (MouseEvent e){
-						PanelBase m = new PanelBase(fen, "Calendrier");						
+						PanelBase m = new PanelBase(fen, "Calendrier", "");						
 						fen.setContentPane(m);	
 						fen.validate();
 					}
@@ -161,7 +161,7 @@ public class PanelMenu extends JPanel {
 		imagePhoto.addMouseListener(
 				new MouseAdapter(){
 				public void mouseClicked (MouseEvent e){
-						PanelBase m = new PanelBase(fen, "Photos");						
+						PanelBase m = new PanelBase(fen, "Photos", "");						
 						fen.setContentPane(m);
 						fen.validate();
 					}

@@ -36,10 +36,11 @@ public class PanelBase extends JPanel {
 	private JLabel param;
 	private JScrollPane contentScrollPane;
 	
-	public PanelBase(JFrame fen, String Texte) {
+	public PanelBase(JFrame fen, String Texte, String contact) {
 		creerBase(fen);
-		modifierBase(fen, Texte);
+		modifierBase(fen, Texte, contact);
 	}
+
 	
 	public void creerBase(final JFrame fen) {
 		setLayout(new MigLayout("insets 0", "[60]0[1]0[399]", "[60]0[1]0[439]"));
@@ -96,7 +97,7 @@ public class PanelBase extends JPanel {
 		this.rondCom.addMouseListener(new MouseAdapter() { 
 	          public void mousePressed(MouseEvent me) { 
 	        	  removeAll();  
-	        	  PanelBase m = new PanelBase(fen, "Communication");						
+	        	  PanelBase m = new PanelBase(fen, "Communication", "");						
 	        	  fen.setContentPane(m);
 	        	  fen.validate();
 	          } 
@@ -116,7 +117,7 @@ public class PanelBase extends JPanel {
 		this.rondPhoto.addMouseListener(new MouseAdapter() { 
 	          public void mousePressed(MouseEvent me) { 
 	        	  removeAll();  
-	        	  PanelBase m = new PanelBase(fen, "Photos");						
+	        	  PanelBase m = new PanelBase(fen, "Photos", "");						
 	        	  fen.setContentPane(m);
 	        	  fen.validate();
 	            } 
@@ -136,7 +137,7 @@ public class PanelBase extends JPanel {
 		this.rondCal.addMouseListener(new MouseAdapter() { 
 	          public void mousePressed(MouseEvent me) {
 	        	  removeAll();  
-	        	  PanelBase m = new PanelBase(fen, "Calendrier");						
+	        	  PanelBase m = new PanelBase(fen, "Calendrier", "");						
 	        	  fen.setContentPane(m);
 	        	  fen.validate();
 	            } 
@@ -156,7 +157,7 @@ public class PanelBase extends JPanel {
 		this.rondDep.addMouseListener(new MouseAdapter() { 
 	          public void mousePressed(MouseEvent me) { 
 	        	  removeAll();  
-	        	  PanelBase m = new PanelBase(fen, "Dépenses");						
+	        	  PanelBase m = new PanelBase(fen, "Dépenses", "");						
 	        	  fen.setContentPane(m);
 	        	  fen.validate();
 	            } 
@@ -176,7 +177,7 @@ public class PanelBase extends JPanel {
 		this.rondCarte.addMouseListener(new MouseAdapter() { 
 	          public void mousePressed(MouseEvent me) { 
 	        	  removeAll();  
-	        	  PanelBase m = new PanelBase(fen, "Carte");						
+	        	  PanelBase m = new PanelBase(fen, "Carte", "");						
 	        	  fen.setContentPane(m);
 	        	  fen.validate();
 	            } 
@@ -196,7 +197,7 @@ public class PanelBase extends JPanel {
 		this.rondContact.addMouseListener(new MouseAdapter() { 
 	          public void mousePressed(MouseEvent me) { 
 	        	  removeAll();  
-	        	  PanelBase m = new PanelBase(fen, "Contacts");						
+	        	  PanelBase m = new PanelBase(fen, "Contacts", "");						
 	        	  fen.setContentPane(m);
 	        	  fen.validate();
 	            } 
@@ -276,7 +277,7 @@ public class PanelBase extends JPanel {
 	}
 	
 	
-	public void modifierBase(final JFrame fen, final String Texte) {
+	public void modifierBase(final JFrame fen, final String Texte, String contact) {
 
 		this.textActuel.setText(Texte);
 		
@@ -357,7 +358,7 @@ public class PanelBase extends JPanel {
 		if(Texte == "Communication") {
 			imgCom = "./Images/rondComSec.png";
 			img = "./Images/rondCom.png";
-			this.contenu = new PanelCommunication();
+			this.contenu = new PanelCommunication(this, fen);
 			this.partage.setIcon(null);
 			this.partage.setToolTipText("Partage");
 			this.partage.removeMouseListener(partagelist);
@@ -366,6 +367,45 @@ public class PanelBase extends JPanel {
 			imgCom = "./Images/rondCom.png";
 		}
 		ic = new ImageIcon(imgCom);
+		this.rondCom.setIcon(ic);
+		
+		String imgMes;
+		if(Texte == "Messages") {
+			imgMes = "./Images/rondComSec.png";
+			img = "./Images/rondCom.png";
+			this.contenu = new PanelChat(contact, fen);
+			this.partage.setIcon(null);
+			this.partage.setToolTipText("");
+		}else{
+			imgMes = "./Images/rondCom.png";
+		}
+		ic = new ImageIcon(imgMes);
+		this.rondCom.setIcon(ic);
+		
+		String imgAud;
+		if(Texte == "Conversation audio") {
+			imgAud = "./Images/rondComSec.png";
+			img = "./Images/rondCom.png";
+			this.contenu = new PanelAudio(contact, fen);
+			this.partage.setIcon(null);
+			this.partage.setToolTipText("");
+		}else{
+			imgAud = "./Images/rondCom.png";
+		}
+		ic = new ImageIcon(imgAud);
+		this.rondCom.setIcon(ic);
+		
+		String imgVid;
+		if(Texte == "Conversation video") {
+			imgVid = "./Images/rondComSec.png";
+			img = "./Images/rondCom.png";
+			this.contenu = new PanelVideo(contact, fen);
+			this.partage.setIcon(null);
+			this.partage.setToolTipText("");
+		}else{
+			imgVid = "./Images/rondCom.png";
+		}
+		ic = new ImageIcon(imgVid);
 		this.rondCom.setIcon(ic);
 		
 		this.aide.removeMouseListener(this.aideListener);
