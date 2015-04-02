@@ -119,8 +119,7 @@ public class PanelBaseContact extends JPanel {
 			}
 			
 		} else {
-			rondPhoto.setIcon(new ImageIcon("./Images/rondPhotoGris.png"));
-			rondPhoto.setToolTipText("Vous n'avez pas acc\u00E8s aux Photos de " + contact.getNom() + ".");
+			rondPhoto.setIcon(new ImageIcon("./Images/gris.png"));
 		}
 		rondPhoto.setBounds(0, 0, 50, 50);
 		Border paddingBorderP = BorderFactory.createEmptyBorder(0,7,0,0);
@@ -153,8 +152,7 @@ public class PanelBaseContact extends JPanel {
 		          });
 			}
 		}else{
-			rondCal.setIcon(new ImageIcon("./Images/rondCalGris.png"));
-			rondCal.setToolTipText("Vous n'avez pas acc\u00E8s au Calendrier de " + contact.getNom() + ".");
+			rondCal.setIcon(new ImageIcon("./Images/gris.png"));
 		}
 		rondCal.setBounds(0, 0, 50, 50);
 		Border paddingBorderCal = BorderFactory.createEmptyBorder(0,7,0,0);
@@ -188,8 +186,7 @@ public class PanelBaseContact extends JPanel {
 		          }); 
 			}
 		}else{
-			rondDep.setIcon(new ImageIcon("./Images/rondDepGris.png"));
-			rondDep.setToolTipText("Vous n'avez pas acc\u00E8s aux Dépenses de " + contact.getNom() + ".");
+			rondDep.setIcon(new ImageIcon("./Images/gris.png"));
 		}
 		rondDep.setBounds(0, 0, 50, 50);
 		Border paddingBorderD = BorderFactory.createEmptyBorder(0,7,0,0);
@@ -198,7 +195,7 @@ public class PanelBaseContact extends JPanel {
 		
 	
 		final JLabel rondCarte = new JLabel();
-		if(contact.getAccesDep()) {
+		if(contact.getAccesCarte()) {
 			if(Texte.equals("Carte")){
 				rondActuel.setIcon(new ImageIcon("./Images/rondCarContact.png"));
 				rondCarte.setIcon(new ImageIcon("./Images/rondCarteSec.png"));
@@ -223,8 +220,7 @@ public class PanelBaseContact extends JPanel {
 		          }); 
 			}
 		}else{
-			rondCarte.setIcon(new ImageIcon("./Images/rondCarteGris.png"));
-			rondCarte.setToolTipText("Vous n'avez pas acc\u00E8s à la Carte de " + contact.getNom() + ".");
+			rondCarte.setIcon(new ImageIcon("./Images/gris.png"));
 		}
 		rondCarte.setBounds(0, 0, 50, 50);
 		Border paddingBorderCa = BorderFactory.createEmptyBorder(0,7,0,0);

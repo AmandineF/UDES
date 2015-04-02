@@ -34,7 +34,6 @@ public class PanelBase extends JPanel {
 	private MouseListener aideListener;
 	private JLabel aide;
 	private JLabel param;
-	private JScrollPane contentScrollPane;
 	
 	public PanelBase(JFrame fen, String Texte, Contact contact) {
 		creerBase(fen);
@@ -272,7 +271,6 @@ public class PanelBase extends JPanel {
 				}
 		          });
   		iconesBas.add(deco);
-  		this.contentScrollPane = new JScrollPane(); 
   		
 	}
 	
@@ -369,58 +367,59 @@ public class PanelBase extends JPanel {
 		this.rondPhoto.setIcon(ic);
 
 		String imgCom;
-		if(Texte == "Communication") {
+		if(Texte.equals("Communication")) {
 			imgCom = "./Images/rondComSec.png";
 			img = "./Images/rondCom.png";
 			this.contenu = new PanelCommunication(fen);
-			this.partage.setIcon(null);
-			this.partage.setToolTipText("Partage");
-			this.partage.removeMouseListener(partagelist);
-			this.partage.setToolTipText("");
+			this.partage.setIcon(new ImageIcon("./Images/plus.png"));
+			this.partage.setToolTipText("Nouvelle conversation");
+			MouseAdapter comList = new MouseAdapter() { 
+		          public void mousePressed(MouseEvent me) { 
+		            } 
+		          public void mouseEntered(MouseEvent e) {
+						setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+					}
+			  		public void mouseExited(MouseEvent e) {
+						setCursor(Cursor.getDefaultCursor());
+					}
+		          }; 
+			this.partage.addMouseListener(comList);
 		}else{
-			imgCom = "./Images/rondCom.png";
+			if(!Texte.equals("Messages"))
+				imgCom = "./Images/rondCom.png";
+			else
+				imgCom = "./Images/rondComSec.png";
 		}
 		ic = new ImageIcon(imgCom);
 		this.rondCom.setIcon(ic);
 		
 		String imgMes;
-		if(Texte == "Messages") {
+		if(Texte.equals("Messages")) {
 			imgMes = "./Images/rondComSec.png";
 			img = "./Images/rondCom.png";
 			this.contenu = new PanelChat(contact, fen);
-			this.partage.setIcon(null);
-			this.partage.setToolTipText("");
+			this.partage.setIcon(new ImageIcon("./Images/plus.png"));
+			this.partage.setToolTipText("Nouvelle conversation");
+			MouseAdapter comList = new MouseAdapter() { 
+		          public void mousePressed(MouseEvent me) { 
+		            } 
+		          public void mouseEntered(MouseEvent e) {
+						setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+					}
+			  		public void mouseExited(MouseEvent e) {
+						setCursor(Cursor.getDefaultCursor());
+					}
+		          }; 
+			this.partage.addMouseListener(comList);
 		}else{
-			imgMes = "./Images/rondCom.png";
+			if(!Texte.equals("Communication"))
+				imgMes = "./Images/rondCom.png";
+			else
+				imgMes = "./Images/rondComSec.png";
 		}
 		ic = new ImageIcon(imgMes);
 		this.rondCom.setIcon(ic);
-		
-		String imgAud;
-		if(Texte == "Conversation audio") {
-			imgAud = "./Images/rondComSec.png";
-			img = "./Images/rondCom.png";
-			this.contenu = new PanelAudio(contact, fen);
-			this.partage.setIcon(null);
-			this.partage.setToolTipText("");
-		}else{
-			imgAud = "./Images/rondCom.png";
-		}
-		ic = new ImageIcon(imgAud);
-		this.rondCom.setIcon(ic);
-		
-		String imgVid;
-		if(Texte == "Conversation video") {
-			imgVid = "./Images/rondComSec.png";
-			img = "./Images/rondCom.png";
-			this.contenu = new PanelVideo(contact, fen);
-			this.partage.setIcon(null);
-			this.partage.setToolTipText("");
-		}else{
-			imgVid = "./Images/rondCom.png";
-		}
-		ic = new ImageIcon(imgVid);
-		this.rondCom.setIcon(ic);
+
 		
 		this.aide.removeMouseListener(this.aideListener);
 		this.aideListener = new MouseAdapter() { 
