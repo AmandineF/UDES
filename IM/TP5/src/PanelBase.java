@@ -291,7 +291,21 @@ public class PanelBase extends JPanel {
 			this.contenu = new PanelContacts(fen);
 			this.partage.setIcon(new ImageIcon("./Images/plus.png"));
 			this.partage.setToolTipText("Ajouter un contact");
-			this.partage.addMouseListener(partagelist);
+			MouseAdapter contactList = new MouseAdapter() { 
+		          public void mousePressed(MouseEvent me) { 
+		        	  removeAll();  
+		        	  PanelAjoutContact m = new PanelAjoutContact(fen);						
+		        	  fen.setContentPane(m);
+		        	  fen.validate();
+		            } 
+		          public void mouseEntered(MouseEvent e) {
+						setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+					}
+			  		public void mouseExited(MouseEvent e) {
+						setCursor(Cursor.getDefaultCursor());
+					}
+		          }; 
+			this.partage.addMouseListener(contactList);
 		}else{
 			imgContact = "./Images/rondContact.png";
 		}
