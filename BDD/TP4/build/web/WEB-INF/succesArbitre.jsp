@@ -25,7 +25,7 @@
         <%
             }
         %>
-        <FORM ACTION="RequetesEquipe" METHOD="POST">
+        <FORM ACTION="RequetesArbitre" METHOD="POST">
             <INPUT TYPE="SUBMIT" NAME="afficherArbitres" VALUE="Afficher tous les arbitres">
         </FORM>
     </body>

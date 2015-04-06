@@ -70,7 +70,6 @@ public class Participe {
             System.out.println("SYSERREUR - Probleme lors de la verification de l'existance du joueur " +idJoueur+
                     " dans la table participe.");
         }
-         stmtExisteJoueur.close();
          return joueurExiste;
      }
 

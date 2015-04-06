@@ -161,17 +161,17 @@ public class GestionJoueur {
     public void supprimerJoueur(String nom, String prenom) throws SQLException{
     	int idJoueur = joueur.getId(nom, prenom);
     	if(faitpartie.existeJoueur(idJoueur) || participe.existeJoueur(idJoueur)){
-    		System.out.println("USERWARNING - Le joueur "+nom+" "+prenom+" possede des donnees dans d'autre table, etes-vous sur de vouloir supprimer le joueur ainsi que ses informations ? O|N");
+    		//System.out.println("USERWARNING - Le joueur "+nom+" "+prenom+" possede des donnees dans d'autre table, etes-vous sur de vouloir supprimer le joueur ainsi que ses informations ? O|N");
     		Scanner sc = new Scanner(System.in);
                 String res = sc.nextLine();
-            if(res.equals("O") || res.equals("o")){
+            //if(res.equals("O") || res.equals("o")){
             	faitpartie.suppression(idJoueur);
             	participe.suppression(idJoueur);
                 joueur.suppression(idJoueur);
             	System.out.println("SUCCES - Le joueur "+prenom + " " + nom + " a ete supprime.");
-            }else{
-            	System.out.println("Annulation de la suppression.");
-            }
+            //}else{
+            //	System.out.println("Annulation de la suppression.");
+            //}
     	}else{
             if(joueur.existe(nom, prenom)){
                 joueur.suppression(idJoueur);

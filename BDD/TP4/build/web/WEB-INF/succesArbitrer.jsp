@@ -30,7 +30,7 @@
         <%
             }
         %>
-        <FORM ACTION="RequetesEquipe" METHOD="POST">
+        <FORM ACTION="RequetesArbitrer" METHOD="POST">
             <INPUT TYPE="SUBMIT" NAME="afficherArbitrer" VALUE="Afficher tous les arbitrages">
         </FORM>
     </body>

@@ -38,7 +38,7 @@ public class Arbitrer {
 
     public Vector<TupleArbitrer> affiche() {
         Vector<TupleArbitrer> res = new Vector<TupleArbitrer>();
-        try (ResultSet rset = stmtExiste.executeQuery()) {
+        try (ResultSet rset = stmtAffiche.executeQuery()) {
             while(rset.next()){
                 TupleArbitrer ta  = new TupleArbitrer();
                 ta.idArbitre = rset.getInt(1);

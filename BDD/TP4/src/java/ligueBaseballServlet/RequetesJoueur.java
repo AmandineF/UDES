@@ -1,6 +1,7 @@
 package ligueBaseballServlet;
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
@@ -13,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import ligueBaseball.GestionLigue;
 
 /**
- *
+ * Servlet pour la gestion des requêtes concernant la table joueur
  * @author Amandine Fouillet
  * @author Frank Chassing
  */
@@ -65,7 +66,7 @@ public class RequetesJoueur extends HttpServlet {
                     RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/joueurs.jsp");
                     dispatcher.forward(request, response);
                 }
-            }catch (Exception e) {
+            }catch (IOException | ServletException e) {
                 request.getSession().setAttribute("nomEquipeAffJE", "");
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/joueurs.jsp");
                 dispatcher.forward(request, response);
@@ -81,6 +82,13 @@ public class RequetesJoueur extends HttpServlet {
         }
     }
 
+    /**
+     * Methode gerant la creation d'un joueur a partir d'une certaine date
+     * @param request
+     * @param response
+     * @throws IOException
+     * @throws ParseException 
+     */
     private void creationJoueurDate(HttpServletRequest request, HttpServletResponse response) throws IOException, ParseException {
         String nomJoueur = (String) request.getParameter("nomJoueurAdd");
         String prenomJoueur = (String) request.getParameter("prenomJoueurAdd");
@@ -101,11 +109,17 @@ public class RequetesJoueur extends HttpServlet {
             request.getSession().setAttribute("prenomJoueurAdd", prenomJoueur);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesJoueur.jsp");
             dispatcher.forward(request, response);
-        }catch (Exception e) {
-            e.printStackTrace();
+        }catch (SQLException | ServletException | IOException e) {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.toString());
         }
     }
+    
+    /**
+     * Methode gerant la creation d'un joueur
+     * @param request
+     * @param response
+     * @throws IOException 
+     */
     private void creationJoueur(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String nomJoueur = (String) request.getParameter("nomJoueurAdd");
         String prenomJoueur = (String) request.getParameter("prenomJoueurAdd");
@@ -119,12 +133,17 @@ public class RequetesJoueur extends HttpServlet {
             request.getSession().setAttribute("prenomJoueurAdd", prenomJoueur);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesJoueur.jsp");
             dispatcher.forward(request, response);
-        }catch (Exception e) {
-            e.printStackTrace();
+        }catch (SQLException | ServletException | IOException e) {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.toString());
         }
     }
     
+    /**
+     * Methode gerant la creation d'un joueur et l'attribution d'une equipe a ce joueur
+     * @param request
+     * @param response
+     * @throws IOException 
+     */
     private void creationJoueurEquipe(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String nomJoueur = (String) request.getParameter("nomJoueurAdd");
         String prenomJoueur = (String) request.getParameter("prenomJoueurAdd");
@@ -140,12 +159,18 @@ public class RequetesJoueur extends HttpServlet {
             request.getSession().setAttribute("prenomJoueurAdd", prenomJoueur);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesJoueur.jsp");
             dispatcher.forward(request, response);
-        }catch (Exception e) {
-            e.printStackTrace();
+        }catch (SQLException | ServletException | IOException e) {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.toString());
         }
     }
 
+    /**
+     * Methode gerant l'affichage de tous les joueurs d'une equipe
+     * @param request
+     * @param response
+     * @throws IOException
+     * @throws ServletException 
+     */
     private void afficherJoueurEquipe(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String nomEquipe = (String) request.getParameter("nomEquipeAff");
         request.getSession().setAttribute("nomEquipeAffJE", nomEquipe);
@@ -153,9 +178,15 @@ public class RequetesJoueur extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    /**
+     * Methode gerant la suppression d'un joueur
+     * @param request
+     * @param response
+     * @throws IOException 
+     */
     private void supprimerJoueur(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String nomJoueur = (String) request.getParameter("nomJoueurAdd");
-        String prenomJoueur = (String) request.getParameter("prenomJoueurAdd");
+        String nomJoueur = (String) request.getParameter("nomJoueurSup");
+        String prenomJoueur = (String) request.getParameter("prenomJoueurSup");
 	GestionLigue ligue = (GestionLigue) request.getSession().getAttribute("ligue");
         try{
             synchronized (ligue) {
@@ -166,8 +197,7 @@ public class RequetesJoueur extends HttpServlet {
             request.getSession().setAttribute("prenomJoueurSup", prenomJoueur);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesJoueur.jsp");
             dispatcher.forward(request, response);
-        }catch (Exception e) {
-            e.printStackTrace();
+        }catch (SQLException | ServletException | IOException e) {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.toString());
         }
     }

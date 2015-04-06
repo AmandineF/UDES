@@ -9,8 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import ligueBaseball.GestionLigue;
+
 /**
- *
+ * Servlet pour la gestion des requêtes concernant la table arbitre
  * @author Amandine Fouillet
  * @author Frank Chassing
  */
@@ -48,6 +49,13 @@ public class RequetesArbitre extends HttpServlet {
         }
     }
 
+    /**
+     * Methode gerant l'execution de la requete de creation d'un arbitre
+     * @param request
+     * @param response
+     * @throws SQLException
+     * @throws IOException 
+     */
     public void creationArbitre(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
         String nomArbitre = (String) request.getParameter("nomArbitre");
         String prenomArbitre = (String) request.getParameter("prenomArbitre");
@@ -61,8 +69,7 @@ public class RequetesArbitre extends HttpServlet {
             request.getSession().setAttribute("prenomArbitreAdd", prenomArbitre);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesArbitre.jsp");
             dispatcher.forward(request, response);
-        }catch (Exception e) {
-            e.printStackTrace();
+        }catch (SQLException | ServletException | IOException e) {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.toString());
         }
     }

@@ -1,20 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ligueBaseballServlet;
-
 import java.io.IOException;
+import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import ligueBaseball.GestionLigue;
+
 /**
- *
- * @author Amandine
+ * Servlet pour la gestion des requêtes concernant la table equipe
+ * @author Amandine Fouillet
+ * @author Frank Chassing
  */
 public class RequetesEquipe extends HttpServlet {
     /**
@@ -61,6 +58,12 @@ public class RequetesEquipe extends HttpServlet {
             
     }
     
+    /**
+     * Methode gerant la creation d'une nouvelle equipe
+     * @param request
+     * @param response
+     * @throws IOException 
+     */
     private void creationEquipe(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String nomEquipe = (String) request.getParameter("nomEquipeAdd");
 	GestionLigue ligue = (GestionLigue) request.getSession().getAttribute("ligue");
@@ -72,12 +75,17 @@ public class RequetesEquipe extends HttpServlet {
             request.getSession().setAttribute("nomEquipeAdd", nomEquipe);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesEquipe.jsp");
             dispatcher.forward(request, response);
-        }catch (Exception e) {
-            e.printStackTrace();
+        }catch (SQLException | ServletException | IOException e) {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.toString());
         }
     }
 
+    /**
+     * Methode gerant la creation d'une nouvelle equipe et d'un nouveau terrain
+     * @param request
+     * @param response
+     * @throws IOException 
+     */
     private void creationEquipeTerrain(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String nomEquipe = (String) request.getParameter("nomEquipeAdd");
         String nomTerrain = (String) request.getParameter("nomTerrainAdd");
@@ -92,12 +100,17 @@ public class RequetesEquipe extends HttpServlet {
             request.getSession().setAttribute("nomTerrainAdd", nomTerrain);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesEquipe.jsp");
             dispatcher.forward(request, response);
-        }catch (Exception e) {
-            e.printStackTrace();
+        }catch (SQLException | ServletException | IOException e) {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.toString());
         }
     }
 
+    /**
+     * Methode gerant la suppression d'une equipe
+     * @param request
+     * @param response
+     * @throws IOException 
+     */
     private void supprimerEquipe(HttpServletRequest request, HttpServletResponse response) throws IOException {
        String nomEquipe = (String) request.getParameter("nomEquipeSup");
        GestionLigue ligue = (GestionLigue) request.getSession().getAttribute("ligue");
@@ -109,8 +122,7 @@ public class RequetesEquipe extends HttpServlet {
             request.getSession().setAttribute("nomEquipeSup", nomEquipe);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesEquipe.jsp");
             dispatcher.forward(request, response);
-        }catch (Exception e) {
-            e.printStackTrace();
+        }catch (SQLException | ServletException | IOException e) {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.toString());
         }
     }

@@ -127,7 +127,6 @@ public class Terrain {
      */
     public int suppression(int idTerrain) throws SQLException {
         stmtDelete.setInt(1,idTerrain);
-        stmtDelete.close();
         return stmtDelete.executeUpdate();
         
     }

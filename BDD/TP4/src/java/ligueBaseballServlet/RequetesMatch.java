@@ -1,7 +1,7 @@
 package ligueBaseballServlet;
-
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import ligueBaseball.GestionLigue;
 
 /**
- *
+ * Servlet pour la gestion des requêtes concernant la table match
  * @author Amandine Fouillet
  * @author Frank Chassing
  */
@@ -35,7 +35,7 @@ public class RequetesMatch extends HttpServlet {
         if (etat == null) {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
             dispatcher.forward(request, response);
-        } else if (request.getParameter("creerMatchAdd") != null) {
+        } else if (request.getParameter("creerMatch") != null) {
             if(!request.getParameter("matchDateAdd").equals("") &&
                     !request.getParameter("matchHeureAdd").equals("") &&
                     !request.getParameter("nomEquipeLocaleAdd").equals("") &&
@@ -55,59 +55,102 @@ public class RequetesMatch extends HttpServlet {
                     !request.getParameter("nomEquipeVisiteurRes").equals("") &&
                     !request.getParameter("pointsLocalRes").equals("") &&
                     !request.getParameter("pointsVisiteurRes").equals("")) {
+                try {
                     entrerResultatMatch(request, response);
+                } catch (ParseException ex) {
+                    Logger.getLogger(RequetesMatch.class.getName()).log(Level.SEVERE, null, ex);
+                }
             } else {
                 //ERREUR MANQUE PARAMETRES
             }
             
         } else if (request.getParameter("afficherResultatDate") != null) {
             if (!request.getParameter("matchDateAff").equals("")) {
-                afficherResultatDate(request, response);
+                String startDate = (String) request.getParameter("matchDateAff");
+                request.getSession().setAttribute("matchdate", startDate);
+                request.getSession().setAttribute("matchequipe", "");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/matchs.jsp");
+                dispatcher.forward(request, response);
             } else {
-                afficherResultat(request, response);
+                request.getSession().setAttribute("matchequipe", "");
+                request.getSession().setAttribute("matchdate", "");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/matchs.jsp");
+                dispatcher.forward(request, response);
             }
         } else if (request.getParameter("afficherResultatEquipe") != null){
             if (!request.getParameter("nomEquipeAff").equals("")) {
-                afficherResultatEquipe(request, response);
+                String nomEquipeAff = (String) request.getParameter("nomEquipeAff");
+                request.getSession().setAttribute("matchequipe", nomEquipeAff);
+                request.getSession().setAttribute("matchdate", "");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/matchs.jsp");
+                dispatcher.forward(request, response);
             } else {
-                afficherResultat(request, response);
+                request.getSession().setAttribute("matchequipe", "");
+                request.getSession().setAttribute("matchdate", "");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/matchs.jsp");
+                dispatcher.forward(request, response);
             }
         } else if (request.getParameter("afficherMatch") != null){
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/matchs.jsp");
-            dispatcher.forward(request, response);
+                request.getSession().setAttribute("matchequipe", "");
+                request.getSession().setAttribute("matchdate", "");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/matchs.jsp");
+                dispatcher.forward(request, response);
         }else{
             //ERREUR CHOIX INCONNU
         }
     }
 
+    /**
+     * Methode gerant la creation d'un match
+     * @param request
+     * @param response
+     * @throws IOException
+     * @throws ParseException 
+     */
     private void creerMatch(HttpServletRequest request, HttpServletResponse response) throws IOException, ParseException {
         String startDate = (String) request.getParameter("matchDateAdd");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         java.util.Date dateDebut = sdf.parse(startDate);
         Date matchDateAdd = new java.sql.Date(dateDebut.getTime());
         String matchHeureAdd = (String) request.getParameter("matchHeureAdd");
+        SimpleDateFormat sdft = new SimpleDateFormat("hh:mm:ss");
+        long ms = sdft.parse(matchHeureAdd).getTime();
+        java.sql.Time timeValue = new java.sql.Time(ms);
         String nomEquipeLocaleAdd = (String) request.getParameter("nomEquipeLocaleAdd");
         String nomEquipeVisiteurAdd = (String) request.getParameter("nomEquipeVisiteurAdd");
 	GestionLigue ligue = (GestionLigue) request.getSession().getAttribute("ligue");
+        System.out.println("oui");
         try{
             synchronized (ligue) {
-                //ligue.gestionMatch.creerMatch(matchDateAdd, matchHeureAdd,nomEquipeLocaleAdd,nomEquipeVisiteurAdd);
+                ligue.gestionMatch.creerMatch(matchDateAdd, timeValue,nomEquipeLocaleAdd,nomEquipeVisiteurAdd);
             }
             request.getSession().setAttribute("succesMatch", "creationMatch");
-            request.getSession().setAttribute("matchDateAdd", matchDateAdd);
+            request.getSession().setAttribute("matchDateAdd", startDate);
             request.getSession().setAttribute("nomEquipeLocaleAdd", nomEquipeLocaleAdd);
             request.getSession().setAttribute("nomEquipeVisiteurAdd", nomEquipeVisiteurAdd);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesMatch.jsp");
             dispatcher.forward(request, response);
-        }catch (Exception e) {
-            e.printStackTrace();
+        }catch (SQLException | ServletException | IOException e) {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.toString());
         }
     }
 
-    private void entrerResultatMatch(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String matchDateRes = (String) request.getParameter("matchDateRes");
-        String matchHeureRes = (String) request.getParameter("matchHeureRes");
+    /**
+     * Methode gerant l'enregistrement des resultats d'un match
+     * @param request
+     * @param response
+     * @throws IOException
+     * @throws ParseException 
+     */
+    private void entrerResultatMatch(HttpServletRequest request, HttpServletResponse response) throws IOException, ParseException {
+        String startDate = (String) request.getParameter("matchDateRes");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        java.util.Date dateDebut = sdf.parse(startDate);
+        Date matchDateRes = new java.sql.Date(dateDebut.getTime());
+        String matchHeureAdd = (String) request.getParameter("matchHeureRes");
+        SimpleDateFormat sdft = new SimpleDateFormat("hh:mm:ss");
+        long ms = sdft.parse(matchHeureAdd).getTime();
+        java.sql.Time timeValue = new java.sql.Time(ms);
         String nomEquipeLocaleRes = (String) request.getParameter("nomEquipeLocaleRes");
         String nomEquipeVisiteurRes = (String) request.getParameter("nomEquipeVisiteurRes");
         int pointsLocalRes = Integer.parseInt(request.getParameter("pointsLocalRes"));
@@ -115,57 +158,16 @@ public class RequetesMatch extends HttpServlet {
 	GestionLigue ligue = (GestionLigue) request.getSession().getAttribute("ligue");
         try{
             synchronized (ligue) {
-                //TODO convertir string en date et string en heure
-                //ligue.gestionMatch.entrerResultat(matchDateRes, matchHeureRes,nomEquipeLocaleRes,nomEquipeVisiteurRes,pointsLocalRes,pointsVisiteurRes);
+                ligue.gestionMatch.entrerResultat(matchDateRes, timeValue,nomEquipeLocaleRes,nomEquipeVisiteurRes,pointsLocalRes,pointsVisiteurRes);
             }
             request.getSession().setAttribute("succesMatch", "resultatMatch");
-            request.getSession().setAttribute("matchDateRes", matchDateRes);
+            request.getSession().setAttribute("matchDateRes", startDate);
             request.getSession().setAttribute("nomEquipeLocaleRes", nomEquipeLocaleRes);
             request.getSession().setAttribute("nomEquipeVisiteurRes", nomEquipeVisiteurRes);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesMatch.jsp");
             dispatcher.forward(request, response);
-        }catch (Exception e) {
-            e.printStackTrace();
+        }catch (SQLException | ServletException | IOException e) {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.toString());
         }
     }
-
-    private void afficherResultatDate(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String matchDateAff = (String) request.getParameter("matchDateAff");
-        GestionLigue ligue = (GestionLigue) request.getSession().getAttribute("ligue");
-        try{
-            synchronized (ligue) {
-                //TODO convertir string en date
-                //ligue.gestionMatch.afficherResultatsDate(matchDateAff);
-            }
-            //A voir ou on affiche les resultats
-            //RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/match.jsp");
-            //dispatcher.forward(request, response);
-        }catch (Exception e) {
-            e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.toString());
-        }
-    }
-
-    private void afficherResultat(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/match.jsp");
-        dispatcher.forward(request, response);
-    }
-
-    private void afficherResultatEquipe(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String nomEquipeAff = (String) request.getParameter("nomEquipeAff");
-        GestionLigue ligue = (GestionLigue) request.getSession().getAttribute("ligue");
-        try{
-            synchronized (ligue) {
-                ligue.gestionMatch.afficherResultatEquipe(nomEquipeAff);
-            }
-            //A voir ou on affiche les resultats
-            //RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/match.jsp");
-            //dispatcher.forward(request, response);
-        }catch (Exception e) {
-            e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.toString());
-        }
-    }
-
 }

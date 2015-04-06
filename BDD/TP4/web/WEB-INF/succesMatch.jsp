@@ -25,8 +25,8 @@
         Le match du <%=date%> opposant l'equipe locale <%=equipeLocale%> a l'equipe visiteur <%=equipeVisiteur%>  a ete creee avec succes.
         <%
             }else if (texte.equals("resultatMatch")){
-                 String date = (String) session.getAttribute("matchDateRes");
-                 request.getSession().setAttribute("matchDateRes", "");
+                String date = (String) session.getAttribute("matchDateRes");
+                request.getSession().setAttribute("matchDateRes", "");
                 String equipeLocale  = (String) session.getAttribute("nomEquipeLocaleRes");
                 request.getSession().setAttribute("nomEquipeLocaleRes", "");
                 String equipeVisiteur  = (String) session.getAttribute("nomEquipeVisiteurRes");
@@ -36,7 +36,7 @@
         <%
             }
         %>
-        <FORM ACTION="RequetesEquipe" METHOD="POST">
+        <FORM ACTION="RequetesMatch" METHOD="POST">
             <INPUT TYPE="SUBMIT" NAME="afficherMatch" VALUE="Afficher tous les matchs">
         </FORM>
     </body>

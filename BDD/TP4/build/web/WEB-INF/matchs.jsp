@@ -3,6 +3,8 @@
     Author     : Amandine Fouillet - Frank Chassing
 --%>
 
+<%@page import="java.sql.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="ligueBaseball.TupleMatch"%>
 <%@page import="java.util.Vector"%>
 <%@page import="ligueBaseball.GestionLigue"%>
@@ -17,14 +19,18 @@
         <h1>Affichage des matchs</h1>
         <%
         GestionLigue ligue = (GestionLigue) session.getAttribute("ligue");
-        String equipenom = (String) session.getAttribute("nomEquipe");
-        String datematch = (String) session.getAttribute("datematch");
+        String equipenom = "";
+        equipenom = (String) session.getAttribute("matchequipe");
+        String datematch = "";
+        datematch = (String) session.getAttribute("matchdate");
         Vector<TupleMatch> listMatch = new Vector<TupleMatch>();
         if(!equipenom.equals("")) {
             listMatch = ligue.gestionMatch.afficherResultatEquipeVector(equipenom);
         } else if(!datematch.equals("")) {
-            //TO DO Probleme avec la date
-            //listMatch = ligue.gestionMatch.afficherResultatsDateVector(datematch);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            java.util.Date dateDebut = sdf.parse(datematch);
+            Date matchDateAff = new java.sql.Date(dateDebut.getTime());
+            listMatch = ligue.gestionMatch.afficherResultatsDateVector(matchDateAff);
         } else {
             listMatch = ligue.gestionMatch.afficherResultatEquipeVector("");
         }

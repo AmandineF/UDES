@@ -1,6 +1,12 @@
 package ligueBaseballServlet;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import ligueBaseball.GestionLigue;
 
 /**
- *
+ * Servlet pour la gestion des requêtes concernant la table arbitrer
  * @author Amandine Fouillet
  * @author Frank Chassing
  */
@@ -37,7 +43,11 @@ public class RequetesArbitrer extends HttpServlet {
                     !request.getParameter("nomEquipeVisiteurArb").equals("")&&
                     !request.getParameter("nomArbitreArb").equals("") &&
                     !request.getParameter("prenomArbitreArb").equals("")){
-                affecterArbitreMatch(request, response);
+                try {
+                    affecterArbitreMatch(request, response);
+                } catch (ParseException ex) {
+                    Logger.getLogger(RequetesArbitrer.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }else{
                 //ERREUR MANQUE PARAMETRES
             }
@@ -49,9 +59,24 @@ public class RequetesArbitrer extends HttpServlet {
         }
     }
 
-    private void affecterArbitreMatch(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String matchDateArb = (String) request.getParameter("matchDateArb");
+    /**
+     * Methode gerant l'affectation d'un arbitre a un match
+     * @param request
+     * @param response
+     * @throws IOException
+     * @throws ParseException 
+     */
+    private void affecterArbitreMatch(HttpServletRequest request, HttpServletResponse response) throws IOException, ParseException {
+        String startDate = (String) request.getParameter("matchDateArb");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        java.util.Date dateDebut = sdf.parse(startDate);
+        Date matchDateArb = new java.sql.Date(dateDebut.getTime());
+        
         String matchHeureArb = (String) request.getParameter("matchHeureArb");
+        SimpleDateFormat sdft = new SimpleDateFormat("hh:mm:ss");
+        long ms = sdft.parse(matchHeureArb).getTime();
+        java.sql.Time timeValue = new java.sql.Time(ms);
+        
         String nomEquipeLocaleArb = (String) request.getParameter("nomEquipeLocaleArb");
         String nomEquipeVisiteurArb = (String) request.getParameter("nomEquipeVisiteurArb");
         String nomArbitreArb = (String) request.getParameter("nomArbitreArb");
@@ -59,19 +84,17 @@ public class RequetesArbitrer extends HttpServlet {
 	GestionLigue ligue = (GestionLigue) request.getSession().getAttribute("ligue");
         try{
             synchronized (ligue) {
-                //TODO convertir string en date et string en heure
-                //ligue.gestionArbitrer.arbitrerMatch(matchDateArb, matchHeureArb,nomEquipeLocaleArb,nomEquipeVisiteurArb,nomArbitreArb,prenomArbitreArb);
+                ligue.gestionArbitrer.arbitrerMatch(matchDateArb, timeValue,nomEquipeLocaleArb,nomEquipeVisiteurArb,nomArbitreArb,prenomArbitreArb);
             }
-            request.getSession().setAttribute("succesMatch", "affecterArbitreMatch");
-            request.getSession().setAttribute("matchDateArb", matchDateArb);
+            request.getSession().setAttribute("succesArbitrer", "affecterArbitreMatch");
+            request.getSession().setAttribute("matchDateArb", startDate);
             request.getSession().setAttribute("nomEquipeLocaleArb", nomEquipeLocaleArb);
             request.getSession().setAttribute("nomEquipeVisiteurArb", nomEquipeVisiteurArb);
-            request.getSession().setAttribute("nomArbitreArb", matchDateArb);
-            request.getSession().setAttribute("prenomArbitreArb", nomEquipeLocaleArb);
+            request.getSession().setAttribute("nomArbitreArb", nomArbitreArb);
+            request.getSession().setAttribute("prenomArbitreArb", prenomArbitreArb);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesArbitrer.jsp");
             dispatcher.forward(request, response);
-        }catch (Exception e) {
-            e.printStackTrace();
+        }catch (SQLException | ServletException | IOException e) {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.toString());
         }
     }

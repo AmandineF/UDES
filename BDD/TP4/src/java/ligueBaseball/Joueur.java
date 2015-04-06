@@ -81,7 +81,6 @@ public class Joueur {
         }catch (Exception ex){
            System.out.println("SYSERREUR - Probleme lors de la verification de l'existance du joueur " + idJoueur + ".");
         }
-        stmtExiste.close();
         return joueurExiste;
     }
 
