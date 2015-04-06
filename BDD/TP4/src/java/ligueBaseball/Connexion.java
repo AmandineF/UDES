@@ -24,7 +24,7 @@ public class Connexion {
             DriverManager.registerDriver(d);
             conn = DriverManager.getConnection("jdbc:postgresql://localhost:5433/" + bd,user, pass);
             
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
             e.printStackTrace(System.out);
             throw new SQLException("SYSTEMERROR – Problème de connexion à la base de données");
         }
