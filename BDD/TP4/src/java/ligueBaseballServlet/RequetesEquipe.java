@@ -1,6 +1,8 @@
 package ligueBaseballServlet;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -35,13 +37,21 @@ public class RequetesEquipe extends HttpServlet {
                    if(!request.getParameter("adresseTerrainAdd").equals("")) {
                         creationEquipeTerrain(request, response);
                    }else{
-                        //ERREUR MANQUE PARAMETRES
+                        List listeMessageErreur = new LinkedList();
+                        listeMessageErreur.add("Il manque des parametres pour creer une equipe.");
+                        request.setAttribute("listeMessageErreur", listeMessageErreur);
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                        dispatcher.forward(request, response);
                    } 
                }else{
                    creationEquipe(request, response);
                }
             }else{
-                //ERREUR MANQUE PARAMETRES
+                List listeMessageErreur = new LinkedList();
+                listeMessageErreur.add("Il manque des parametres pour creer une equipe.");
+                request.setAttribute("listeMessageErreur", listeMessageErreur);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                dispatcher.forward(request, response);
             }
         } else if (request.getParameter("afficherEquipes") != null) {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/equipes.jsp");
@@ -50,10 +60,18 @@ public class RequetesEquipe extends HttpServlet {
             if(!request.getParameter("nomEquipeSup").equals("")) {
                 supprimerEquipe(request, response);
             } else{
-                //ERREUR MANQUE PARAMETRES
+                List listeMessageErreur = new LinkedList();
+                listeMessageErreur.add("Il manque des parametres pour supprimer une equipe.");
+                request.setAttribute("listeMessageErreur", listeMessageErreur);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                dispatcher.forward(request, response);
             }
         }else{
-            //ERREUR CHOIX INCONNU
+            List listeMessageErreur = new LinkedList();
+            listeMessageErreur.add("Choix non reconnu.");
+            request.setAttribute("listeMessageErreur", listeMessageErreur);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+            dispatcher.forward(request, response);
         }
             
     }
@@ -64,7 +82,7 @@ public class RequetesEquipe extends HttpServlet {
      * @param response
      * @throws IOException 
      */
-    private void creationEquipe(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void creationEquipe(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String nomEquipe = (String) request.getParameter("nomEquipeAdd");
 	GestionLigue ligue = (GestionLigue) request.getSession().getAttribute("ligue");
         try{
@@ -76,7 +94,11 @@ public class RequetesEquipe extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesEquipe.jsp");
             dispatcher.forward(request, response);
         }catch (SQLException | ServletException | IOException e) {
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.toString());
+            List listeMessageErreur = new LinkedList();
+            listeMessageErreur.add(e.toString());
+            request.setAttribute("listeMessageErreur", listeMessageErreur);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+            dispatcher.forward(request, response);
         }
     }
 
@@ -86,7 +108,7 @@ public class RequetesEquipe extends HttpServlet {
      * @param response
      * @throws IOException 
      */
-    private void creationEquipeTerrain(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void creationEquipeTerrain(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String nomEquipe = (String) request.getParameter("nomEquipeAdd");
         String nomTerrain = (String) request.getParameter("nomTerrainAdd");
         String adresseTerrain = (String) request.getParameter("adresseTerrainAdd");
@@ -101,7 +123,11 @@ public class RequetesEquipe extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesEquipe.jsp");
             dispatcher.forward(request, response);
         }catch (SQLException | ServletException | IOException e) {
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.toString());
+            List listeMessageErreur = new LinkedList();
+            listeMessageErreur.add(e.toString());
+            request.setAttribute("listeMessageErreur", listeMessageErreur);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+            dispatcher.forward(request, response);
         }
     }
 
@@ -111,7 +137,7 @@ public class RequetesEquipe extends HttpServlet {
      * @param response
      * @throws IOException 
      */
-    private void supprimerEquipe(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void supprimerEquipe(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
        String nomEquipe = (String) request.getParameter("nomEquipeSup");
        GestionLigue ligue = (GestionLigue) request.getSession().getAttribute("ligue");
        try{
@@ -123,7 +149,11 @@ public class RequetesEquipe extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesEquipe.jsp");
             dispatcher.forward(request, response);
         }catch (SQLException | ServletException | IOException e) {
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.toString());
+            List listeMessageErreur = new LinkedList();
+            listeMessageErreur.add(e.toString());
+            request.setAttribute("listeMessageErreur", listeMessageErreur);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+            dispatcher.forward(request, response);
         }
     }
 

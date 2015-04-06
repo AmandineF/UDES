@@ -1,6 +1,8 @@
 package ligueBaseballServlet;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -39,13 +41,21 @@ public class RequetesArbitre extends HttpServlet {
                     Logger.getLogger(RequetesArbitre.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }else{
-                //ERREUR MANQUE PARAMETRES
+                List listeMessageErreur = new LinkedList();
+                listeMessageErreur.add("Il manques des parametres pour l'operation de creation d'arbitre.");
+                request.setAttribute("listeMessageErreur", listeMessageErreur);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                dispatcher.forward(request, response);
             }
         } else if(request.getParameter("afficherArbitres") != null){
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/arbitres.jsp");
             dispatcher.forward(request, response);
         }else {
-            // CHOIX INCONNU
+            List listeMessageErreur = new LinkedList();
+            listeMessageErreur.add("Choix non reconnu");
+            request.setAttribute("listeMessageErreur", listeMessageErreur);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+            dispatcher.forward(request, response);
         }
     }
 
@@ -55,8 +65,9 @@ public class RequetesArbitre extends HttpServlet {
      * @param response
      * @throws SQLException
      * @throws IOException 
+     * @throws javax.servlet.ServletException 
      */
-    public void creationArbitre(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+    public void creationArbitre(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
         String nomArbitre = (String) request.getParameter("nomArbitre");
         String prenomArbitre = (String) request.getParameter("prenomArbitre");
 	GestionLigue ligue = (GestionLigue) request.getSession().getAttribute("ligue");
@@ -70,7 +81,11 @@ public class RequetesArbitre extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesArbitre.jsp");
             dispatcher.forward(request, response);
         }catch (SQLException | ServletException | IOException e) {
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.toString());
+            List listeMessageErreur = new LinkedList();
+            listeMessageErreur.add(e.toString());
+            request.setAttribute("listeMessageErreur", listeMessageErreur);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+            dispatcher.forward(request, response);
         }
     }
 }

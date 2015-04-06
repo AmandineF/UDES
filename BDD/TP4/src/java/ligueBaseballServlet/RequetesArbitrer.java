@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -46,16 +48,28 @@ public class RequetesArbitrer extends HttpServlet {
                 try {
                     affecterArbitreMatch(request, response);
                 } catch (ParseException ex) {
-                    Logger.getLogger(RequetesArbitrer.class.getName()).log(Level.SEVERE, null, ex);
+                    List listeMessageErreur = new LinkedList();
+                    listeMessageErreur.add(ex.toString());
+                    request.setAttribute("listeMessageErreur", listeMessageErreur);
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                    dispatcher.forward(request, response);
                 }
             }else{
-                //ERREUR MANQUE PARAMETRES
+                List listeMessageErreur = new LinkedList();
+                listeMessageErreur.add("Il manque des parametres pour affecter un arbitre a un match.");
+                request.setAttribute("listeMessageErreur", listeMessageErreur);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                dispatcher.forward(request, response);
             }
         } else if (request.getParameter("afficherArbitrer") != null) {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/arbitrer.jsp");
             dispatcher.forward(request, response);
         }else{
-            //ERREUR CHOIX INCONNU
+            List listeMessageErreur = new LinkedList();
+            listeMessageErreur.add("Choix non reconnu.");
+            request.setAttribute("listeMessageErreur", listeMessageErreur);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+            dispatcher.forward(request, response);
         }
     }
 
@@ -66,7 +80,7 @@ public class RequetesArbitrer extends HttpServlet {
      * @throws IOException
      * @throws ParseException 
      */
-    private void affecterArbitreMatch(HttpServletRequest request, HttpServletResponse response) throws IOException, ParseException {
+    private void affecterArbitreMatch(HttpServletRequest request, HttpServletResponse response) throws IOException, ParseException, ServletException {
         String startDate = (String) request.getParameter("matchDateArb");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         java.util.Date dateDebut = sdf.parse(startDate);
@@ -95,7 +109,11 @@ public class RequetesArbitrer extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesArbitrer.jsp");
             dispatcher.forward(request, response);
         }catch (SQLException | ServletException | IOException e) {
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.toString());
+            List listeMessageErreur = new LinkedList();
+            listeMessageErreur.add(e.toString());
+            request.setAttribute("listeMessageErreur", listeMessageErreur);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+            dispatcher.forward(request, response);
         }
     }
 

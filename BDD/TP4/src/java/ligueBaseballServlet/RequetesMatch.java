@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -46,7 +48,11 @@ public class RequetesMatch extends HttpServlet {
                     Logger.getLogger(RequetesMatch.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
-                //ERREUR MANQUE PARAMETRES
+                List listeMessageErreur = new LinkedList();
+                listeMessageErreur.add("Il manque des parametres pour creer un match.");
+                request.setAttribute("listeMessageErreur", listeMessageErreur);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                dispatcher.forward(request, response);
             }
         } else if (request.getParameter("entrerResultatMatch") != null) {
             if(!request.getParameter("matchDateRes").equals("") &&
@@ -61,7 +67,11 @@ public class RequetesMatch extends HttpServlet {
                     Logger.getLogger(RequetesMatch.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
-                //ERREUR MANQUE PARAMETRES
+                List listeMessageErreur = new LinkedList();
+                listeMessageErreur.add("Il manque des parametres pour entrer les resultats d'un match.");
+                request.setAttribute("listeMessageErreur", listeMessageErreur);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                dispatcher.forward(request, response);
             }
             
         } else if (request.getParameter("afficherResultatDate") != null) {
@@ -96,7 +106,11 @@ public class RequetesMatch extends HttpServlet {
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/matchs.jsp");
                 dispatcher.forward(request, response);
         }else{
-            //ERREUR CHOIX INCONNU
+            List listeMessageErreur = new LinkedList();
+            listeMessageErreur.add("Choix non reconnu.");
+            request.setAttribute("listeMessageErreur", listeMessageErreur);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+            dispatcher.forward(request, response);
         }
     }
 
@@ -107,7 +121,7 @@ public class RequetesMatch extends HttpServlet {
      * @throws IOException
      * @throws ParseException 
      */
-    private void creerMatch(HttpServletRequest request, HttpServletResponse response) throws IOException, ParseException {
+    private void creerMatch(HttpServletRequest request, HttpServletResponse response) throws IOException, ParseException, ServletException {
         String startDate = (String) request.getParameter("matchDateAdd");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         java.util.Date dateDebut = sdf.parse(startDate);
@@ -131,7 +145,11 @@ public class RequetesMatch extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesMatch.jsp");
             dispatcher.forward(request, response);
         }catch (SQLException | ServletException | IOException e) {
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.toString());
+            List listeMessageErreur = new LinkedList();
+            listeMessageErreur.add(e.toString());
+            request.setAttribute("listeMessageErreur", listeMessageErreur);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+            dispatcher.forward(request, response);
         }
     }
 
@@ -142,7 +160,7 @@ public class RequetesMatch extends HttpServlet {
      * @throws IOException
      * @throws ParseException 
      */
-    private void entrerResultatMatch(HttpServletRequest request, HttpServletResponse response) throws IOException, ParseException {
+    private void entrerResultatMatch(HttpServletRequest request, HttpServletResponse response) throws IOException, ParseException, ServletException {
         String startDate = (String) request.getParameter("matchDateRes");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         java.util.Date dateDebut = sdf.parse(startDate);
@@ -167,7 +185,11 @@ public class RequetesMatch extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesMatch.jsp");
             dispatcher.forward(request, response);
         }catch (SQLException | ServletException | IOException e) {
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.toString());
+            List listeMessageErreur = new LinkedList();
+            listeMessageErreur.add(e.toString());
+            request.setAttribute("listeMessageErreur", listeMessageErreur);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+            dispatcher.forward(request, response);
         }
     }
 }

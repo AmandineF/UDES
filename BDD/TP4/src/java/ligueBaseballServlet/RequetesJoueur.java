@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -49,13 +51,21 @@ public class RequetesJoueur extends HttpServlet {
                             creationJoueurEquipe(request, response);   
                         }
                     }else{
-                        //ERREUR MANQUE PARAMETRES
+                        List listeMessageErreur = new LinkedList();
+                        listeMessageErreur.add("Il manque des parametres pour creer un joueur.");
+                        request.setAttribute("listeMessageErreur", listeMessageErreur);
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                        dispatcher.forward(request, response);
                     }
                 }else{
                     creationJoueur(request, response);
                 }      
             }else{
-                //ERREUR MANQUE PARAMETRES
+                List listeMessageErreur = new LinkedList();
+                listeMessageErreur.add("Il manque des parametres pour creer un joueur.");
+                request.setAttribute("listeMessageErreur", listeMessageErreur);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                dispatcher.forward(request, response);
             }
         } else if (request.getParameter("afficherJoueurEquipe") != null) {
             try{
@@ -75,10 +85,18 @@ public class RequetesJoueur extends HttpServlet {
             if(!request.getParameter("nomJoueurSup").equals("") && !request.getParameter("prenomJoueurSup").equals("")) {
                 supprimerJoueur(request, response);
             } else{
-                //ERREUR MANQUE PARAMETRES
+                List listeMessageErreur = new LinkedList();
+                listeMessageErreur.add("Il manque des parametres pour supprimer un joueur.");
+                request.setAttribute("listeMessageErreur", listeMessageErreur);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                dispatcher.forward(request, response);
             }
         }else{
-            //ERREUR CHOIX INCONNU
+            List listeMessageErreur = new LinkedList();
+            listeMessageErreur.add("Choix non reconnu.");
+            request.setAttribute("listeMessageErreur", listeMessageErreur);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+            dispatcher.forward(request, response);
         }
     }
 
@@ -89,7 +107,7 @@ public class RequetesJoueur extends HttpServlet {
      * @throws IOException
      * @throws ParseException 
      */
-    private void creationJoueurDate(HttpServletRequest request, HttpServletResponse response) throws IOException, ParseException {
+    private void creationJoueurDate(HttpServletRequest request, HttpServletResponse response) throws IOException, ParseException, ServletException {
         String nomJoueur = (String) request.getParameter("nomJoueurAdd");
         String prenomJoueur = (String) request.getParameter("prenomJoueurAdd");
         String nomEquipe = (String) request.getParameter("nomEquipeAdd");
@@ -110,7 +128,11 @@ public class RequetesJoueur extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesJoueur.jsp");
             dispatcher.forward(request, response);
         }catch (SQLException | ServletException | IOException e) {
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.toString());
+            List listeMessageErreur = new LinkedList();
+            listeMessageErreur.add(e.toString());
+            request.setAttribute("listeMessageErreur", listeMessageErreur);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+            dispatcher.forward(request, response);
         }
     }
     
@@ -120,7 +142,7 @@ public class RequetesJoueur extends HttpServlet {
      * @param response
      * @throws IOException 
      */
-    private void creationJoueur(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void creationJoueur(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String nomJoueur = (String) request.getParameter("nomJoueurAdd");
         String prenomJoueur = (String) request.getParameter("prenomJoueurAdd");
 	GestionLigue ligue = (GestionLigue) request.getSession().getAttribute("ligue");
@@ -134,7 +156,11 @@ public class RequetesJoueur extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesJoueur.jsp");
             dispatcher.forward(request, response);
         }catch (SQLException | ServletException | IOException e) {
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.toString());
+            List listeMessageErreur = new LinkedList();
+            listeMessageErreur.add(e.toString());
+            request.setAttribute("listeMessageErreur", listeMessageErreur);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+            dispatcher.forward(request, response);
         }
     }
     
@@ -144,7 +170,7 @@ public class RequetesJoueur extends HttpServlet {
      * @param response
      * @throws IOException 
      */
-    private void creationJoueurEquipe(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void creationJoueurEquipe(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String nomJoueur = (String) request.getParameter("nomJoueurAdd");
         String prenomJoueur = (String) request.getParameter("prenomJoueurAdd");
         String nomEquipe = (String) request.getParameter("nomEquipeAdd");
@@ -160,7 +186,11 @@ public class RequetesJoueur extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesJoueur.jsp");
             dispatcher.forward(request, response);
         }catch (SQLException | ServletException | IOException e) {
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.toString());
+            List listeMessageErreur = new LinkedList();
+            listeMessageErreur.add(e.toString());
+            request.setAttribute("listeMessageErreur", listeMessageErreur);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+            dispatcher.forward(request, response);
         }
     }
 
@@ -184,7 +214,7 @@ public class RequetesJoueur extends HttpServlet {
      * @param response
      * @throws IOException 
      */
-    private void supprimerJoueur(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void supprimerJoueur(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String nomJoueur = (String) request.getParameter("nomJoueurSup");
         String prenomJoueur = (String) request.getParameter("prenomJoueurSup");
 	GestionLigue ligue = (GestionLigue) request.getSession().getAttribute("ligue");
@@ -198,7 +228,11 @@ public class RequetesJoueur extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesJoueur.jsp");
             dispatcher.forward(request, response);
         }catch (SQLException | ServletException | IOException e) {
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.toString());
+            List listeMessageErreur = new LinkedList();
+            listeMessageErreur.add(e.toString());
+            request.setAttribute("listeMessageErreur", listeMessageErreur);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+            dispatcher.forward(request, response);
         }
     }
 
