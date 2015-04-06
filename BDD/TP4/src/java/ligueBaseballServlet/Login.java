@@ -27,7 +27,7 @@ public class Login extends HttpServlet {
                     System.out.println("GestionLigue : session deja cree; id = "+ session.getId());
                     session.invalidate();
                     session = request.getSession();
-                    System.out.println("GestionLigue: session invalidee");
+                    System.out.println("GestionLigue : session invalidee");
             }
 
             String userId = request.getParameter("userIdBD");
@@ -41,7 +41,7 @@ public class Login extends HttpServlet {
             // de l'utilisateur
             session.setAttribute("ligue", ligue);
 
-            //Afficher le menu membre en appelant la page arbitre.jsp
+            //Afficher le menu membre en appelant la page menu.jsp
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/menu.jsp");
             dispatcher.forward(request, response);
             session.setAttribute("etat", 0);
