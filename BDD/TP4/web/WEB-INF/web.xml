@@ -49,6 +49,10 @@
         <servlet-name>ExportationXML</servlet-name>
         <servlet-class>ligueBaseballServlet.ExportationXML</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ImportationXML</servlet-name>
+        <servlet-class>ligueBaseballServlet.ImportationXML</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LigueSessionListener</servlet-name>
         <url-pattern>/LigueSessionListener</url-pattern>
@@ -96,6 +100,10 @@
     <servlet-mapping>
         <servlet-name>ExportationXML</servlet-name>
         <url-pattern>/ExportationXML</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ImportationXML</servlet-name>
+        <url-pattern>/ImportationXML</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>

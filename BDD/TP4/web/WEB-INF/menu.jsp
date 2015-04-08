@@ -139,5 +139,13 @@
             Nom de l'equipe : <INPUT TYPE="TEXT" NAME="nomEquipeXML" VALUE="">
             <INPUT TYPE="SUBMIT" NAME="exporter" VALUE="Exporter">
         </FORM>
+        <BR>
+        <BR>
+        <FORM ACTION="ImportationXML" METHOD="POST">
+            15 - Importation XML d'une equipe
+            <BR>
+            Nom du fichier : <INPUT TYPE="TEXT" NAME="nomFichierXML" VALUE="">
+            <INPUT TYPE="SUBMIT" NAME="importer" VALUE="Importer">
+        </FORM>
     </body>
 </html>

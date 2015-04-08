@@ -8,7 +8,6 @@ package ligueBaseballServlet;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -27,7 +26,8 @@ import ligueBaseball.TupleTerrain;
 
 /**
  *
- * @author Amandine
+ * @author Amandine Fouillet
+ * @author Frank Chassing
  */
 public class ExportationXML extends HttpServlet {
 
