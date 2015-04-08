@@ -34,15 +34,17 @@ public class GestionEquipe {
      * @param equipenom le nom de l'equipe a creer
      * @throws SQLException 
      */
-    public void creerEquipe(String equipenom) throws SQLException  {
+    public boolean creerEquipe(String equipenom) throws SQLException  {
         
         if(equipeTable.existeNom(equipenom)){
         	System.out.println("USERERREUR - L'equipe existe deja.");
+        	return false;
         }else{
             int idEquipe = sequence.getCle("equipe");
             equipeTable.ajout(idEquipe, -1, equipenom );
             System.out.println("SUCCES - Equipe ajoutee, elle ne possede pas de terrain.");
             this.sequence.ajout((idEquipe +1), "equipe");
+            return true;
         }
         
     }
@@ -54,9 +56,10 @@ public class GestionEquipe {
      * @param adresseterrain l'adresse du terrain attribue
      * @throws SQLException 
      */
-    public void creerEquipe(String equipenom, String nomterrain ,String adresseterrain) throws SQLException  {
+    public boolean creerEquipe(String equipenom, String nomterrain ,String adresseterrain) throws SQLException  {
     	if(equipeTable.existeNom(equipenom)){
         	System.out.println("USERERREUR - L'equipe existe deja.");
+        	return false;
         }else{
             int idEquipe = sequence.getCle("equipe");
             sequence.ajout(idEquipe + 1, "equipe");
@@ -72,6 +75,7 @@ public class GestionEquipe {
                 equipeTable.ajout(idEquipe, idTerrain, equipenom );
                 System.out.println("SUCCES - Equipe et terrain ajoutes.");
             }
+            return true;
         }
     }
     
@@ -104,17 +108,20 @@ public class GestionEquipe {
      * @param equipenom le nom de l'equipe a supprimer
      * @throws SQLException 
      */
-    public void supprimerEquipe(String equipenom) throws SQLException{
+    public int supprimerEquipe(String equipenom) throws SQLException{
     	if(equipeTable.existeNom(equipenom)){
     		int idEquipe = equipeTable.getId(equipenom);
     		if(faitpartie.getNbJoueur(idEquipe) > 0){
                     System.out.println("USERERREUR - L'equipe " + equipenom + "ne peut être supprimee car elle possede des joueurs.");
+                    return 0;
         	}else{
                     equipeTable.suppression(idEquipe);
                     System.out.println("SUCCES - Equipe " + equipenom + " a ete supprimee.");
+                    return 1;
         	}
     	}else{
     		System.out.println("USERERREUR – L'equipe " + equipenom + " a supprimer n'existe pas.");
+    		return 2;
     	}
     	
     }

@@ -14,9 +14,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link href="style.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
-        <h1>Affichage des matchs</h1>
+        <h2>Affichage des matchs</h2>
         <%
         GestionLigue ligue = (GestionLigue) session.getAttribute("ligue");
         String equipenom = "";
@@ -37,21 +38,20 @@
         if(listMatch.size() > 0) {
         %>
         <table
-            style="width: 50%; text-align: left; margin-left: auto; margin-right: auto;"
+            style="width: 60%; text-align: left; margin-left: auto; margin-right: auto;"
     border="1" cellspacing="2" cellpadding="2">
             <tbody>
                 <%-- titre des colonnes --%>
                 <tr>
-                <td style="vertical-align: top;">ID</td>
-                <td style="vertical-align: top;">Equipe locale</td>
-                <td style="vertical-align: top;">Equipe visiteur</td>
-                <td style="vertical-align: top;">Terrain ID</td>
-                <td style="vertical-align: top;">Date</td>
-                <td style="vertical-align: top;">Heure</td>
-                <td style="vertical-align: top;">Points locaux</td>
-                <td style="vertical-align: top;">Points visiteurs</td>
+                <td style="vertical-align: top;font-weight:bold;width:30px">ID</td>
+                <td style="vertical-align: top;font-weight:bold;">Equipe locale</td>
+                <td style="vertical-align: top;font-weight:bold;">Equipe visiteur</td>
+                <td style="vertical-align: top;font-weight:bold;">Terrain ID</td>
+                <td style="vertical-align: top;font-weight:bold;width:100px">Date</td>
+                <td style="vertical-align: top;font-weight:bold;width:100px">Heure</td>
+                <td style="vertical-align: top;font-weight:bold;">Points locaux</td>
+                <td style="vertical-align: top;font-weight:bold;">Points visiteurs</td>
                 </tr>
-            <br>
                 <%
                     for(int i = 0; i<listMatch.size();i++) {
                         TupleMatch tupleMatch = listMatch.elementAt(i);
@@ -67,7 +67,6 @@
                 <td style="vertical-align: top;"><%= tupleMatch.pointslocal %></td>
                 <td style="vertical-align: top;"><%= tupleMatch.pointsvisiteur %></td>
                 </tr>
-                <br>
                 <%
                     }
                 %>
@@ -80,45 +79,54 @@
        <%
         }
                 %>
+                <br><br><br>
+                <div style="text-align:center;">
+		        <a href="Login" ><INPUT class="bouton2" TYPE="SUBMIT" NAME="retourMenu" VALUE="Menu"></a>
+		        <a href="Logout" ><INPUT class="bouton2" style="width:150px" TYPE="SUBMIT" NAME="supprimerEquipe" VALUE="Deconnexion"></a>
+		        </div>
+                <br><br>
         <FORM ACTION="RequetesMatch" METHOD="POST">
-            Creation d'un match
-            <BR>
-            Match date : <INPUT TYPE="DATE" NAME="matchDateAdd" VALUE="yyyy-MM-dd">
-            Match heure : <INPUT TYPE="TIME" NAME="matchHeureAdd" VALUE="hh:mm:ss">
-            Nom equipe locale : <INPUT TYPE="TEXT" NAME="nomEquipeLocaleAdd" VALUE="">
-            Nom equipe visiteur : <INPUT TYPE="TEXT" NAME="nomEquipeVisiteurAdd" VALUE="">
-            <INPUT TYPE="SUBMIT" NAME="creerMatch" VALUE="creerMatch">
+        <fieldset>
+            <h3>Creer un match</h3>
+            <INPUT placeholder="Date : yyyy-MM-dd" TYPE="DATE" NAME="matchDateAdd" VALUE="">
+            <INPUT placeholder="Heure : hh:mm:ss" TYPE="TIME" NAME="matchHeureAdd" VALUE="">
+            <INPUT placeholder="Equipe locale" TYPE="TEXT" NAME="nomEquipeLocaleAdd" VALUE="">
+            <INPUT placeholder="Equipe visiteur" TYPE="TEXT" NAME="nomEquipeVisiteurAdd" VALUE=""><br><br>
+            <INPUT class="bouton" TYPE="SUBMIT" NAME="creerMatch" VALUE="Valider">
+            </fieldset>
         </FORM>  
         <BR>
         <BR>
         <FORM ACTION="RequetesMatch" METHOD="POST">
-            Entrer le resultat d’un match
-            <BR>
-            Date du match : <INPUT TYPE="DATE" NAME="matchDateRes" VALUE="yyyy-MM-dd">
-            Heure du match : <INPUT TYPE="TIME" NAME="matchHeureRes" VALUE="hh:mm:ss">
-            Nom equipe locale : <INPUT TYPE="TEXT" NAME="nomEquipeLocaleRes" VALUE="">
-            Nom equipe visiteur : <INPUT TYPE="TEXT" NAME="nomEquipeVisiteurRes" VALUE="">
-            Points local : <INPUT TYPE="TEXT" NAME="pointsLocalRes" VALUE="">
-            Points visiteur : <INPUT TYPE="TEXT" NAME="pointsVisiteurRes" VALUE="">
-            <INPUT TYPE="SUBMIT" NAME="entrerResultatMatch" VALUE="entrerResultatMatch">
+        <fieldset>
+           <h3>Entrer le resultat d’un match</h3>
+            <INPUT placeholder="Date : yyyy-MM-dd" TYPE="DATE" NAME="matchDateRes" VALUE="">
+            <INPUT placeholder="Heure : hh:mm:ss" TYPE="TIME" NAME="matchHeureRes" VALUE="">
+            <INPUT placeholder="Equipe locale" TYPE="TEXT" NAME="nomEquipeLocaleRes" VALUE="">
+            <INPUT placeholder="Equipe visiteur" TYPE="TEXT" NAME="nomEquipeVisiteurRes" VALUE="">
+            <INPUT placeholder="Points locale" TYPE="TEXT" NAME="pointsLocalRes" VALUE="">
+            <INPUT placeholder="Points visiteur" TYPE="TEXT" NAME="pointsVisiteurRes" VALUE=""><br><br>
+            <INPUT class="bouton" TYPE="SUBMIT" NAME="entrerResultatMatch" VALUE="Valider">
+            </fieldset>
         </FORM>
         <BR>
         <BR>
         <FORM ACTION="RequetesMatch" METHOD="POST">
-            Afficher les resultats de tous les matchs a partir d'une date
-            <BR>
-            Date du match : <INPUT TYPE="DATE " NAME="matchDateAff" VALUE="yyyy-MM-dd">
-            <INPUT TYPE="SUBMIT" NAME="afficherResultatDate" VALUE="afficherResultatDate">
+        <fieldset>
+           <h3>Afficher les resultats de tous les matchs a partir d'une date</h3>
+            <INPUT placeholder="Date : yyyy-MM-dd" TYPE="DATE" NAME="matchDateAff" VALUE=""><br><br>
+            <INPUT class="bouton" TYPE="SUBMIT" NAME="afficherResultatDate" VALUE="Afficher">
+        </fieldset>
         </FORM>
         <BR>
         <BR>
         <FORM ACTION="RequetesMatch" METHOD="POST">
-            Afficher les resultats de tous les matchs ou une equipe a participe
-            <BR>
-            Nom de l'equipe : <INPUT TYPE="TEXT" NAME="nomEquipeAff" VALUE="">
-            <INPUT TYPE="SUBMIT" NAME="afficherResultatEquipe" VALUE="afficherResultatEquipe">
+        <fieldset>
+           <h3>Afficher les resultats de tous les matchs ou une equipe a participe</h3>
+            <INPUT placeholder="Nom de l'equipe" TYPE="TEXT" NAME="nomEquipeAff" VALUE=""><br><br>
+            <INPUT class="bouton" TYPE="SUBMIT" NAME="afficherResultatEquipe" VALUE="Afficher">
+            </fieldset>
         </FORM>
-        <jsp:include page="/WEB-INF/messageErreur.jsp" />
         <BR>
         <a href="Logout">Sortir</a>
         <BR>

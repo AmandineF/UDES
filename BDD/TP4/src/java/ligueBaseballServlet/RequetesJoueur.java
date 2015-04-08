@@ -43,7 +43,27 @@ public class RequetesJoueur extends HttpServlet {
                     if(!request.getParameter("numeroJoueurAdd").equals("")) {
                         if(!request.getParameter("dateDebutAdd").equals("")) {
                             try {    
-                                creationJoueurDate(request, response);
+                            	if(request.getParameter("dateDebutAdd").length()!=10 || !(request.getParameter("dateDebutAdd").charAt(4) == (char)'-') || !(request.getParameter("dateDebutAdd").charAt(7) == (char)'-') ){
+                                    List listeMessageErreur = new LinkedList();
+                                    listeMessageErreur.add("Date invalide");
+                                    request.setAttribute("listeMessageErreur", listeMessageErreur);
+                                    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                                    dispatcher.forward(request, response);
+                            	}else{
+            	                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            	                    java.util.Date parsed = format.parse(request.getParameter("dateDebutAdd"));
+            	                    java.sql.Date sql = new java.sql.Date(parsed.getTime());
+            	                    if(sql.toString().equals(request.getParameter("dateDebutAdd"))) {
+            	                    	creationJoueurDate(request, response);
+            	                    } else {
+            	                        List listeMessageErreur = new LinkedList();
+            	                        listeMessageErreur.add("Date invalide");
+            	                        request.setAttribute("listeMessageErreur", listeMessageErreur);
+            	                        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+            	                        dispatcher.forward(request, response);
+            	                    }
+                            	}
+                               // creationJoueurDate(request, response);
                             } catch (ParseException ex) {
                                 Logger.getLogger(RequetesJoueur.class.getName()).log(Level.SEVERE, null, ex);
                             }
@@ -119,14 +139,23 @@ public class RequetesJoueur extends HttpServlet {
    
 	GestionLigue ligue = (GestionLigue) request.getSession().getAttribute("ligue");
         try{
+        	boolean b;
             synchronized (ligue) {
-                ligue.gestionJoueur.creerJoueur(nomJoueur,prenomJoueur,nomEquipe,numero,date);
+               b= ligue.gestionJoueur.creerJoueur(nomJoueur,prenomJoueur,nomEquipe,numero,date);
             }
-            request.getSession().setAttribute("succesJoueur", "creationJoueur");
-            request.getSession().setAttribute("nomJoueurAdd", nomJoueur);
-            request.getSession().setAttribute("prenomJoueurAdd", prenomJoueur);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesJoueur.jsp");
-            dispatcher.forward(request, response);
+            if(b){
+	            request.getSession().setAttribute("succesJoueur", "creationJoueur");
+	            request.getSession().setAttribute("nomJoueurAdd", nomJoueur);
+	            request.getSession().setAttribute("prenomJoueurAdd", prenomJoueur);
+	            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesJoueur.jsp");
+	            dispatcher.forward(request, response);
+            }else{
+                List listeMessageErreur = new LinkedList();
+                listeMessageErreur.add("Impossible de creer le joueur, il existe deja !");
+                request.setAttribute("listeMessageErreur", listeMessageErreur);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                dispatcher.forward(request, response);
+            }
         }catch (SQLException | ServletException | IOException e) {
             List listeMessageErreur = new LinkedList();
             listeMessageErreur.add(e.toString());
@@ -147,14 +176,23 @@ public class RequetesJoueur extends HttpServlet {
         String prenomJoueur = (String) request.getParameter("prenomJoueurAdd");
 	GestionLigue ligue = (GestionLigue) request.getSession().getAttribute("ligue");
         try{
+        	boolean b = false;
             synchronized (ligue) {
-                ligue.gestionJoueur.creerJoueur(nomJoueur,prenomJoueur);
+                b = ligue.gestionJoueur.creerJoueur(nomJoueur,prenomJoueur);
             }
-            request.getSession().setAttribute("succesJoueur", "creationJoueur");
-            request.getSession().setAttribute("nomJoueurAdd", nomJoueur);
-            request.getSession().setAttribute("prenomJoueurAdd", prenomJoueur);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesJoueur.jsp");
-            dispatcher.forward(request, response);
+            if(b){
+	            request.getSession().setAttribute("succesJoueur", "creationJoueur");
+	            request.getSession().setAttribute("nomJoueurAdd", nomJoueur);
+	            request.getSession().setAttribute("prenomJoueurAdd", prenomJoueur);
+	            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesJoueur.jsp");
+	            dispatcher.forward(request, response);
+            }else{
+                List listeMessageErreur = new LinkedList();
+                listeMessageErreur.add("Impossible de creer le joueur, il existe deja !");
+                request.setAttribute("listeMessageErreur", listeMessageErreur);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                dispatcher.forward(request, response);
+            }
         }catch (SQLException | ServletException | IOException e) {
             List listeMessageErreur = new LinkedList();
             listeMessageErreur.add(e.toString());
@@ -176,15 +214,26 @@ public class RequetesJoueur extends HttpServlet {
         String nomEquipe = (String) request.getParameter("nomEquipeAdd");
         int numero = Integer.parseInt(request.getParameter("numeroJoueurAdd"));
 	GestionLigue ligue = (GestionLigue) request.getSession().getAttribute("ligue");
+	
         try{
+        	boolean b = false;
+
             synchronized (ligue) {
-                ligue.gestionJoueur.creerJoueur(nomJoueur,prenomJoueur,nomEquipe,numero);
+               b = ligue.gestionJoueur.creerJoueur(nomJoueur,prenomJoueur,nomEquipe,numero);
             }
-            request.getSession().setAttribute("succesJoueur", "creationJoueur");
-            request.getSession().setAttribute("nomJoueurAdd", nomJoueur);
-            request.getSession().setAttribute("prenomJoueurAdd", prenomJoueur);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesJoueur.jsp");
-            dispatcher.forward(request, response);
+            if(b){
+	            request.getSession().setAttribute("succesJoueur", "creationJoueur");
+	            request.getSession().setAttribute("nomJoueurAdd", nomJoueur);
+	            request.getSession().setAttribute("prenomJoueurAdd", prenomJoueur);
+	            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesJoueur.jsp");
+	            dispatcher.forward(request, response);
+            }else{
+                List listeMessageErreur = new LinkedList();
+                listeMessageErreur.add("Impossible de creer le joueur, il existe deja !");
+                request.setAttribute("listeMessageErreur", listeMessageErreur);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                dispatcher.forward(request, response);
+            }
         }catch (SQLException | ServletException | IOException e) {
             List listeMessageErreur = new LinkedList();
             listeMessageErreur.add(e.toString());
@@ -217,16 +266,25 @@ public class RequetesJoueur extends HttpServlet {
     private void supprimerJoueur(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String nomJoueur = (String) request.getParameter("nomJoueurSup");
         String prenomJoueur = (String) request.getParameter("prenomJoueurSup");
-	GestionLigue ligue = (GestionLigue) request.getSession().getAttribute("ligue");
+        GestionLigue ligue = (GestionLigue) request.getSession().getAttribute("ligue");
         try{
+        	boolean b;
             synchronized (ligue) {
-                ligue.gestionJoueur.supprimerJoueur(nomJoueur,prenomJoueur);
+               b= ligue.gestionJoueur.supprimerJoueur(nomJoueur,prenomJoueur);
             }
-            request.getSession().setAttribute("succesJoueur", "suppressionJoueur");
-            request.getSession().setAttribute("nomJoueurSup", nomJoueur);
-            request.getSession().setAttribute("prenomJoueurSup", prenomJoueur);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesJoueur.jsp");
-            dispatcher.forward(request, response);
+            if(b){
+	            request.getSession().setAttribute("succesJoueur", "suppressionJoueur");
+	            request.getSession().setAttribute("nomJoueurSup", nomJoueur);
+	            request.getSession().setAttribute("prenomJoueurSup", prenomJoueur);
+	            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesJoueur.jsp");
+	            dispatcher.forward(request, response);
+            }else{
+                List listeMessageErreur = new LinkedList();
+                listeMessageErreur.add("Impossible de supprimer, le joueur n'existe pas");
+                request.setAttribute("listeMessageErreur", listeMessageErreur);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                dispatcher.forward(request, response);
+            }
         }catch (SQLException | ServletException | IOException e) {
             List listeMessageErreur = new LinkedList();
             listeMessageErreur.add(e.toString());

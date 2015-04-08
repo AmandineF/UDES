@@ -28,14 +28,16 @@ public class GestionArbitre {
      * @param prenom Le prénom de l'arbitre
      * @throws SQLException 
      */
-    public void creerArbitre(String nom, String prenom) throws SQLException {
+    public boolean creerArbitre(String nom, String prenom) throws SQLException {
         if(arbitreTable.existeHomonyme(nom, prenom) > -1) {
             System.out.println("USERERREUR - L'arbitre " + nom + " " + prenom + " existe deja.");
+            return false;
         } else {
             int idArbitre = sequence.getCle("arbitre");
             arbitreTable.ajout(idArbitre, nom, prenom);
             sequence.ajout((idArbitre+1),"arbitre");
             System.out.println("SUCCES - L'arbitre " + nom + " " + prenom + " a ete cree.");
+            return true;
         }
     }
     

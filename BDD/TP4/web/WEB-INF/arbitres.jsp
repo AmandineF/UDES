@@ -12,9 +12,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link href="style.css" rel="stylesheet" type="text/css" />
     </head>
     <body>        
-        <h1>Affichage des arbitres</h1>
+        <h2>Affichage des arbitres</h2>
         <%
         GestionLigue ligue = (GestionLigue) session.getAttribute("ligue");
         Vector<TupleArbitre> listArbitre = ligue.gestionArbitre.afficherArbitreListe();
@@ -26,11 +27,10 @@
             <tbody>
                 <%-- titre des colonnes --%>
                 <tr>
-                <td style="vertical-align: top;">ID</td>
-                <td style="vertical-align: top;">Nom</td>
-                <td style="vertical-align: top;">Prenom</td>
+                <td style="vertical-align: top;font-weight:bold;">ID</td>
+                <td style="vertical-align: top;font-weight:bold;">Nom</td>
+                <td style="vertical-align: top;font-weight:bold;">Prenom</td>
                 </tr>
-            <br>
                 <%
                     for(int i = 0; i<listArbitre.size();i++) {
                         TupleArbitre tupleArbitre = listArbitre.elementAt(i);
@@ -41,7 +41,6 @@
                 <td style="vertical-align: top;"><%= tupleArbitre.nom %></td>
                 <td style="vertical-align: top;"><%= tupleArbitre.prenom %></td>
                 </tr>
-                <br>
                 <%
                     }
                 %>
@@ -54,14 +53,20 @@
        <%
         }
                 %>
+                <br><br><br>
+               	<div style="text-align:center;">
+		        <a href="Login" ><INPUT class="bouton2" TYPE="SUBMIT" NAME="retourMenu" VALUE="Menu"></a>
+		        <a href="Logout" ><INPUT class="bouton2" style="width:150px" TYPE="SUBMIT" NAME="supprimerEquipe" VALUE="Deconnexion"></a>
+		        </div>
+                <br><br>
         <FORM ACTION="RequetesArbitre" METHOD="POST">
-            Creation d'un arbitre
-            <BR>
-            Nom arbitre : <INPUT TYPE="TEXT" NAME="nomArbitre" VALUE="">
-            Prenom arbitre : <INPUT TYPE="TEXT" NAME="prenomArbitre" VALUE="">
-            <INPUT TYPE="SUBMIT" NAME="creerArbitre" VALUE="creerArbitre">
+        <fieldset>
+            <h3>Creer d'un arbitre</h3>
+            <INPUT placeholder="Nom de l'arbitre" TYPE="TEXT" NAME="nomArbitre" VALUE="">
+            <INPUT placeholder="Prenom de l'arbitre" TYPE="TEXT" NAME="prenomArbitre" VALUE=""><br><br>
+            <INPUT class="bouton" TYPE="SUBMIT" NAME="creerArbitre" VALUE="Valider">
+        </fieldset>
         </FORM>
-        <jsp:include page="/WEB-INF/messageErreur.jsp" />
         <BR>
         <a href="Logout">Sortir</a>
         <BR>

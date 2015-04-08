@@ -2,17 +2,20 @@ package ligueBaseballServlet;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import ligueBaseball.GestionLigue;
 
 /**
@@ -43,7 +46,35 @@ public class RequetesMatch extends HttpServlet {
                     !request.getParameter("nomEquipeLocaleAdd").equals("") &&
                     !request.getParameter("nomEquipeVisiteurAdd").equals("")) {
                 try {
-                    creerMatch(request, response);
+                	if(request.getParameter("matchDateAdd").length()!=10 || !(request.getParameter("matchDateAdd").charAt(4) == (char)'-') || !(request.getParameter("matchDateAdd").charAt(7) == (char)'-') ){
+                        List listeMessageErreur = new LinkedList();
+                        listeMessageErreur.add("Date invalide");
+                        request.setAttribute("listeMessageErreur", listeMessageErreur);
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                        dispatcher.forward(request, response);
+                	}else{
+	                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	                    java.util.Date parsed = format.parse(request.getParameter("matchDateAdd"));
+	                    java.sql.Date sql = new java.sql.Date(parsed.getTime());
+	                    if(sql.toString().equals(request.getParameter("matchDateAdd"))) {
+	                    	if(request.getParameter("matchHeureAdd").length() !=8 ||!(request.getParameter("matchHeureAdd").charAt(2) == (char)':') || !(request.getParameter("matchHeureAdd").charAt(5) == (char)':') ){
+	                            List listeMessageErreur = new LinkedList();
+	                            listeMessageErreur.add("Heure invalide");
+	                            request.setAttribute("listeMessageErreur", listeMessageErreur);
+	                            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+	                            dispatcher.forward(request, response);
+	                    	}else{
+		                        creerMatch(request, response);
+	                    	}
+	                    } else {
+	                        List listeMessageErreur = new LinkedList();
+	                        listeMessageErreur.add("Date invalide");
+	                        request.setAttribute("listeMessageErreur", listeMessageErreur);
+	                        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+	                        dispatcher.forward(request, response);
+	                    }
+                	}
+	                    //creerMatch(request, response);
                 } catch (ParseException ex) {
                     Logger.getLogger(RequetesMatch.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -135,15 +166,36 @@ public class RequetesMatch extends HttpServlet {
 	GestionLigue ligue = (GestionLigue) request.getSession().getAttribute("ligue");
         System.out.println("oui");
         try{
+        	int i;
             synchronized (ligue) {
-                ligue.gestionMatch.creerMatch(matchDateAdd, timeValue,nomEquipeLocaleAdd,nomEquipeVisiteurAdd);
+                i= ligue.gestionMatch.creerMatch(matchDateAdd, timeValue,nomEquipeLocaleAdd,nomEquipeVisiteurAdd);
             }
-            request.getSession().setAttribute("succesMatch", "creationMatch");
-            request.getSession().setAttribute("matchDateAdd", startDate);
-            request.getSession().setAttribute("nomEquipeLocaleAdd", nomEquipeLocaleAdd);
-            request.getSession().setAttribute("nomEquipeVisiteurAdd", nomEquipeVisiteurAdd);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesMatch.jsp");
-            dispatcher.forward(request, response);
+            if(i==0){
+	            request.getSession().setAttribute("succesMatch", "creationMatch");
+	            request.getSession().setAttribute("matchDateAdd", startDate);
+	            request.getSession().setAttribute("nomEquipeLocaleAdd", nomEquipeLocaleAdd);
+	            request.getSession().setAttribute("nomEquipeVisiteurAdd", nomEquipeVisiteurAdd);
+	            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesMatch.jsp");
+	            dispatcher.forward(request, response);
+            }else if(i==1){
+                List listeMessageErreur = new LinkedList();
+                listeMessageErreur.add("L'equipe visiteur n'existe pas.");
+                request.setAttribute("listeMessageErreur", listeMessageErreur);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                dispatcher.forward(request, response);
+            }else if(i==2){
+                List listeMessageErreur = new LinkedList();
+                listeMessageErreur.add("L'equipe locale n'existe pas.");
+                request.setAttribute("listeMessageErreur", listeMessageErreur);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                dispatcher.forward(request, response);
+            }else{
+                List listeMessageErreur = new LinkedList();
+                listeMessageErreur.add("Les equipes n'existent pas");
+                request.setAttribute("listeMessageErreur", listeMessageErreur);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                dispatcher.forward(request, response);
+            }
         }catch (SQLException | ServletException | IOException e) {
             List listeMessageErreur = new LinkedList();
             listeMessageErreur.add(e.toString());

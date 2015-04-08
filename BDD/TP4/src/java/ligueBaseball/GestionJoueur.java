@@ -34,16 +34,19 @@ public class GestionJoueur {
      * Cree un joueur dans la base de donnee
      * @param nom le nom du joueur
      * @param prenom le prenom du joueur
+     * @return 
      * @throws SQLException 
      */
-    public void creerJoueur(String nom, String prenom) throws SQLException  {
+    public boolean creerJoueur(String nom, String prenom) throws SQLException  {
         if(joueur.existe(nom, prenom)) {
             System.out.println("USERERREUR - Le joueur "+prenom+ " "+nom+" existe deja.");
+            return false;
         }else{
             int idJoueur = sequence.getCle("joueur");
             joueur.ajout(idJoueur, nom, prenom);
             System.out.println("SUCCES - Le joueur " + prenom + " " + nom + " a ete ajoute !");
             sequence.ajout((idJoueur + 1), "joueur");
+            return true;
         }
     }
     
@@ -55,7 +58,7 @@ public class GestionJoueur {
      * @param numero Le numero de l'equipe
      * @throws SQLException 
      */
-    public void creerJoueur(String nom, String prenom, String equipenom, int numero) throws SQLException  {
+    public boolean creerJoueur(String nom, String prenom, String equipenom, int numero) throws SQLException  {
     	if(!joueur.existe(nom, prenom)) {
             int idJoueur = sequence.getCle("joueur");
             int idEquipe = equipeTable.getId(equipenom);
@@ -65,8 +68,10 @@ public class GestionJoueur {
             faitpartie.ajout(idJoueur, idEquipe, numero, sqlDate, null);
             System.out.println("SUCCES - Le joueur " + prenom + " " + nom + " a ete ajoute et lie a une equipe.");
             sequence.ajout((idJoueur + 1), "joueur");
+            return true;
         } else {
             System.out.println("USERERREUR - Le joueur " + prenom + " "  + nom + " existe deja.");
+            return false;
         }
     }
     
@@ -79,7 +84,7 @@ public class GestionJoueur {
      * @param datedebut La date d'entree dans l'equipe du joueur
      * @throws SQLException 
      */
-    public void creerJoueur(String nom, String prenom, String equipenom, int numero, Date datedebut) throws SQLException  {
+    public boolean creerJoueur(String nom, String prenom, String equipenom, int numero, Date datedebut) throws SQLException  {
     	if(!joueur.existe(nom, prenom)) {
             int idJoueur = sequence.getCle("joueur");
             int idEquipe = equipeTable.getId(equipenom);
@@ -87,8 +92,10 @@ public class GestionJoueur {
             faitpartie.ajout(idJoueur, idEquipe, numero, datedebut, null);
             System.out.println("SUCCES - Le joueur " + prenom + " " + nom + " a ete ajoute et lie a une equipe depuis une certain date.");
             sequence.ajout((idJoueur + 1), "joueur");
+            return true;
         }else{
             System.out.println("USERERREUR - Le joueur " + prenom + " "  + nom + " existe deja.");
+            return false;
         }
     }
     
@@ -158,12 +165,12 @@ public class GestionJoueur {
      * @param prenom Le prenom du joueur
      * @throws SQLException 
      */
-    public void supprimerJoueur(String nom, String prenom) throws SQLException{
+    public boolean supprimerJoueur(String nom, String prenom) throws SQLException{
     	int idJoueur = joueur.getId(nom, prenom);
     	if(faitpartie.existeJoueur(idJoueur) || participe.existeJoueur(idJoueur)){
     		//System.out.println("USERWARNING - Le joueur "+nom+" "+prenom+" possede des donnees dans d'autre table, etes-vous sur de vouloir supprimer le joueur ainsi que ses informations ? O|N");
-    		Scanner sc = new Scanner(System.in);
-                String res = sc.nextLine();
+    		//Scanner sc = new Scanner(System.in);
+            // String res = sc.nextLine();
             //if(res.equals("O") || res.equals("o")){
             	faitpartie.suppression(idJoueur);
             	participe.suppression(idJoueur);
@@ -172,12 +179,15 @@ public class GestionJoueur {
             //}else{
             //	System.out.println("Annulation de la suppression.");
             //}
+            	return true;
     	}else{
             if(joueur.existe(nom, prenom)){
                 joueur.suppression(idJoueur);
                 System.out.println("SUCCES - Le joueur "+prenom + " " + nom + " a ete supprime.");
+                return true;
             }else{
                 System.out.println("USERERREUR - Le joueur "+prenom + " " + nom + " n'existe pas.");
+                return false;
             }
     	}
     }

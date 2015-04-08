@@ -35,7 +35,7 @@ public class GestionMatch {
      * @param nomEquipeVisiteur Le nom de l'equipe visiteur
      * @throws SQLException 
      */
-    public void creerMatch(Date matchDate, Time matchHeure,String nomEquipeLocale, String nomEquipeVisiteur)throws SQLException  {
+    public int creerMatch(Date matchDate, Time matchHeure,String nomEquipeLocale, String nomEquipeVisiteur)throws SQLException  {
         int idMatch = sequence.getCle("match");
         if(equipeTable.existeNom(nomEquipeLocale)) {
             if(equipeTable.existeNom(nomEquipeVisiteur)) {
@@ -44,13 +44,17 @@ public class GestionMatch {
                 matchDate, matchHeure, 0, 0);
                 sequence.ajout((idMatch+1),"match");
                 System.out.println("SUCCES - Le match des "+nomEquipeLocale+ " contre " + nomEquipeVisiteur + " a ete cree.");
+                return 0;
             }else{
                 System.out.println("USERERREUR - L'equipe visiteur n'existe pas.");
+                return 1;
             }
         }else if(equipeTable.existeNom(nomEquipeVisiteur)) {
             System.out.println("USERERREUR - L'equipe locale n'existe pas.");
+            return 2;
         }else {
             System.out.println("USERERREUR - Les equipes n'existent pas.");
+            return 3;
         }
     }
     /**

@@ -86,13 +86,22 @@ public class RequetesEquipe extends HttpServlet {
         String nomEquipe = (String) request.getParameter("nomEquipeAdd");
 	GestionLigue ligue = (GestionLigue) request.getSession().getAttribute("ligue");
         try{
+        	boolean b;
             synchronized (ligue) {
-                ligue.gestionEquipe.creerEquipe(nomEquipe);
+               b= ligue.gestionEquipe.creerEquipe(nomEquipe);
             }
-            request.getSession().setAttribute("succesEquipe", "creationEquipe");
-            request.getSession().setAttribute("nomEquipeAdd", nomEquipe);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesEquipe.jsp");
-            dispatcher.forward(request, response);
+            if(b){
+	            request.getSession().setAttribute("succesEquipe", "creationEquipe");
+	            request.getSession().setAttribute("nomEquipeAdd", nomEquipe);
+	            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesEquipe.jsp");
+	            dispatcher.forward(request, response);
+            }else{
+                List listeMessageErreur = new LinkedList();
+                listeMessageErreur.add("Impossible de creer l'equipe, elle existe deja !");
+                request.setAttribute("listeMessageErreur", listeMessageErreur);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                dispatcher.forward(request, response);
+            }
         }catch (SQLException | ServletException | IOException e) {
             List listeMessageErreur = new LinkedList();
             listeMessageErreur.add(e.toString());
@@ -114,14 +123,24 @@ public class RequetesEquipe extends HttpServlet {
         String adresseTerrain = (String) request.getParameter("adresseTerrainAdd");
 	GestionLigue ligue = (GestionLigue) request.getSession().getAttribute("ligue");
         try{
+        	boolean b;
             synchronized (ligue) {
-                ligue.gestionEquipe.creerEquipe(nomEquipe, nomTerrain,adresseTerrain);
+                b= ligue.gestionEquipe.creerEquipe(nomEquipe, nomTerrain,adresseTerrain);
             }
-            request.getSession().setAttribute("succesEquipe", "creationEquipeTerrain");
-            request.getSession().setAttribute("nomEquipeAdd", nomEquipe);
-            request.getSession().setAttribute("nomTerrainAdd", nomTerrain);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesEquipe.jsp");
-            dispatcher.forward(request, response);
+            if(b){
+                request.getSession().setAttribute("succesEquipe", "creationEquipeTerrain");
+                request.getSession().setAttribute("nomEquipeAdd", nomEquipe);
+                request.getSession().setAttribute("nomTerrainAdd", nomTerrain);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesEquipe.jsp");
+                dispatcher.forward(request, response);
+            }else{
+                List listeMessageErreur = new LinkedList();
+                listeMessageErreur.add("Impossible de creer l'equipe, elle existe deja !");
+                request.setAttribute("listeMessageErreur", listeMessageErreur);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                dispatcher.forward(request, response);
+            }
+
         }catch (SQLException | ServletException | IOException e) {
             List listeMessageErreur = new LinkedList();
             listeMessageErreur.add(e.toString());
@@ -140,14 +159,30 @@ public class RequetesEquipe extends HttpServlet {
     private void supprimerEquipe(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
        String nomEquipe = (String) request.getParameter("nomEquipeSup");
        GestionLigue ligue = (GestionLigue) request.getSession().getAttribute("ligue");
+       int i = 0;
        try{
             synchronized (ligue) {
-                ligue.gestionEquipe.supprimerEquipe(nomEquipe);
+                 i = ligue.gestionEquipe.supprimerEquipe(nomEquipe);
             }
-            request.getSession().setAttribute("succesEquipe", "supprimerEquipe");
-            request.getSession().setAttribute("nomEquipeSup", nomEquipe);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesEquipe.jsp");
-            dispatcher.forward(request, response);
+
+            if(i==0){
+                List listeMessageErreur = new LinkedList();
+                listeMessageErreur.add("L'equipe ne peut etre supprimer car elle possede des joueurs !");
+                request.setAttribute("listeMessageErreur", listeMessageErreur);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                dispatcher.forward(request, response);
+            }else if(i==2){
+                List listeMessageErreur = new LinkedList();
+                listeMessageErreur.add("L'equipe a supprimer n'existe pas !");
+                request.setAttribute("listeMessageErreur", listeMessageErreur);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                dispatcher.forward(request, response);
+            }else{
+                request.getSession().setAttribute("succesEquipe", "supprimerEquipe");
+                request.getSession().setAttribute("nomEquipeSup", nomEquipe);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesEquipe.jsp");
+                dispatcher.forward(request, response);
+            }
         }catch (SQLException | ServletException | IOException e) {
             List listeMessageErreur = new LinkedList();
             listeMessageErreur.add(e.toString());

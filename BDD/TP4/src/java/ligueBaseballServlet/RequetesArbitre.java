@@ -72,14 +72,23 @@ public class RequetesArbitre extends HttpServlet {
         String prenomArbitre = (String) request.getParameter("prenomArbitre");
 	GestionLigue ligue = (GestionLigue) request.getSession().getAttribute("ligue");
         try{
+        	boolean b;
             synchronized (ligue) {
-                ligue.gestionArbitre.creerArbitre(nomArbitre, prenomArbitre);
+               b= ligue.gestionArbitre.creerArbitre(nomArbitre, prenomArbitre);
             }
-            request.getSession().setAttribute("succesArbitre", "creationArbitre");
-            request.getSession().setAttribute("nomArbitreAdd", nomArbitre);
-            request.getSession().setAttribute("prenomArbitreAdd", prenomArbitre);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesArbitre.jsp");
-            dispatcher.forward(request, response);
+            if(b){
+	            request.getSession().setAttribute("succesArbitre", "creationArbitre");
+	            request.getSession().setAttribute("nomArbitreAdd", nomArbitre);
+	            request.getSession().setAttribute("prenomArbitreAdd", prenomArbitre);
+	            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesArbitre.jsp");
+	            dispatcher.forward(request, response);
+            }else{
+                List listeMessageErreur = new LinkedList();
+                listeMessageErreur.add("Impossible de creer car l'arbitre existe deja !");
+                request.setAttribute("listeMessageErreur", listeMessageErreur);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                dispatcher.forward(request, response);
+            }
         }catch (SQLException | ServletException | IOException e) {
             List listeMessageErreur = new LinkedList();
             listeMessageErreur.add(e.toString());
