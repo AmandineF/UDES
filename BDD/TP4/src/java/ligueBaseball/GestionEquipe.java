@@ -26,6 +26,9 @@ public class GestionEquipe {
         this.faitpartie = new FaitPartie(this.cx);
     }
     
+    public boolean equipeExiste(String nomEquipe) throws SQLException {
+        return this.equipeTable.existeNom(nomEquipe);
+    }
     /**
      * Cree une equipe dans la base de donnee a partir de son nom
      * @param equipenom le nom de l'equipe a creer
@@ -114,6 +117,14 @@ public class GestionEquipe {
     		System.out.println("USERERREUR – L'equipe " + equipenom + " a supprimer n'existe pas.");
     	}
     	
+    }
+
+    public int getIDTerrain(String nomEquipe) throws SQLException {
+        return equipeTable.getIDTerrain(nomEquipe);
+    }
+
+    public TupleTerrain getTerrain(int idTerrain) throws SQLException {
+        return terrain.getTerrain(idTerrain);
     }
 }
 

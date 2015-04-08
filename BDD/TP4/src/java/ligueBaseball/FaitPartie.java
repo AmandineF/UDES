@@ -12,6 +12,8 @@ public class FaitPartie {
     private final PreparedStatement stmtDeleteJoueur;
     private final PreparedStatement stmtEquipe;
     private final PreparedStatement stmtExisteJoueur;
+    private final PreparedStatement stmtNumeroJoueur;
+    private final PreparedStatement stmtDateJoueur;
     private final Connexion cx;
 
     /**
@@ -23,6 +25,8 @@ public class FaitPartie {
         this.cx = cx;
         stmtExiste = cx.getConnection().prepareStatement("select joueurid, equipeid, arbitreprenom from faitpartie where joueurid = ? and equipeid = ?");
         stmtExisteJoueur = cx.getConnection().prepareStatement("select joueurid, equipeid from faitpartie where joueurid = ?");
+        stmtNumeroJoueur = cx.getConnection().prepareStatement("select numero from faitpartie where joueurid = ?");
+        stmtDateJoueur = cx.getConnection().prepareStatement("select datedebut from faitpartie where joueurid = ?");
         stmtInsert = cx.getConnection().prepareStatement("insert into faitpartie (joueurid, equipeid, numero, datedebut, datefin) " + "values (?,?,?,?,?)");
         stmtDelete = cx.getConnection().prepareStatement("delete from faitpartie where joueurid = ? and equipeid = ?");
         stmtDeleteJoueur = cx.getConnection().prepareStatement("delete from faitpartie where joueurid = ? ");
@@ -37,6 +41,29 @@ public class FaitPartie {
         return cx;
     }
 
+    public int getNumeroJoueur(int idJoueur) throws SQLException {
+        stmtNumeroJoueur.setInt(1, idJoueur);
+        try (ResultSet rset = stmtNumeroJoueur.executeQuery()) {
+            if(rset.next()) {
+                return rset.getInt(1);
+            }
+        }catch(Exception ex){
+            System.out.println("SYSERREUR - Probleme lors de la recuperation du numero du joueur.");
+        }
+        return -1;
+    } 
+    
+    public Date getDateJoueur(int idJoueur) throws SQLException {
+        stmtDateJoueur.setInt(1, idJoueur);
+        try (ResultSet rset = stmtDateJoueur.executeQuery()) {
+            if(rset.next()) {
+                return rset.getDate(1);
+            }
+        }catch(Exception ex){
+            System.out.println("SYSERREUR - Probleme lors de la recuperation du numero du joueur.");
+        }
+        return null;
+    } 
     /**
     * Verifie si une relation joueur equipe existe
      * @param idJoueur L'id du joueur

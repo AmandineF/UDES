@@ -126,10 +126,18 @@
         <BR>
         <BR>
         <FORM ACTION="RequetesMatch" METHOD="POST">
-            12 - Afficher les resultats de tous les matchs ou une equipe a participe
+            13 - Afficher les resultats de tous les matchs ou une equipe a participe
             <BR>
             Nom de l'equipe : <INPUT TYPE="TEXT" NAME="nomEquipeAff" VALUE="">
             <INPUT TYPE="SUBMIT" NAME="afficherResultatEquipe" VALUE="afficherResultatEquipe">
+        </FORM>
+        <BR>
+        <BR>
+        <FORM ACTION="ExportationXML" METHOD="POST">
+            14 - Exportation XML d'une equipe
+            <BR>
+            Nom de l'equipe : <INPUT TYPE="TEXT" NAME="nomEquipeXML" VALUE="">
+            <INPUT TYPE="SUBMIT" NAME="exporter" VALUE="Exporter">
         </FORM>
     </body>
 </html>

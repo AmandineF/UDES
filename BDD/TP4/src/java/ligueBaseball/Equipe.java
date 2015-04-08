@@ -14,6 +14,7 @@ public class Equipe {
     private final PreparedStatement stmtDelete;
     private final PreparedStatement stmtExisteNom ;
     private final PreparedStatement stmtAffiche ;
+    private final PreparedStatement stmtTerrain;
     private final Connexion cx;
 
     /**
@@ -23,6 +24,7 @@ public class Equipe {
      */
     public Equipe(Connexion cx) throws SQLException {
         this.cx = cx;
+        stmtTerrain = cx.getConnection().prepareStatement("select terrainid from equipe where equipenom = ?");
         stmtId = cx.getConnection().prepareStatement("select equipeid from equipe where equipenom = ?");
         stmtExiste = cx.getConnection().prepareStatement("select equipeid, terrainid, equipenom from equipe where equipeid = ?");
         stmtExisteNom = cx.getConnection().prepareStatement("select equipeid, terrainid, equipenom from equipe where equipenom = ?");
@@ -174,5 +176,17 @@ public class Equipe {
             System.out.println("SYSERREUR - Probleme lors de l'affichage d'une equipe.");
         }
     	return listeEquipe;
+    }
+
+    public int getIDTerrain(String nomEquipe) throws SQLException {
+        stmtTerrain.setString(1,nomEquipe);
+        try(ResultSet rset = stmtTerrain.executeQuery()) {
+            if (rset.next()) {
+                return rset.getInt(1);
+            }
+        }catch(Exception ex){
+            System.out.println("SYSERREUR - Probleme lors de la recuperation de l'id terrain de l'equipe " + nomEquipe +".");
+        }
+        return -1;
     }
 }

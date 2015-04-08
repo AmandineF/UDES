@@ -181,6 +181,14 @@ public class GestionJoueur {
             }
     	}
     }
+    
+    public int getNumeroJoueur(int idJoueur) throws SQLException {
+        return faitpartie.getNumeroJoueur(idJoueur);
+    }
+    
+    public Date getDateJoueur(int idJoueur) throws SQLException {
+        return faitpartie.getDateJoueur(idJoueur);
+    }
         
 }
 
