@@ -5,7 +5,7 @@
 \usepackage[french]{babel}
 \usepackage[right=2.5cm, bottom=2.5cm,top=2.5cm, left=2.5cm]{geometry}
 \title{\vspace{\fill} Interface et Multimédia \\ ~\textbf{IFT-215} \\~\\ Travail Pratique 5}
-\author{Amandine Fouillet - 14 130 638 ~\\ Frank Chassing - 14 153 710 ~\\ Laurent Sénécal-Léonard - 14 143 484}
+\author{Amandine Fouillet - 14 130 638 ~\\ Frank Chassing - 14 153 710}
 \date{\today \vspace{\fill}}
 
 \begin{document}
@@ -17,17 +17,18 @@
 
 \newpage
 \section*{Introduction \markboth{INTRODUCTION}{}}
-Après avoir réfléchi sur la conception de notre interface par le biais des Tps précédents, nous avons implémenté notre interface en suivant les objectifs et les contraintes que nous nous étions fixés. Dans un premier temps, ce rapport présente l'interface générale de notre application et les différents éléments d'interface qu'elle possède. Dans un second temps, il met en avant les phases de tests que nous avons été amené à réaliser pour obtenir différents retours. Enfin, nous verrons comment il est possible d'envisager des améliorations de notre application et nous expliciterons le code qui a permis d'implémenter notre application.
+Après avoir réfléchi sur la conception de notre interface par le biais des TPs précédents, nous avons implémenté notre interface en suivant les objectifs et les contraintes que nous nous étions fixés. Dans un premier temps, ce rapport présente l'interface générale de notre application et les différents éléments d'interface qu'elle possède. Dans un second temps, il met en avant les phases de tests que nous avons été amené à réaliser pour obtenir différents retours. Enfin, nous expliciterons le code qui a permis d'implémenter notre application et nous verrons comment il est possible d'envisager des améliorations de notre application.
+
 \addcontentsline{toc}{section}{Introduction}
 
 
 \section{Présentation générale de l'interface}
 \subsection{Choix de l'interface}
 \subsubsection{Objectifs réalisés}
-Pour réaliser notre interface nous nous sommes basés sur les objectifs que nous avons établis dans les Tps précédents. Nous voulions créer une interface permettant d'accueillir toutes les fonctionnalités de communication entre un étudiant et sa famille. Notre but principal était de réunir l'ensemble de ces fonctionnalités et de pouvoir naviguer rapidemment entre elles. Dans notre interface finale, nous avons donc repris le menu vertical permettant cette navigation rapide. Nous retrouvons également les informations sur chacun des contacts que l'on a ajouté. Ceci permet à l'utilisateur de connaître l'actualité de ses contacts en temps réel. Cependant la fonction principale reste la communication. L'utilisateur a accès à une liste de communication et peut entamer à tout moment une conversation écrite, audio ou vidéo avec un ses contacts.
+Pour réaliser notre interface nous nous sommes basés sur les objectifs que nous avons établis dans les TPs précédents. Nous voulions créer une interface permettant d'accueillir toutes les fonctionnalités de communication entre un étudiant et sa famille. Notre but principal était de réunir l'ensemble de ces fonctionnalités et de pouvoir naviguer rapidemment entre elles. Dans notre interface finale, nous avons donc repris le menu vertical permettant cette navigation rapide. Nous retrouvons également les informations sur chacun des contacts que l'on a ajouté. Ceci permet à l'utilisateur de connaître l'actualité de ses contacts en temps réel. Cependant la fonction principale reste la communication. L'utilisateur a accès à une liste de communication et peut entamer à tout moment une conversation écrite, audio ou vidéo avec un ses contacts.
 
 \subsubsection{Respect des lois de Gestalt}
-En faisant une premier ébauche de notre interface dans le Tp précédent, nous avions fait attention à ce que celle-ci respecte les lois de Gestalt. Nous retrouvons beaucoup la notion de fermeture dans notre interface par le biais de zone créée avec des contours noirs. Nous retrouvons également la notion de similarité et de proximité permettant de regrouper les éléments allant ensemble, notamment au niveau de la liste des communications et la liste des contacts, où chaque contact ou communication est présenté de la même façon. Nous pouvons également voir que plusieurs éléments respectent la loi de continuité, comme par exemple le menu vertical où les bulles suivent une même colonne.
+En faisant une premier ébauche de notre interface dans le Tp précédent, nous avions fait attention à ce que celle-ci respecte les lois de Gestalt. Nous retrouvons beaucoup la notion de fermeture dans notre interface par le biais de zones créées avec des contours noirs. Nous retrouvons également la notion de similarité et de proximité permettant de regrouper les éléments allant ensemble, notamment au niveau de la liste des communications et la liste des contacts, où chaque contact ou communication est présenté de la même façon. Nous pouvons également voir que plusieurs éléments respectent la loi de continuité, comme par exemple le menu vertical où les bulles suivent une même colonne.
 
 \subsubsection{Choix des composants}
 Pour réaliser notre interface, nous avons utilisé plusieurs composants. Pour les fenêtres d'inscription et de connexion, nous avons implémenter des champs textes libre permettant à l'utilisateur de rentrer les informations qu'il souhaite. De plus, pour le champ réservé au mot de passe, nous avons utilisé un champ texte spécialisé permettant de ne pas percevoir le mot de passe tapé. En ce qui concerne la liste des contacts et des communications, nous avons choisi d'utiliser des listes déroulantes avec ascenseur permettant ainsi d'avoir une fenêtre assez petite (taille Smartphone) et de placer de nombreux contacts ou de créer de nombreuses conversations. Les différentes boutons de notre application sont des images ayant un évènement particulier. Nous voulions personnaliser davantage notre application et nous ne pouvions donc utiliser de simples boutons qui ne nous permettaient pas d'obtenir le rendu que l'on voulait.
@@ -43,6 +44,7 @@ Plusieurs éléments ont été intégré à l'application permettant d'obtenir d
 Dans un second temps, nous avons décidé d'utiliser des ToolTipText. Un ToolTipText correspond au texte suivant notre curseur lors du survol d'un élément. Nous avons implémenté ces éléments sur les items qui ne sont pas explicites comme par exemple les boutons ayant seulement un icône. Bien que nous ayons choisi des icônes plus ou moins explicites, nous avons renforcé la compréhension de ces boutons en ajoutant des ToolTipText.
 
 \section{Explication du code}
+Bien que l'implémentation de l'interface seule ait été réalisée, le code de l'application est déjà conséquent en terme de classes. Voici un guide reflétant l'organisation et la structure de notre implémentation.
 \subsection{Accueil, Connexion et Inscription}
 À l'ouverture de l'application, l'utilisateur est en présence d'une première fenêtre que nous avons nommée \textit{PanelAwaï}. Cette fenêtre se veut simple et est composée de seulement trois boutons : connexion, inscription et à propos. Chacun de ces trois boutons mènent vers un panel ayant respectivement pour nom \textit{PanelConnexion}, \textit{PanelInscription} et \textit{PanelAPropos}. Afin de simuler la connexion et l'inscription d'un utilisateur, nous avons mit en place une classe \textit{Utilisateur} et une classe \textit{UtilisateurManager}. Ainsi, avec des identifiants pré-enregistrés dans un tableau, on peut simuler une connexion et une inscription en enregistrant de nouveaux identifiants dans ce tableau le temps d'un essai. Une fois la connexion établie, l'utilisateur atterrit sur le menu central de l'application. Dans le code, ce menu est implémenté dans la classe \textit{PanelMenu}.
 
@@ -50,6 +52,7 @@ Dans un second temps, nous avons décidé d'utiliser des ToolTipText. Un ToolTip
 Afin de mettre en place une navigation entre les différentes fonctionnalités de notre application et respecter notre modélisation initiale (voir TP3), nous avons mis en place une base qui se trouve dans la classe \textit{PanelBase}. Cette classe construit les deux barres horizontales et verticales permanentes de l'application et accueille un emplacement vide afin d'y intégrer les différentes fonctionnalités. C'est aussi elle qui gère les événements pour passer d'une fonctionnalité à l'autre : lors du clic sur une des icônes de la barre verticale, l'emplacement vide est remplacé par les données de la fonctionnalité.
 
 \subsection{Implémentation des fonctionnalités}
+L'utilisateur peut à tout moment naviguer à travers les six fonctionnalités de l'application, malgré que ces dernières offrent à l'utilisateur des possibilités variées, elles ont été pensées et construites de façon similaire afin que l'utilisateur ne soit pas perdu d'une page à l'autre. 
 \subsubsection{Similarités}
 Une classe a été créée pour chaque fonctionnalité de notre application : \textit{PanelCommunication}, \textit{PanelPhotos}, \textit{PanelCalendrier}, \textit{PanelDepenses}, \textit{PanelCarte} et \textit{PanelContacts}. Comme nous l'avons expliqué précédemment, chacun de ces panels est amené à être inclus dans l'emplacement vide de la classe \textit{PanelBase}. Cependant, afin de respecter leurs rôles respectifs ces panels sont tous construits différemment. La carte et les dépenses n'ont pas été implémentés, les photos et le calendrier sont implémentés partiellement tandis que les contacts et la communication sont pratiquement fonctionnels.
 \subsubsection{Messagerie et Contacts}
@@ -81,16 +84,16 @@ Les deux tests se sont déroulés de la même façon. Après leur avoir expliqu�
 Outre la compréhension globale de l'interface et la réalisation rapide des tâches demandées, nous voulions surtout observer la capacité de l'utilisateur pour comprendre la subtilité de notre application : savoir faire la différence entre les informations qui sont propres à l'utilisateur et les informations qui sont propres à ses contacts. Une fois les tâches réalisées, nous avons pu échanger avec nos deux testeurs afin de recueillir leurs impressions et leurs remarques ainsi que leur poser quelques questions.
 
 \subsection{Résultats}
-Nos deux testeurs sont parvenus sans grande difficulté à réaliser toutes les tâches que nous leur avons demandé. blabla..
+Nos deux testeurs sont parvenus sans grandes difficultés à réaliser toutes les tâches que nous leur avons demandés. La tâche la plus difficile pour eux deux a été de consulter le calendrier de maman car c'est là que se situe toute la subtilité de l'application mais ils ont rapidement, et sans aide de notre part, trouvé le chemin. 
 Malgré que ces tests aient été pensés pour contrôler l'utilisabilité de notre application, nous sommes conscients qu'il ne sont pas suffisants pour contrôler la qualité de notre interface. En effet, nos deux testeurs étant étudiants, ils font parti d'une génération qui a grandi avec les nouvelles technologies et ils sont habitués à découvrir et s'habituer à de nouvelles interfaces. Cela rend la tâche plus facile pour eux et fausse nos tests, même si cela les rend aussi exigeants quant à la qualité de navigation et d'utilisation de l'application. De plus, les tests ont été réalisés sur un ordinateur alors qu'une application avec des objectifs de communication comme la notre est destinée à être développée en tant qu'application mobile. Or, les contraintes et les exigences ne sont pas les mêmes sur un ordinateur avec un clavier et une souris que devant un téléphone portable tactile.
 
 \section{Amélioration}
+Étant donné que le travail demandé était d’implémenter une interface afin de mettre en pratique les méthodes vues en cours, nous n’avons pas pu réaliser l’application dans sa globalité. Ci-dessous, un récapitulatif est fait de ce que nous n’avons pas codé ainsi que les idées d’amélioration que nous avons eue au cours de la phase de développement.
 \subsection{Ce qu'il reste à implémenter}
-Les fonctionnalités calendrier, photos, carte et dépenses
-La base de données
-Le serveur 
+Au niveau de l'interface, les fonctionnalités de la carte et des dépenses sont seulement des photos et n'ont pas été implémentées. Le calendrier et les photos sont un peu plus fonctionnels mais  ils ne sont pas totalement terminés. Enfin, les contacts et la communication ont été réalisés entièrement.
+Outre la mise en place de ces interfaces, pour que notre application devienne fonctionnelle il reste à implémenter une base de données afin de remplacer les données fictives. Les connexions sont également à réaliser afin de pouvoir faire des appels ou des visioconférences.
 \subsection{Idées nouvelles}
-
+Nous pensons avoir rempli notre objectif initial qui était de rassembler les différents moyens d'échange et de communication existants (Skype, Facebook, Blogs..) en une seule et même application. Cependant, notre concept n'est pas encore complet et pour permettre à des utilisateurs éloignés d'échanger encore plus d'informations on peut imaginer possible de rajouter des fonctionnalités comme une fiche médicale, des partages culinaires ou encore une sorte de journal où les utilisateurs enregistrent des notes qui peuvent être consultées par les contacts autorisés.
 \section*{Conclusion \markboth{CONCLUSION}{}} 
 \addcontentsline{toc}{section}{Conclusion}
 
