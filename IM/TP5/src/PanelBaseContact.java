@@ -14,9 +14,22 @@ import javax.swing.border.Border;
 
 import net.miginfocom.swing.MigLayout;
 
+/**
+ * Gestion du panel base contact
+ * Affiche les informations et les donnees d'un contact
+ * @author Amandine Fouillet - 14 130 638
+ * @author Frank Chassing - 14 153 710
+ * @author Laurent Sénécal-Léonard - 14 143 484
+ */
 @SuppressWarnings("serial")
 public class PanelBaseContact extends JPanel {
 
+	/**
+	 * Constructeur du panel base contact 
+	 * @param fen La fenetre initiale
+	 * @param contact Le contact a afficher
+	 * @param Texte Le texte pour savoir quelle fonctionnalite du contact afficher
+	 */
 	public PanelBaseContact(final JFrame fen, final Contact contact, final String Texte) {
 		setLayout(new MigLayout("insets 0", "[60]0[1]0[399]", "[60]0[1]0[439]"));
 		this.setBounds(0, 0, 400, 460);
@@ -98,7 +111,7 @@ public class PanelBaseContact extends JPanel {
 			if(Texte.equals("Photos")){
 				rondPhoto.setIcon(new ImageIcon("./Images/rondPhotoSec.png"));
 				rondActuel.setIcon(new ImageIcon("./Images/rondPhoContact.png"));
-				contenu = new PanelPhoto();
+				contenu = new PanelPhoto(fen);
 			}else{
 				rondPhoto.setIcon(new ImageIcon("./Images/rondPhoto.png"));	
 				rondPhoto.addMouseListener(new MouseAdapter() { 

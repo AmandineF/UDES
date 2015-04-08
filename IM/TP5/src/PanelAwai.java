@@ -1,21 +1,23 @@
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
 import java.awt.event.*;
-
 import javax.swing.*;
-import javax.swing.border.Border;
 
 import net.miginfocom.swing.MigLayout;
 
-
+/**
+ * Gestion du panel awai
+ * Premierefenetre de l'application
+ * @author Amandine Fouillet - 14 130 638
+ * @author Frank Chassing - 14 153 710
+ * @author Laurent Sénécal-Léonard - 14 143 484
+ */
+@SuppressWarnings("serial")
 public class PanelAwai extends JPanel {
 
 	/**
-	 * Create the panel.
+	 * Constructeur du panel awai
 	 */
 	public PanelAwai(final JFrame fen) {
 		setLayout(new MigLayout("", "[25%]0[50%]0[25%]", "[100][40][65]5[65]5[65][40][100]"));

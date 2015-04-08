@@ -5,9 +5,19 @@ import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
 
+/**
+ * Gestion du panel info contact
+ * Affichage d'une fiche d'information sur un contact
+ * @author Amandine Fouillet - 14 130 638
+ * @author Frank Chassing - 14 153 710
+ * @author Laurent Sénécal-Léonard - 14 143 484
+ */
 @SuppressWarnings("serial")
 public class PanelInfoContact extends JPanel {
-
+	/**
+	 * Constructeur du panel info contact
+	 * @param contact Le contact dont on veut les informations
+	 */
 	public PanelInfoContact(final Contact contact) {
 		   setLayout(new MigLayout("insets 0, gapy 0","[20][350]","[10][40]9[40]9[40]9[40]9[40]9[40]9[40]"));
 		   

@@ -1,8 +1,10 @@
 import java.util.LinkedList;
 
 /**
- * @author Frank CHASSING 14 153 710
- * @author Amandine FOUILLET 14 130 638
+ * Gestion d'un utilisateur
+ * @author Frank Chassing 14 153 710
+ * @author Amandine Fouillet 14 130 638
+ * @author Laurent Sénécal-Léonard - 14 143 484
  */
 public class Utilisateur{
 
@@ -10,7 +12,11 @@ public class Utilisateur{
 	private LinkedList<Contact> listContacts;
 	private String motDePasse;
 
-
+	/**
+	 * Constructeur de la classe utilisateur
+	 * @param pseudo Pseudo 
+	 * @param motDePasse Mot de passe
+	 */
 	public Utilisateur(String pseudo, String motDePasse) {
 		super();
 		this.pseudo = pseudo;
@@ -19,6 +25,10 @@ public class Utilisateur{
 		ContactParDefaut();
 	}
 	
+	/**
+	 * Mise en place d'une liste de contacts par defaut de tous les utilisateurs
+	 * Simule une base de donnee de contacts
+	 */
 	public void ContactParDefaut(){
 		Contact contact1 = new Contact("Anna","Gaspile","06 23 43 10 90","./Images/contactDefaut.png",true,true,false, true);
 		addContact(contact1);
@@ -64,26 +74,34 @@ public class Utilisateur{
 		addContact(contact22);
 	}
 	
+	/**
+	 * Methode permettant de recuperer le pseudo de l'utilisateur
+	 * @return Pseudo 
+	 */
 	public String getPseudo() {
 		return pseudo;
 	}
 
-	public void setPseudo(String pseudo) {
-		this.pseudo = pseudo;
-	}
-
+	/**
+	 * Methode permettant de recuperer le mot de passe de l'utilisateur
+	 * @return Mot de passe
+	 */
 	public String getMotDePasse() {
 		return motDePasse;
 	}
 
-	public void setMotDePasse(String motDePasse) {
-		this.motDePasse = motDePasse;
-	}
-	
+	/**
+	 * Methode permettant de recuperer la liste des contacts de l'utilisateur
+	 * @return Liste des contacts
+	 */
 	public LinkedList<Contact> getContact(){
 		return this.listContacts;
 	}
 	
+	/**
+	 * Methode permettant d'ajouter un contact a l'utilisateur
+	 * @param c Le contact a ajouter
+	 */
 	public void addContact(Contact c){
 		this.listContacts.add(c);
 	}

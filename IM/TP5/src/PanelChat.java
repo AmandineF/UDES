@@ -18,7 +18,12 @@ import javax.swing.border.EmptyBorder;
 
 import net.miginfocom.swing.MigLayout;
 
-
+/**
+ * Gestion du panel chat
+ * @author Amandine Fouillet - 14 130 638
+ * @author Frank Chassing - 14 153 710
+ */
+@SuppressWarnings("serial")
 public class PanelChat extends JPanel {
 
 	/**

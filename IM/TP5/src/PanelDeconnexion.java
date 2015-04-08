@@ -9,8 +9,20 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 
+/**
+ * Gestion du panel deconnexion
+ * Permet a l'utilisateur de pouvoir confirmer ou deconfirmer la connexion
+ * @author Amandine Fouillet - 14 130 638
+ * @author Frank Chassing - 14 153 710
+ * @author Laurent Sénécal-Léonard - 14 143 484
+ */
 @SuppressWarnings("serial")
 public class PanelDeconnexion extends JPanel {
+	/**
+	 * Constructeur du panel deconnexion
+	 * @param fenBase La fenetre d'origine
+	 * @param decoFrame La fenetre que l'on cree
+	 */
 	public PanelDeconnexion(final JFrame fenBase, final JFrame decoFrame) {
 		setLayout(new MigLayout("", "[15%][35%][35%][15%]", "[10%][40%][40%][10%]"));
 		setBounds(0, 0, 460, 200);

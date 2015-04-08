@@ -6,24 +6,28 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import javax.swing.*;
 import javax.swing.border.AbstractBorder;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import net.miginfocom.swing.MigLayout;
 
+/**
+ * Gestion du panel inscription
+ * Fenetre pour l'inscription d'un nouvel utilisateur
+ * @author Amandine Fouillet - 14 130 638
+ * @author Frank Chassing - 14 153 710
+ * @author Laurent Sénécal-Léonard - 14 143 484
+ */
 @SuppressWarnings("serial")
 public class PanelInscription extends JPanel {
 
 	/**
-	 * Create the panel.
+	 * Constructeur de panel inscription
+	 * @param fen La fenetre d'origine
 	 */
 	public PanelInscription(final JFrame fen) {
 		setLayout(new MigLayout("", "[20%]0[60%]0[20%]", "[15%]0[15%]0[15%]0[15%]2[15%]0[20%]"));
@@ -104,19 +108,19 @@ public class PanelInscription extends JPanel {
 					if(pseudoField.getText().equals("")){
 						JFrame jf = new JFrame("Erreur Pseudo");
 						jf.setBounds(0, 0, 400, 400);
-						PanelAide jp = new PanelAide(fen, "erreurpseudo");
+						PanelAide jp = new PanelAide(jf, "erreurpseudo");
 						jf.setContentPane(jp);
 						jf.setVisible(true);
 					}else if(String.valueOf(passField.getPassword()).isEmpty()){
 						JFrame jf = new JFrame("Erreur Mot de passe");
 						jf.setBounds(0, 0, 400, 400);
-						PanelAide jp = new PanelAide(fen, "erreurmdp");
+						PanelAide jp = new PanelAide(jf, "erreurmdp");
 						jf.setContentPane(jp);
 						jf.setVisible(true);
 					}else if(strMailSplit.length != 2){
 						JFrame jf = new JFrame("Erreur Mail");
 						jf.setBounds(0, 0, 400, 400);
-						PanelAide jp = new PanelAide(fen, "erreurmail");
+						PanelAide jp = new PanelAide(jf, "erreurmail");
 						jf.setContentPane(jp);
 						jf.setVisible(true);
 					}else{
@@ -124,7 +128,7 @@ public class PanelInscription extends JPanel {
 						if(!strMail2.contains(".")){
 							JFrame jf = new JFrame("Erreur Mail");
 							jf.setBounds(0, 0, 400, 400);
-							PanelAide jp = new PanelAide(fen, "erreurmail");
+							PanelAide jp = new PanelAide(jf, "erreurmail");
 							jf.setContentPane(jp);
 							jf.setVisible(true);
 						}else{
@@ -132,7 +136,7 @@ public class PanelInscription extends JPanel {
 							UtilisateurManager.getInstance().getUtilisateur().put(pseudoField.getText(), user);
 							JFrame jf = new JFrame("Inscription reussie");
 							jf.setBounds(0, 0, 400, 400);
-							PanelAide jp = new PanelAide(fen, "inscrit");
+							PanelAide jp = new PanelAide(jf, "inscrit");
 							jf.setContentPane(jp);
 							jf.setVisible(true);
 							PanelAwai pawai = new PanelAwai(fen);

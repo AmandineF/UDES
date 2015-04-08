@@ -8,18 +8,20 @@ import net.miginfocom.swing.MigLayout;
 
 /**
  * Gestion du panel a propos
- * @author Amandine Fouillet - Frank Chassing
- *
+ * Informations sur les auteurs de l'application
+ * @author Amandine Fouillet - 14 130 638
+ * @author Frank Chassing - 14 153 710
+ * @author Laurent Sénécal-Léonard - 14 143 484
  */
 @SuppressWarnings("serial")
 public class PanelApropos extends JPanel {
 	/**
 	 * Constructeur du panel a propos
-	 * @param fen la fenêtre initiale
+	 * @param fen la fenêtre d'origine
 	 */
 	public PanelApropos(final JFrame fen) {
 		//Mise en place d'un migLayout pour disposer les elements sur la fenetre
-		setLayout(new MigLayout("", "[50%]0[50%]", "[15%]20[20%]10[20%]0[30%]15[10%]0[25%]"));
+		setLayout(new MigLayout("", "[33%]0[33%]0[33%]", "[20%]20[20%]10[20%]0[20%]15[20%]"));
 
 		//Mise en place de la fleche de retour en haut a gauche de la fenetre
 		JLabel retour = new JLabel( new ImageIcon( "./images/arrow.png"));
@@ -43,32 +45,41 @@ public class PanelApropos extends JPanel {
 		//Mise en place de la colonne Amandine
 		//Mise en place de l'image
 		JLabel imageAmandine= new JLabel( new ImageIcon( "./images/amandine.png"));
-		this.add(imageAmandine, "cell 1 1,alignx center,aligny bottom");
+		this.add(imageAmandine, "cell 0 1,alignx center,aligny bottom");
 		//Mise en place du nom
 		JLabel texteAmandine = new JLabel("Amandine");
 		texteAmandine.setForeground(new Color(68,68,68));
 		texteAmandine.setFont(new Font("Showcard Gothic", Font.BOLD, 25));
-		this.add(texteAmandine, "cell 1 2,alignx center,aligny bottom");
+		this.add(texteAmandine, "cell 0 2,alignx center,aligny bottom");
 		//Mise en place de la description
-		JLabel descriptionAmandine = new JLabel("<html><center>20 ans <br> Française <br> Ingénieure</center></html>");
-		descriptionAmandine.setForeground(new Color(68,68,68));
-		descriptionAmandine.setFont(new Font("Mockup", Font.BOLD, 20));
-		this.add(descriptionAmandine, "cell 1 3,alignx center,aligny center");
+		JLabel descriptionAmandine = new JLabel(new ImageIcon("./Images/france.png"));
+		this.add(descriptionAmandine, "cell 0 3,alignx center,aligny center");
 		
-		//Mise en place de la colonne Frank
+		//Mise en place de la colonne Laurent
+		//Mise en place de l'image
+		JLabel imageLaurent= new JLabel( new ImageIcon( "./images/laurent.png"));
+		this.add(imageLaurent, "cell 1 1,alignx center,aligny bottom");
+		//Mise en place du nom
+		JLabel texteLaurent = new JLabel("Laurent");
+		texteLaurent.setForeground(new Color(68,68,68));
+		texteLaurent.setFont(new Font("Showcard Gothic", Font.BOLD, 25));
+		this.add(texteLaurent, "cell 1 2,alignx center,aligny bottom");
+		//Mise en place de la description
+		JLabel descriptionLaurent = new JLabel(new ImageIcon("./Images/canada.png"));
+		this.add(descriptionLaurent, "cell 1 3,alignx center,aligny center");
+		
+				//Mise en place de la colonne Frank
 		//Mise en place de l'image
 		JLabel imageFrank= new JLabel( new ImageIcon( "./images/frank.png"));
-		this.add(imageFrank, "cell 0 1,alignx center,aligny bottom");
+		this.add(imageFrank, "cell 2 1,alignx center,aligny bottom");
 		//Mise en place du nom
 		JLabel texteFrank = new JLabel("Frank");
 		texteFrank.setForeground(new Color(68,68,68));
 		texteFrank.setFont(new Font("Showcard Gothic", Font.BOLD, 25));
-		this.add(texteFrank, "cell 0 2,alignx center,aligny bottom");
+		this.add(texteFrank, "cell 2 2,alignx center,aligny bottom");
 		//Mise en place de la description
-		JLabel descriptionFrank = new JLabel("<html><center>21 ans<br> Français <br> Ingénieur</center></html>");
-		descriptionFrank.setForeground(new Color(68,68,68));
-		descriptionFrank.setFont(new Font("Mockup", Font.BOLD, 20));
-		this.add(descriptionFrank, "cell 0 3,alignx center,aligny center");
+		JLabel descriptionFrank = new JLabel(new ImageIcon("./Images/france.png"));
+		this.add(descriptionFrank, "cell 2 3,alignx center,aligny center");
 
 	}
 }

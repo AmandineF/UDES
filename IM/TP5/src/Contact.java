@@ -1,3 +1,9 @@
+/**
+ * Gestion d'un contact
+ * @author Amandine Fouillet - 14 130 638
+ * @author Frank Chassing - 14 153 710
+ * @author Laurent Sénécal-Léonard - 14 143 484
+ */
 public class Contact {
 	private String nom;
 	private String prenom;
@@ -8,6 +14,17 @@ public class Contact {
 	private Boolean accesDep;
 	private Boolean accesCarte;
 	
+	/**
+	 * Constructeur du contact
+	 * @param n nom 
+	 * @param p prenom
+	 * @param num numero
+	 * @param i image
+	 * @param ap autorise acces aux photos
+	 * @param ac autorise acces au calendrier
+	 * @param ad autorise acces aux depenses
+	 * @param aca autorise acces a la carte
+	 */
 	public Contact(String n, String p, String num, String i, Boolean ap, Boolean ac, Boolean ad, Boolean aca) {
 		this.nom = n;
 		this.prenom = p;

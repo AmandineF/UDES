@@ -10,11 +10,19 @@ import javax.swing.border.Border;
 
 import net.miginfocom.swing.MigLayout;
 
-
+/**
+ * Gestion du panel video pour simuler un appel video entre l'utilisateur et un contact
+ * @author Amandine Fouillet - 14 130 638
+ * @author Frank Chassing - 14 153 710
+ * @author Laurent Sénécal-Léonard - 14 143 484
+ */
+@SuppressWarnings("serial")
 public class PanelVideo extends JPanel {
 
 	/**
-	 * Create the panel.
+	 * Constructeur du panel video
+	 * @param contact Le contact que l'utilisateur appelle
+	 * @param fen La fenetre d'origine
 	 */
 	public PanelVideo(final Contact contact, final JFrame fen) {
 		

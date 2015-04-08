@@ -1,23 +1,24 @@
-/**
- * @author Frank CHASSING 14 153 710
- * @author Amandine FOUILLET 14 130 638
- */
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-//import net.miginfocom.swing.MigLayout;
 
-
+/**
+ * Gestion du panel erreur
+ * Fenetre qui permet d'afficher une erreur lors de la connexion
+ * @author Amandine Fouillet - 14 130 638
+ * @author Frank Chassing - 14 153 710
+ * @author Laurent Sénécal-Léonard - 14 143 484
+ */
 @SuppressWarnings("serial")
 public class PanelErreur extends JPanel {
 
 	/**
-	 * Create the panel.
+	 * Constructeur du panel
+	 * @param fen La fenetre d'origine
 	 */
 	public PanelErreur(final JFrame fen) {
 		//setLayout(new MigLayout("", "[30px][5px][324px]", "[30px][30px]"));

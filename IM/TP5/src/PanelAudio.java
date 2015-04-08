@@ -10,11 +10,20 @@ import javax.swing.border.Border;
 
 import net.miginfocom.swing.MigLayout;
 
-
+/**
+ * Gestion du panel audio
+ * Panel affiche lorsqu'un utilisateur passe un appel avec un contact
+ * @author Amandine Fouillet - 14 130 638
+ * @author Frank Chassing - 14 153 710
+ * @author Laurent Sénécal-Léonard - 14 143 484
+ */
+@SuppressWarnings("serial")
 public class PanelAudio extends JPanel {
 
 	/**
-	 * Create the panel.
+	 * Constructeur du panel audio
+	 * @param contact Le contact avec qui l'utilisateur a une conversation audio
+	 * @param fen La fenetre d'origine
 	 */
 	public PanelAudio(final Contact contact, final JFrame fen) {
 		

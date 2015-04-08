@@ -12,12 +12,21 @@ import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
 
-
+/**
+ * Gestion du panel liste
+ * Permet de creer le panel pour un echange de message avec un contact
+ * @author Amandine Fouillet - 14 130 638
+ * @author Frank Chassing - 14 153 710
+ * @author Laurent Sénécal-Léonard - 14 143 484
+ */
 @SuppressWarnings("serial")
 public class PanelListe extends JPanel {
 
 	/**
-	 * Create the panel.
+	 * Constructeur du panel liste
+	 * @param fen La fenetre d'origine
+	 * @param contact Le contact avec qui l'utilisateur echange des messages 
+	 * @param texte Le dernier message echange
 	 */
 	public PanelListe(final JFrame fen, final Contact contact, String texte) {
 		setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));

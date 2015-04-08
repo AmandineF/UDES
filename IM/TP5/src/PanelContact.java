@@ -12,12 +12,20 @@ import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
 
-
+/**
+ * Gestion du panel contact
+ * Affiche un contact de l'utilisateur
+ * @author Amandine Fouillet - 14 130 638
+ * @author Frank Chassing - 14 153 710
+ * @author Laurent Sénécal-Léonard - 14 143 484
+ */
 @SuppressWarnings("serial")
 public class PanelContact extends JPanel {
 
 	/**
-	 * Create the panel.
+	 * Construction du panel contact
+	 * @param fen La fenetre d'origine
+	 * @param contact Le contact a afficher
 	 */
 	public PanelContact(final JFrame fen, final Contact contact) {
 		setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));

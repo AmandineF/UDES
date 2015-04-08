@@ -1,8 +1,6 @@
-import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -11,8 +9,9 @@ import net.miginfocom.swing.MigLayout;
 
 /**
  * Gestion du panel calendrier
- * @author Amandine
- *
+ * @author Amandine Fouillet - 14 130 638
+ * @author Frank Chassing - 14 153 710
+ * @author Laurent Sénécal-Léonard - 14 143 484
  */
 @SuppressWarnings("serial")
 public class PanelCalendrier extends JPanel {

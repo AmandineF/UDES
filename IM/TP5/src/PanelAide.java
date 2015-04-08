@@ -1,20 +1,25 @@
 import java.awt.Cursor;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import javax.swing.*;
 import javax.swing.border.Border;
-
 import net.miginfocom.swing.MigLayout;
 
+/**
+ * Gestion du panel aide
+ * Informations pour guider l'utilisateur dans l'application
+ * @author Amandine Fouillet - 14 130 638
+ * @author Frank Chassing - 14 153 710
+ * @author Laurent SeÃÅneÃÅcal-LeÃÅonard - 14 143 484
+ */
 @SuppressWarnings("serial")
 public class PanelAide extends JPanel {
 
 	/**
-	 * Create the panel.
+	 * Constructeur du panel aide
+	 * @param fen La fenetre d'origine
+	 * @param msg Le message d'aide
 	 */
 	public PanelAide(final JFrame fen, String msg) {
 		setLayout(new MigLayout("insets 0", "[5%][95%]", "[10%][90%]"));
@@ -25,7 +30,7 @@ public class PanelAide extends JPanel {
 		String str = "Aide Default";
 		if(msg.equals("awai"))
 			str = "<html><center>Bienvenue sur notre application Awai !<br> Pour utiliser l'application vous devez vous inscrire.<br>"
-					+ " Si vous n'Ítes pas inscrit, cliquez sur le bouton Inscription.<br> Sinon connectez-vous \u00E0 partir du bouton Connexion."
+					+ " Si vous n'ÔøΩtes pas inscrit, cliquez sur le bouton Inscription.<br> Sinon connectez-vous \u00E0 partir du bouton Connexion."
 					+ "<br> Nous vous invitons \u00E0 venir voir qui nous sommes sur le bouton A propos.</center></html>";
 		if(msg.equals("connexion"))
 			str = "<html><center>Renseignez votre pseudo et votre mot de passe pour vous connectez.<br>"
@@ -35,12 +40,12 @@ public class PanelAide extends JPanel {
 					+ "Ces champs vous seront redemander lors de la connexion \u00E0 l'application.</center></html>";
 		if(msg.equals("menu"))
 			str = "<html><center>Le menu repr\u00E9sente les diff\u00E9rentes fonctionnalit\u00E9s de notre application.<br>"
-					+ "Chaque bulle correspond ‡ une fonctionnalit\u00E9s.<br>"
+					+ "Chaque bulle correspond ÔøΩ une fonctionnalit\u00E9s.<br>"
 					+ "La premiere correspond \u00E0 la communication et permet de commencer une communication avec un<br>"
 					+ "contact de son choix.<br>"
 					+ "La 2e permet de cr\u00E9er des albums photos et des les partager avec ses contacts.<br>"
 					+ "La 3e permet de g\u00E9rer son emploi du temps et de le partager avec ses contacts.<br>"
-					+ "La 4e permet de g\u00E9rer ses dÈpenses et de les partager avec ses contacts.<br>"
+					+ "La 4e permet de g\u00E9rer ses dÔøΩpenses et de les partager avec ses contacts.<br>"
 					+ "La 5e permet d'informer ses contacts des destinations visit\u00E9es.<br>"
 					+ "La 6e permet d'obtenir la liste de ses contacts ainsi que leurs informations.</center></html>";
 		if(msg.equals("Communication"))
@@ -65,7 +70,7 @@ public class PanelAide extends JPanel {
 		if(msg.equals("erreurmdp"))
 			str = "<html><center>Votre mot de passe est vide. Merci de le renseigner !</center></html>";
 		if(msg.equals("inscrit"))
-			str = "<html><center>Vous Ítes bien inscrit ! Veuillez maintenant vous connecter.</center></html>";
+			str = "<html><center>Vous ÔøΩtes bien inscrit ! Veuillez maintenant vous connecter.</center></html>";
 		
 		JLabel text = new JLabel(str);
 		add(text, "cell 1 1,alignx center,aligny top");

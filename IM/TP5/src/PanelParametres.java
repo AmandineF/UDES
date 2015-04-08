@@ -11,9 +11,21 @@ import javax.swing.border.Border;
 
 import net.miginfocom.swing.MigLayout;
 
-
+/**
+ * Gestion du panel parametres
+ * C'est la ou l'utilisateur peut modifier les parametres de l'application
+ * @author Amandine Fouillet - 14 130 638
+ * @author Frank Chassing - 14 153 710
+ * @author Laurent Sénécal-Léonard - 14 143 484
+ */
 @SuppressWarnings("serial")
 public class PanelParametres extends JPanel {
+	/**
+	 * Constructeur du panel parametres
+	 * @param fen La fenetre d'origine
+	 * @param msg String permettant de savoir quels parametres doivent etre affiches
+	 * @param c Le contact pour faire un retour sur une fenetre contact
+	 */
 	public PanelParametres(final JFrame fen, final String msg, final Contact c) {
 		setLayout(new MigLayout("insets 0", "[100%]", "[15%][90%]"));
 

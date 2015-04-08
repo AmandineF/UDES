@@ -1,22 +1,24 @@
-/**
- * @author Frank CHASSING 14 153 710
- * @author Amandine FOUILLET 14 130 638
- */
 import java.awt.*;
 import java.awt.event.*;
-
 import javax.swing.*;
 import javax.swing.border.AbstractBorder;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import net.miginfocom.swing.MigLayout;
 
-
+/**
+ * Gestion du panel connexion
+ * Permet de gerer l'identification d'un utilisateur
+ * @author Amandine Fouillet - 14 130 638
+ * @author Frank Chassing - 14 153 710
+ * @author Laurent Sénécal-Léonard - 14 143 484
+ */
 @SuppressWarnings("serial")
 public class PanelConnexion extends JPanel {
+	
 	/**
-	 * Create the panel.
+	 * Constructeur du panel connexion
+	 * @param fen La fenetre d'origine
 	 */
 	public PanelConnexion(final JFrame fen) {
 		setLayout(new MigLayout("", "[20%]0[60%]0[20%]", "[15%]0[20%]0[20%]2[20%]0[20%]"));

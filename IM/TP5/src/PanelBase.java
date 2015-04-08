@@ -3,19 +3,23 @@ import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.*;
-
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 
 import net.miginfocom.swing.MigLayout;
 
-
+/**
+ * Gestion du panel base
+ * Base de la navigation et gestion des fonctionnalites
+ * @author Amandine Fouillet - 14 130 638
+ * @author Frank Chassing - 14 153 710
+ * @author Laurent Sénécal-Léonard - 14 143 484
+ */
 @SuppressWarnings("serial")
 public class PanelBase extends JPanel {
 
@@ -34,6 +38,14 @@ public class PanelBase extends JPanel {
 	private MouseListener aideListener;
 	private JLabel aide;
 	private JLabel param;
+	private JLabel home;
+	
+	/**
+	 * Constructeur du panel base
+	 * @param fen La fenetre d'origine
+	 * @param Texte Le texte de la fonctionnalite actuelle
+	 * @param contact Le contact selectionne
+	 */
 	
 	public PanelBase(JFrame fen, String Texte, Contact contact) {
 		creerBase(fen);
@@ -45,7 +57,7 @@ public class PanelBase extends JPanel {
 		setLayout(new MigLayout("insets 0", "[60]0[1]0[399]", "[60]0[1]0[439]"));
 		this.setBounds(0, 0, 400, 460);
 		
-		JLabel home = new JLabel(new ImageIcon("./Images/home.png"));
+		this.home = new JLabel(new ImageIcon("./Images/home.png"));
 		home.setBounds(0, 0, 50, 50);
 		Border paddingBorder = BorderFactory.createEmptyBorder(10,10,10,10);
 		home.setBorder(paddingBorder);
@@ -228,7 +240,10 @@ public class PanelBase extends JPanel {
 		this.partage.setBorder(padding);
 		partagelist = new MouseAdapter() { 
 	          public void mousePressed(MouseEvent me) { 
-	              //modifierBase(fen, "Contacts"); 
+		        	  removeAll();  
+		        	  PanelBase m = new PanelBase(fen, "Partage", null);						
+		        	  fen.setContentPane(m);
+		        	  fen.validate(); 
 	            } 
 	          public void mouseEntered(MouseEvent e) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
@@ -275,6 +290,12 @@ public class PanelBase extends JPanel {
 	}
 	
 	
+	/**
+	 * Gere le changement de fonctionnalite dans le panel base
+	 * @param fen La fenetre d'origine
+	 * @param Texte Le texte de la fonctionnalite
+	 * @param contact Le contact actuel
+	 */
 	public void modifierBase(final JFrame fen, final String Texte, Contact contact) {
 
 		this.textActuel.setText(Texte);
@@ -356,12 +377,12 @@ public class PanelBase extends JPanel {
 		if(Texte == "Photos") {
 			imgPhoto = "./Images/rondPhotoSec.png";
 			img = "./Images/rondPhoto.png";
-			this.contenu = new PanelPhoto();
+			this.contenu = new PanelPhoto(fen);
 			this.partage.setIcon(ip);
 			this.partage.setToolTipText("Partage");
 			this.partage.addMouseListener(partagelist);
 		}else{
-			imgPhoto = "./Images/rondPhoto.png";
+				imgPhoto = "./Images/rondPhoto.png";
 		}
 		ic = new ImageIcon(imgPhoto);
 		this.rondPhoto.setIcon(ic);
@@ -420,6 +441,54 @@ public class PanelBase extends JPanel {
 		ic = new ImageIcon(imgMes);
 		this.rondCom.setIcon(ic);
 
+		if(Texte.equals("Partage")) {
+			this.contenu = new PanelPartage(fen);
+			this.partage.setIcon(new ImageIcon("./Images/plus.png"));
+			this.partage.setToolTipText("Ajouter un contact à la liste de partage");
+			this.partage.addMouseListener(new MouseAdapter() {
+				public void mouseEntered(MouseEvent e) {
+					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+				}
+			  	 public void mouseExited(MouseEvent e) {
+						setCursor(Cursor.getDefaultCursor());
+				 } 
+			});
+		}
+		if(Texte.equals("Album photo")) {
+			imgPhoto = "./Images/rondPhotoSec.png";
+			img = "./Images/rondPhoto.png";
+			this.home.setIcon(new ImageIcon("./Images/arrow.png"));
+			this.home.addMouseListener(new MouseAdapter(){
+				public void mousePressed(MouseEvent me) { 
+					removeAll();  
+		        	PanelBase m = new PanelBase(fen, "Photos", null);						
+		        	fen.setContentPane(m);
+		        	fen.validate();
+		         } 
+			     public void mouseEntered(MouseEvent e) {
+						setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+			     }
+			  	 public void mouseExited(MouseEvent e) {
+						setCursor(Cursor.getDefaultCursor());
+				 } 
+			});
+			this.contenu = new PanelAlbum(fen);
+			this.partage.setIcon(new ImageIcon("./Images/plus.png"));
+			this.partage.setToolTipText("Ajouter des photos à l'album");
+			this.partage.addMouseListener(new MouseAdapter() {
+				public void mouseEntered(MouseEvent e) {
+					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+				}
+			  	 public void mouseExited(MouseEvent e) {
+						setCursor(Cursor.getDefaultCursor());
+				 } 
+			});
+		} else {
+			if(!Texte.equals("Photos"))
+				imgPhoto = "./Images/rondPhoto.png";
+		}
+		ic = new ImageIcon(imgPhoto);
+		this.rondPhoto.setIcon(ic);
 		
 		this.aide.removeMouseListener(this.aideListener);
 		this.aideListener = new MouseAdapter() { 

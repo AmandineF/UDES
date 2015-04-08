@@ -1,27 +1,29 @@
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.LinkedList;
-
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
 import net.miginfocom.swing.MigLayout;
 
-
+/**
+ * Gestion du panel communication
+ * Gere les communications de l'utilisateur
+ * @author Amandine Fouillet - 14 130 638
+ * @author Frank Chassing - 14 153 710
+ * @author Laurent Sénécal-Léonard - 14 143 484
+ */
 @SuppressWarnings("serial")
 public class PanelCommunication extends JPanel {
 
 	/**
-	 * Create the panel.
+	 * Constructeur du panel de communication
+	 * @param fen La fenetre intiale
 	 */
 	public PanelCommunication(final JFrame fen) {	
 		this.setLayout(new MigLayout("insets 0", "", ""));
