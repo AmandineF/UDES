@@ -14,7 +14,7 @@ import net.miginfocom.swing.MigLayout;
  * Permet a l'utilisateur de pouvoir confirmer ou deconfirmer la connexion
  * @author Amandine Fouillet - 14 130 638
  * @author Frank Chassing - 14 153 710
- * @author Laurent Sénécal-Léonard - 14 143 484
+ * @author Laurent Senecal-Leonard - 14 143 484
  */
 @SuppressWarnings("serial")
 public class PanelDeconnexion extends JPanel {
@@ -32,6 +32,7 @@ public class PanelDeconnexion extends JPanel {
 		btnDeco.addMouseListener(
 				new MouseAdapter(){
 					public void mouseClicked (MouseEvent e){
+						UtilisateurManager.getInstance().deconnexion();
 						decoFrame.dispose();
 						PanelAwai pa = new PanelAwai(fenBase);
 						fenBase.setContentPane(pa);
@@ -50,7 +51,7 @@ public class PanelDeconnexion extends JPanel {
 		final JLabel btnAnnuler = new JLabel(new ImageIcon("./Images/btnAnnuler.png"));
 		add(btnAnnuler, "cell 1 2,alignx center,aligny top");
 		
-		JLabel text = new JLabel("Souhaitez-vous vraiment vous déconnecter ?");
+		JLabel text = new JLabel("Souhaitez-vous vraiment vous d\u00E9connecter ?");
 		text.setFont(new Font("Mockup",Font.PLAIN, 16));
 		Color grey = new Color(68,68,68); 
 		text.setForeground(grey); 

@@ -27,7 +27,9 @@ import net.miginfocom.swing.MigLayout;
 public class PanelChat extends JPanel {
 
 	/**
-	 * Create the panel.
+	 * Constructeur du panel Chat
+	 * @param fen La frame courante
+	 * @param contact Le contact selectionne
 	 */
 	public PanelChat(final Contact contact, final JFrame fen) {
 		setLayout(new MigLayout("", "[20%][40%][20%][20%]", "[10%][1%][68%][1%][20%]"));
@@ -145,6 +147,9 @@ public class PanelChat extends JPanel {
 		barreNoireH2.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.gray));
 		add(barreNoireH2, "cell 0 3 5 1,growx");
 		
+		/**
+		 * Classe permettant d'arrondir et de colorer un JTextField
+		 */
 		class CustomeBorder extends AbstractBorder{
 	        @Override
 	        public void paintBorder(Component c, Graphics g, int x, int y,

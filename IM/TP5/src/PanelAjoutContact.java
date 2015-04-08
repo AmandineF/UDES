@@ -24,7 +24,7 @@ import net.miginfocom.swing.MigLayout;
  * Permet a l'utilisateur d'ajouter un nouveau contact
  * @author Amandine Fouillet - 14 130 638
  * @author Frank Chassing - 14 153 710
- * @author Laurent Sénécal-Léonard - 14 143 484
+ * @author Laurent Senecal-Leonard - 14 143 484
  */
 @SuppressWarnings("serial")
 public class PanelAjoutContact extends JPanel {
@@ -55,6 +55,9 @@ public class PanelAjoutContact extends JPanel {
 					}
 					}  ); 
 			
+			/**
+			 * Classe permettant d'arrondir et de colorer un JTextField
+			 */
 		    class CustomeBorder extends AbstractBorder{
 		        @Override
 		        public void paintBorder(Component c, Graphics g, int x, int y,
@@ -82,7 +85,7 @@ public class PanelAjoutContact extends JPanel {
 			
 			final JTextField prenomField = new JTextField(30);
 			prenomField.setPreferredSize(new Dimension(200, 60));
-			TextPrompt tp2 = new TextPrompt("Prénom du contact", prenomField);
+			TextPrompt tp2 = new TextPrompt("Pr\u00E9nom du contact", prenomField);
 			tp2.setForeground( Color.GRAY );
 			tp2.changeStyle(Font.ITALIC);
 			tp2.setShow(TextPrompt.Show.ALWAYS);
@@ -173,7 +176,7 @@ public class PanelAjoutContact extends JPanel {
 					new MouseAdapter(){
 					public void mouseClicked (MouseEvent e){
 					JFrame f = new JFrame();
-					PanelAide m = new PanelAide(f, "inscription");	
+					PanelAide m = new PanelAide(f, "");	
 					f.setContentPane(m);
 					f.setBounds(100, 100, 500, 180);
 					f.setVisible(true);

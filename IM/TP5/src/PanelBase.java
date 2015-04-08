@@ -18,7 +18,7 @@ import net.miginfocom.swing.MigLayout;
  * Base de la navigation et gestion des fonctionnalites
  * @author Amandine Fouillet - 14 130 638
  * @author Frank Chassing - 14 153 710
- * @author Laurent Sénécal-Léonard - 14 143 484
+ * @author Laurent Senecal-Leonard - 14 143 484
  */
 @SuppressWarnings("serial")
 public class PanelBase extends JPanel {
@@ -102,6 +102,7 @@ public class PanelBase extends JPanel {
 		
 		this.rondCom = new JLabel(new ImageIcon("./Images/rondCom.png"));
 		rondCom.setBounds(0, 0, 50, 50);
+		rondCom.setToolTipText("Communication");
 		Border paddingBorderCo = BorderFactory.createEmptyBorder(0,7,0,0);
 		this.rondCom.setBorder(paddingBorderCo);
 		barreVerticale.add(rondCom,"cell 0 0,alignx left,aligny center");
@@ -122,6 +123,7 @@ public class PanelBase extends JPanel {
 
 		this.rondPhoto = new JLabel(new ImageIcon("./Images/rondPhoto.png"));
 		rondPhoto.setBounds(0, 0, 50, 50);
+		rondPhoto.setToolTipText("Photo");
 		Border paddingBorderP = BorderFactory.createEmptyBorder(0,7,0,0);
 		this.rondPhoto.setBorder(paddingBorderP);
 		barreVerticale.add(rondPhoto,"cell 0 1,alignx left,aligny center");
@@ -142,6 +144,7 @@ public class PanelBase extends JPanel {
 
 		this.rondCal = new JLabel(new ImageIcon("./Images/rondCal.png"));
 		rondCal.setBounds(0, 0, 50, 50);
+		rondCal.setToolTipText("Calendrier");
 		Border paddingBorderCal = BorderFactory.createEmptyBorder(0,7,0,0);
 		this.rondCal.setBorder(paddingBorderCal);
 		barreVerticale.add(rondCal,"cell 0 2,alignx left,aligny center");
@@ -162,6 +165,7 @@ public class PanelBase extends JPanel {
 
 		this.rondDep = new JLabel(new ImageIcon("./Images/rondDep.png"));
 		rondDep.setBounds(0, 0, 50, 50);
+		rondDep.setToolTipText("D\u00E9penses");
 		Border paddingBorderD = BorderFactory.createEmptyBorder(0,7,0,0);
 		this.rondDep.setBorder(paddingBorderD);
 		barreVerticale.add(rondDep,"cell 0 3,alignx left,aligny center");
@@ -182,6 +186,7 @@ public class PanelBase extends JPanel {
 
 		this.rondCarte = new JLabel(new ImageIcon("./Images/rondCarte.png"));
 		rondCarte.setBounds(0, 0, 50, 50);
+		rondCarte.setToolTipText("Carte");
 		Border paddingBorderCa = BorderFactory.createEmptyBorder(0,7,0,0);
 		this.rondCarte.setBorder(paddingBorderCa);
 		barreVerticale.add(rondCarte,"cell 0 4,alignx left,aligny center");
@@ -202,6 +207,7 @@ public class PanelBase extends JPanel {
 		
 		this.rondContact = new JLabel(new ImageIcon("./Images/rondContact.png"));
 		rondContact.setBounds(0, 0, 50, 50);
+		rondContact.setToolTipText("Contacts");
 		Border paddingBorderC = BorderFactory.createEmptyBorder(0,7,0,0);
 		this.rondContact.setBorder(paddingBorderC);
 		barreVerticale.add(rondContact,"cell 0 5,alignx left,aligny center");
@@ -306,7 +312,7 @@ public class PanelBase extends JPanel {
 		String imgContact;
 		if(Texte == "Contacts") {
 			imgContact = "./Images/rondContactSec.png";
-			img = "./Images/rondContact.png";
+			img = "./Images/rondContactSec.png";
 			this.contenu = new PanelContacts(fen);
 			this.partage.setIcon(new ImageIcon("./Images/plus.png"));
 			this.partage.setToolTipText("Ajouter un contact");
@@ -334,7 +340,7 @@ public class PanelBase extends JPanel {
 		String imgCarte;
 		if(Texte == "Carte") {
 			imgCarte = "./Images/rondCarteSec.png";
-			img = "./Images/rondCarte.png";
+			img = "./Images/rondCarteSec.png";
 			this.contenu = new PanelCarte();
 			this.partage.setIcon(ip);
 			this.partage.setToolTipText("Partage");
@@ -348,7 +354,7 @@ public class PanelBase extends JPanel {
 		String imgDep;
 		if(Texte == "D\u00E9penses") {
 			imgDep = "./Images/rondDepSec.png";
-			img = "./Images/rondDep.png";
+			img = "./Images/rondDepSec.png";
 			this.contenu = new PanelDepense();
 			this.partage.setToolTipText("Partage");
 			this.partage.setIcon(ip);
@@ -362,7 +368,7 @@ public class PanelBase extends JPanel {
 		String imgCal;
 		if(Texte == "Calendrier") {
 			imgCal = "./Images/rondCalSec.png";
-			img = "./Images/rondCal.png";
+			img = "./Images/rondCalSec.png";
 			this.contenu = new PanelCalendrier();
 			this.partage.setToolTipText("Partage");
 			this.partage.setIcon(ip);
@@ -376,7 +382,7 @@ public class PanelBase extends JPanel {
 		String imgPhoto;
 		if(Texte == "Photos") {
 			imgPhoto = "./Images/rondPhotoSec.png";
-			img = "./Images/rondPhoto.png";
+			img = "./Images/rondPhotoSec.png";
 			this.contenu = new PanelPhoto(fen);
 			this.partage.setIcon(ip);
 			this.partage.setToolTipText("Partage");
@@ -390,7 +396,7 @@ public class PanelBase extends JPanel {
 		String imgCom;
 		if(Texte.equals("Communication")) {
 			imgCom = "./Images/rondComSec.png";
-			img = "./Images/rondCom.png";
+			img = "./Images/rondComSec.png";
 			this.contenu = new PanelCommunication(fen);
 			this.partage.setIcon(new ImageIcon("./Images/plus.png"));
 			this.partage.setToolTipText("Nouvelle conversation");
@@ -417,7 +423,7 @@ public class PanelBase extends JPanel {
 		String imgMes;
 		if(Texte.equals("Messages")) {
 			imgMes = "./Images/rondComSec.png";
-			img = "./Images/rondCom.png";
+			img = "./Images/rondComSec.png";
 			this.contenu = new PanelChat(contact, fen);
 			this.partage.setIcon(new ImageIcon("./Images/plus.png"));
 			this.partage.setToolTipText("Nouvelle conversation");

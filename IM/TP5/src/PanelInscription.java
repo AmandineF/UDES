@@ -20,7 +20,7 @@ import net.miginfocom.swing.MigLayout;
  * Fenetre pour l'inscription d'un nouvel utilisateur
  * @author Amandine Fouillet - 14 130 638
  * @author Frank Chassing - 14 153 710
- * @author Laurent Sénécal-Léonard - 14 143 484
+ * @author Laurent Senecal-Leonard - 14 143 484
  */
 @SuppressWarnings("serial")
 public class PanelInscription extends JPanel {
@@ -49,7 +49,9 @@ public class PanelInscription extends JPanel {
 					setCursor(Cursor.getDefaultCursor());
 				}
 				}  ); 
-		
+		/**
+		 * Classe permettant d'arrondir et de colorer un JTextField
+		 */
 	    class CustomeBorder extends AbstractBorder{
 	        @Override
 	        public void paintBorder(Component c, Graphics g, int x, int y,
@@ -155,6 +157,7 @@ public class PanelInscription extends JPanel {
 		JPanel paramAide = new JPanel(new MigLayout("", "[20][20][360]", "[100%]"));
 		this.add(paramAide, "cell 0 5 3 1,alignx left,aligny center");
 		JLabel parametre = new JLabel( new ImageIcon( "./images/parametre.png"));
+		parametre.setToolTipText("Param\u00E8tres");
 		paramAide.add(parametre,"cell 0 0, alignx center, aligny bottom");
 		parametre.addMouseListener(new MouseAdapter() { 
 	         public void mousePressed(MouseEvent me) { 
@@ -172,6 +175,7 @@ public class PanelInscription extends JPanel {
 
 		
 		JLabel aide = new JLabel( new ImageIcon( "./images/aide.png"));
+		aide.setToolTipText("Aide");
 		paramAide.add(aide,"cell 1 0, alignx center, aligny bottom");
 		
 		aide.addMouseListener(
@@ -180,7 +184,7 @@ public class PanelInscription extends JPanel {
 				JFrame f = new JFrame();
 				PanelAide m = new PanelAide(f, "inscription");	
 				f.setContentPane(m);
-				f.setBounds(100, 100, 500, 180);
+				f.setBounds(100, 100, 500, 250);
 				f.setVisible(true);
 			}
 		public void mouseEntered(MouseEvent e) {

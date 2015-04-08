@@ -9,7 +9,7 @@ import javax.swing.border.EmptyBorder;
  * Gestion de la fenetre de lancement
  * @author Amandine Fouillet - 14 130 638
  * @author Frank Chassing - 14 153 710
- * @author Laurent Sénécal-Léonard - 14 143 484
+ * @author Laurent Senecal-Leonard - 14 143 484
  */
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame {
@@ -38,7 +38,7 @@ public class MainFrame extends JFrame {
 	}
 	
 	/**
-	 * Cree la fenêtre principale
+	 * Cree la fenere principale
 	 * @param string 
 	 */
 	public MainFrame() {

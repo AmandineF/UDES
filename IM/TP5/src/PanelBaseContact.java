@@ -19,7 +19,7 @@ import net.miginfocom.swing.MigLayout;
  * Affiche les informations et les donnees d'un contact
  * @author Amandine Fouillet - 14 130 638
  * @author Frank Chassing - 14 153 710
- * @author Laurent Sénécal-Léonard - 14 143 484
+ * @author Laurent Senecal-Leonard - 14 143 484
  */
 @SuppressWarnings("serial")
 public class PanelBaseContact extends JPanel {
@@ -81,7 +81,7 @@ public class PanelBaseContact extends JPanel {
 		if(Texte.equals("Informations")){
 			rondInfo.setIcon(new ImageIcon("./Images/rondInfoSec.png"));
 			rondActuel.setIcon(new ImageIcon("./Images/rondInfoContact.png"));
-			contenu = new PanelInfoContact(contact);
+			contenu = new PanelInfoContact(fen, contact);
 		}else{
 			rondInfo.setIcon(new ImageIcon("./Images/rondInfo.png"));
 			rondInfo.addMouseListener(new MouseAdapter() { 

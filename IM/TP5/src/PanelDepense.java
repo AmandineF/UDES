@@ -8,13 +8,13 @@ import net.miginfocom.swing.MigLayout;
  * Affichage des depenses de l'utilisateur  
  * @author Amandine Fouillet - 14 130 638
  * @author Frank Chassing - 14 153 710
- * @author Laurent Sénécal-Léonard - 14 143 484
+ * @author Laurent Senecal-Leonard - 14 143 484
  */
 @SuppressWarnings("serial")
 public class PanelDepense extends JPanel {
 
 	/**
-	 * Constructeur du panel depenses
+	 * Constructeur du panel depense
 	 **/
 	public PanelDepense() {
 		setLayout(new MigLayout("", "", ""));

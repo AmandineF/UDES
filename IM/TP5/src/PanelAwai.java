@@ -11,13 +11,14 @@ import net.miginfocom.swing.MigLayout;
  * Premierefenetre de l'application
  * @author Amandine Fouillet - 14 130 638
  * @author Frank Chassing - 14 153 710
- * @author Laurent Sénécal-Léonard - 14 143 484
+ * @author Laurent Senecal-Leonard - 14 143 484
  */
 @SuppressWarnings("serial")
 public class PanelAwai extends JPanel {
 
 	/**
 	 * Constructeur du panel awai
+	 * @param fen La frame courante
 	 */
 	public PanelAwai(final JFrame fen) {
 		setLayout(new MigLayout("", "[25%]0[50%]0[25%]", "[100][40][65]5[65]5[65][40][100]"));
@@ -124,7 +125,7 @@ public class PanelAwai extends JPanel {
 					JFrame f = new JFrame();
 					PanelAide m = new PanelAide(f, "awai");	
 					f.setContentPane(m);
-					f.setBounds(100, 100, 500, 180);
+					f.setBounds(100, 100, 500, 250);
 					f.setVisible(true);
 			}
 		public void mouseEntered(MouseEvent e) {

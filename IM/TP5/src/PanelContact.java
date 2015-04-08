@@ -17,7 +17,7 @@ import net.miginfocom.swing.MigLayout;
  * Affiche un contact de l'utilisateur
  * @author Amandine Fouillet - 14 130 638
  * @author Frank Chassing - 14 153 710
- * @author Laurent Sénécal-Léonard - 14 143 484
+ * @author Laurent Senecal-Leonard - 14 143 484
  */
 @SuppressWarnings("serial")
 public class PanelContact extends JPanel {
@@ -48,10 +48,10 @@ public class PanelContact extends JPanel {
 		comContact.setToolTipText("Acc\u00E8der aux Communications avec " + contact.getNom() + ".");
 		comContact.addMouseListener(new MouseAdapter() { 
 	          public void mousePressed(MouseEvent me) { 
-	        	  //removeAll();  
-	        	  //PanelBase m = new PanelBase(fen, "Communication");						
-	        	  //fen.setContentPane(m);
-	        	  //fen.validate();
+	        	  removeAll();  
+	        	  PanelBase m = new PanelBase(fen, "Messages", contact);						
+	        	  fen.setContentPane(m);
+	        	  fen.validate();
 	          } 
 	          public void mouseEntered(MouseEvent e) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
@@ -144,7 +144,7 @@ public class PanelContact extends JPanel {
 		JLabel carContact = new JLabel();
 		if(contact.getAccesCarte()) {
 			carContact.setIcon(new ImageIcon("./Images/rondCarContact.png"));
-			carContact.setToolTipText("Acc\u00E8der à la Carte de " + contact.getNom() + ".");
+			carContact.setToolTipText("Acc\u00E8der \u00E0� la Carte de " + contact.getNom() + ".");
 			carContact.addMouseListener(new MouseAdapter() { 
 		          public void mousePressed(MouseEvent me) { 
 		        	  removeAll();  

@@ -13,7 +13,7 @@ import net.miginfocom.swing.MigLayout;
  * Menu principal de l'application
  * @author Amandine Fouillet - 14 130 638
  * @author Frank Chassing - 14 153 710
- * @author Laurent Sénécal-Léonard - 14 143 484
+ * @author Laurent Senecal-Leonard - 14 143 484
  */
 @SuppressWarnings("serial")
 public class PanelMenu extends JPanel {
@@ -201,6 +201,7 @@ public class PanelMenu extends JPanel {
 				paramAide.add(parametre,"cell 0 0, alignx center, aligny bottom");
 				
 				JLabel aide = new JLabel( new ImageIcon( "./images/aide.png"));
+				aide.setToolTipText("Aide");
 				paramAide.add(aide,"cell 1 0, alignx center, aligny bottom");
 						
 				aide.addMouseListener(
@@ -209,7 +210,7 @@ public class PanelMenu extends JPanel {
 							JFrame f = new JFrame();
 							PanelAide m = new PanelAide(f, "menu");	
 							f.setContentPane(m);
-							f.setBounds(100, 100, 500, 180);
+							f.setBounds(100, 100, 500, 300);
 							f.setVisible(true);
 					
 					}

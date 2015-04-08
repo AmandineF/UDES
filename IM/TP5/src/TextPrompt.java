@@ -15,6 +15,8 @@ import javax.swing.text.*;
  *  of the parent text component. You are free to change the properties after
  *  class construction.
  */
+
+//Nous avons trouve cette classe sur internet. Elle permet d'avoir un texte en fond d'un JTextField.
 @SuppressWarnings("serial")
 public class TextPrompt extends JLabel
 	implements FocusListener, DocumentListener

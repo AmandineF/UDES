@@ -16,7 +16,7 @@ import net.miginfocom.swing.MigLayout;
  * C'est la ou l'utilisateur peut modifier les parametres de l'application
  * @author Amandine Fouillet - 14 130 638
  * @author Frank Chassing - 14 153 710
- * @author Laurent Sénécal-Léonard - 14 143 484
+ * @author Laurent Senecal-Leonard - 14 143 484
  */
 @SuppressWarnings("serial")
 public class PanelParametres extends JPanel {
@@ -29,7 +29,7 @@ public class PanelParametres extends JPanel {
 	public PanelParametres(final JFrame fen, final String msg, final Contact c) {
 		setLayout(new MigLayout("insets 0", "[100%]", "[15%][90%]"));
 
-		String str = "Page des paramètres " + msg;
+		String str = "Page des param\u00E8tres " + msg;
 		JLabel text = new JLabel(str);
 		add(text, "cell 0 1,alignx center,aligny top");
 		

@@ -11,7 +11,7 @@ import net.miginfocom.swing.MigLayout;
  * Permet de gerer l'identification d'un utilisateur
  * @author Amandine Fouillet - 14 130 638
  * @author Frank Chassing - 14 153 710
- * @author Laurent Sénécal-Léonard - 14 143 484
+ * @author Laurent Senecal-Leonard - 14 143 484
  */
 @SuppressWarnings("serial")
 public class PanelConnexion extends JPanel {
@@ -24,6 +24,9 @@ public class PanelConnexion extends JPanel {
 		setLayout(new MigLayout("", "[20%]0[60%]0[20%]", "[15%]0[20%]0[20%]2[20%]0[20%]"));
 		setBounds(0,0,460,500);
 	    
+		/**
+		 * Classe permettant d'arrondir et de colorer un JTextField
+		 */
 		class CustomeBorder extends AbstractBorder{
 	        @Override
 	        public void paintBorder(Component c, Graphics g, int x, int y,
@@ -90,9 +93,10 @@ public class PanelConnexion extends JPanel {
 						fen.validate();
 					}else{
 						JFrame m = new JFrame();
+						m.setBounds(100, 100, 500, 180);
 						m.setResizable(false);
 						m.setTitle("Erreur");
-						PanelErreur p = new PanelErreur(m);
+						PanelAide p = new PanelAide(fen, "connexionB");
 						m.setContentPane(p);
 						m.setVisible(true);
 					}
@@ -126,6 +130,7 @@ public class PanelConnexion extends JPanel {
 		 });
 		
 		JLabel aide = new JLabel( new ImageIcon( "./images/aide.png"));
+		aide.setToolTipText("Aide");
 		paramAide.add(aide,"cell 1 0, alignx center, aligny bottom");
 		aide.addMouseListener(
 				new MouseAdapter(){

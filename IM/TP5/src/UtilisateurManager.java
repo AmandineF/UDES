@@ -8,7 +8,7 @@ import java.util.HashMap;
  * Management d'un utilisateur
  * @author Frank Chassing 14 153 710
  * @author Amandine Fouillet 14 130 638
- * @author Laurent Sénécal-Léonard - 14 143 484
+ * @author Laurent Senecal-Leonard - 14 143 484
  */
 public class UtilisateurManager {
 
@@ -81,5 +81,12 @@ public class UtilisateurManager {
 			}
 		}
 		return connected != null;
+	}
+	
+	/**
+	 * Methode de deconnecter l'utilisateur
+	 */
+	public void deconnexion() {
+		this.connected = null;
 	}
 }
