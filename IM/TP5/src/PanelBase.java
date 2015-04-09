@@ -26,7 +26,7 @@ public class PanelBase extends JPanel {
 	private JLabel textActuel;
 	private JLabel rondActuel;
 	private JLabel rondPhoto;
-	private JLabel rondCom;
+    private JLabel rondCom;
 	private JLabel rondContact;
 	private JLabel rondDep;
 	private JLabel rondCarte;
@@ -48,12 +48,12 @@ public class PanelBase extends JPanel {
 	 */
 	
 	public PanelBase(JFrame fen, String Texte, Contact contact) {
-		creerBase(fen);
+		creerBase(fen, Texte);
 		modifierBase(fen, Texte, contact);
 	}
 
 	
-	public void creerBase(final JFrame fen) {
+	public void creerBase(final JFrame fen, final String Texte) {
 		setLayout(new MigLayout("insets 0", "[60]0[1]0[399]", "[60]0[1]0[439]"));
 		this.setBounds(0, 0, 400, 460);
 		
@@ -115,9 +115,14 @@ public class PanelBase extends JPanel {
 	          } 
 	          public void mouseEntered(MouseEvent e) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+					rondCom.setIcon(new ImageIcon("./Images/rondComSec.png"));
 				}	  		
 	          public void mouseExited(MouseEvent e) {
 					setCursor(Cursor.getDefaultCursor());
+					if(!Texte.equals("Communication") &&
+							!Texte.equals("Messages")) {
+						rondCom.setIcon(new ImageIcon("./Images/rondCom.png"));
+					}
 				}
 	         }); 
 
@@ -136,9 +141,13 @@ public class PanelBase extends JPanel {
 	            } 
 	          public void mouseEntered(MouseEvent e) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+					rondPhoto.setIcon(new ImageIcon("./Images/rondPhotoSec.png"));
 				}
 		  		public void mouseExited(MouseEvent e) {
 					setCursor(Cursor.getDefaultCursor());
+					if(!Texte.equals("Photos") && !Texte.equals("Album photo")){
+						rondPhoto.setIcon(new ImageIcon("./Images/rondPhoto.png"));
+					}
 				}
 	          }); 
 
@@ -157,9 +166,12 @@ public class PanelBase extends JPanel {
 	            } 
 	          public void mouseEntered(MouseEvent e) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+					rondCal.setIcon(new ImageIcon("./Images/rondCalSec.png"));
 				}
 		  		public void mouseExited(MouseEvent e) {
 					setCursor(Cursor.getDefaultCursor());
+					if(!Texte.equals("Calendrier"))
+						rondCal.setIcon(new ImageIcon("./Images/rondCal.png"));
 				}
 	          }); 
 
@@ -178,9 +190,12 @@ public class PanelBase extends JPanel {
 	            } 
 	          public void mouseEntered(MouseEvent e) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+					rondDep.setIcon(new ImageIcon("./Images/rondDepSec.png"));
 				}
 	  		public void mouseExited(MouseEvent e) {
 				setCursor(Cursor.getDefaultCursor());
+				if(!Texte.equals("D\u00E9penses"))
+					rondDep.setIcon(new ImageIcon("./Images/rondDep.png"));
 			}
 	          }); 
 
@@ -199,9 +214,12 @@ public class PanelBase extends JPanel {
 	            } 
 	          public void mouseEntered(MouseEvent e) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+					rondCarte.setIcon(new ImageIcon("./Images/rondCarteSec.png"));
 				}
 	  		public void mouseExited(MouseEvent e) {
 				setCursor(Cursor.getDefaultCursor());
+				if(!Texte.equals("Carte"))
+					rondCarte.setIcon(new ImageIcon("./Images/rondCarte.png"));
 			}
 	          }); 
 		
@@ -220,9 +238,12 @@ public class PanelBase extends JPanel {
 	            } 
 	          public void mouseEntered(MouseEvent e) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );
+					rondContact.setIcon(new ImageIcon("./Images/rondContactSec.png"));
 				}
 	  		public void mouseExited(MouseEvent e) {
 				setCursor(Cursor.getDefaultCursor());
+				if(!Texte.equals("Contacts"))
+					rondContact.setIcon(new ImageIcon("./Images/rondContact.png"));
 			}
 	          }); 
 		
@@ -462,7 +483,7 @@ public class PanelBase extends JPanel {
 		}
 		if(Texte.equals("Album photo")) {
 			imgPhoto = "./Images/rondPhotoSec.png";
-			img = "./Images/rondPhoto.png";
+			img = "./Images/rondPhotoSec.png";
 			this.home.setIcon(new ImageIcon("./Images/arrow.png"));
 			this.home.addMouseListener(new MouseAdapter(){
 				public void mousePressed(MouseEvent me) { 

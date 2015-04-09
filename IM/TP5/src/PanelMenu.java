@@ -24,7 +24,7 @@ public class PanelMenu extends JPanel {
 	 */
 	public PanelMenu(final JFrame fen) {
 		
-		setLayout(new MigLayout("", "[8%]0[28%]0[28%]0[28%]0[8%]", "[100]0[130]0[10]0[130]0[10]0[100]"));
+		setLayout(new MigLayout("", "[10%]0[28%]0[28%]0[28%]0[8%]", "[100]0[130]0[10]0[130]0[10]0[100]"));
 		setBounds(0, 0, 400, 460);
 
 		//Titre

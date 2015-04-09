@@ -34,10 +34,11 @@ public class PanelListe extends JPanel {
 		setLayout(new MigLayout("insets 2","9[50]0[150]0[60]0[30]0[30]0[60]","[50%][50%]"));
 		
 		JLabel nomContact = new JLabel(contact.getNom() + " " + contact.getPrenom());
-		nomContact.setFont(new Font("Mockup", Font.PLAIN, 12));
+		nomContact.setFont(new Font("Mockup", Font.BOLD, 12));
 		this.add(nomContact, "cell 1 0, alignx left, aligny bottom");
 				
 		JLabel texteContact = new JLabel(texte);
+		texteContact.setFont(new Font("Mockup", Font.PLAIN, 12));
 		this.add(texteContact, "cell 1 1, alignx left, aligny top");
 		
 		JLabel imageContact = new JLabel(new ImageIcon(contact.getImage()));

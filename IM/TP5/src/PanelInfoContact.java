@@ -23,7 +23,7 @@ public class PanelInfoContact extends JPanel {
 	 * Constructeur du panel info contact
 	 * @param contact Le contact dont on veut les informations
 	 */
-	public PanelInfoContact(JFrame fen, final Contact contact) {
+	public PanelInfoContact(final JFrame fen, final Contact contact) {
 		   setLayout(new MigLayout("insets 0, gapy 0","[20][350]","[10][40]9[40]9[40]9[40]9[40]9[40]9[40]"));
 		   
 		   JPanel infoNumero = new JPanel();
@@ -33,7 +33,7 @@ public class PanelInfoContact extends JPanel {
 		   JLabel txtNumero = new JLabel("Num\u00E9ro de t\u00E9l\u00E9hone - "+ contact.getNumero());
 		   txtNumero.setFont(new Font("Mockup", Font.PLAIN, 12));
 		   infoNumero.add(txtNumero,"cell 0 0,alignx left, aligny center");
-		   JLabel imgCom = new JLabel(new ImageIcon("./Images/btnChat.png"));
+		   final JLabel imgCom = new JLabel(new ImageIcon("./Images/btnChat.png"));
 		   infoNumero.add(imgCom,"cell 1 0,alignx center, aligny center");
 			imgCom.addMouseListener(
 					new MouseAdapter(){
@@ -51,7 +51,7 @@ public class PanelInfoContact extends JPanel {
 						imgCom.setIcon(new ImageIcon( "./images/btnChat.png"));
 					}
 			});  
-		   JLabel imgAppel = new JLabel(new ImageIcon("./Images/btnAppel.png"));
+		   final JLabel imgAppel = new JLabel(new ImageIcon("./Images/btnAppel.png"));
 		   infoNumero.add(imgAppel,"cell 2 0,alignx center, aligny center");
 			imgAppel.addMouseListener(
 					new MouseAdapter(){
@@ -69,7 +69,7 @@ public class PanelInfoContact extends JPanel {
 						imgAppel.setIcon(new ImageIcon( "./images/btnAppel.png"));
 					}
 			}); 
-		   JLabel imgVideo = new JLabel(new ImageIcon("./Images/btnVideo.png"));
+		   final JLabel imgVideo = new JLabel(new ImageIcon("./Images/btnVideo.png"));
 		   infoNumero.add(imgVideo,"cell 3 0,alignx center, aligny center");
 		   imgVideo.addMouseListener(
 					new MouseAdapter(){
@@ -96,7 +96,7 @@ public class PanelInfoContact extends JPanel {
 		   sexe.setFont(new Font("Mockup", Font.PLAIN, 12));
 		   add(sexe,"cell 1 3,alignx left, aligny center");
 		   
-		   JLabel habite = new JLabel("Habite a  - Sherbrooke, Canada");
+		   JLabel habite = new JLabel("Habite aï¿½ - Sherbrooke, Canada");
 		   add(habite, "cell 1 4, alignx left, aligny center");
 		   habite.setFont(new Font("Mockup", Font.PLAIN, 12));
 		   

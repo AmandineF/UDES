@@ -8,7 +8,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-
 import net.miginfocom.swing.MigLayout;
 
 /**
@@ -57,7 +56,6 @@ public class PanelCommunication extends JPanel {
 							"J'arrive !",
 							":-)",
 							"LOL"};
-		
 		
 		int j = 0;
 		for(int i = 0; i < nbContact; i++) {

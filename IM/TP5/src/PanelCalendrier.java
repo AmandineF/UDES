@@ -4,7 +4,6 @@ import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import net.miginfocom.swing.MigLayout;
 
 /**
@@ -20,7 +19,9 @@ public class PanelCalendrier extends JPanel {
 	 * Constructeur du panel calendrier
 	 */
 	public PanelCalendrier() {
-		setLayout(new MigLayout("", "[100%]", "[20%][80%]"));
+		setLayout(new MigLayout("insets 0", "", ""));
+		JPanel sp = new JPanel();
+		sp.setLayout(new MigLayout("", "", "[20%][80%]"));
 		
 		//Deuxieme ligne affichage du calendrier
 		final JLabel imgDefault = new JLabel(new ImageIcon("./Images/calendrier.png"));
@@ -81,8 +82,10 @@ public class PanelCalendrier extends JPanel {
 		});
 		
 		//Ajout des lignes boutons et de l'image centrale au layout
-		this.add(ligneBtn, "cell 0 0,alignx center,aligny center");
-		this.add(imgDefault, "cell 0 1,alignx center,aligny center");
+		sp.add(ligneBtn, "cell 0 0,alignx center,aligny center");
+		sp.add(imgDefault, "cell 0 1,alignx center,aligny center");
+		
+		this.add(sp, "cell 0 0,alignx center, aligny center");
 	}
 
 }
