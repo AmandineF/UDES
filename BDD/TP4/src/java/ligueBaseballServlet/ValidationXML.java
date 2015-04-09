@@ -8,7 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- *
+ * Methode qui verifie que le fichier XML a importer est valide
  * @author Amandine Fouillet
  * @author Frank Chassing
  */
@@ -20,6 +20,7 @@ public class ValidationXML {
             BufferedReader br = new BufferedReader (fr);
             String line = br.readLine();
             if(!line.equals("<?xml version=\"1.0\"?>")) {
+                System.out.println("premier");
                 return false;
             }
 
@@ -30,6 +31,7 @@ public class ValidationXML {
             Matcher matcher = pattern.matcher(line);
             boolean matchFound = matcher.find();
             if (!matchFound) {
+                System.out.println("deuxieme");
                 return false;
             }
 
@@ -39,7 +41,8 @@ public class ValidationXML {
             pattern = Pattern.compile(patternStr);
             matcher = pattern.matcher(line);
             matchFound = matcher.find();
-            if (matchFound && matcher.groupCount()>=1) {
+            if (matchFound) {
+                System.out.println("troisieme");
                 line = br.readLine();
             }
 
@@ -48,6 +51,7 @@ public class ValidationXML {
             matcher = pattern.matcher(line);
             matchFound = matcher.find();
             if(!matchFound){
+                System.out.println("quatrieme");
                 return false;
             }
 
@@ -60,8 +64,10 @@ public class ValidationXML {
                 matcher = pattern.matcher(line);
                 matchFound = matcher.find();
                 if (!matchFound) {
+                    System.out.println("cinquieme");
                     return false;
                 }
+                line = br.readLine();
             }
             line = br.readLine();
             patternStr = "\\s*</equipe>";
@@ -69,10 +75,12 @@ public class ValidationXML {
             matcher = pattern.matcher(line);
             matchFound = matcher.find();
             if (!matchFound) {
+                System.out.println("sixieme");
                 return false;
             }
             
         }catch(IOException e){
+            System.out.println("except");
             return false;
         }
         

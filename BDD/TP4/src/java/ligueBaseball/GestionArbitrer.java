@@ -44,7 +44,7 @@ public class GestionArbitrer {
      * @param arbitrePrenom Le prenom de l'arbitre du match
      * @throws SQLException 
      */
-    public void arbitrerMatch(Date matchDate, Time matchHeure, String nomEquipeLocale, String nomEquipeVisiteur, String arbitreNom, String arbitrePrenom) throws SQLException  {
+    public int arbitrerMatch(Date matchDate, Time matchHeure, String nomEquipeLocale, String nomEquipeVisiteur, String arbitreNom, String arbitrePrenom) throws SQLException  {
         int idLocaux = equipeTable.getId(nomEquipeLocale);
         int idVisiteurs = equipeTable.getId(nomEquipeVisiteur);
         int idArbitre = arbitreTable.existeHomonyme(arbitreNom, arbitrePrenom);
@@ -53,12 +53,15 @@ public class GestionArbitrer {
             if(idArbitre > -1) {
                 arbitrerTable.ajout(idArbitre, idMatch);
                 System.out.println("SUCCES - L'arbitrage a ete rajoute.");
+                return 0;
             } else {
-                System.out.println("USERERREUR - L'arbitre "+ arbitrePrenom + " "+ arbitreNom+ " n'existe pas.");
+                return 1;
+                //System.out.println("USERERREUR - L'arbitre "+ arbitrePrenom + " "+ arbitreNom+ " n'existe pas.");
             }
         } else {
-            System.out.println("USERERREUR - Le match " + nomEquipeLocale+ " - " + nomEquipeVisiteur 
-                    + "se deroulant le " + matchDate.toString() + " a "+matchHeure.toString()+ " n'existe pas.");
+            return 2;
+            //System.out.println("USERERREUR - Le match " + nomEquipeLocale+ " - " + nomEquipeVisiteur 
+                    //+ "se deroulant le " + matchDate.toString() + " a "+matchHeure.toString()+ " n'existe pas.");
         }
     }
     

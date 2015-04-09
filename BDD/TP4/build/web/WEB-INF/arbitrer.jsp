@@ -12,9 +12,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link href="style.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
-        <h1>Affichage des arbitrages</h1>
+        <h2>Affichage des arbitrages</h2>
         <%
         GestionLigue ligue = (GestionLigue) session.getAttribute("ligue");
         Vector<TupleArbitrer> listArbitrer = ligue.gestionArbitrer.affiche();
@@ -26,10 +27,9 @@
             <tbody>
                 <%-- titre des colonnes --%>
                 <tr>
-                <td style="vertical-align: top;">ID Arbitre</td>
-                <td style="vertical-align: top;">ID Match</td>
+                <td style="vertical-align: top;font-weight:bold;">ID Arbitre</td>
+                <td style="vertical-align: top;font-weight:bold;">ID Match</td>
                 </tr>
-            <br>
                 <%
                     for(int i = 0; i<listArbitrer.size();i++) {
                         TupleArbitrer tupleArbitrer = listArbitrer.elementAt(i);
@@ -39,7 +39,6 @@
                 <td style="vertical-align: top;"><%= tupleArbitrer.idArbitre %></td>
                 <td style="vertical-align: top;"><%= tupleArbitrer.idMatch %></td>
                 </tr>
-                <br>
                 <%
                     }
                 %>
@@ -48,24 +47,29 @@
                 <%
         }else{
             %>
-            Aucun arbitrage dans table.
+            <h3>Aucun arbitrage dans table.</h3>
        <%
         }
                 %>
+                <br><br><br>
+                <div style="text-align:center;">
+                    <FORM ACTION="Logout" METHOD="POST">
+		        <INPUT class="bouton2" TYPE="SUBMIT" NAME="retourMenu" VALUE="Menu">
+		        <INPUT class="bouton2" style="width:150px" TYPE="SUBMIT" NAME="deconnexion" VALUE="Deconnexion">
+                    </FORM>
+		        </div>
+                <br><br>
         <FORM ACTION="RequetesArbitrer" METHOD="POST">
-            Affecter un arbitre a un match
-            <BR>
-            Date du match : <INPUT TYPE="DATE" NAME="matchDateArb" VALUE="yyyy-MM-dd">
-            Heure du match : <INPUT TYPE="TIME" NAME="matchHeureArb" VALUE="hh:mm:ss">
-            Nom equipe locale : <INPUT TYPE="TEXT" NAME="nomEquipeLocaleArb" VALUE="">
-            Nom equipe visiteur : <INPUT TYPE="TEXT" NAME="nomEquipeVisiteurArb" VALUE="">
-            Nom arbitre : <INPUT TYPE="TEXT" NAME="nomArbitreArb" VALUE="">
-            Prenom arbitre : <INPUT TYPE="TEXT" NAME="prenomArbitreArb" VALUE="">
-            <INPUT TYPE="SUBMIT" NAME="arbitrerMatch" VALUE="arbitrerMatch">
+        	<fieldset>
+            <h3>Affecter un arbitre a un match</h3>
+            <INPUT placeholder="Date : yyyy-MM-dd" TYPE="DATE" NAME="matchDateArb" VALUE="">
+            <INPUT placeholder="Heure : hh:mm:ss" TYPE="TIME" NAME="matchHeureArb" VALUE="">
+            <INPUT placeholder="Equipe locale" TYPE="TEXT" NAME="nomEquipeLocaleArb" VALUE="">
+            <INPUT placeholder="Equipe visiteur" TYPE="TEXT" NAME="nomEquipeVisiteurArb" VALUE="">
+            <INPUT placeholder="Nom de l'arbitre" TYPE="TEXT" NAME="nomArbitreArb" VALUE="">
+            <INPUT placeholder="Prenom de l'arbitre" TYPE="TEXT" NAME="prenomArbitreArb" VALUE=""><br><br>
+            <INPUT class="bouton" TYPE="SUBMIT" NAME="arbitrerMatch" VALUE="Valider">
+            </fieldset>
         </FORM>
-        <jsp:include page="/WEB-INF/messageErreur.jsp" />
-        <BR>
-        <a href="Logout">Sortir</a>
-        <BR>
     </body>
 </html>

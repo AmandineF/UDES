@@ -29,7 +29,6 @@ public class Login extends HttpServlet {
                     session = request.getSession();
                     System.out.println("GestionLigue : session invalidee");
             }
-
             String userId = request.getParameter("userIdBD");
             String motDePasse = request.getParameter("motDePasseBD");
             String bd = request.getParameter("bd");

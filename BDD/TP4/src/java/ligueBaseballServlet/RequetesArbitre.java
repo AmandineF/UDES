@@ -38,7 +38,11 @@ public class RequetesArbitre extends HttpServlet {
                 try {
                     creationArbitre(request, response);
                 } catch (SQLException ex) {
-                    Logger.getLogger(RequetesArbitre.class.getName()).log(Level.SEVERE, null, ex);
+                    List listeMessageErreur = new LinkedList();
+                    listeMessageErreur.add(ex.toString());
+                    request.setAttribute("listeMessageErreur", listeMessageErreur);
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                    dispatcher.forward(request, response);
                 }
             }else{
                 List listeMessageErreur = new LinkedList();

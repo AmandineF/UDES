@@ -46,7 +46,34 @@ public class RequetesArbitrer extends HttpServlet {
                     !request.getParameter("nomArbitreArb").equals("") &&
                     !request.getParameter("prenomArbitreArb").equals("")){
                 try {
-                    affecterArbitreMatch(request, response);
+                    if(request.getParameter("matchDateArb").length()!=10 || !(request.getParameter("matchDateArb").charAt(4) == (char)'-') || !(request.getParameter("matchDateArb").charAt(7) == (char)'-') ){
+                        List listeMessageErreur = new LinkedList();
+                        listeMessageErreur.add("Date invalide");
+                        request.setAttribute("listeMessageErreur", listeMessageErreur);
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                        dispatcher.forward(request, response);
+                	}else{
+	                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	                    java.util.Date parsed = format.parse(request.getParameter("matchDateArb"));
+	                    java.sql.Date sql = new java.sql.Date(parsed.getTime());
+	                    if(sql.toString().equals(request.getParameter("matchDateArb"))) {
+	                    	if(request.getParameter("matchHeureArb").length() !=8 ||!(request.getParameter("matchHeureArb").charAt(2) == (char)':') || !(request.getParameter("matchHeureArb").charAt(5) == (char)':') ){
+	                            List listeMessageErreur = new LinkedList();
+	                            listeMessageErreur.add("Heure invalide");
+	                            request.setAttribute("listeMessageErreur", listeMessageErreur);
+	                            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+	                            dispatcher.forward(request, response);
+	                    	}else{
+		                        affecterArbitreMatch(request, response);
+	                    	}
+	                    } else {
+	                        List listeMessageErreur = new LinkedList();
+	                        listeMessageErreur.add("Date invalide");
+	                        request.setAttribute("listeMessageErreur", listeMessageErreur);
+	                        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+	                        dispatcher.forward(request, response);
+	                    }
+                    }
                 } catch (ParseException ex) {
                     List listeMessageErreur = new LinkedList();
                     listeMessageErreur.add(ex.toString());
@@ -97,9 +124,11 @@ public class RequetesArbitrer extends HttpServlet {
         String prenomArbitreArb = (String) request.getParameter("prenomArbitreArb");
 	GestionLigue ligue = (GestionLigue) request.getSession().getAttribute("ligue");
         try{
+            int res = -1;
             synchronized (ligue) {
-                ligue.gestionArbitrer.arbitrerMatch(matchDateArb, timeValue,nomEquipeLocaleArb,nomEquipeVisiteurArb,nomArbitreArb,prenomArbitreArb);
+                res = ligue.gestionArbitrer.arbitrerMatch(matchDateArb, timeValue,nomEquipeLocaleArb,nomEquipeVisiteurArb,nomArbitreArb,prenomArbitreArb);
             }
+            if(res == 0) {
             request.getSession().setAttribute("succesArbitrer", "affecterArbitreMatch");
             request.getSession().setAttribute("matchDateArb", startDate);
             request.getSession().setAttribute("nomEquipeLocaleArb", nomEquipeLocaleArb);
@@ -108,6 +137,19 @@ public class RequetesArbitrer extends HttpServlet {
             request.getSession().setAttribute("prenomArbitreArb", prenomArbitreArb);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesArbitrer.jsp");
             dispatcher.forward(request, response);
+            }else if(res == 1){
+                List listeMessageErreur = new LinkedList();
+                listeMessageErreur.add("L'arbitre "+prenomArbitreArb + " " + nomArbitreArb + " n'existe pas.");
+                request.setAttribute("listeMessageErreur", listeMessageErreur);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                dispatcher.forward(request, response);
+            }else {
+                List listeMessageErreur = new LinkedList();
+                listeMessageErreur.add("Le match se deroulant le "+ startDate.toString() + " n'existe pas.");
+                request.setAttribute("listeMessageErreur", listeMessageErreur);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                dispatcher.forward(request, response);
+            }
         }catch (SQLException | ServletException | IOException e) {
             List listeMessageErreur = new LinkedList();
             listeMessageErreur.add(e.toString());

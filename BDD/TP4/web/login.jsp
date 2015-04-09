@@ -20,7 +20,7 @@ CONTENT="page d'accueil système de gestion de la ligue de baseball.">
     <INPUT placeholder="Identifiant" TYPE="TEXT" NAME="userIdBD" VALUE="postgres">
     <BR>
     <BR>
-    <INPUT placeholder="Mot de passe" TYPE="TEXT" NAME="motDePasseBD" VALUE="frank">
+    <INPUT placeholder="Mot de passe" TYPE="TEXT" NAME="motDePasseBD" VALUE="amandine">
     <BR>
     <BR>
     <INPUT placeholder="Base de données" TYPE="TEXT" NAME="bd"  VALUE="postgres">
@@ -32,7 +32,6 @@ CONTENT="page d'accueil système de gestion de la ligue de baseball.">
 </FORM>
 </CENTER>
 <BR>
-<%-- inclusion d'une autre page pour l'affichage des messages d'erreur--%>
 <BR>
 <%-- affichage de la date et heure; --%>
 <%-- utile pour débogger et verifier si la page a été --%>

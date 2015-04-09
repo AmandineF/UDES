@@ -9,13 +9,22 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link href="style.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
-        <h1>Succes Exportation</h1>
+        <h2>Succes Exportation</h2>
         <%
             String nomEquipe = (String) session.getAttribute("exportation");
             request.getSession().setAttribute("exportation", "");
         %>
-        L'equipe <%=nomEquipe%> a ete exportee avec succes. Le fichier <%=nomEquipe%>.xml a ete cree.
+        <fieldset style="width:500px">
+        <h3>L'equipe <%=nomEquipe%> a ete exportee avec succes. Le fichier <%=nomEquipe%>.xml a ete cree.</h3>
+        </fieldset>
+        <BR><br>
+        <div style="text-align:center;">
+		  <a href="Login" ><INPUT class="bouton2" TYPE="SUBMIT" NAME="retourMenu" VALUE="Menu"></a>
+		  <a href="Logout" ><INPUT class="bouton2" style="width:150px" TYPE="SUBMIT" NAME="supprimerEquipe" VALUE="Deconnexion"></a>
+ 		 </div>
+        <br><br>
     </body>
 </html>

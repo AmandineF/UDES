@@ -37,8 +37,8 @@ public class GestionEquipe {
     public boolean creerEquipe(String equipenom) throws SQLException  {
         
         if(equipeTable.existeNom(equipenom)){
-        	System.out.println("USERERREUR - L'equipe existe deja.");
-        	return false;
+            System.out.println("USERERREUR - L'equipe existe deja.");
+            return false;
         }else{
             int idEquipe = sequence.getCle("equipe");
             equipeTable.ajout(idEquipe, -1, equipenom );

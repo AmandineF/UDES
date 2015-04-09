@@ -74,9 +74,12 @@ public class RequetesMatch extends HttpServlet {
 	                        dispatcher.forward(request, response);
 	                    }
                 	}
-	                    //creerMatch(request, response);
                 } catch (ParseException ex) {
-                    Logger.getLogger(RequetesMatch.class.getName()).log(Level.SEVERE, null, ex);
+                    List listeMessageErreur = new LinkedList();
+                    listeMessageErreur.add(ex.toString());
+                    request.setAttribute("listeMessageErreur", listeMessageErreur);
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                    dispatcher.forward(request, response);
                 }
             } else {
                 List listeMessageErreur = new LinkedList();
@@ -93,9 +96,40 @@ public class RequetesMatch extends HttpServlet {
                     !request.getParameter("pointsLocalRes").equals("") &&
                     !request.getParameter("pointsVisiteurRes").equals("")) {
                 try {
-                    entrerResultatMatch(request, response);
+                    if(request.getParameter("matchDateRes").length()!=10 || !(request.getParameter("matchDateRes").charAt(4) == (char)'-') || !(request.getParameter("matchDateRes").charAt(7) == (char)'-') ){
+                        List listeMessageErreur = new LinkedList();
+                        listeMessageErreur.add("Date invalide");
+                        request.setAttribute("listeMessageErreur", listeMessageErreur);
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                        dispatcher.forward(request, response);
+                	}else{
+	                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	                    java.util.Date parsed = format.parse(request.getParameter("matchDateRes"));
+	                    java.sql.Date sql = new java.sql.Date(parsed.getTime());
+	                    if(sql.toString().equals(request.getParameter("matchDateRes"))) {
+	                    	if(request.getParameter("matchHeureRes").length() !=8 ||!(request.getParameter("matchHeureRes").charAt(2) == (char)':') || !(request.getParameter("matchHeureRes").charAt(5) == (char)':') ){
+	                            List listeMessageErreur = new LinkedList();
+	                            listeMessageErreur.add("Heure invalide");
+	                            request.setAttribute("listeMessageErreur", listeMessageErreur);
+	                            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+	                            dispatcher.forward(request, response);
+	                    	}else{
+		                        entrerResultatMatch(request, response);
+	                    	}
+	                    } else {
+	                        List listeMessageErreur = new LinkedList();
+	                        listeMessageErreur.add("Date invalide");
+	                        request.setAttribute("listeMessageErreur", listeMessageErreur);
+	                        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+	                        dispatcher.forward(request, response);
+	                    }
+                    }
                 } catch (ParseException ex) {
-                    Logger.getLogger(RequetesMatch.class.getName()).log(Level.SEVERE, null, ex);
+                    List listeMessageErreur = new LinkedList();
+                    listeMessageErreur.add(ex.toString());
+                    request.setAttribute("listeMessageErreur", listeMessageErreur);
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                    dispatcher.forward(request, response);
                 }
             } else {
                 List listeMessageErreur = new LinkedList();
@@ -106,25 +140,47 @@ public class RequetesMatch extends HttpServlet {
             }
             
         } else if (request.getParameter("afficherResultatDate") != null) {
-            if (!request.getParameter("matchDateAff").equals("")) {
-                String startDate = (String) request.getParameter("matchDateAff");
-                request.getSession().setAttribute("matchdate", startDate);
+            if (request.getParameter("matchDateAff").equals("")) {
+                request.getSession().setAttribute("matchdate", "");
                 request.getSession().setAttribute("matchequipe", "");
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/matchs.jsp");
                 dispatcher.forward(request, response);
             } else {
-                request.getSession().setAttribute("matchequipe", "");
-                request.getSession().setAttribute("matchdate", "");
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/matchs.jsp");
-                dispatcher.forward(request, response);
-            }
+                try{
+                    if(request.getParameter("matchDateAff").length()!=10 || !(request.getParameter("matchDateAff").charAt(4) == (char)'-') || !(request.getParameter("matchDateAff").charAt(7) == (char)'-') ){
+                        List listeMessageErreur = new LinkedList();
+                        listeMessageErreur.add("Date invalide");
+                        request.setAttribute("listeMessageErreur", listeMessageErreur);
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                        dispatcher.forward(request, response);
+                        }else{
+                            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                            java.util.Date parsed = format.parse(request.getParameter("matchDateAff"));
+                            java.sql.Date sql = new java.sql.Date(parsed.getTime());
+                            if(sql.toString().equals(request.getParameter("matchDateAff"))) {	                    	
+                                request.getSession().setAttribute("matchequipe", "");
+                                request.getSession().setAttribute("matchdate", request.getParameter("matchDateAff"));
+                                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/matchs.jsp");
+                                dispatcher.forward(request, response);
+                            } else {
+                                List listeMessageErreur = new LinkedList();
+                                listeMessageErreur.add("Date invalide");
+                                request.setAttribute("listeMessageErreur", listeMessageErreur);
+                                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                                dispatcher.forward(request, response);
+                            }
+                        }
+                }catch(Exception ex){
+                    List listeMessageErreur = new LinkedList();
+                    listeMessageErreur.add(ex.toString());
+                    request.setAttribute("listeMessageErreur", listeMessageErreur);
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                    dispatcher.forward(request, response);
+                }
+          }
         } else if (request.getParameter("afficherResultatEquipe") != null){
             if (!request.getParameter("nomEquipeAff").equals("")) {
-                String nomEquipeAff = (String) request.getParameter("nomEquipeAff");
-                request.getSession().setAttribute("matchequipe", nomEquipeAff);
-                request.getSession().setAttribute("matchdate", "");
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/matchs.jsp");
-                dispatcher.forward(request, response);
+                afficherResultatEquipe(request, response);
             } else {
                 request.getSession().setAttribute("matchequipe", "");
                 request.getSession().setAttribute("matchdate", "");
@@ -164,9 +220,8 @@ public class RequetesMatch extends HttpServlet {
         String nomEquipeLocaleAdd = (String) request.getParameter("nomEquipeLocaleAdd");
         String nomEquipeVisiteurAdd = (String) request.getParameter("nomEquipeVisiteurAdd");
 	GestionLigue ligue = (GestionLigue) request.getSession().getAttribute("ligue");
-        System.out.println("oui");
         try{
-        	int i;
+            int i;
             synchronized (ligue) {
                 i= ligue.gestionMatch.creerMatch(matchDateAdd, timeValue,nomEquipeLocaleAdd,nomEquipeVisiteurAdd);
             }
@@ -227,15 +282,57 @@ public class RequetesMatch extends HttpServlet {
         int pointsVisiteurRes = Integer.parseInt(request.getParameter("pointsVisiteurRes"));
 	GestionLigue ligue = (GestionLigue) request.getSession().getAttribute("ligue");
         try{
+            int res = -1;
             synchronized (ligue) {
-                ligue.gestionMatch.entrerResultat(matchDateRes, timeValue,nomEquipeLocaleRes,nomEquipeVisiteurRes,pointsLocalRes,pointsVisiteurRes);
+                res =ligue.gestionMatch.entrerResultat(matchDateRes, timeValue,nomEquipeLocaleRes,nomEquipeVisiteurRes,pointsLocalRes,pointsVisiteurRes);
             }
+            if(res == 0){ 
             request.getSession().setAttribute("succesMatch", "resultatMatch");
             request.getSession().setAttribute("matchDateRes", startDate);
             request.getSession().setAttribute("nomEquipeLocaleRes", nomEquipeLocaleRes);
             request.getSession().setAttribute("nomEquipeVisiteurRes", nomEquipeVisiteurRes);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesMatch.jsp");
             dispatcher.forward(request, response);
+            }else if(res == 1) {
+                 List listeMessageErreur = new LinkedList();
+                listeMessageErreur.add("Les points doivent etre superieurs a zero.");
+                request.setAttribute("listeMessageErreur", listeMessageErreur);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                dispatcher.forward(request, response);
+            } else {
+                List listeMessageErreur = new LinkedList();
+                listeMessageErreur.add("Le match n'existe pas");
+                request.setAttribute("listeMessageErreur", listeMessageErreur);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                dispatcher.forward(request, response);                
+            }
+        }catch (SQLException | ServletException | IOException e) {
+            List listeMessageErreur = new LinkedList();
+            listeMessageErreur.add(e.toString());
+            request.setAttribute("listeMessageErreur", listeMessageErreur);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+            dispatcher.forward(request, response);
+        }
+    }
+
+    private void afficherResultatEquipe(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String nomEquipeAff = (String) request.getParameter("nomEquipeAff");
+        GestionLigue ligue = (GestionLigue) request.getSession().getAttribute("ligue");
+        try{
+            synchronized (ligue) {
+                if(ligue.gestionEquipe.equipeExiste(nomEquipeAff)) {
+                    request.getSession().setAttribute("matchequipe", nomEquipeAff);
+                    request.getSession().setAttribute("matchdate", "");
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/matchs.jsp");
+                    dispatcher.forward(request, response);
+                } else {
+                    List listeMessageErreur = new LinkedList();
+                    listeMessageErreur.add("L'equipe n'existe pas.");
+                    request.setAttribute("listeMessageErreur", listeMessageErreur);
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                    dispatcher.forward(request, response);
+                }
+            }
         }catch (SQLException | ServletException | IOException e) {
             List listeMessageErreur = new LinkedList();
             listeMessageErreur.add(e.toString());

@@ -21,9 +21,14 @@ public class Logout extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // invalider la session pour liberer les ressources associees a la session
-        request.getSession().invalidate();
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
-        dispatcher.forward(request, response);
+        if (request.getParameter("retourMenu") != null ){
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/menu.jsp");
+                dispatcher.forward(request, response);
+        } else {
+           request.getSession().invalidate();
+           RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
+          dispatcher.forward(request, response);
+        }
     }
 
     /**

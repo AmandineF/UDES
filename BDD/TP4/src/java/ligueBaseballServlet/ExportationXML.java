@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ligueBaseballServlet;
 
 import java.io.File;
@@ -25,7 +20,7 @@ import ligueBaseball.TupleJoueur;
 import ligueBaseball.TupleTerrain;
 
 /**
- *
+ * Methode qui gere l'exportation d'un fichier XML
  * @author Amandine Fouillet
  * @author Frank Chassing
  */
@@ -93,7 +88,6 @@ public class ExportationXML extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
             dispatcher.forward(request, response);
         }
-        /**
         ValidationXML val = new ValidationXML();
         if(!val.validerXML(nomEquipe + ".xml")){
             List listeMessageErreur = new LinkedList();
@@ -107,7 +101,6 @@ public class ExportationXML extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesExportation.jsp");
             dispatcher.forward(request, response);
         }
-        */
     }
 
 

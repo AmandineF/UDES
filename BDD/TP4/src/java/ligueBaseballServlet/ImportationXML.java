@@ -1,24 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ligueBaseballServlet;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.RequestDispatcher;
@@ -27,11 +18,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import ligueBaseball.GestionLigue;
-import ligueBaseball.TupleJoueur;
-import ligueBaseball.TupleTerrain;
 
 /**
- *
+ * Methode qui gere l'importation d'un fichier XML
  * @author Amandine Fouillet 
  * @author Frank Chassing
  */
@@ -63,6 +52,7 @@ public class ImportationXML extends HttpServlet {
     }
 
     private void importation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("importation");
         String nomFichier = (String) request.getParameter("nomFichierXML");
 	GestionLigue ligue = (GestionLigue) request.getSession().getAttribute("ligue");
         ValidationXML val = new ValidationXML(); 
@@ -83,6 +73,14 @@ public class ImportationXML extends HttpServlet {
                 if (matchFound && matcher.groupCount()>=1) {
                     nomEquipe = matcher.group(1);
                 }
+                if(ligue.gestionEquipe.equipeExiste(nomEquipe)) {
+                    List listeMessageErreur = new LinkedList();
+                    listeMessageErreur.add("L'equipe a importer existe deja.");
+                    request.setAttribute("listeMessageErreur", listeMessageErreur);
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                    dispatcher.forward(request, response);
+                } else {
+                
                 //Recuperation du nom et adresse du terrain
                 line = br.readLine();
                 String nomTerrain = "";
@@ -124,8 +122,12 @@ public class ImportationXML extends HttpServlet {
                     ligue.gestionJoueur.creerJoueur(nomJoueur, prenomJoueur, nomEquipe, numeroJoueur, dateJoueur);
                     line = br.readLine();
                 }
-           }
-        }catch(Exception e) {
+                }
+            request.getSession().setAttribute("importation", nomFichier);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesImportation.jsp");
+            dispatcher.forward(request, response);
+            }
+        }catch(IOException | SQLException | ServletException | NumberFormatException | ParseException e) {
             List listeMessageErreur = new LinkedList();
             listeMessageErreur.add(e.toString());
             request.setAttribute("listeMessageErreur", listeMessageErreur);

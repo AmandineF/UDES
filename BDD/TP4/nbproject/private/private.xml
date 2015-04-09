@@ -4,28 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/Users/Amandine/NetBeansProjects/TP4/src/java/ligueBaseballServlet/RequetesEquipe.java</file>
-            <file>file:/Users/Amandine/NetBeansProjects/TP4/src/java/ligueBaseball/Equipe.java</file>
-            <file>file:/Users/Amandine/NetBeansProjects/TP4/src/java/ligueBaseball/Terrain.java</file>
-            <file>file:/Users/Amandine/NetBeansProjects/TP4/web/WEB-INF/succesEquipe.jsp</file>
-            <file>file:/Users/Amandine/NetBeansProjects/TP4/src/java/ligueBaseballServlet/ImportationXML.java</file>
-            <file>file:/Users/Amandine/NetBeansProjects/TP4/src/java/ligueBaseballServlet/Login.java</file>
-            <file>file:/Users/Amandine/NetBeansProjects/TP4/src/java/ligueBaseball/Arbitrer.java</file>
-            <file>file:/Users/Amandine/NetBeansProjects/TP4/src/java/ligueBaseball/GestionJoueur.java</file>
-            <file>file:/Users/Amandine/NetBeansProjects/TP4/src/java/ligueBaseballServlet/RequetesJoueur.java</file>
-            <file>file:/Users/Amandine/NetBeansProjects/TP4/src/java/ligueBaseballServlet/Logout.java</file>
-            <file>file:/Users/Amandine/NetBeansProjects/TP4/src/java/ligueBaseball/GestionLigue.java</file>
-            <file>file:/Users/Amandine/NetBeansProjects/TP4/web/WEB-INF/arbitrer.jsp</file>
             <file>file:/Users/Amandine/NetBeansProjects/TP4/web/WEB-INF/menu.jsp</file>
-            <file>file:/Users/Amandine/NetBeansProjects/TP4/src/java/ligueBaseball/FaitPartie.java</file>
-            <file>file:/Users/Amandine/NetBeansProjects/TP4/src/java/ligueBaseballServlet/RequetesArbitrer.java</file>
-            <file>file:/Users/Amandine/NetBeansProjects/TP4/src/java/ligueBaseballServlet/RequetesMatch.java</file>
+            <file>file:/Users/Amandine/NetBeansProjects/TP4/src/java/ligueBaseballServlet/ImportationXML.java</file>
+            <file>file:/Users/Amandine/NetBeansProjects/TP4/src/java/ligueBaseballServlet/ValidationXML.java</file>
             <file>file:/Users/Amandine/NetBeansProjects/TP4/src/java/ligueBaseballServlet/ExportationXML.java</file>
             <file>file:/Users/Amandine/NetBeansProjects/TP4/src/java/ligueBaseball/GestionEquipe.java</file>
-            <file>file:/Users/Amandine/NetBeansProjects/TP4/src/java/ligueBaseballServlet/RequetesArbitre.java</file>
-            <file>file:/Users/Amandine/NetBeansProjects/TP4/web/WEB-INF/web.xml</file>
-            <file>file:/Users/Amandine/NetBeansProjects/TP4/web/WEB-INF/joueurs.jsp</file>
-            <file>file:/Users/Amandine/NetBeansProjects/TP4/web/WEB-INF/succesExportation.jsp</file>
-            <file>file:/Users/Amandine/NetBeansProjects/TP4/src/java/ligueBaseball/GestionArbitrer.java</file>
             <file>file:/Users/Amandine/NetBeansProjects/TP4/web/login.jsp</file>
         </group>
     </open-files>

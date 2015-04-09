@@ -67,15 +67,21 @@ public class GestionMatch {
      * @param pointsVisiteur Les points de l'equipe visiteur
      * @throws SQLException 
      */
-    public void entrerResultat(java.sql.Date matchDate, Time matchHeure, String nomEquipeLocale, String nomEquipeVisiteur, int pointsLocal, int pointsVisiteur)throws SQLException  {
+    public int entrerResultat(java.sql.Date matchDate, Time matchHeure, String nomEquipeLocale, String nomEquipeVisiteur, int pointsLocal, int pointsVisiteur)throws SQLException  {
         if(pointsLocal < 0 || pointsVisiteur < 0) {
-            System.out.println("USERERREUR - Veuillez rentrer des points supérieurs ou égaux à zéro.");
+            return 1;
+            //System.out.println("USERERREUR - Veuillez rentrer des points supérieurs ou égaux à zéro.");
         } else {
             int idLocaux = equipeTable.getId(nomEquipeLocale);
             int idVisiteurs = equipeTable.getId(nomEquipeVisiteur);
             int idMatch = matchTable.getId(matchDate, matchHeure, idLocaux, idVisiteurs);
-            matchTable.setPoints(idMatch, pointsLocal, pointsVisiteur);
-            System.out.println("SUCCES - Les resultats du match " + nomEquipeLocale + " - " + nomEquipeVisiteur +" ont été enregistres.");
+            if(matchTable.existe(idMatch)) {
+                matchTable.setPoints(idMatch, pointsLocal, pointsVisiteur);
+                return 0;
+            }else{
+                return 2;
+            }
+            //System.out.println("SUCCES - Les resultats du match " + nomEquipeLocale + " - " + nomEquipeVisiteur +" ont été enregistres.");
         }
     }
     
