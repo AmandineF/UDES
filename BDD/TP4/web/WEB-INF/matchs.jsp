@@ -75,7 +75,7 @@
                 <%
         }else{
             %>
-            Aucun joueur dans table.
+            <h3>Aucun joueur dans table.</h3>
        <%
         }
                 %>

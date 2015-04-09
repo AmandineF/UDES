@@ -49,7 +49,7 @@
                 <%
         }else{
             %>
-            Aucun arbitre dans table.
+            <h3>Aucun arbitre dans table.</h3>
        <%
         }
                 %>

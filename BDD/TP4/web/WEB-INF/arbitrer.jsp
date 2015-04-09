@@ -47,7 +47,7 @@
                 <%
         }else{
             %>
-            Aucun arbitrage dans table.
+            <h3>Aucun arbitrage dans table.</h3>
        <%
         }
                 %>

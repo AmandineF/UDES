@@ -31,8 +31,14 @@
             <h2>Affichage des joueurs de l'equipe des <%=nomEquipe%></h2>
             <%
             listJoueur = ligue.gestionJoueur.afficherJoueursEquipeVector(nomEquipe);
+            System.out.println(listJoueur);
         }
-        if(!listJoueur.isEmpty()) {
+        
+    	if(listJoueur == null){
+	    	%>
+	       <h3>L'equipe n'existe pas !</h3>
+	   <%
+    	}else if(!listJoueur.isEmpty()) {
         %>
         <table
             style="width: 50%; text-align: left; margin-left: auto; margin-right: auto;"
@@ -60,9 +66,10 @@
             </tbody>
         </table>
                 <%
+       
         }else{
             %>
-            Aucun joueur dans la table.
+            <h3>Aucun joueur dans la table.</h3>
        <%
         }
                 %>

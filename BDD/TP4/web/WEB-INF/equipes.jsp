@@ -49,7 +49,7 @@
                 <%
         }else{
             %>
-            Aucune equipe dans table.
+            <h3>Aucune equipe dans table.</h3>
        <%
         }
                 %>
