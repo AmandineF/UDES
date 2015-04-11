@@ -26,6 +26,10 @@ public class GestionEquipe {
         this.faitpartie = new FaitPartie(this.cx);
     }
     
+    public String getNom(int id) throws SQLException {
+    	return equipeTable.getEquipe(id).nom;
+    }
+    
     public boolean equipeExiste(String nomEquipe) throws SQLException {
         return this.equipeTable.existeNom(nomEquipe);
     }

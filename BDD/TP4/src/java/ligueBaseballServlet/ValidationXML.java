@@ -57,9 +57,11 @@ public class ValidationXML {
 
             //Recuperation des joueurs
             line = br.readLine();
-            String finJoueurs =  "</joueurs>";
+            System.out.println(line);
+            String finJoueurs =  "   </joueurs>";
             while(!line.equals(finJoueurs)) {
-                patternStr = "\\s*<joueur nom=\"(\\s*[a-zA-Z]*)\" prenom=\"(\\s*[a-zA-Z]*)\" numero=\"([0-9]*)\" datedebut=\"([0-9]*-[0-9]*-[0-9]*)\"/>";
+                patternStr = "\\s*<joueur nom=\"[a-zA-Z]*\" prenom=\"[a-zA-Z]*\" numero=\"[0-9]*\" datedebut=\"[0-9]*-[0-9]*-[0-9]*\"\\s*/>";
+            	//patternStr = ".*";
                 pattern = Pattern.compile(patternStr);
                 matcher = pattern.matcher(line);
                 matchFound = matcher.find();

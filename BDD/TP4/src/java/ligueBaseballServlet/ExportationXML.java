@@ -37,7 +37,11 @@ public class ExportationXML extends HttpServlet {
             try {
                 exportation(request, response);
             } catch (SQLException ex) {
-                Logger.getLogger(ExportationXML.class.getName()).log(Level.SEVERE, null, ex);
+                List listeMessageErreur = new LinkedList();
+                listeMessageErreur.add(ex.toString());
+                request.setAttribute("listeMessageErreur", listeMessageErreur);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                dispatcher.forward(request, response);
             }
         } else {
             List listeMessageErreur = new LinkedList();
@@ -53,25 +57,40 @@ public class ExportationXML extends HttpServlet {
 	GestionLigue ligue = (GestionLigue) request.getSession().getAttribute("ligue");
         File f = new File (nomEquipe + ".xml");
         try{
-            FileWriter fw = new FileWriter (f);
-            fw.write("<?xml version=\"1.0\"?>\n");
-            fw.write("<equipe nom=\""+nomEquipe+"\">\n");
             synchronized (ligue) {
                 if(ligue.gestionEquipe.equipeExiste(nomEquipe)) {
+                    FileWriter fw = new FileWriter (f);
+                    fw.write("<?xml version=\"1.0\"?>\n");
+                    fw.write("<equipe nom=\""+nomEquipe+"\">\n");
                     int idTerrain = ligue.gestionEquipe.getIDTerrain(nomEquipe);
-                    TupleTerrain tupleTerrain = ligue.gestionEquipe.getTerrain(idTerrain);
-                    fw.write("<terrain nom=\""+ tupleTerrain.terrainnom+"\" adresse=\""+tupleTerrain.terrainadresse +"\"/>\n");
+                    if(idTerrain > 0) {
+                        TupleTerrain tupleTerrain = ligue.gestionEquipe.getTerrain(idTerrain);
+                        fw.write("<terrain nom=\""+ tupleTerrain.terrainnom+"\" adresse=\""+tupleTerrain.terrainadresse +"\"/>\n");
+                    }
                     Vector<TupleJoueur> listJoueur = ligue.gestionJoueur.afficherJoueursEquipeVector(nomEquipe);
-                    fw.write("<joueurs>\n");
+                    fw.write("   <joueurs>\n");
                     for(int i = 0; i<listJoueur.size();i++) {
                         TupleJoueur tupleJoueur = listJoueur.elementAt(i);
                         int numero = ligue.gestionJoueur.getNumeroJoueur(tupleJoueur.idJoueur);
                         Date date = ligue.gestionJoueur.getDateJoueur(tupleJoueur.idJoueur);
-                        fw.write("<joueur nom=\""+tupleJoueur.nom+"\" prenom=\""+tupleJoueur.prenom+"\" numero=\""+ numero+"\" datedebut=\""+date.toString() +"\"/>\n");
+                        fw.write("      <joueur nom=\""+tupleJoueur.nom+"\" prenom=\""+tupleJoueur.prenom+"\" numero=\""+ numero+"\" datedebut=\""+date.toString() +"\" />\n");
                     }
-                    fw.write("</joueurs>\n");
+                    fw.write("   </joueurs>\n");
                     fw.write("</equipe>");
                     fw.close();
+                    ValidationXML val = new ValidationXML();
+                    if(!val.validerXML(nomEquipe + ".xml")){
+                        List listeMessageErreur = new LinkedList();
+                        listeMessageErreur.add("Fichier XML exporte non valide.");
+                        request.setAttribute("listeMessageErreur", listeMessageErreur);
+                        request.getSession().setAttribute("exportation", "");
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
+                        dispatcher.forward(request, response);
+                    } else {
+                        request.getSession().setAttribute("exportation", nomEquipe);
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesExportation.jsp");
+                        dispatcher.forward(request, response);
+                    }
                 } else {
                     request.getSession().setAttribute("exportation", "");
                     List listeMessageErreur = new LinkedList();
@@ -88,19 +107,7 @@ public class ExportationXML extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
             dispatcher.forward(request, response);
         }
-        ValidationXML val = new ValidationXML();
-        if(!val.validerXML(nomEquipe + ".xml")){
-            List listeMessageErreur = new LinkedList();
-            listeMessageErreur.add("Fichier XML exporte non valide.");
-            request.setAttribute("listeMessageErreur", listeMessageErreur);
-            request.getSession().setAttribute("exportation", "");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/messageErreur.jsp");
-            dispatcher.forward(request, response);
-        } else {
-            request.getSession().setAttribute("exportation", nomEquipe);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/succesExportation.jsp");
-            dispatcher.forward(request, response);
-        }
+
     }
 
 

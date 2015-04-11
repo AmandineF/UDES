@@ -55,12 +55,13 @@
                 <%
                     for(int i = 0; i<listMatch.size();i++) {
                         TupleMatch tupleMatch = listMatch.elementAt(i);
-                    
+                    String equipeLocale = ligue.gestionEquipe.getNom(tupleMatch.equipelocal);
+                    String equipeVisiteur = ligue.gestionEquipe.getNom(tupleMatch.equipevisiteur);
                 %>
                 <tr>
                 <td style="vertical-align: top;"><%= tupleMatch.idMatch %></td>
-                <td style="vertical-align: top;"><%= tupleMatch.equipelocal %></td>
-                <td style="vertical-align: top;"><%= tupleMatch.equipevisiteur %></td>
+                <td style="vertical-align: top;"><%= equipeLocale %></td>
+                <td style="vertical-align: top;"><%= equipeVisiteur %></td>
                 <td style="vertical-align: top;"><%= tupleMatch.terrainid %></td>
                 <td style="vertical-align: top;"><%= tupleMatch.matchdate %></td>
                 <td style="vertical-align: top;"><%= tupleMatch.matchheure %></td>

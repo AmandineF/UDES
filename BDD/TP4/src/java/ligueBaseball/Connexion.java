@@ -22,7 +22,7 @@ public class Connexion {
         try {
             d = (Driver) Class.forName("org.postgresql.Driver").newInstance();
             DriverManager.registerDriver(d);
-            conn = DriverManager.getConnection("jdbc:postgresql://localhost:5433/" + bd,user, pass);
+            conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/" + bd,user, pass);
             
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
             e.printStackTrace(System.out);

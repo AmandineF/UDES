@@ -20,7 +20,7 @@ CONTENT="page d'accueil système de gestion de la ligue de baseball.">
     <INPUT placeholder="Identifiant" TYPE="TEXT" NAME="userIdBD" VALUE="postgres">
     <BR>
     <BR>
-    <INPUT placeholder="Mot de passe" TYPE="TEXT" NAME="motDePasseBD" VALUE="amandine">
+    <INPUT placeholder="Mot de passe" TYPE="TEXT" NAME="motDePasseBD" VALUE="frank">
     <BR>
     <BR>
     <INPUT placeholder="Base de données" TYPE="TEXT" NAME="bd"  VALUE="postgres">

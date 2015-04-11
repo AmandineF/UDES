@@ -182,11 +182,16 @@ public class Equipe {
         stmtTerrain.setString(1,nomEquipe);
         try(ResultSet rset = stmtTerrain.executeQuery()) {
             if (rset.next()) {
+            	System.out.println(rset.getInt(1));
                 return rset.getInt(1);
+            }else{
+            	System.out.println("hello");
+            	return -1;
             }
         }catch(Exception ex){
             System.out.println("SYSERREUR - Probleme lors de la recuperation de l'id terrain de l'equipe " + nomEquipe +".");
+            return -1;
         }
-        return -1;
+        
     }
 }
