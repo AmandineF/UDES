@@ -99,14 +99,14 @@ public class ImportationXML extends HttpServlet {
                 }
                 //Recuperation des joueurs
                 line = br.readLine();
-                String finJoueurs =  "</joueurs>";
+                String finJoueurs =  "   </joueurs>";
                 while(!line.equals(finJoueurs)) {
                     String nomJoueur = "";
                     String prenomJoueur = "";
                     int numeroJoueur = -1;
                     String dateDebut = "";
                     Date dateJoueur = null;
-                    patternStr = "\\s*<joueur nom=\"(\\s*[a-zA-Z]*)\" prenom=\"(\\s*[a-zA-Z]*)\" numero=\"([0-9]*)\" datedebut=\"([0-9]*-[0-9]*-[0-9]*)\"/>";
+                    patternStr = "\\s*<joueur nom=\"([a-zA-Z]*)\" prenom=\"([a-zA-Z]*)\" numero=\"([0-9]*)\" datedebut=\"([0-9]*-[0-9]*-[0-9]*)\"\\s*/>";
                     pattern = Pattern.compile(patternStr);
                     matcher = pattern.matcher(line);
                     matchFound = matcher.find();
@@ -119,6 +119,7 @@ public class ImportationXML extends HttpServlet {
                         java.util.Date date = sdf.parse(dateDebut);
                         dateJoueur = new java.sql.Date(date.getTime());
                     }
+                    System.out.println("nom :"+nomJoueur+"prenom :"+prenomJoueur+"equipe :"+nomEquipe+"num :"+numeroJoueur+"date :"+dateJoueur);
                     ligue.gestionJoueur.creerJoueur(nomJoueur, prenomJoueur, nomEquipe, numeroJoueur, dateJoueur);
                     line = br.readLine();
                 }
